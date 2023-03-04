@@ -77,7 +77,7 @@
                 {% if current_user.is_authenticated %}
                   <div class="font-color login-data">
                       Hi {{ current_user.username }} ♥️🙏🏼
-                      <div id="balance">
+                      <div id="balance" data-toggle="tooltip" data-placement="bottom" title="Balance refreshes every 30 seconds">
                           {{ current_user.balance }} {{ current_user.currency }}
                       </div>
                   </div>

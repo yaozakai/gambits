@@ -4,6 +4,7 @@ import pytz
 from flask_login import UserMixin
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import ARRAY
 from config import app
 
 with app.app_context():
@@ -88,6 +89,7 @@ class UserEntry(UserMixin, db.Model):
     logged_in = db.Column(db.Boolean, default=False)
     is_anonymous = False
     currency = db.Column(db.String(10), default='USD')
+
     # page = ''
 
     def __init__(self, user_id='', email='', username='', password='', referral=''):
@@ -131,50 +133,22 @@ class UserEntry(UserMixin, db.Model):
                 "logged_in": self.logged_in}
 
 
-class WalletEntry(db.Model):
-    __tablename__ = 'wallets'
-    # login_time = db.Column(db.DateTime, default=datetime.now(tz=pytz.utc))
-    wallet_ID = db.Column(db.String(50), nullable=False, primary_key=True)
-    NFT_ID = db.Column(db.String(50), nullable=False)
-    solana = db.Column(db.Integer, nullable=False)
-    ethereum = db.Column(db.Integer, nullable=False)
-    cardano = db.Column(db.Integer, nullable=False)
-    bitcoin = db.Column(db.Integer, nullable=False)
-    tether = db.Column(db.Integer, nullable=False)
-
-    def __init__(self, sid='', wallet_ID='', NFT_ID='', solana=0, ethereum=0, cardano=0, bitcoin=0, tether=0):
-        self.sid = sid
-        self.NFT_ID = NFT_ID
-        self.wallet_ID = wallet_ID
-        self.solana = solana
-        self.ethereum = ethereum
-        self.cardano = cardano
-        self.bitcoin = bitcoin
-        self.tether = tether
-
-
-class HistoryEntry(db.Model):
-    __tablename__ = 'history'
-    round = db.Column(db.Integer, primary_key=True)
-    balance = db.Column(db.String(20))
-    win = db.Column(db.String(20))
-    bet = db.Column(db.String(20))
-    bettime = db.Column(db.String(20))
-
-
 class BetEntry(db.Model):
     __tablename__ = 'bets'
-    username = db.Column(db.String(50), primary_key=True)
+    username = db.Column(db.String(50))
     amount = db.Column(db.String(20))
     time = db.Column(db.DateTime)
     game_code = db.Column(db.String(20))
     game_hall = db.Column(db.String(20))
-    mtcode = db.Column(db.String(60))
+    mtcode = db.Column(db.String(60), primary_key=True)
     platform = db.Column(db.String(20))
     round_id = db.Column(db.String(60))
     session = db.Column(db.String(60))
+    type = db.Column(db.String(10))
 
-    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='', platform='', round_id='', session='', ):
+    def __init__(self, request_type='', username='', amount='', time='', game_code='', game_hall='', mtcode='', platform='',
+                 round_id='', session='', ):
+        self.type = request_type
         self.username = username
         self.amount = amount
         self.time = time
@@ -184,3 +158,59 @@ class BetEntry(db.Model):
         self.platform = platform
         self.round_id = round_id
         self.session = session
+
+
+class RefundEntry(db.Model):
+    __tablename__ = 'refunds'
+    username = db.Column(db.String(50))
+    amount = db.Column(db.String(20))
+    time = db.Column(db.DateTime)
+    game_code = db.Column(db.String(20))
+    game_hall = db.Column(db.String(20))
+    mtcode = db.Column(db.String(60), primary_key=True)
+    platform = db.Column(db.String(20))
+    round_id = db.Column(db.String(60))
+    session = db.Column(db.String(60))
+
+    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='',
+                 round_id='', session='' ):
+        self.username = username
+        self.amount = amount
+        self.time = time
+        self.game_code = game_code
+        self.game_hall = game_hall
+        self.mtcode = mtcode
+        self.platform = platform
+        self.round_id = round_id
+        self.session = session
+
+
+class EndroundEntry(db.Model):
+    __tablename__ = 'endrounds'
+    username = db.Column(db.String(50))
+    amount = db.Column(db.String(20))
+    time = db.Column(db.DateTime)
+    game_code = db.Column(db.String(20))
+    game_hall = db.Column(db.String(20))
+    mtcode = db.Column(db.String(60), primary_key=True)
+    freegame = db.Column(db.Integer)
+    jackpot = db.Column(db.Integer)
+    jackpotcontribution = db.Column(ARRAY(db.Integer))
+    bonus = db.Column(db.Integer)
+    luckydraw = db.Column(db.Integer)
+    type = db.Column(db.String(10))
+
+    def __init__(self, request_type='', username='', amount='', time='', game_code='', game_hall='', mtcode='', freegame=0, jackpot=0,
+                 jackpotcontribution=[], bonus=0, luckydraw=False):
+        self.username = username
+        self.type = request_type
+        self.amount = amount
+        self.time = time
+        self.game_code = game_code
+        self.game_hall = game_hall
+        self.mtcode = mtcode
+        self.freegame = freegame
+        self.jackpot = jackpot
+        self.jackpotcontribution = jackpotcontribution
+        self.bonus = bonus
+        self.luckydraw = luckydraw

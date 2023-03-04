@@ -4,6 +4,7 @@ from flask import request
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from db_classes import *
+from utils import get_timestamp
 
 
 def db_getuser_email(email):
@@ -16,10 +17,12 @@ def db_getuser_email(email):
 
 def db_getuser_username(username):
     query = UserEntry().query.filter_by(username=username).first()
-    if query is None:
-        return None
-    else:
-        return query
+    return query
+
+
+def db_get_bet(mtcode):
+    query = BetEntry().query.filter_by(mtcode=mtcode).first()
+    return query
 
 
 def db_user_verification(email, password):
@@ -71,7 +74,39 @@ def db_search_userid(userid):
     return dataclass.query.filter_by(user_id=userid).all()
 
 
+def db_check_mtcode():
+    bet = BetEntry().query.filter_by(mtcode=request.form['mtcode'])
+    return bet is not None
+
+
+def db_refund():
+    bet = BetEntry().query.filter_by(mtcode=request.form['mtcode'])
+    # settle the bet to balance
+    amount = float(bet.amount)
+    user = UserEntry().query.filter_by(username=bet.username)
+    # settle the bet to balance
+    balance = float(user.balance)
+    user.balance += amount
+
+    # write to bet db
+    refund = RefundEntry(
+        bet.username,
+        bet.amount,
+        get_timestamp(),
+        bet.gamecode,
+        bet.gamehall,
+        bet.mtcode,
+        bet.roundid,
+        bet.session
+    )
+    db.session.add(refund)
+    db.session.commit()
+
+    return user.balance
+
+
 def db_bet():
+
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
     balance = float(user.balance)
@@ -80,10 +115,9 @@ def db_bet():
     new_balance = balance - bet
     if new_balance > 0:
         user.balance = new_balance
-
-        error_code = '0'
         # write to bet db
         bet = BetEntry(
+            'Bet',
             request.form['account'],
             request.form['amount'],
             request.form['eventTime'],
@@ -100,7 +134,36 @@ def db_bet():
     return new_balance
 
 
-def db_update_balance():
+def db_rollout():
+
+    user = UserEntry().query.filter_by(username=request.form['account']).first()
+    # settle the bet to balance
+    balance = float(user.balance)
+    bet = float(request.form['amount'])
+
+    new_balance = balance - bet
+    if new_balance > 0:
+        user.balance = new_balance
+        # write to bet db
+        bet = BetEntry(
+            'Rollout',
+            request.form['account'],
+            request.form['amount'],
+            request.form['eventTime'],
+            request.form['gamecode'],
+            request.form['gamehall'],
+            request.form['mtcode'],
+            '',
+            request.form['roundid'],
+            request.form['session']
+        )
+        db.session.add(bet)
+        db.session.commit()
+
+    return new_balance
+
+
+def db_endround():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
     balance = float(user.balance)
@@ -109,6 +172,58 @@ def db_update_balance():
     if amount >= 0:
         new_balance = balance + amount
         user.balance = new_balance
+        data = json.loads(request.form['data'])
+        for result in data:
+            # write to EndRound db
+            endround = EndroundEntry(
+                'Endround',
+                request.form['account'],
+                result['amount'],
+                result['eventtime'],
+                request.form['gamecode'],
+                request.form['gamehall'],
+                result['mtcode'],
+                request.form['freegame'],
+                request.form['jackpot'],
+                request.form['jackpotcontribution'],
+                request.form['bonus'],
+                request.form['luckydraw']
+            )
+            db.session.add(endround)
         db.session.commit()
+
+    return new_balance
+
+
+def db_rollin():
+    bet = BetEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+    if request.form['gametype'] == 'arcade' or 'fish':
+        # settle the bet to balance
+        balance = float(bet.amount) - float(request.form['bet']) + float(request.form['win'])
+    elif request.form['gametype'] == 'table' or 'live':
+        balance = float(bet.amount) + float(request.form['win']) - float(request.form['rake'])
+
+    # update the user
+    user = UserEntry().query.filter_by(username=request.form['account']).first()
+
+    user.balance += balance
+
+    # write to EndRound db
+    endround = EndroundEntry(
+        'Rollin',
+        request.form['account'],
+        request.form['amount'],
+        request.form['eventTime'],
+        request.form['gamecode'],
+        request.form['gamehall'],
+        request.form['mtcode'],
+        request.form['freegame'],
+        request.form['jackpot'],
+        request.form['jackpotcontribution'],
+        request.form['bonus'],
+        request.form['luckydraw']
+    )
+    db.session.add(endround)
+    db.session.commit()
 
     return new_balance

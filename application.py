@@ -228,7 +228,7 @@ def get_balance():
         user = db_get_user(session['_user_id'])
         return user.balance + ' ' + user.currency
     else:
-        pass
+        return 'Reload website'
 
 
 @application.route('/update', methods=['GET', 'POST'])

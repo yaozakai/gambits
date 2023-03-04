@@ -17,11 +17,12 @@
                             <img src="{{ icon_path }}/{{ k }}" style="height: 100%;">
                             {% for game_title in game_titles %}
                                 {% if game_title['gamecode'] == k.split("_")[0] %}
-                                    {% if current_user.is_authenticated %}
-                                        <button id="{{ k }}" type="submit" name="launch" value="{{ k }}" class="btn-outline btn gallery-btn launch">
-                                    {% else %}
-                                        <button id="{{ k }}" type="button" value="{{ k }}" class="btn-outline btn gallery-btn launch" data-bs-toggle="modal" data-bs-target="#registerModal">
-                                    {% endif %}
+                                    <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                        {% if current_user.is_authenticated %}
+                                                name="launch" >
+                                        {% else %}
+                                                data-bs-toggle="modal" data-bs-target="#registerModal">
+                                        {% endif %}
                                         Play now<br><br>
                                         {% for title in game_title['nameset'] if title['lang'] == 'en' %}
                                             {{ title['name'] }}

@@ -1,7 +1,7 @@
 import requests
 import json
 from flask import Blueprint, jsonify, request
-from db_access import db_getuser_username, db_bet, db_update_balance
+from db_access import db_getuser_username, db_bet, db_endround, db_check_mtcode, db_rollout, db_refund, db_get_bet
 from utils import get_timestamp, check_token, authKey, url
 from config import app
 
@@ -84,7 +84,7 @@ def cq9_balance(username):
 
 @cq9_api.route('/cq9/transaction/game/bet', methods=['POST'])
 def cq9_bet():
-    if check_token():
+    if check_token() and db_check_mtcode():
         if db_getuser_username(request.form['account']) is not None:
             balance = db_bet()
             if balance > 0:
@@ -107,9 +107,9 @@ def cq9_bet():
 
 @cq9_api.route('/cq9/transaction/game/endround', methods=['POST'])
 def cq9_endround():
-    if check_token():
+    if check_token() and db_check_mtcode():
         if db_getuser_username(request.form['account']) is not None:
-            balance = db_update_balance()
+            balance = db_endround()
             if balance > 0:
                 error_code = '0'
             else:
@@ -136,13 +136,69 @@ def cq9_credit():
 
 @cq9_api.route('/cq9/transaction/game/rollout', methods=['POST'])
 def cq9_rollout():
-    if check_token():
+    if check_token() and db_check_mtcode():
         if db_getuser_username(request.form['account']) is not None:
-            pass
+            balance = db_rollout()
+            if balance > 0:
+                error_code = '0'
+            else:
+                error_code = '1003'
+            model = {
+                "data": {
+                    "balance": round(balance, 4),
+                    "currency": "USD"
+                },
+                "status": {
+                    "code": error_code,
+                    "message": "Success",
+                    "datetime": get_timestamp()
+                }
+            }
+            return jsonify(model)
+
+
+@cq9_api.route('/cq9/transaction/game/rollin', methods=['POST'])
+def cq9_rollin():
+    if check_token() and db_check_mtcode():
+        if db_getuser_username(request.form['account']) is not None:
+            balance = db_rollin()
+            if balance > 0:
+                error_code = '0'
+            else:
+                error_code = '1003'
+            model = {
+                "data": {
+                    "balance": round(balance, 4),
+                    "currency": "USD"
+                },
+                "status": {
+                    "code": error_code,
+                    "message": "Success",
+                    "datetime": get_timestamp()
+                }
+            }
+            return jsonify(model)
 
 
 @cq9_api.route('/cq9/transaction/game/refund', methods=['POST'])
 def cq9_refund():
-    if check_token():
-        if db_getuser_username(request.form['account']) is not None:
-            pass
+    if check_token() and db_check_mtcode():
+        # make sure bet exists
+        if db_get_bet(request.form['mtcode']) is not None:
+            balance = db_refund()
+            if balance > 0:
+                error_code = '0'
+            else:
+                error_code = '1003'
+            model = {
+                "data": {
+                    "balance": round(balance, 4),
+                    "currency": "USD"
+                },
+                "status": {
+                    "code": error_code,
+                    "message": "Success",
+                    "datetime": get_timestamp()
+                }
+            }
+            return jsonify(model)
