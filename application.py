@@ -143,7 +143,7 @@ def login():
                         # return render_template('profile.html', page_call='profile')
                         # return redirect(next or url_for('profile'))
                     else:
-                        return jsonify(error='Your account is created but not verified',
+                        return jsonify(error='Your account is created but not verified yet',
                                        resend_email=email)
                 else:
                     return jsonify(error='Invalid e-mail or password')
@@ -161,7 +161,7 @@ def login():
             if email_error or password_error:
                 return jsonify(error="", email_error=email_error, password_error=password_error)
             else:
-                return jsonify(error='CSRF token error: Reload website')
+                return jsonify(error='Please refresh the website')
     else:
         return jsonify({"error": 'reCaptcha not verified'})
     # if LoginForm().validate_on_submit():
@@ -210,7 +210,7 @@ def register():
                             else:
                                 return jsonify(error='Account with this username exists')
                     else:
-                        return jsonify(error='Your account was previously created but not verified yet', resend_email=email)
+                        return jsonify(error='Your account is created but not verified yet', resend_email=email)
                 else:
                     return jsonify(error=password_not_valid)
             else:
