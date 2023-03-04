@@ -12,7 +12,7 @@ from db_access import *
 from email_confirmation import create_verify_email
 from forms import LoginForm, RegisterForm, verify_captcha
 from utils import *
-from config import app
+from config import app as application
 from consts import RECAPTCHA_PUBLIC_KEY
 from cq9_api import cq9_api, game_launch
 from utils import reload_game_titles, reload_icon_placement, verify_user
@@ -35,19 +35,19 @@ wallet = ''
 
 
 # reloading will check user login state
-@app.login_manager.user_loader
+@application.login_manager.user_loader
 def load_user(user_id):
     return db_get_user(user_id)
 
 
-@app.route('/profile', methods=['GET', 'POST'])
+@application.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
     # rec = HistoryEntry()
     return render_template('profile.html')
 
 
-@app.route("/logout", methods=['GET', 'POST'])
+@application.route("/logout", methods=['GET', 'POST'])
 @login_required
 def logout():
     session.pop('logged_in', None)
@@ -56,7 +56,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-@app.route("/launch", methods=['GET', 'POST'])
+@application.route("/launch", methods=['GET', 'POST'])
 @login_required
 def launch():
     link = ''
@@ -71,7 +71,7 @@ def launch():
         return jsonify(link=link)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@application.route('/', methods=['GET', 'POST'])
 def home():
 
     # if session['logged_in']:
@@ -98,7 +98,7 @@ def home():
                            notification=notification, notification_title=notification_title)
 
 
-@app.route('/verify/<token>', endpoint='verify_email', methods=['GET'])
+@application.route('/verify/<token>', endpoint='verify_email', methods=['GET'])
 def verify(token):
     notification_json = verify_user(token)
     return redirect(url_for('home', notification=notification_json['notification'],
@@ -107,7 +107,7 @@ def verify(token):
     # notification_title = notification_json['notification_title']
 
 
-@app.route('/login', methods=['POST'])
+@application.route('/login', methods=['POST'])
 def login():
     # captcha_response = login_form.data['recaptcha']
     captcha_response = json.loads(request.data)['recaptcha']
@@ -168,7 +168,7 @@ def login():
     #     return "the form has been submitted. Success!"
 
 
-@app.route('/resend', methods=['POST'])
+@application.route('/resend', methods=['POST'])
 def resend():
     email = json.loads(request.data)['email'][0:-1]
     create_verify_email(email)
@@ -176,7 +176,7 @@ def resend():
                                                                      '</b>.<br>Please check your email and click the link to verify.')
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@application.route('/register', methods=['GET', 'POST'])
 def register():
     # sharing the same captcha as login
     captcha_response = json.loads(request.data)['recaptcha']
@@ -221,7 +221,7 @@ def register():
         return jsonify(error='reCaptcha not verified')
 
 
-@app.route('/getBalance', methods=['GET', 'POST'])
+@application.route('/getBalance', methods=['GET', 'POST'])
 @login_required
 def get_balance():
     if session['logged_in']:
@@ -231,7 +231,7 @@ def get_balance():
         pass
 
 
-@app.route('/update', methods=['GET', 'POST'])
+@application.route('/update', methods=['GET', 'POST'])
 def update_games():
     global icon_placement
     global game_titles
@@ -241,8 +241,8 @@ def update_games():
 
 
 if __name__ == '__main__':
-    app.debug = True
+    application.debug = True
     # icon_placement = reload_icon_placement()
     # game_titles = reload_game_titles()
-    app.register_blueprint(cq9_api)
-    app.run()
+    application.register_blueprint(cq9_api)
+    application.run()
