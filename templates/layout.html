@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.88.1">
+        <meta HTTP-EQUIV="REFRESH" CONTENT="360">
+        <title>Gambit's - WAGMI</title>
+
+        <!--   UI -->
+        <script language="JavaScript" type="text/javascript" src="/static/navbar_sticky.js"></script>
+        <script language="JavaScript" type="text/javascript" src="/static/navigation.js"></script>
+        <!--    <script language="JavaScript" type="text/javascript" src="/static/login.js"></script>-->
+
+        <!--   Icons -->
+        <link rel="icon" type="image/x-icon" href="static/icons/ui/favicon.png">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+        <link rel=”stylesheet” href=”https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css”>
+
+        <!--   Solana -->
+        <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+
+        <!--    reCaptcha  -->
+        <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+        <!--   CDN calls -->
+        <!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>-->
+
+          <!-- Calling jquery first -->
+        <script language="JavaScript" type="text/javascript" src="static/bootstrap/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <!-- Custom styles for this template -->
+        <link  type="text/css" href="{{ url_for('static', filename='carousel.css') }}" rel="stylesheet">
+        <link  type="text/css" href="{{ url_for('static', filename='responsive.css') }}" rel="stylesheet">
+
+        {% if not current_user.is_authenticated %}
+            <script type="text/javascript">
+              var verifyCallback = function(response) {
+                alert(response);
+              };
+              var widgetId1;
+              var widgetId2;
+              var onloadCallback = function() {
+                // Renders the HTML element with id 'example1' as a reCAPTCHA widget.
+                // The id of the reCAPTCHA widget is assigned to 'widgetId1'.
+                widgetId1 = grecaptcha.render('login-recaptcha', {
+                  'sitekey' : '{{  RECAPTCHA_PUBLIC_KEY  }}',
+                  'theme' : 'dark'
+                });
+                widgetId2 = grecaptcha.render(document.getElementById('reg-recaptcha'), {
+                  'sitekey' : '{{  RECAPTCHA_PUBLIC_KEY  }}',
+                  'theme' : 'dark'
+                });
+              };
+            </script>
+        {% endif %}
+    </head>
+
+  <body style="font-family: Futura;">
+
+    <header>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
+              <div class="top-bar-desktop">
+                <a class="navbar-brand" href="/">
+                  <img src="static/icons/ui/favicon.png" style="height: 25px;">
+                  <img src="static/icons/ui/main_title.png" class="main-logo">
+                </a>
+              </div>
+              <div class="top-bar-desktop">
+                {% if current_user.is_authenticated %}
+                  <div class="font-color login-data">
+                      Hi {{ current_user.username }} ♥️🙏🏼
+                      <div id="balance">
+                          {{ current_user.balance }} {{ current_user.currency }}
+                      </div>
+                  </div>
+                {% endif %}
+                <!--      Logo -->
+                <a class="navbar-brand" href="https://discord.gg/ebjsys6h">
+                    <i class="bi bi-discord"></i>
+                </a>
+                <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">
+                    <i class="bi bi-twitter"></i>
+                </a>
+                {% if current_user.is_authenticated %}
+
+                    <a class="btn btn-outline-success" href="/profile">Profile</a>
+<!--                    <button href="/logout" class="btn btn-outline-success" id="logoutbtn" method="post" type="submit" name="logout">-->
+                    <a class="btn btn-outline-success" href="/logout">Log out</a>
+<!--                    </button>-->
+                {% else %}
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                      <div >Log in</div>
+                    </button>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
+                      <div >Register</div>
+                    </button>
+                {% endif %}
+              </div>
+              <div class="top-bar-mobile">
+                  <img src="static/icons/ui/main_title.png" class="main-logo">
+                  <div>
+                      <a class="navbar-brand" href="https://discord.gg/ebjsys6h">
+                        <i class="bi bi-discord"></i>
+                      </a>
+                      <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">
+                        <i class="bi bi-twitter"></i>
+                      </a>
+                  </div>
+              </div>
+              <div class="top-bar-mobile" style="transform: scale(1.2); padding-right:5px;">
+                  <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                      <div >Log in</div>
+                  </button>
+                  <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
+                      <div >Register</div>
+                  </button>
+              </div>
+
+              <!--      open phantom-->
+            <!--          <script language="JavaScript" type="text/javascript" src="/static/phantom.js"></script>-->
+            <!--          <script language="JavaScript" type="text/javascript" src="/static/navigation.js"></script>-->
+
+            </nav>
+        </div>
+    </header>
+    <script language="JavaScript" type="text/javascript">
+        $(document).ready(function(){
+            $('.carousel').carousel({
+                interval: 3000
+            })
+            $('.carousel-control.left').click(function() {
+                $('#myCarousel').carousel('prev');
+            });
+
+            $('.carousel-control.right').click(function() {
+                $('#myCarousel').carousel('next');
+            });
+
+            var balance_field = document.getElementById("balance");
+            function updater() {
+                fetch('/getBalance')
+                .then(response => response.text())
+                .then(text => (balance_field.innerHTML = text));  // update page with new data
+            }
+            setInterval(updater, 5000);  // run `updater()` every 1000ms (1s)
+        });
+
+
+
+    </script>
+    <main class="main-bg">
+
+    <!-- POSTs back to the page's URL upon submit with a g-recaptcha-response POST parameter. -->
+<!--    <form action="/register" method="POST">-->
+<!--      <div id="reg-recaptcha"></div>-->
+<!--      <br>-->
+<!--      <input type="submit" value="Submit">-->
+<!--    </form>-->
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+        async defer>
+    </script>
+        <div class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner" id="myCarousel" >
+            <div class="carousel-item">
+              <img src="/static/banner/streetfighter.jpg" class="d-block w-100">
+              <div class="carousel-caption">
+                <h1>Diamond hands.</h1>Let's go to the moon.
+    <!--            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>-->
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="/static/banner/golden_wealth_baccarat_banner_1980x800_2021_08_06_branded.png" class="d-block w-100">
+              <div class="carousel-caption">
+                <h1>Win Cypto.</h1>Go big or go home.
+              </div>
+            </div>
+            <div class="carousel-item active">
+              <img src="/static/banner/NFTMegaWays_RedTiger.jpg" class="d-block w-100">
+              <div class="carousel-caption">
+                <h1>LFG.</h1>It's the only way WAGMI.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Main menu bar -->
+      <div class="navbar-expand-md navbar-dark bg-dark nav-bar-selector fixed-top fixed-middle" id="middle_bar">
+        <a class="nav-link active-link" aria-current="page" href="/sports">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/heart.png"><br>
+          Favorites
+        </a>
+        <a class="nav-link game-show" aria-current="page" href="/">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/medal.png"><br>
+          Top Games
+        </a>
+        <a class="nav-link" aria-current="page" href="/sports">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/sports.png"><br>
+          Sports
+        </a>
+        <a class="nav-link" aria-current="page" href="/slots">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/007-gambler.png"><br>
+          Slots
+        </a>
+        <a class="nav-link" aria-current="page" href="/baccarat">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/baccarat.png"><br>
+          Baccarat
+        </a><br>
+        <a class="nav-link" aria-current="page" href="/roulette">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/005-casino-roulette.png"><br>
+          Roulette
+        </a>
+        <a class="nav-link" aria-current="page" href="/blackjack">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/003-poker-cards.png"><br>
+          Blackjack
+        </a>
+        <a class="nav-link" aria-current="page" href="/dice">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/004-dice.png"><br>
+          Dice
+        </a>
+        <a class="nav-link" aria-current="page" href="/poker">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/002-poker.png"><br>
+          Poker
+        </a>
+        <a class="nav-link game-show" aria-current="page" href="/game_shows">
+          <img class="midBarIcon" src="static/icons/ui/category_select/png/game_shows.png"><br>
+          Game Shows
+        </a>
+
+      </div>
+
+      <div id="main_section">
+        {% block content %}{% endblock %}
+      </div>
+
+<!-- Modals -->
+<!-- Login -->
+    {% if not current_user.is_authenticated %}
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <script>
+                $(document).ready(function(){
+                  $('#loginModal').on('show.bs.modal', function(){
+                     $(".error").html('');
+                     $("#login-email").val("");
+                     $("#login-password").val("");
+                     $("#login-rememberme").prop("checked", false);
+                     grecaptcha.reset(widgetId1);
+                     document.getElementById('login-email').placeholder = "";
+                     document.getElementById('login-password').placeholder = "";
+                  });
+                });
+            </script>
+
+            <div class="modal-dialog" role="document" id="loginDialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="loginModalLabel">Login</h3>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <span class="modal-body">
+
+                        <input type="hidden" name="csrf_token" value="{{ login_form.csrf_token.current_token }}">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text whiteFont">E-mail</span>
+
+                            {{ login_form.email(id_="login-email", class_="form-control") }}
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text whiteFont">Password</span>
+                            {{ login_form.password(id_="login-password", class_="form-control") }}
+                        </div>
+
+                        <span class="font-color">
+                            {{ login_form.rememberme(id_="login-rememberme") }}
+                            <label for="login-rememberme">Keep me logged in</label>
+                            <div style="float: right;">Forgot password?</div>
+                        </span>
+                        <div id="login-recaptcha"></div>
+                        {{ login_form.hidden_tag() }}
+                        <span>
+                            {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
+                            <div class='error'></div>
+
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $('#loginbtn').on('click', function(){
+                        event.preventDefault();
+                        var email = $("#login-email").val();
+                        var password = $("#login-password").val();
+                        var csrf_token = $("#csrf_token").val();
+                        var rememberme = document.querySelector('#login-rememberme').checked;
+                        var recaptcha = grecaptcha.getResponse();
+                        $.ajax({
+                          url: "/login",
+                          type: "post",
+                          dataType: "json",
+                          contentType: "application/json; charset=UTF-8",
+                          data: JSON.stringify({
+                            "email":email,
+                            "password":password,
+                            "rememberme":rememberme,
+                            "recaptcha":recaptcha,
+                            "csrf_token":csrf_token
+                          }),
+                          success: function(self) {
+                            if (typeof self.error != 'undefined'){
+                                if (typeof self.resend_email != 'undefined'){
+                                    $(".error").html(self.error.toString()+'<br>Click <button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">resend</button> to re-send verification email');
+                                } else {
+                                    $(".error").html('<p>'+self.error.toString()+'</p>');
+                                }
+                            } else {
+                                location.reload();
+                            }
+                          },
+                          error: function(e) {
+                            console.log(e);
+                          }
+                        });
+                    });
+                });
+                $(document).on('click', '#resendEmail', function(self){
+                    event.preventDefault();
+                    $.ajax({
+                      url: "/resend",
+                      type: "post",
+                      dataType: "json",
+                      contentType: "application/json; charset=UTF-8",
+                      data: JSON.stringify({
+                        "email":$('#resendEmail').val()
+                      }),
+                      success: function(self) {
+                        if (typeof self.notification != 'undefined'){
+                            $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                            $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+
+                            $('#notificationModal').modal('show');
+                            $('#registerModal').modal('hide');
+                            $('#loginModal').modal('hide');
+                        }
+                      },
+                      error: function(e) {
+                        console.log(e);
+                      }
+                    });
+                });
+            </script>
+        </div>
+
+    <!-- Register -->
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <script>
+                $(document).ready(function(){
+                  $('#registerModal').on('show.bs.modal', function(){
+                     $(".error").html('');
+                     $("#reg-email").val("");
+                     $("#reg-password").val("");
+                     $("#reg-referral").val("");
+                     $("#reg-username").val("");
+                     grecaptcha.reset(widgetId2);
+                  });
+                });
+            </script>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="registerModalLabel">Register</h3>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div>
+                        re-send verification email
+                    </div>
+                    <div class="modal-body">
+                        {{ register_form.csrf_token }}
+                        <div class="input-group mb-3">
+                          <span class="input-group-text whiteFont">E-mail</span>
+                          {{ register_form.email(id_="reg-email", class_="form-control") }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text whiteFont">Username</span>
+                            {{ register_form.username(id_="reg-username", class_="form-control") }}
+                        </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text whiteFont">Password</span>
+                          {{ register_form.password(id_="reg-password", class_="form-control") }}
+                        </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text whiteFont">Bonus</span>
+                          {{ register_form.referral(id_="reg-referral", class_="form-control") }}
+                        </div>
+                        <div id="reg-recaptcha"></div>
+                        {{ register_form.hidden_tag() }}
+                        <span >
+                            {{ register_form.register(class_="btn btn-outline-success btn-lg", style_="float: left;", id_="registerbtn") }}
+                              <div class='error'></div>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $('#registerbtn').on('click', function(){
+                    event.preventDefault();
+                    var email = $("#reg-email").val();
+                    var username = $("#reg-username").val();
+                    var password = $("#reg-password").val();
+                    var referral = $("#reg-referral").val();
+                    var recaptcha = grecaptcha.getResponse(widgetId2);
+                    $.ajax({
+                      url: "/register",
+                      type: "post",
+                      dataType: "json",
+                      contentType: "application/json; charset=UTF-8",
+                      data: JSON.stringify({
+                        "email":email,
+                        "password":password,
+                        "username":username,
+                        "referral":referral,
+                        "recaptcha":recaptcha
+                      }),
+                      success: function(self) {
+                        if (typeof self.resend_email != 'undefined'){
+                            $(".error").html(self.error.toString()+'<br>Click <button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">resend</button> to re-send verification email');
+                        } else {
+                            if (typeof self.error != 'undefined'){
+                                $(".error").html('<p>'+self.error.toString()+'</p>');
+                            } else if (typeof self.notification != 'undefined'){
+                                $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                                $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+                                $('#notificationModal').modal('show');
+                                $('#registerModal').modal('hide');
+                            }
+                        }
+                      },
+                      error: function(e) {
+                        console.log(e);
+                      }
+                    });
+                });
+            });
+        </script>
+    {% endif %}
+
+
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="notificationModalLabel"><div class="notification_title">{{ notification_title }}</div></h3>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class='notification green-text'>{{ notification }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if notification|length %}
+        <script language="JavaScript" type="text/javascript">
+            $(document).ready(function(){
+                $('#notificationModal').modal('show');
+            });
+        </script>
+    {% endif %}
+
+    <!-- FOOTER -->
+    <footer class="container green-text">
+        <p class="float-end"><a class="green-text" href="#">Back to top</a></p>
+        <p>***THIS IS JUST A TEST SITE*** &copy; 2021-2022 Muju Inc. &middot; <a class="green-text" href="#">Privacy</a> &middot; <a class="green-text" href="#">Terms</a></p>
+        <!--        <font style="font-size:.5rem;">-->
+        <!--          <a href="https://www.flaticon.com/free-icons/asia" title="asia icons">Asia icons created by Freepik - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/slot-machine" title="slot machine icons">Slot machine icons created by Freepik - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/roulette" title="roulette icons">Roulette icons created by smashingstocks - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/soccer" title="soccer icons">Soccer icons created by Freepik - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/dice" title="dice icons">Dice icons created by Freepik - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/poker-cards" title="poker cards icons">Poker cards icons created by Vectorslab - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/poker" title="poker icons">Poker icons created by Nikita Golubev - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/microphone" title="microphone icons">Microphone icons created by Freepik - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/heart" title="heart icons">Heart icons created by Vlad Szirka - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/medal" title="medal icons">Medal icons created by Vectors Market - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/sport" title="sport icons">Sport icons created by Jesus Chavarria - Flaticon</a>-->
+        <!--          <a href="https://www.flaticon.com/free-icons/baccarat" title="baccarat icons">Baccarat icons created by Freepik - Flaticon</a>-->
+        <!--        </font>-->
+    </footer>
+    </main>
+  </body>
+</html>

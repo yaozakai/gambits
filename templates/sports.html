@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <div class="album py-5 bg-dark">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for k in icon_files %}
+        <div class="col">
+          <div class="card shadow-sm">
+                <img class="gallery-thumb" src="{{ k }}">
+                <button type="button" class="btn btn-outline-dark gallery-btn">Play</button>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div><!-- /.container -->
+
+{% endblock content %}
+

@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block content %}
+
+  <div class="album py-5 gallery-bg">
+
+    {% for category in icon_placement %}
+        <h5 class="font-color gallery-header"><img style="height:32px;" src="static/icons/ui/category_select/png/003-poker-cards.png"> {{ category }}</h5>
+        <div class="container">
+            <div class="row">
+                {% for k in icon_placement[category] %}
+                <div class="col">
+                    {% if category == 'Live Casino' %}
+                        <div class="large-card card shadow-sm">
+                    {% else %}
+                        <div class="card shadow-sm">
+                    {% endif %}
+                            <img src="{{ icon_path }}/{{ k }}" style="height: 100%;">
+                            {% for game_title in game_titles %}
+                                {% if game_title['gamecode'] == k.split("_")[0] %}
+                                    {% if current_user.is_authenticated %}
+                                        <button id="{{ k }}" type="submit" name="launch" value="{{ k }}" class="btn-outline btn gallery-btn launch">
+                                    {% else %}
+                                        <button id="{{ k }}" type="button" value="{{ k }}" class="btn-outline btn gallery-btn launch" data-bs-toggle="modal" data-bs-target="#registerModal">
+                                    {% endif %}
+                                        Play now<br><br>
+                                        {% for title in game_title['nameset'] if title['lang'] == 'en' %}
+                                            {{ title['name'] }}
+                                        {% endfor %}
+                                        {{ game_title['nameset']['en'] }}
+                                    </button>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+    {% endfor %}
+
+  </div>
+
+    <script>
+        $(document).ready(function(){
+            $('.launch').on('click', function(){
+                event.preventDefault();
+                $.ajax({
+                  url: "/launch",
+                  type: "post",
+                  dataType: "json",
+                  contentType: "application/json; charset=UTF-8",
+                  data: JSON.stringify({
+                    "id":$(this).attr("id")
+                  }),
+                  success: function(self) {
+                    window.open(self.link.toString());
+                  },
+                  error: function(e) {
+                    console.log(e);
+                  }
+                });
+            });
+        });
+        </script>
+
+
+
+{% endblock %}
+

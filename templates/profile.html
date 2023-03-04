@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <table id="data" class="table table-striped">
+        <thead>
+          <tr>
+            <th>Round #</th>
+            <th>Balance</th>
+            <th>Win</th>
+            <th>Bet</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for rec in records %}
+            <tr>
+              <td>{{ rec.round }}</td>
+              <td>{{ rec.balance }}</td>
+              <td>{{ rec.win }}</td>
+              <td>{{ rec.bet }}</td>
+              <td>{{ rec.bettime }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+

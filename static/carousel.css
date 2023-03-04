@@ -1,0 +1,447 @@
+/* GLOBAL STYLES
+-------------------------------------------------- */
+
+• { font-family: Futura; src: local('Futura Std'); }
+
+
+/* Padding below the footer and lighter body text */
+
+body {
+  color: #5a5a5a;
+}
+
+.nav-link {
+    color: #28a745;
+    width: 15%;
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+}
+
+.nav-link:hover {
+    background-color: #251f26e3;
+}
+
+.bg-dark {
+  background: #3e3440!important;
+}
+
+
+/* CUSTOMIZE THE CAROUSEL
+-------------------------------------------------- */
+
+/* Carousel base class */
+.carousel {
+  bottom: 50px;
+  position: unset;
+  /* margin: 0px 15% 0px 15%; */
+  height: 450px;
+}
+
+.carousel-inner {height: 100%;}
+
+.carousel-control-next{
+  height: 370px;
+}
+
+.carousel-control-prev{
+  height: 370px;
+}
+
+
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+  background: #00000080;
+  width: 100%;
+  height: 100%;
+  bottom: 0px;
+  left: 0%;
+  text-align: left;
+  padding-left: 30px;
+  /* vertical-align: middle; */
+  padding-top: 30px;
+}
+
+.carousel-indicators     {
+  bottom: -55px;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel-item {
+  margin-left: 15p;
+  margin-right: 0%;
+  width: 100%;
+  height: 100%;
+  /* top: 64px; */
+}
+
+.active {
+  /* margin-left: 0%; */
+  margin-right: 0%;
+  width: 100%;
+  /* height: 100%; */
+  max-width: 100%;
+}
+
+.carousel-item > img {
+  position: absolute;
+  top: 00px;
+  left: 0;
+  min-width: 100%;
+  height: 100%;
+  /* margin-left: 50px; */
+  /* vertical-align: middle; */
+}
+
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: 400;
+}
+/* rtl:begin:ignore */
+.marketing .col-lg-4 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+/* rtl:end:ignore */
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+  margin: 5rem 0; /* Space out the Bootstrap <hr> more */
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  /* rtl:remove */
+  letter-spacing: -.05rem;
+}
+
+.main-logo {
+    height: 25px;
+}
+
+
+/* GALLERY STUFF */
+.main-bg {
+    background: #332a34;
+    margin-top: 56px;
+}
+
+.card {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 50px;
+    background: #736988;
+}
+
+.large-card .card {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 50px;
+}
+
+.card-img-top {
+    height: 120px;
+}
+
+.gallery-btn {
+    font-size: .8rem;
+    position: absolute;
+    width: 100%;
+    font-weight: 300;
+    height: 100%;
+    background-color: #00000000;
+    color: #00000000;
+    white-space: normal;
+}
+
+.gallery-btn:hover {
+    background-color: #000000BB;
+    color: #28a745;
+    font-weight: 400;
+}
+
+.btn-link {
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    color: #0000EE;
+    padding: 0;
+    text-decoration: underline;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.btn-outline-dark {
+    color: #343a4000;
+}
+
+.btn-outline:active {
+    background-color: #000000D0;
+}
+
+.btn-outline-dark:hover {
+    background-color: #00000080;
+    color: #28a745;
+    font-weight: 400;
+}
+.top-bar-right-side {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* NAV BAR STUFF */
+
+.nav-bar-selector {
+    text-align: center;
+    width: 100%;
+    padding: 0px;
+    font-size: .8rem;
+}
+
+.nav-link-selector a.active-link {
+  color: #28a745;
+}
+
+.nav-link-selector a.active-link {
+  color: #28a745;
+}
+
+.navbar-dark .navbar-brand {
+  color: #28a745;
+  /* padding-top: 10px; */
+  vertical-align: middle;
+  margin-right: 15px;
+}
+
+.navbar-dark:hover .navbar-brand:hover {
+  color: #c8ed07;
+}
+
+.nav-link {
+    display: inline-block;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0px 8px 0px 5px;
+}
+
+.nav-link:hover {
+  color: #c8ed07;
+}
+
+
+.green-text {
+  color: #28a745;
+  border-color: #28a745;
+}
+
+.btn-outline-success:hover {
+    color: #28a745;
+    background-color: #828282;
+    border-color: #c8ed07;
+}
+
+#disconnect {
+    display: none;
+}
+
+.deposit-div {
+    padding-right: 6px;
+    padding-left: 6px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.money-transfer {
+    width: 300px;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+/* Style the navbar */
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Navbar links */
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.stickyMiddle {
+  position: fixed;
+  top: 100px;
+  width: 100%;
+
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.stickyMiddle + .content {
+  padding-top: 60px;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 60px;
+}
+
+.fixed-top {
+    height: 56px;
+}
+
+.fixed-middle {
+    height: 140px;
+    top: 356px;
+    position: absolute;
+    /* height: 145px; */
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border-radius: 0.2rem;
+}
+
+h3 {
+    color: #28a745;
+    padding-bottom: 0px;
+}
+
+#main_section {
+    /* margin-top: 116px; */
+    margin-top: 65px;
+}
+
+.pb-5, .py-5 {
+    padding-bottom: 0px;
+}
+
+.midBarIcon {
+    height:32px;
+    margin-top: 10px;
+}
+
+.modal-content {
+    background-color: #110e11ed;
+    height: 100%;
+}
+
+.modal-header {
+    border-bottom-color: #28a745;
+    border-width: 0px;
+    padding-bottom: 0px;
+}
+
+.modal-footer {
+    border-top-color: #28a745;
+
+}
+
+.form-control {
+    background-color: #ffffff6b;
+    border-color: black;
+}
+
+.input-group-text {
+    background-color: #1f4a26;
+    border-width: 0px;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    border-color: #0d3516;
+}
+
+.close {
+    color: #28a745;
+    text-shadow: 0 0px 0 #fff;
+}
+
+.whiteFont {
+    color: #e7e7e7;
+}
+
+.error {
+    color: #cd5c5c;
+    font-size: 0.8rem;
+    padding-top: 0.5rem;
+    margin-left: 130px;
+}
+
+#reg-recaptcha {
+    padding-bottom: 10px;
+}
+
+#login-recaptcha {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#rc-anchor-container {
+    border: 1px solid #323232;
+}
+
+.gallery-header {
+    padding-left: 5%;
+}
+
+.font-color {
+    color: #28a745;
+}
+
+.login-data {
+    display: inline;
+    position: relative;
+    top: 3px;
+    right: 15px;
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #83001c;
+  font-size: .8rem;
+  opacity: 1; /* Firefox */
+}
+
+#balance {
+    display: inline;
+    /* border-color: #28a745; */
+    border: 1px solid #126224;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+}

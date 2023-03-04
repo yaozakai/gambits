@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+
+
+
+    <ol class="list-group list-group-numbered">
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="account-heading-small">User ID</div>
+<!--          <font color="grey">{{ UA_payload.player.id }}</font>-->
+        </div>
+      </li>
+      <li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+        <div class="account-heading-small">Name</div>
+<!--        {{ UA_payload.player.firstName }} {{ UA_payload.player.lastName }}-->
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="account-heading-small">Nickname</div>
+<!--            {{ UA_payload.player.nickname }}-->
+        </div>
+      </li>
+      <li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="account-heading-small">Country Code</div>
+<!--            {{ UA_payload.player.country }}-->
+        </div>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="account-heading-small">Language</div>
+<!--            {{ UA_payload.player.language }}-->
+        </div>
+      </li>
+      <li class="list-group-item list-group-item-dark d-flex justify-content-between align-items-start">
+        <div class="ms-2 me-auto">
+          <div class="account-heading-small">Game Category</div>
+<!--            {{ UA_payload.config.game.category }}-->
+        </div>
+      </li>
+    </ol>
+{% endblock userinfo %}

@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block daily %}
+<table class="table table-striped table-dark">
+    <h4>Daily Report</h4>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Game Type</th>
+        <th>Table ID</th>
+        <th>Table Name</th>
+        <th>Rounds</th>
+        <th>Currency</th>
+        <th>Wager</th>
+        <th>Payout</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if len == 0 %}
+    <tr>
+      <td colspan="9"><center>No results in daily report</center></td>
+    </tr>
+    {% else %}
+      {% for i in range(0, len) %}
+          <tr>
+            <td>{{ daily_report[i].date }}</td>
+            <td>{{ daily_report[i].gameType }}</td>
+            <td>{{ daily_report[i].table.id }}</td>
+            <td>{{ daily_report[i].table.name }}</td>
+            <td>{{ daily_report[i].roundCount }}</td>
+            <td>{{ daily_report[i].currency }}</td>
+            <td>{{ daily_report[i].wager }}</td>
+              {% if daily_report[i].wager > daily_report[i].payout %}
+
+                <td style="color: red"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+  <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"/>
+</svg>{{ daily_report[i].payout }}</td>
+              {% else %}
+
+                <td style="color: green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
+  <path d="M3.204 11h9.592L8 5.519 3.204 11zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659z"/>
+</svg>{{ daily_report[i].payout }}</td>
+              {% endif %}
+          </tr>
+      {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+
+{% endblock daily %}

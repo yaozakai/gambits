@@ -1,0 +1,44 @@
+{% extends "userinfo.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ ft_form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Fund Transfer</legend>
+                <h6>Current Balance</h6>
+                <h4>{{ UA_payload.player.balance }}</h4>
+                <div class="form-group">
+                    {{ ft_form.amount.label(class="account-heading-small") }}
+                    {{ ft_form.amount(class="form-control form-control-lg") }}
+                </div>
+                <div class="form-group">
+                    {{ ft_form.add(class="btn btn-outline-info") }}
+                    {{ ft_form.subtract(class="btn btn-outline-info") }}
+                </div>
+                <h6>Transaction Details</h6>
+
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="account-heading-small">etransid</div>
+                        {{ UA_payload.transaction.etransid }}
+                    </div>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="account-heading-small">transid</div>
+                      {{ UA_payload.transaction.transid }}
+                    </div>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                      <div class="account-heading-small">datetime</div>
+                      {{ UA_payload.transaction.datetime }}
+                    </div>
+                  </li>
+                </ol>
+
+            </fieldset>
+        </form>
+    </div>
+{% endblock content %}
