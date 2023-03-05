@@ -24,38 +24,6 @@ with app.app_context():
 
 ##################################################################################################################
 
-class TransEntry(db.Model):
-    __tablename__ = 'transactions'
-    time = db.Column(db.DateTime, nullable=False)
-    account = db.Column(db.String(36), nullable=False)
-    game_hall = db.Column(db.String(36), nullable=False)
-    game_code = db.Column(db.String(36), nullable=False)
-    round_id = db.Column(db.String(50), nullable=False)
-    amount = db.Column(db.Integer, nullable=False)
-    mtcode = db.Column(db.String(70), nullable=False, primary_key=True)
-
-    def __init__(self, account='', mtcode='', amount=0, round_id='', game_code='', game_hall='', time=''):
-        self.time = time
-        self.account = account
-        self.mtcode = mtcode
-        self.amount = amount
-        self.round_id = round_id
-        self.game_code = game_code
-        self.game_hall = game_hall
-
-
-class SidEntry(db.Model):
-    __tablename__ = 'sessions'
-    sid = db.Column(db.Integer, nullable=False, primary_key=True)
-    uuid = db.Column(db.String(50), nullable=False)
-    userID = db.Column(db.String(50), nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.now())
-
-    def __init__(self, userID='', sid=0, uuid=''):
-        self.sid = sid
-        self.uuid = uuid
-        self.userID = userID
-
 
 class LoginEntry(db.Model):
     __tablename__ = 'login'
@@ -136,44 +104,17 @@ class UserEntry(UserMixin, db.Model):
 class BetEntry(db.Model):
     __tablename__ = 'bets'
     username = db.Column(db.String(50))
-    amount = db.Column(db.String(20))
+    amount = db.Column(db.String(36))
     time = db.Column(db.DateTime)
-    game_code = db.Column(db.String(20))
-    game_hall = db.Column(db.String(20))
-    mtcode = db.Column(db.String(60), primary_key=True)
+    game_code = db.Column(db.String(36))
+    game_hall = db.Column(db.String(36))
+    mtcode = db.Column(db.String(70), primary_key=True)
     platform = db.Column(db.String(20))
     round_id = db.Column(db.String(60))
     session = db.Column(db.String(60))
-    type = db.Column(db.String(10))
 
-    def __init__(self, request_type='', username='', amount='', time='', game_code='', game_hall='', mtcode='', platform='',
+    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='', platform='',
                  round_id='', session='', ):
-        self.type = request_type
-        self.username = username
-        self.amount = amount
-        self.time = time
-        self.game_code = game_code
-        self.game_hall = game_hall
-        self.mtcode = mtcode
-        self.platform = platform
-        self.round_id = round_id
-        self.session = session
-
-
-class RefundEntry(db.Model):
-    __tablename__ = 'refunds'
-    username = db.Column(db.String(50))
-    amount = db.Column(db.String(20))
-    time = db.Column(db.DateTime)
-    game_code = db.Column(db.String(20))
-    game_hall = db.Column(db.String(20))
-    mtcode = db.Column(db.String(60), primary_key=True)
-    platform = db.Column(db.String(20))
-    round_id = db.Column(db.String(60))
-    session = db.Column(db.String(60))
-
-    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='',
-                 round_id='', session='' ):
         self.username = username
         self.amount = amount
         self.time = time
@@ -187,30 +128,113 @@ class RefundEntry(db.Model):
 
 class EndroundEntry(db.Model):
     __tablename__ = 'endrounds'
-    username = db.Column(db.String(50))
-    amount = db.Column(db.String(20))
+    username = db.Column(db.String(36))
+    game_hall = db.Column(db.String(36))
+    game_code = db.Column(db.String(36))
+    round_id = db.Column(db.String(50), primary_key=True)
+    data = db.Column(ARRAY(db.String(158)))
     time = db.Column(db.DateTime)
-    game_code = db.Column(db.String(20))
-    game_hall = db.Column(db.String(20))
-    mtcode = db.Column(db.String(60), primary_key=True)
     freegame = db.Column(db.Integer)
-    jackpot = db.Column(db.Integer)
-    jackpotcontribution = db.Column(ARRAY(db.Integer))
     bonus = db.Column(db.Integer)
     luckydraw = db.Column(db.Integer)
-    type = db.Column(db.String(10))
+    jackpot = db.Column(db.Integer)
+    jackpotcontribution = db.Column(ARRAY(db.Integer))
+    freeticket = db.Column(db.Boolean, default=False)
 
-    def __init__(self, request_type='', username='', amount='', time='', game_code='', game_hall='', mtcode='', freegame=0, jackpot=0,
-                 jackpotcontribution=[], bonus=0, luckydraw=False):
+    def __init__(self, username='', time='', game_code='', game_hall='', freegame=0, jackpot=0,
+                 jackpotcontribution=[], bonus=0, luckydraw=False, round_id='', data=[], freeticket=False):
         self.username = username
-        self.type = request_type
+        self.game_hall = game_hall
+        self.game_code = game_code
+        self.round_id = round_id
+        self.data = data
+        self.time = time
+        self.freegame = freegame
+        self.bonus = bonus
+        self.luckydraw = luckydraw
+        self.jackpot = jackpot
+        self.jackpotcontribution = jackpotcontribution
+        self.freeticket = freeticket
+
+
+class RefundEntry(db.Model):
+    __tablename__ = 'refunds'
+    username = db.Column(db.String(50))
+    amount = db.Column(db.String(36))
+    time = db.Column(db.DateTime)
+    game_code = db.Column(db.String(36))
+    game_hall = db.Column(db.String(36))
+    mtcode = db.Column(db.String(70), primary_key=True)
+    platform = db.Column(db.String(20))
+    round_id = db.Column(db.String(60))
+    session = db.Column(db.String(60))
+
+    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='',
+                 platform='', round_id='', session=''):
+        self.username = username
         self.amount = amount
         self.time = time
         self.game_code = game_code
         self.game_hall = game_hall
         self.mtcode = mtcode
-        self.freegame = freegame
-        self.jackpot = jackpot
-        self.jackpotcontribution = jackpotcontribution
-        self.bonus = bonus
-        self.luckydraw = luckydraw
+        self.platform = platform
+        self.round_id = round_id
+        self.session = session
+
+
+class RolloutEntry(db.Model):
+    __tablename__ = 'rollouts'
+    username = db.Column(db.String(50))
+    amount = db.Column(db.String(36))
+    time = db.Column(db.DateTime)
+    game_code = db.Column(db.String(36))
+    game_hall = db.Column(db.String(36))
+    mtcode = db.Column(db.String(70), primary_key=True)
+    round_id = db.Column(db.String(60))
+    session = db.Column(db.String(60))
+
+    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='',
+                 round_id='', session='', ):
+        self.username = username
+        self.amount = amount
+        self.time = time
+        self.game_code = game_code
+        self.game_hall = game_hall
+        self.mtcode = mtcode
+        self.round_id = round_id
+        self.session = session
+
+
+class RollinEntry(db.Model):
+    __tablename__ = 'rollins'
+    username = db.Column(db.String(36))
+    event_time = db.Column(db.DateTime)
+    gamehall = db.Column(db.String(36))
+    gamecode = db.Column(db.String(36))
+    round_id = db.Column(db.String(50))
+    validbet = db.Column(db.String(36))
+    bet = db.Column(db.String(36))
+    win = db.Column(db.String(36))
+    roomfee = db.Column(db.String(36))
+    amount = db.Column(db.String(36))
+    mtcode = db.Column(db.String(70), primary_key=True)
+    create_time = db.Column(db.DateTime)
+    rake = db.Column(db.String(36))
+    gametype = db.Column(db.String(36))
+
+    def __init__(self, username='', event_time='', gamehall='', gamecode='', roundid='', validbet='',
+        bet='', win='', roomfee='', amount='', mtcode='', create_time='', rake='', gametype=''):
+        self.username = username
+        self.event_time = event_time
+        self.gamehall = gamehall
+        self.gamecode = gamecode
+        self.round_id = roundid
+        self.validbet = validbet
+        self.bet = bet
+        self.win = win
+        self.roomfee = roomfee
+        self.amount = amount
+        self.mtcode = mtcode
+        self.create_time = create_time
+        self.rake = rake
+        self.gametype = gametype

@@ -1,7 +1,8 @@
 import requests
 import json
 from flask import Blueprint, jsonify, request
-from db_access import db_getuser_username, db_bet, db_endround, db_check_mtcode, db_rollout, db_refund, db_get_bet
+from db_access import db_getuser_username, db_bet, db_endround, db_check_mtcode, db_rollout, db_refund, db_get_bet, \
+    db_rollin
 from utils import get_timestamp, check_token, authKey, url
 from config import app
 
@@ -159,25 +160,29 @@ def cq9_rollout():
 
 @cq9_api.route('/cq9/transaction/game/rollin', methods=['POST'])
 def cq9_rollin():
-    if check_token() and db_check_mtcode():
-        if db_getuser_username(request.form['account']) is not None:
-            balance = db_rollin()
-            if balance > 0:
-                error_code = '0'
-            else:
-                error_code = '1003'
-            model = {
-                "data": {
-                    "balance": round(balance, 4),
-                    "currency": "USD"
-                },
-                "status": {
-                    "code": error_code,
-                    "message": "Success",
-                    "datetime": get_timestamp()
-                }
+    if check_token():
+        if db_check_mtcode():
+            error_code = '2009'
+            balance = 0
+        else:
+            if db_getuser_username(request.form['account']) is not None:
+                balance = db_rollin()
+                if balance > 0:
+                    error_code = '0'
+                else:
+                    error_code = '1003'
+        model = {
+            "data": {
+                "balance": round(balance, 4),
+                "currency": "USD"
+            },
+            "status": {
+                "code": error_code,
+                "message": "Success",
+                "datetime": get_timestamp()
             }
-            return jsonify(model)
+        }
+        return jsonify(model)
 
 
 @cq9_api.route('/cq9/transaction/game/refund', methods=['POST'])
