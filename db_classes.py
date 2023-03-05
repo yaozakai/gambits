@@ -126,6 +126,27 @@ class BetEntry(db.Model):
         self.session = session
 
 
+class TakeallEntry(db.Model):
+    __tablename__ = 'takealls'
+    username = db.Column(db.String(50))
+    time = db.Column(db.DateTime)
+    game_code = db.Column(db.String(36))
+    game_hall = db.Column(db.String(36))
+    mtcode = db.Column(db.String(70), primary_key=True)
+    round_id = db.Column(db.String(60))
+    session = db.Column(db.String(60))
+
+    def __init__(self, username='', time='', game_code='', game_hall='', mtcode='',
+                 round_id='', session='' ):
+        self.username = username
+        self.time = time
+        self.game_code = game_code
+        self.game_hall = game_hall
+        self.mtcode = mtcode
+        self.round_id = round_id
+        self.session = session
+
+
 class EndroundEntry(db.Model):
     __tablename__ = 'endrounds'
     username = db.Column(db.String(36))

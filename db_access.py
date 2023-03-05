@@ -134,6 +134,29 @@ def db_bet():
     return new_balance
 
 
+def db_takeall():
+
+    user = UserEntry().query.filter_by(username=request.form['account']).first()
+    # settle the bet to balance
+    balance = float(user.balance)
+    user.balance = ''
+
+    # write to bet db
+    bet = TakeallEntry(
+        request.form['account'],
+        request.form['eventTime'],
+        request.form['gamecode'],
+        request.form['gamehall'],
+        request.form['mtcode'],
+        request.form['roundid'],
+        request.form['session']
+    )
+    db.session.add(bet)
+    db.session.commit()
+
+    return balance
+
+
 def db_rollout():
 
     user = UserEntry().query.filter_by(username=request.form['account']).first()
