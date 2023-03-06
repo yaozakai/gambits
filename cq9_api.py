@@ -2,7 +2,7 @@ import requests
 import json
 from flask import Blueprint, jsonify, request
 from db_access import db_getuser_username, db_bet, db_endround, db_check_mtcode, db_rollout, db_refund, db_get_bet, \
-    db_rollin, db_takeall
+    db_rollin, db_takeall, db_check_roundid
 from utils import get_timestamp, check_token, authKey, url
 from config import app
 
@@ -108,7 +108,7 @@ def cq9_bet():
 
 @cq9_api.route('/cq9/transaction/game/endround', methods=['POST'])
 def cq9_endround():
-    if check_token() and db_check_mtcode():
+    if check_token() and db_check_roundid():
         # if db_getuser_username(request.form['account']) is not None:
         balance = db_endround()
         if balance > 0:

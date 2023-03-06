@@ -226,7 +226,7 @@ def register():
 def get_balance():
     if session['logged_in']:
         user = db_get_user(session['_user_id'])
-        return user.balance + ' ' + user.currency
+        return str(user.balance) + ' ' + user.currency
     else:
         return 'Reload website'
 

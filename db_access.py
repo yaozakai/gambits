@@ -79,14 +79,19 @@ def db_check_mtcode():
     return bet is not None
 
 
+def db_check_roundid():
+    bet = BetEntry().query.filter_by(round_id=request.form['roundid'])
+    return bet is not None
+
+
 def db_refund():
     bet = BetEntry().query.filter_by(mtcode=request.form['mtcode'])
     # settle the bet to balance
-    amount = float(bet.amount)
+    amount = bet.amount
     user = UserEntry().query.filter_by(username=bet.username)
     # settle the bet to balance
-    balance = float(user.balance)
-    user.balance += amount
+    balance = user.balance
+    user.balance = float(user.balance) + amount
 
     # write to bet db
     refund = RefundEntry(
@@ -138,8 +143,8 @@ def db_takeall():
 
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
-    balance = float(user.balance)
-    user.balance = ''
+    balance = user.balance
+    user.balance = 0
 
     # write to bet db
     bet = TakeallEntry(
@@ -161,8 +166,8 @@ def db_rollout():
 
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
-    balance = float(user.balance)
-    bet = float(request.form['amount'])
+    balance = user.balance
+    bet = request.form['amount']
 
     new_balance = balance - bet
     if new_balance > 0:
@@ -187,7 +192,7 @@ def db_rollout():
 def db_endround():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
-    balance = float(user.balance)
+    balance = user.balance
 
     amount = float(json.loads(request.form['data'])[0]['amount'])
     if amount >= 0:

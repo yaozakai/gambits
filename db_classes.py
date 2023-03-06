@@ -51,7 +51,7 @@ class UserEntry(UserMixin, db.Model):
     username = db.Column(db.String(50), primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     password = db.Column(db.String(255))
-    balance = db.Column(db.String(50), default='0')
+    balance = db.Column(db.Numeric(50), default=0)
     referral = db.Column(db.String(50))
     active = db.Column(db.Boolean, default=False)
     logged_in = db.Column(db.Boolean, default=False)
@@ -104,7 +104,8 @@ class UserEntry(UserMixin, db.Model):
 class BetEntry(db.Model):
     __tablename__ = 'bets'
     username = db.Column(db.String(50))
-    amount = db.Column(db.String(36))
+    # amount = db.Column(db.String(36))
+    amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
     game_code = db.Column(db.String(36))
     game_hall = db.Column(db.String(36))
@@ -113,7 +114,7 @@ class BetEntry(db.Model):
     round_id = db.Column(db.String(60))
     session = db.Column(db.String(60))
 
-    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='', platform='',
+    def __init__(self, username='', amount=0, time='', game_code='', game_hall='', mtcode='', platform='',
                  round_id='', session='', ):
         self.username = username
         self.amount = amount
@@ -181,7 +182,7 @@ class EndroundEntry(db.Model):
 class RefundEntry(db.Model):
     __tablename__ = 'refunds'
     username = db.Column(db.String(50))
-    amount = db.Column(db.String(36))
+    amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
     game_code = db.Column(db.String(36))
     game_hall = db.Column(db.String(36))
@@ -190,7 +191,7 @@ class RefundEntry(db.Model):
     round_id = db.Column(db.String(60))
     session = db.Column(db.String(60))
 
-    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='',
+    def __init__(self, username='', amount=0, time='', game_code='', game_hall='', mtcode='',
                  platform='', round_id='', session=''):
         self.username = username
         self.amount = amount
@@ -206,7 +207,7 @@ class RefundEntry(db.Model):
 class RolloutEntry(db.Model):
     __tablename__ = 'rollouts'
     username = db.Column(db.String(50))
-    amount = db.Column(db.String(36))
+    amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
     game_code = db.Column(db.String(36))
     game_hall = db.Column(db.String(36))
@@ -214,7 +215,7 @@ class RolloutEntry(db.Model):
     round_id = db.Column(db.String(60))
     session = db.Column(db.String(60))
 
-    def __init__(self, username='', amount='', time='', game_code='', game_hall='', mtcode='',
+    def __init__(self, username='', amount=0, time='', game_code='', game_hall='', mtcode='',
                  round_id='', session='', ):
         self.username = username
         self.amount = amount
@@ -237,14 +238,14 @@ class RollinEntry(db.Model):
     bet = db.Column(db.String(36))
     win = db.Column(db.String(36))
     roomfee = db.Column(db.String(36))
-    amount = db.Column(db.String(36))
+    amount = db.Column(db.Numeric(36))
     mtcode = db.Column(db.String(70), primary_key=True)
     create_time = db.Column(db.DateTime)
     rake = db.Column(db.String(36))
     gametype = db.Column(db.String(36))
 
     def __init__(self, username='', event_time='', gamehall='', gamecode='', roundid='', validbet='',
-        bet='', win='', roomfee='', amount='', mtcode='', create_time='', rake='', gametype=''):
+        bet='', win='', roomfee='', amount=0, mtcode='', create_time='', rake='', gametype=''):
         self.username = username
         self.event_time = event_time
         self.gamehall = gamehall
