@@ -191,34 +191,61 @@ def db_rollout():
 
 def db_endround():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
-    # settle the bet to balance
-    balance = user.balance
 
-    amount = float(json.loads(request.form['data'])[0]['amount'])
-    if amount >= 0:
-        new_balance = balance + amount
-        user.balance = new_balance
-        data = json.loads(request.form['data'])
-        for result in data:
-            # write to EndRound db
-            endround = EndroundEntry(
-                request.form['account'],
-                request.form['createTime'],
-                request.form['gamecode'],
-                request.form['gamehall'],
-                request.form['freegame'],
-                request.form['jackpot'],
-                request.form['jackpotcontribution'],
-                request.form['bonus'],
-                request.form['luckydraw'],
-                request.form['roundid'],
-                request.form['data'],
-                request.form['freeticket']
-            )
-            db.session.add(endround)
-        db.session.commit()
+    data = json.loads(request.form['data'])
+    for result in data:
+        user.balance = float(user.balance) + result['amount']
 
-    return new_balance
+    # filter out the optional parameters
+    if 'freegame' in request.form:
+        freegame = request.form['freegame']
+    else:
+        freegame = 0
+
+    if 'jackpot' in request.form:
+        jackpot = request.form['jackpot']
+    else:
+        jackpot = 0
+
+    if 'jackpotcontribution' in request.form:
+        jackpotcontribution = request.form['jackpotcontribution']
+    else:
+        jackpotcontribution = []
+
+    if 'bonus' in request.form:
+        bonus = request.form['bonus']
+    else:
+        bonus = 0
+
+    if 'luckydraw' in request.form:
+        luckydraw = request.form['luckydraw']
+    else:
+        luckydraw = 0
+
+    if 'freeticket' in request.form:
+        freeticket = request.form['freeticket']
+    else:
+        freeticket = 0
+
+    # write to EndRound db
+    endround = EndroundEntry(
+        request.form['account'],
+        request.form['createTime'],
+        request.form['gamecode'],
+        request.form['gamehall'],
+        freegame,
+        jackpot,
+        jackpotcontribution,
+        bonus,
+        luckydraw,
+        request.form['roundid'],
+        request.form['data'],
+        freeticket
+    )
+    db.session.add(endround)
+    db.session.commit()
+
+    return float(user.balance)
 
 
 def db_rollin():

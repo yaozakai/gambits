@@ -151,8 +151,8 @@ class TakeallEntry(db.Model):
 class EndroundEntry(db.Model):
     __tablename__ = 'endrounds'
     username = db.Column(db.String(36))
-    game_hall = db.Column(db.String(36))
-    game_code = db.Column(db.String(36))
+    gamehall = db.Column(db.String(36))
+    gamecode = db.Column(db.String(36))
     round_id = db.Column(db.String(50), primary_key=True)
     data = db.Column(ARRAY(db.String(158)))
     time = db.Column(db.DateTime)
@@ -166,8 +166,8 @@ class EndroundEntry(db.Model):
     def __init__(self, username='', time='', game_code='', game_hall='', freegame=0, jackpot=0,
                  jackpotcontribution=[], bonus=0, luckydraw=False, round_id='', data=[], freeticket=False):
         self.username = username
-        self.game_hall = game_hall
-        self.game_code = game_code
+        self.gamehall = game_hall
+        self.gamecode = game_code
         self.round_id = round_id
         self.data = data
         self.time = time
