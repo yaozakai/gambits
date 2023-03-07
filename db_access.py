@@ -74,44 +74,57 @@ def db_search_userid(userid):
     return dataclass.query.filter_by(user_id=userid).first()
 
 
+def db_check_mtcode():
+    trans_type = request.form['mtcode'].split('-')[1]
+    if trans_type == 'bet':
+        entry = BetEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+    elif trans_type == 'rollout':
+        entry = RolloutEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+    # true if exists
+    return entry is not None
+
+
 def db_check_mtcode_bet():
-    bet = BetEntry().query.filter_by(mtcode=request.form['mtcode'])
+    bet = BetEntry().query.filter_by(mtcode=request.form['mtcode']).first()
     # true if exists
     return bet is not None
 
 
 def db_check_mtcode_rollin():
-    rollin = RollinEntry().query.filter_by(mtcode=request.form['mtcode'])
+    rollin = RollinEntry().query.filter_by(mtcode=request.form['mtcode']).first()
     # true if exists
     return rollin is not None
 
 
 def db_check_roundid():
-    bet = BetEntry().query.filter_by(round_id=request.form['roundid'])
+    bet = BetEntry().query.filter_by(round_id=request.form['roundid']).first()
     # true if exists
     return bet is not None
 
 
 def db_refund():
-    bet = BetEntry().query.filter_by(mtcode=request.form['mtcode'])
+    trans_type = request.form['mtcode'].split('-')[1]
+    if trans_type == 'bet':
+        entry = BetEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+    elif trans_type == 'rollout':
+        entry = RolloutEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+
     # settle the bet to balance
-    amount = bet.amount
-    user = UserEntry().query.filter_by(username=bet.username)
+    user = UserEntry().query.filter_by(username=entry.username).first()
     # settle the bet to balance
-    balance = user.balance
-    user.balance = float(user.balance) + amount
+    user.balance = float(user.balance) + float(entry.amount)
 
     # write to bet db
     refund = RefundEntry(
-        bet.username,
-        bet.amount,
+        entry.username,
+        entry.amount,
         get_timestamp(),
-        bet.gamecode,
-        bet.gamehall,
-        bet.mtcode,
-        bet.platform,
-        bet.roundid,
-        bet.session
+        entry.gamecode,
+        entry.gamehall,
+        entry.mtcode,
+        entry.platform,
+        entry.roundid,
+        entry.session
     )
     db.session.add(refund)
     db.session.commit()

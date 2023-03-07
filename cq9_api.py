@@ -130,7 +130,8 @@ def cq9_rollout():
             error_code = '1003'
         model = {
             "data": {
-                "balance": round(balance, 4),
+                # "balance": round(balance, 4),
+                "balance": 1000,
                 "currency": "USD"
             },
             "status": {
@@ -194,23 +195,23 @@ def cq9_takeall():
 
 @cq9_api.route('/cq9/transaction/game/refund', methods=['POST'])
 def cq9_refund():
-    if check_token() and db_check_mtcode_bet():
+    if check_token() and db_check_mtcode():
         # make sure bet exists
-        if db_get_bet(request.form['mtcode']) is not None:
-            balance = db_refund()
-            if balance > 0:
-                error_code = '0'
-            else:
-                error_code = '1003'
-            model = {
-                "data": {
-                    "balance": round(balance, 4),
-                    "currency": "USD"
-                },
-                "status": {
-                    "code": error_code,
-                    "message": "Success",
-                    "datetime": get_timestamp()
-                }
+        # if db_get_bet(request.form['mtcode']) is not None:
+        balance = db_refund()
+        if balance > 0:
+            error_code = '0'
+        else:
+            error_code = '1003'
+        model = {
+            "data": {
+                "balance": round(balance, 4),
+                "currency": "USD"
+            },
+            "status": {
+                "code": error_code,
+                "message": "Success",
+                "datetime": get_timestamp()
             }
-            return jsonify(model)
+        }
+        return jsonify(model)
