@@ -71,16 +71,24 @@ def db_new_login(login_form):
 
 def db_search_userid(userid):
     dataclass = UserEntry()
-    return dataclass.query.filter_by(user_id=userid).all()
+    return dataclass.query.filter_by(user_id=userid).first()
 
 
-def db_check_mtcode():
+def db_check_mtcode_bet():
     bet = BetEntry().query.filter_by(mtcode=request.form['mtcode'])
+    # true if exists
     return bet is not None
+
+
+def db_check_mtcode_rollin():
+    rollin = RollinEntry().query.filter_by(mtcode=request.form['mtcode'])
+    # true if exists
+    return rollin is not None
 
 
 def db_check_roundid():
     bet = BetEntry().query.filter_by(round_id=request.form['roundid'])
+    # true if exists
     return bet is not None
 
 
@@ -162,33 +170,6 @@ def db_takeall():
     return balance
 
 
-def db_rollout():
-
-    user = UserEntry().query.filter_by(username=request.form['account']).first()
-    # settle the bet to balance
-    balance = user.balance
-    bet = request.form['amount']
-
-    new_balance = balance - bet
-    if new_balance > 0:
-        user.balance = new_balance
-        # write to bet db
-        bet = RolloutEntry(
-            request.form['account'],
-            request.form['amount'],
-            request.form['eventTime'],
-            request.form['gamecode'],
-            request.form['gamehall'],
-            request.form['mtcode'],
-            request.form['roundid'],
-            request.form['session']
-        )
-        db.session.add(bet)
-        db.session.commit()
-
-    return new_balance
-
-
 def db_endround():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
@@ -248,11 +229,37 @@ def db_endround():
     return float(user.balance)
 
 
+# db to cq9
+def db_rollout():
+
+    user = UserEntry().query.filter_by(username=request.form['account']).first()
+
+    new_balance = float(user.balance) - float(request.form['amount'])
+    if new_balance > 0:
+        user.balance = new_balance
+        # write to bet db
+        bet = RolloutEntry(
+            request.form['account'],
+            request.form['amount'],
+            request.form['eventTime'],
+            request.form['gamecode'],
+            request.form['gamehall'],
+            request.form['mtcode'],
+            request.form['roundid'],
+            request.form['session']
+        )
+        db.session.add(bet)
+        db.session.commit()
+
+    return new_balance
+
+
+# cq9 to db
 def db_rollin():
     # update the user
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
-    user.balance += request.form['amount']
+    user.balance = float(user.balance) + float(request.form['amount'])
 
     # write to EndRound db
     rollin = RollinEntry(

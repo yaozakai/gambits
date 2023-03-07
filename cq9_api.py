@@ -1,25 +1,9 @@
 import requests
-import json
-from flask import Blueprint, jsonify, request
-from db_access import db_getuser_username, db_bet, db_endround, db_check_mtcode, db_rollout, db_refund, db_get_bet, \
-    db_rollin, db_takeall, db_check_roundid
+from flask import Blueprint, jsonify
+from db_access import *
 from utils import get_timestamp, check_token, authKey, url
-from config import app
-
-
-# from database import app
-
-
-# myobj = {'somekey': 'somevalue'}
-
 
 cq9_api = Blueprint('cq9_api', __name__, template_folder='templates')
-# @cq9_api.route('/loadGames', methods=['GET', 'POST'])
-# def game_list():
-#     myobj = {'Authorization': authKey, 'Content-Type': 'application/json; charset=UTF-8'}
-#     x = requests.get(url + 'game/list/cq9', headers=myobj)
-#     for key in x.json()['data']:
-#         print(x.text)
 
 
 def game_history(username):
@@ -85,7 +69,7 @@ def cq9_balance(username):
 
 @cq9_api.route('/cq9/transaction/game/bet', methods=['POST'])
 def cq9_bet():
-    if check_token() and db_check_mtcode():
+    if check_token() and db_check_mtcode_bet():
         # if db_getuser_username(request.form['account']) is not None:
         balance = db_bet()
         if balance > 0:
@@ -137,7 +121,7 @@ def cq9_credit():
 
 @cq9_api.route('/cq9/transaction/game/rollout', methods=['POST'])
 def cq9_rollout():
-    if check_token() and db_check_mtcode():
+    if check_token():
         # if db_getuser_username(request.form['account']) is not None:
         balance = db_rollout()
         if balance > 0:
@@ -161,12 +145,14 @@ def cq9_rollout():
 @cq9_api.route('/cq9/transaction/game/rollin', methods=['POST'])
 def cq9_rollin():
     if check_token():
-        if db_check_mtcode():
+        if db_check_mtcode_rollin():
             error_code = '2009'
             balance = 0
+            message = 'Transaction already processed'
         else:
             # if db_getuser_username(request.form['account']) is not None:
             balance = db_rollin()
+            message = 'Success'
             if balance > 0:
                 error_code = '0'
             else:
@@ -178,7 +164,7 @@ def cq9_rollin():
             },
             "status": {
                 "code": error_code,
-                "message": "Success",
+                "message": message,
                 "datetime": get_timestamp()
             }
         }
@@ -187,7 +173,7 @@ def cq9_rollin():
 
 @cq9_api.route('/cq9/transaction/game/takeall', methods=['POST'])
 def cq9_takeall():
-    if check_token() and db_check_mtcode():
+    if check_token() and db_check_mtcode_bet():
         if db_getuser_username(request.form['account']) is not None:
             balance = db_takeall()
 
@@ -208,7 +194,7 @@ def cq9_takeall():
 
 @cq9_api.route('/cq9/transaction/game/refund', methods=['POST'])
 def cq9_refund():
-    if check_token() and db_check_mtcode():
+    if check_token() and db_check_mtcode_bet():
         # make sure bet exists
         if db_get_bet(request.form['mtcode']) is not None:
             balance = db_refund()
