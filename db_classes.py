@@ -107,23 +107,23 @@ class BetEntry(db.Model):
     # amount = db.Column(db.String(36))
     amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
-    game_code = db.Column(db.String(36))
-    game_hall = db.Column(db.String(36))
+    gamecode = db.Column(db.String(36))
+    gamehall = db.Column(db.String(36))
     mtcode = db.Column(db.String(70), primary_key=True)
     platform = db.Column(db.String(20))
-    round_id = db.Column(db.String(60))
+    roundid = db.Column(db.String(60))
     session = db.Column(db.String(60))
 
-    def __init__(self, username='', amount=0, time='', game_code='', game_hall='', mtcode='', platform='',
-                 round_id='', session='', ):
+    def __init__(self, username='', amount=0, time='', gamecode='', gamehall='', mtcode='', platform='',
+                 roundid='', session='', ):
         self.username = username
         self.amount = amount
         self.time = time
-        self.game_code = game_code
-        self.game_hall = game_hall
+        self.gamecode = gamecode
+        self.gamehall = gamehall
         self.mtcode = mtcode
         self.platform = platform
-        self.round_id = round_id
+        self.roundid = roundid
         self.session = session
 
 
@@ -131,20 +131,20 @@ class TakeallEntry(db.Model):
     __tablename__ = 'takealls'
     username = db.Column(db.String(50))
     time = db.Column(db.DateTime)
-    game_code = db.Column(db.String(36))
-    game_hall = db.Column(db.String(36))
+    gamecode = db.Column(db.String(36))
+    gamehall = db.Column(db.String(36))
     mtcode = db.Column(db.String(70), primary_key=True)
-    round_id = db.Column(db.String(60))
+    roundid = db.Column(db.String(60))
     session = db.Column(db.String(60))
 
-    def __init__(self, username='', time='', game_code='', game_hall='', mtcode='',
-                 round_id='', session='' ):
+    def __init__(self, username='', time='', gamecode='', gamehall='', mtcode='',
+                 roundid='', session='' ):
         self.username = username
         self.time = time
-        self.game_code = game_code
-        self.game_hall = game_hall
+        self.gamecode = gamecode
+        self.gamehall = gamehall
         self.mtcode = mtcode
-        self.round_id = round_id
+        self.roundid = roundid
         self.session = session
 
 
@@ -153,7 +153,7 @@ class EndroundEntry(db.Model):
     username = db.Column(db.String(36))
     gamehall = db.Column(db.String(36))
     gamecode = db.Column(db.String(36))
-    round_id = db.Column(db.String(50), primary_key=True)
+    roundid = db.Column(db.String(50), primary_key=True)
     data = db.Column(ARRAY(db.String(158)))
     time = db.Column(db.DateTime)
     freegame = db.Column(db.Integer)
@@ -163,12 +163,12 @@ class EndroundEntry(db.Model):
     jackpotcontribution = db.Column(ARRAY(db.Integer))
     freeticket = db.Column(db.Boolean, default=False)
 
-    def __init__(self, username='', time='', game_code='', game_hall='', freegame=0, jackpot=0,
-                 jackpotcontribution=[], bonus=0, luckydraw=False, round_id='', data=[], freeticket=False):
+    def __init__(self, username='', time='', gamecode='', gamehall='', freegame=0, jackpot=0,
+                 jackpotcontribution=[], bonus=0, luckydraw=False, roundid='', data=[], freeticket=False):
         self.username = username
-        self.gamehall = game_hall
-        self.gamecode = game_code
-        self.round_id = round_id
+        self.gamehall = gamehall
+        self.gamecode = gamecode
+        self.roundid = roundid
         self.data = data
         self.time = time
         self.freegame = freegame
@@ -184,23 +184,21 @@ class RefundEntry(db.Model):
     username = db.Column(db.String(50))
     amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
-    game_code = db.Column(db.String(36))
-    game_hall = db.Column(db.String(36))
+    gamecode = db.Column(db.String(36))
+    gamehall = db.Column(db.String(36))
     mtcode = db.Column(db.String(70), primary_key=True)
-    platform = db.Column(db.String(20))
-    round_id = db.Column(db.String(60))
+    roundid = db.Column(db.String(60))
     session = db.Column(db.String(60))
 
-    def __init__(self, username='', amount=0, time='', game_code='', game_hall='', mtcode='',
-                 platform='', round_id='', session=''):
+    def __init__(self, username='', amount=0, time='', gamecode='', gamehall='', mtcode='',
+                 roundid='', session=''):
         self.username = username
         self.amount = amount
         self.time = time
-        self.game_code = game_code
-        self.game_hall = game_hall
+        self.gamecode = gamecode
+        self.gamehall = gamehall
         self.mtcode = mtcode
-        self.platform = platform
-        self.round_id = round_id
+        self.roundid = roundid
         self.session = session
 
 
@@ -209,21 +207,21 @@ class RolloutEntry(db.Model):
     username = db.Column(db.String(50))
     amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
-    game_code = db.Column(db.String(36))
-    game_hall = db.Column(db.String(36))
+    gamecode = db.Column(db.String(36))
+    gamehall = db.Column(db.String(36))
     mtcode = db.Column(db.String(70), primary_key=True)
-    round_id = db.Column(db.String(60))
+    roundid = db.Column(db.String(60))
     session = db.Column(db.String(60))
 
-    def __init__(self, username='', amount=0, time='', game_code='', game_hall='', mtcode='',
-                 round_id='', session='', ):
+    def __init__(self, username='', amount=0, time='', gamecode='', gamehall='', mtcode='',
+                 roundid='', session='', ):
         self.username = username
         self.amount = amount
         self.time = time
-        self.game_code = game_code
-        self.game_hall = game_hall
+        self.gamecode = gamecode
+        self.gamehall = gamehall
         self.mtcode = mtcode
-        self.round_id = round_id
+        self.roundid = roundid
         self.session = session
 
 
@@ -233,7 +231,7 @@ class RollinEntry(db.Model):
     event_time = db.Column(db.DateTime)
     gamehall = db.Column(db.String(36))
     gamecode = db.Column(db.String(36))
-    round_id = db.Column(db.String(50))
+    roundid = db.Column(db.String(50))
     validbet = db.Column(db.String(36))
     bet = db.Column(db.String(36))
     win = db.Column(db.String(36))
@@ -250,7 +248,7 @@ class RollinEntry(db.Model):
         self.event_time = event_time
         self.gamehall = gamehall
         self.gamecode = gamecode
-        self.round_id = roundid
+        self.roundid = roundid
         self.validbet = validbet
         self.bet = bet
         self.win = win

@@ -25,6 +25,11 @@ def db_get_bet(mtcode):
     return query
 
 
+def db_refund_exists():
+    query = RefundEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+    return query is not None
+
+
 def db_user_verification(email, password):
     dataclass = UserEntry('', email)
     user = dataclass.query.filter_by(email=email).first()
@@ -97,7 +102,7 @@ def db_check_mtcode_rollin():
 
 
 def db_check_roundid():
-    bet = BetEntry().query.filter_by(round_id=request.form['roundid']).first()
+    bet = BetEntry().query.filter_by(roundid=request.form['roundid']).first()
     # true if exists
     return bet is not None
 
@@ -122,7 +127,6 @@ def db_refund():
         entry.gamecode,
         entry.gamehall,
         entry.mtcode,
-        entry.platform,
         entry.roundid,
         entry.session
     )
@@ -141,6 +145,15 @@ def db_bet():
 
     new_balance = balance - bet
     if new_balance > 0:
+        if 'platform' in request.form:
+            platform = request.form['platform']
+        else:
+            platform = ''
+        if 'session' in request.form:
+            session = request.form['session']
+        else:
+            session = ''
+
         user.balance = new_balance
         # write to bet db
         bet = BetEntry(
@@ -150,9 +163,9 @@ def db_bet():
             request.form['gamecode'],
             request.form['gamehall'],
             request.form['mtcode'],
-            request.form['platform'],
+            platform,
             request.form['roundid'],
-            request.form['session']
+            session
         )
         db.session.add(bet)
         db.session.commit()
@@ -168,7 +181,7 @@ def db_takeall():
     user.balance = 0
 
     # write to bet db
-    bet = TakeallEntry(
+    takeAll = TakeallEntry(
         request.form['account'],
         request.form['eventTime'],
         request.form['gamecode'],
@@ -177,7 +190,7 @@ def db_takeall():
         request.form['roundid'],
         request.form['session']
     )
-    db.session.add(bet)
+    db.session.add(takeAll)
     db.session.commit()
 
     return balance
@@ -248,7 +261,7 @@ def db_rollout():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
     new_balance = float(user.balance) - float(request.form['amount'])
-    if new_balance > 0:
+    if new_balance >= 0:
         user.balance = new_balance
         # write to bet db
         bet = RolloutEntry(

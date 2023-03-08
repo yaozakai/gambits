@@ -65,8 +65,8 @@ def launch():
             if '_user_id' in session:
                 user = db_get_user(session['_user_id'])
                 if request.data:
-                    game_code = json.loads(request.data.decode("utf-8"))['id'].split('_')[0]
-                    link = game_launch(user.username, game_code)
+                    gamecode = json.loads(request.data.decode("utf-8"))['id'].split('_')[0]
+                    link = game_launch(user.username, gamecode)
     if link:
         return jsonify(link=link)
 

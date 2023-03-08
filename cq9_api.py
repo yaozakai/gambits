@@ -17,11 +17,11 @@ def game_history(username):
     return launch_url
 
 
-def game_launch(username, game_code):
+def game_launch(username, gamecode):
     header = {'Authorization': authKey, 'Content-Type': 'application/x-www-form-urlencoded'}
     body = {
         'account': username, 'gamehall': 'cq9', 'gameplat': 'WEB',
-        'gamecode': game_code, 'lang': 'en'
+        'gamecode': gamecode, 'lang': 'en'
     }
     x = requests.post(url + 'gameboy/player/sw/gamelink', headers=header, data=body)
     launch_url = json.loads(x.text)['data']['url']
@@ -69,7 +69,7 @@ def cq9_balance(username):
 
 @cq9_api.route('/cq9/transaction/game/bet', methods=['POST'])
 def cq9_bet():
-    if check_token() and db_check_mtcode_bet():
+    if check_token() and not db_check_mtcode_bet():
         # if db_getuser_username(request.form['account']) is not None:
         balance = db_bet()
         if balance > 0:
@@ -124,14 +124,13 @@ def cq9_rollout():
     if check_token():
         # if db_getuser_username(request.form['account']) is not None:
         balance = db_rollout()
-        if balance > 0:
+        if balance >= 0:
             error_code = '0'
         else:
             error_code = '1003'
         model = {
             "data": {
-                # "balance": round(balance, 4),
-                "balance": 1000,
+                "balance": round(balance, 4),
                 "currency": "USD"
             },
             "status": {
@@ -195,7 +194,7 @@ def cq9_takeall():
 
 @cq9_api.route('/cq9/transaction/game/refund', methods=['POST'])
 def cq9_refund():
-    if check_token() and db_check_mtcode():
+    if check_token() and db_check_mtcode() and not db_refund_exists():
         # make sure bet exists
         # if db_get_bet(request.form['mtcode']) is not None:
         balance = db_refund()
