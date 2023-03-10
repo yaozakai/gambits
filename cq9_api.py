@@ -1,20 +1,46 @@
+from datetime import timedelta, timezone
+
 import requests
 from flask import Blueprint, jsonify
+
+from utils import game_titles, get_timezone
 from db_access import *
-from utils import get_timestamp, check_token, authKey, url
+from utils import get_timestamp, check_token, authKey, url, get_eod_timestamp, get_bod_timestamp
 
 cq9_api = Blueprint('cq9_api', __name__, template_folder='templates')
 
 
-def game_history(username):
+def player_report_today(username, date):
+    if type(date) != str:
+        start_time = date - timedelta(days=1)
+        start_time = start_time.isoformat()
+        end_time = date.isoformat()
+    else:
+        tz = get_timezone()
+        end_time = datetime.strptime(date, "%Y-%m-%d").replace(hour=23, minute=59, tzinfo=tz)
+        start_time = end_time.replace(hour=0, minute=0, tzinfo=tz)
+        start_time = start_time.isoformat()
+        end_time = end_time.isoformat()
+
     header = {'Authorization': authKey, 'Content-Type': 'application/x-www-form-urlencoded'}
     body = {
-        'account': username, 'gamehall': 'cq9', 'gameplat': 'WEB',
-        'lang': 'en'
+        # 'starttime': get_bod_timestamp(),
+        'starttime': start_time,
+        # 'endtime': get_eod_timestamp(),
+        'endtime': end_time,
+        'page': 1,
+        'account': username,
+        'pagesize': 30
     }
-    x = requests.post(url + 'gameboy/player/sw/gamelink', headers=header, data=body)
-    launch_url = json.loads(x.text)['data']['url']
-    return launch_url
+    x = requests.get(url + 'gameboy/order/view', headers=header, params=body)
+    report_data = json.loads(x.text)['data']
+
+    for row in report_data:
+        for game in game_titles:
+            if game['gamecode'] == row['gamecode']:
+                row['gamecode'] = game_titles['gamename']
+
+    return report_data
 
 
 def game_launch(username, gamecode):

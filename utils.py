@@ -13,6 +13,9 @@ from urllib.parse import urlparse, urljoin
 from db_classes import UserEntry, db
 from email_confirmation import confirm_token
 
+icon_placement = []
+game_titles = []
+
 url = 'https://api.cqgame.games/'
 icon_path = 'static/icons/cq9'
 authKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2M2VjZTczODM1ZTYyMzhjYzI2MTdlOTEiLCJhY2NvdW50IjoiZ2FtYml0c19zdyIsIm93bmVyIjoiNjNlY2U3MzgzNWU2MjM4Y2MyNjE3ZTkxIiwicGFyZW50Ijoic2VsZiIsImN1cnJlbmN5IjoiVVNEIiwianRpIjoiODIxMTIzMzE5IiwiaWF0IjoxNjc2NDcwMDcyLCJpc3MiOiJDeXByZXNzIiwic3ViIjoiU1NUb2tlbiJ9.mj1H6gOiA402u8DJhC9Go1CdFFSXab3OhDVagqhmWHE'
@@ -22,30 +25,39 @@ def check_token():
     return request.headers.get('Wtoken') == authKey
 
 
-def get_timestamp(short=True):
+def get_timezone():
+    timezone_object = datetime.timezone(datetime.timedelta(hours=-4), name="UTC-4")
+    return timezone_object
+
+
+def get_timestamp(short=True, isoformat=True):
     # sgtTimeDelta = datetime.timedelta(hours=-4)
     timezone_object = datetime.timezone(datetime.timedelta(hours=-4), name="UTC-4")
     # Specifying a datetime along with Singapore
     # timezone object
     datetime_object = datetime.datetime.now(timezone_object)
-    # Calling the astimezone() function over the above
-    # specified Singapore timezone
-    # time_stamp = datetime_object.astimezone(timezone_object)
-    if short:
-        # return datetime_object.strftime("%Y-%m-%dT%H:%M:%S-04:00")
-        return datetime_object.isoformat(timespec='seconds')
+
+    if isoformat:
+        if short:
+            # return datetime_object.strftime("%Y-%m-%dT%H:%M:%S-04:00")
+            return datetime_object.isoformat(timespec='seconds')
+        else:
+            # this will return microseconds
+            return datetime_object.isoformat()
     else:
-        return datetime_object.isoformat()
+        return datetime_object
 
 
-def my_login_required(func):
-    @functools.wraps(func)
-    def secure_function(*args, **kwargs):
-        if "email" not in session:
-            return redirect(url_for("login", next=request.url))
-        return func(*args, **kwargs)
+def get_eod_timestamp():
+    timezone_object = datetime.timezone(datetime.timedelta(hours=-4), name="UTC-4")
+    datetime_object = datetime.datetime.now(timezone_object)
+    return datetime_object.isoformat(timespec='seconds')
 
-    return secure_function
+
+def get_bod_timestamp():
+    timezone_object = datetime.timezone(datetime.timedelta(hours=-4), name="UTC-4")
+    datetime_object = datetime.datetime.now(timezone_object).replace(hour=0, minute=0)
+    return datetime_object.isoformat(timespec='seconds')
 
 
 def is_safe_url(target):
@@ -137,8 +149,8 @@ def reload_game_titles():
     # reader = csv.DictReader(open('static/csv/evo_game_list.csv', mode='r', encoding='utf-8-sig'))
     myobj = {'Authorization': authKey, 'Content-Type': 'application/json; charset=UTF-8'}
     x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
-
-    return x.json()['data']
+    global game_titles
+    game_titles = x.json()['data']
 
 
 def reload_icon_placement():
@@ -157,7 +169,9 @@ def reload_icon_placement():
                     # [string for string in icon_files if row[header_name] in string]
                 # if len(icon_filename) > 0:
                 #     placement[header_name].append(icon_filename[0])
-    return placement
+    global icon_placement
+
+    icon_placement = placement
 
 
 def load_crypto_prices():
@@ -200,3 +214,5 @@ def verify_user(token):
         # return redirect(url_for('home', data=jsonify(notification_json)), code=307)
 
     return notification_json
+
+

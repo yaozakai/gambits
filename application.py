@@ -8,14 +8,17 @@ import flask as flask
 from flask import render_template
 from flask_login import login_required, logout_user, login_user
 from flask_wtf import csrf
+
+import utils
 from db_access import *
 from email_confirmation import create_verify_email
 from forms import LoginForm, RegisterForm, verify_captcha
 from utils import *
 from config import app as application
 from consts import RECAPTCHA_PUBLIC_KEY
-from cq9_api import cq9_api, game_launch
-from utils import reload_game_titles, reload_icon_placement, verify_user
+from cq9_api import cq9_api, game_launch, player_report_today
+from utils import reload_game_titles, reload_icon_placement, verify_user, icon_placement, game_titles
+from datetime import datetime
 
 uaform = None
 ftform = None
@@ -23,8 +26,6 @@ theSession = None
 iframe_game_toggle = False
 stream = ''
 datastream = {}
-icon_placement = reload_icon_placement()
-game_titles = reload_game_titles()
 price_array = []
 wallet = ''
 
@@ -43,8 +44,17 @@ def load_user(user_id):
 @application.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    # rec = HistoryEntry()
-    return render_template('profile.html')
+    if len(request.data) > 0 and 'reportDate' in json.loads(request.data):
+        report_date = json.loads(request.data)['reportDate']
+        rec = player_report_today(db_get_user(session['_user_id']).username, report_date)
+        # report_date = report_date.strftime('%Y-%m-%d')
+        return jsonify(rec=rec['Data'], num_results=rec['TotalSize'], report_date=report_date)
+    else:
+        report_date = get_timestamp(False, False)
+        rec = player_report_today(db_get_user(session['_user_id']).username, report_date)
+        report_date = report_date.strftime('%Y-%m-%d')
+        return render_template('profile.html', rec=rec['Data'], num_results=rec['TotalSize'],
+                               report_date=report_date)
 
 
 @application.route("/logout", methods=['GET', 'POST'])
@@ -93,9 +103,16 @@ def home():
         return "you are already logged in"
     else:
         pass
-    return render_template('gallery.html', icon_placement=icon_placement, game_titles=game_titles, icon_path=icon_path,
+    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles, icon_path=icon_path,
                            login_form=login_form, register_form=register_form, RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY,
                            notification=notification, notification_title=notification_title)
+
+
+@application.route('/profile', methods=['GET', 'POST'])
+@application.route("/logout", methods=['GET', 'POST'])
+@application.route("/launch", methods=['GET', 'POST'])
+def redirect_home():
+    redirect(url_for('home'))
 
 
 @application.route('/verify/<token>', endpoint='verify_email', methods=['GET'])
@@ -233,16 +250,15 @@ def get_balance():
 
 @application.route('/update', methods=['GET', 'POST'])
 def update_games():
-    global icon_placement
-    global game_titles
-    icon_placement = reload_icon_placement()
-    game_titles = reload_game_titles()
+
+    reload_icon_placement()
+    reload_game_titles()
     return 'Done'
 
 
 if __name__ == '__main__':
     application.debug = True
-    # icon_placement = reload_icon_placement()
-    # game_titles = reload_game_titles()
+    reload_icon_placement()
+    reload_game_titles()
     application.register_blueprint(cq9_api)
     application.run()
