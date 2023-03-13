@@ -3,9 +3,10 @@ from datetime import timedelta, timezone
 import requests
 from flask import Blueprint, jsonify
 
-from utils import game_titles, get_timezone
+import utils
+from utils import get_timezone
 from db_access import *
-from utils import get_timestamp, check_token, authKey, url, get_eod_timestamp, get_bod_timestamp
+from utils import get_timestamp, check_token, authKey, url
 
 cq9_api = Blueprint('cq9_api', __name__, template_folder='templates')
 
@@ -35,10 +36,12 @@ def player_report_today(username, date):
     x = requests.get(url + 'gameboy/order/view', headers=header, params=body)
     report_data = json.loads(x.text)['data']
 
-    for row in report_data:
-        for game in game_titles:
-            if game['gamecode'] == row['gamecode']:
-                row['gamecode'] = game_titles['gamename']
+    if report_data is not None:
+        # replace gamecode with gamename
+        for row in report_data['Data']:
+            for game in utils.game_titles:
+                if game['gamecode'] == row['gamecode']:
+                    row['gamecode'] = game['gamename']
 
     return report_data
 

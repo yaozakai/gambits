@@ -16,8 +16,21 @@
 
 <script>
     $(document).ready(function(){
-        const selectElement = document.getElementById('reportDate');
+        $("td[colspan=12]").find("p").hide();
+        $("table").click(function(event) {
+            event.stopPropagation();
+            var $target = $(event.target);
+            if ( $target.closest("td").attr("colspan") > 1 ) {
+                $target.slideUp();
+                $target.closest("tr").next().find("div").slideToggle();
 
+            } else {
+                $target.closest("tr").next().find("div").slideToggle();
+
+            }
+        });
+
+        const selectElement = document.getElementById('reportDate');
         selectElement.addEventListener("change", (event) => {
             $.ajax({
                 url: "/profile",
@@ -28,25 +41,31 @@
                     "reportDate":selectElement.value
                 }),
                 success: function(self) {
-                    htmloutput = "<tr>";
+                    htmloutput = "";
                     results = self.rec;
-                    for (let i = 0; i < results.length; i++) {
-                        htmloutput = htmloutput + "<td>" + results[i]["endroundtime"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["status"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["gamecode"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["rakes"] + "</td>";
-                        htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";
-                    };
+                    if (self.num_results == 0) {
+                        htmloutput = "<div class=\"green-text\">No data</div>";
+                    } else {
+                        for (let i = 0; i < results.length; i++) {
+                            htmloutput = htmloutput + "<tr>";
+                            htmloutput = htmloutput + "<td>" + results[i]["endroundtime"].substring(11, 19) + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["status"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["gametype"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["gamecode"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["rake"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";
+                            htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">hi</div></td></tr>";
+                        };
+                    }
 
-                    htmloutput = htmloutput + "</tr>";
 
-                    list = document.getElementById("results").innerHTML = htmloutput;
+                    document.getElementById("results").innerHTML = htmloutput;
                 },
                 error: function(e) {
                     console.log(e);
@@ -57,13 +76,14 @@
 
 </script>
 
-<table id="data" class="table table-striped table-dark container green-text">
+<table id="data" class="table table-hover table-dark container green-text">
     <thead>
       <tr>
-          <th>Time</th>
-          <th>Status</th>
+        <th>Time</th>
+        <th>Status</th>
+          <th>Type</th>
+          <th>Gamename</th>
           <th>Round</th>
-          <th>Gamecode</th>
         <th>Bet</th>
         <th>Win</th>
         <th>Valid Bet</th>
@@ -74,23 +94,15 @@
       </tr>
     </thead>
     <tbody id="results">
-      {% for record in rec %}
-        <tr>
-          <td>{{ record.endroundtime }}</td>
-          <td>{{ record.status }}</td>
-            <td>{{ record.round }}</td>
-            <td>{{ record.gamecode }}</td>
-            <td>{{ record.bet }}</td>
-            <td>{{ record.win }}</td>
-          <td>{{ record.validbet }}</td>
-          <td>{{ record.jackpot }}</td>
-          <td>{{ record.jackpotcontribution }}</td>
-          <td>{{ record.rakes }}</td>
-          <td>{{ record.roomfee }}</td>
-        </tr>
-      {% endfor %}
+
     </tbody>
+
 </table>
+    {% if num_results == 0 %}
+        <div class="green-text">
+          No Data
+        </div>
+    {% endif %}
 
 {% endblock %}
 

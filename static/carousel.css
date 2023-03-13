@@ -504,3 +504,8 @@ h3 {
 .footer-bg {
     background: #332a34;
 }
+
+.rowDrop {
+    padding: 0.5rem;
+    display: none;
+}

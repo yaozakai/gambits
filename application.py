@@ -44,17 +44,23 @@ def load_user(user_id):
 @application.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
+    username = session['_user_id']
+    # username = '0000-0001'
     if len(request.data) > 0 and 'reportDate' in json.loads(request.data):
         report_date = json.loads(request.data)['reportDate']
-        rec = player_report_today(db_get_user(session['_user_id']).username, report_date)
+        rec = player_report_today(db_get_user(username).username, report_date)
         # report_date = report_date.strftime('%Y-%m-%d')
         return jsonify(rec=rec['Data'], num_results=rec['TotalSize'], report_date=report_date)
     else:
         report_date = get_timestamp(False, False)
-        rec = player_report_today(db_get_user(session['_user_id']).username, report_date)
+        rec = player_report_today(db_get_user(username).username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
-        return render_template('profile.html', rec=rec['Data'], num_results=rec['TotalSize'],
-                               report_date=report_date)
+        if rec is None:
+            return render_template('profile.html', rec=[], num_results=0,
+                                   report_date=report_date)
+        else:
+            return render_template('profile.html', rec=rec['Data'], num_results=rec['TotalSize'],
+                                   report_date=report_date)
 
 
 @application.route("/logout", methods=['GET', 'POST'])
