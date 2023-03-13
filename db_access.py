@@ -9,10 +9,7 @@ from utils import get_timestamp
 
 def db_getuser_email(email):
     query = UserEntry().query.filter_by(email=email).first()
-    if query is None:
-        return None
-    else:
-        return query
+    return query
 
 
 def db_getuser_username(username):

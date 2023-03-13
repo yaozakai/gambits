@@ -247,7 +247,7 @@
       </div>
 
 <!-- Modals -->
-<!-- Login -->
+<!-- forgot password -->
 
 
     <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
@@ -263,13 +263,44 @@
                 <div class="modal-body">
                     <div class='notification green-text'>Enter your email to update password</div>
 
-                    <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                    <input type="text" id="forgotPassEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                     <br>
-                    <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">Send email</button>
+                    <button type="button" id="forgotEmailSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">Send email</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function(){
+            $('#forgotEmailSend').on('click', function(){
+                $.ajax({
+                          url: "/forgotpass",
+                          type: "post",
+                          dataType: "json",
+                          contentType: "application/json; charset=UTF-8",
+                          data: JSON.stringify({
+                            "email":document.getElementById("forgotPassEmail").value,
+                          }),
+                          success: function(self) {
+                            if (typeof self.notification != 'undefined'){
+                                $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                                $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+
+                                $('#notificationModal').modal('show');
+                                $('#forgotPasswordModal').modal('hide');
+                            }
+                          },
+                          error: function(e) {
+                            console.log(e);
+                          }
+                        });
+            });
+        });
+    </script>
+
+<!-- Login -->
+
     {% if not current_user.is_authenticated %}
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
             <script>

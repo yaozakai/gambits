@@ -11,7 +11,7 @@ from flask_wtf import csrf
 
 import utils
 from db_access import *
-from email_confirmation import create_verify_email
+from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import LoginForm, RegisterForm, verify_captcha
 from utils import *
 from config import app as application
@@ -89,7 +89,6 @@ def launch():
 
 @application.route('/', methods=['GET', 'POST'])
 def home():
-
     # if session['logged_in']:
     #     db_get_user(session['_user_id'])
     notification = ''
@@ -109,8 +108,10 @@ def home():
         return "you are already logged in"
     else:
         pass
-    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles, icon_path=icon_path,
-                           login_form=login_form, register_form=register_form, RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY,
+    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+                           icon_path=icon_path,
+                           login_form=login_form, register_form=register_form,
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY,
                            notification=notification, notification_title=notification_title)
 
 
@@ -123,6 +124,15 @@ def redirect_home():
 
 @application.route('/verify/<token>', endpoint='verify_email', methods=['GET'])
 def verify(token):
+    notification_json = verify_user(token)
+    return redirect(url_for('home', notification=notification_json['notification'],
+                            notification_title=notification_json['notification_title']), code=307)
+    # notification = notification_json['notification']
+    # notification_title = notification_json['notification_title']
+
+
+@application.route('/verify/<token>', endpoint='reset_password', methods=['GET'])
+def reset(token):
     notification_json = verify_user(token)
     return redirect(url_for('home', notification=notification_json['notification'],
                             notification_title=notification_json['notification_title']), code=307)
@@ -191,6 +201,19 @@ def login():
     #     return "the form has been submitted. Success!"
 
 
+@application.route('/forgotpass', methods=['POST'])
+def forgotpass():
+    # check if the email is a user
+    email = json.loads(request.data)['email'][0:-1]
+    if db_getuser_email(email) is not None:
+        create_reset_pass_email(email)
+
+    return jsonify(notification_title='Forgot password', notification='If <b>' + email +
+                                                                      '</b> exists, an email to reset your password '
+                                                                      'will be sent to you.<br>Please check your email '
+                                                                      'and click the link to verify.')
+
+
 @application.route('/resend', methods=['POST'])
 def resend():
     email = json.loads(request.data)['email'][0:-1]
@@ -256,7 +279,6 @@ def get_balance():
 
 @application.route('/update', methods=['GET', 'POST'])
 def update_games():
-
     reload_icon_placement()
     reload_game_titles()
     return 'Done'

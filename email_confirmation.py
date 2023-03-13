@@ -60,3 +60,19 @@ def create_verify_email(email):
     html = render_template('email.html', confirm_url=confirm_url)
     subject = "Gambits Casino: Please verify your email"
     send_email(subject=subject, recipient=email, html=html)
+
+
+def create_reset_pass_email(email):
+    token = generate_confirmation_token(email)
+    confirm_url = url_for('verify_email', token=token, _external=True)
+    html = render_template('email.html', confirm_url=confirm_url)
+    subject = "Gambits Casino: Password reset"
+    send_email(subject=subject, recipient=email, html=html)
+
+
+def create_forgot_password_email(email):
+    token = generate_confirmation_token(email)
+    confirm_url = url_for('verify_email', token=token, _external=True)
+    html = render_template('email.html', confirm_url=confirm_url)
+    subject = "Gambits Casino: Please verify your email"
+    send_email(subject=subject, recipient=email, html=html)
