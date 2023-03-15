@@ -17,7 +17,7 @@ from utils import *
 from config import app as application
 from consts import RECAPTCHA_PUBLIC_KEY
 from cq9_api import cq9_api, game_launch, player_report_today
-from utils import reload_game_titles, reload_icon_placement, verify_user, icon_placement, game_titles
+from utils import reload_game_titles, reload_icon_placement, create_notification, icon_placement, game_titles
 from datetime import datetime
 
 uaform = None
@@ -95,6 +95,9 @@ def home():
     notification_title = ''
     if 'notification' in request.args:
         notification = request.args['notification']
+        notification_popup = True
+    else:
+        notification_popup = False
     if 'notification_title' in request.args:
         notification_title = request.args['notification_title']
 
@@ -104,15 +107,10 @@ def home():
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
 
-    if login_form.validate_on_submit():
-        return "you are already logged in"
-    else:
-        pass
     return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           icon_path=icon_path,
-                           login_form=login_form, register_form=register_form,
-                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY,
-                           notification=notification, notification_title=notification_title)
+                           static_path='', login_form=login_form, register_form=register_form,
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
+                           notification=notification, notification_title=notification_title, reset_pass=False)
 
 
 @application.route('/profile', methods=['GET', 'POST'])
@@ -124,20 +122,9 @@ def redirect_home():
 
 @application.route('/verify/<token>', endpoint='verify_email', methods=['GET'])
 def verify(token):
-    notification_json = verify_user(token)
+    notification_json = create_notification(token)
     return redirect(url_for('home', notification=notification_json['notification'],
                             notification_title=notification_json['notification_title']), code=307)
-    # notification = notification_json['notification']
-    # notification_title = notification_json['notification_title']
-
-
-@application.route('/verify/<token>', endpoint='reset_password', methods=['GET'])
-def reset(token):
-    notification_json = verify_user(token)
-    return redirect(url_for('home', notification=notification_json['notification'],
-                            notification_title=notification_json['notification_title']), code=307)
-    # notification = notification_json['notification']
-    # notification_title = notification_json['notification_title']
 
 
 @application.route('/login', methods=['POST'])
@@ -201,10 +188,10 @@ def login():
     #     return "the form has been submitted. Success!"
 
 
-@application.route('/forgotpass', methods=['POST'])
-def forgotpass():
+@application.route('/forgot_pass', methods=['POST'])
+def forgot_pass():
     # check if the email is a user
-    email = json.loads(request.data)['email'][0:-1]
+    email = json.loads(request.data)['email']
     if db_getuser_email(email) is not None:
         create_reset_pass_email(email)
 
@@ -212,6 +199,53 @@ def forgotpass():
                                                                       '</b> exists, an email to reset your password '
                                                                       'will be sent to you.<br>Please check your email '
                                                                       'and click the link to verify.')
+
+
+@application.route('/reset/<token>', endpoint='reset_password', methods=['GET'])
+def reset(token):
+    # email = confirm_token(token)
+    email = 'walt.yao@gmail.com'
+    if len(email) > 0:
+        session["email"] = email
+        return setup_home_template(notification='', notification_title='', reset_pass_popup=True)
+    else:
+        return setup_home_template(notification='Token expired, please try again',
+                                   notification_title='Reset Password', reset_pass_popup=False)
+
+        # return redirect(url_for('home', notification='Token expired, please try again',
+        #                         notification_title='Reset Password'), code=307)
+
+
+def setup_home_template(notification_title, notification, reset_pass_popup):
+    csrf_token = csrf.generate_csrf()
+    login_form = LoginForm()
+    login_form.csrf_token.data = csrf_token
+    register_form = RegisterForm()
+    register_form.csrf_token.data = csrf_token
+    if len(notification) > 0:
+        notification_popup = True
+    else:
+        notification_popup = False
+    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+                           static_path='../', login_form=login_form, register_form=register_form,
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
+                           notification=notification, notification_title=notification_title,
+                           reset_pass=reset_pass_popup)
+
+
+@application.route("/set_password", methods=['POST'])
+def set_password():
+    email = session.pop("email", None)
+    password = json.loads(request.data)['password']
+    if db_set_password(email, password) is not None:
+        # return setup_home_template(notification='Password has been updated.  You may log in now!',
+        #                            notification_title='Reset password', reset_pass_popup=False)
+        # return redirect(url_for('home', notification='Password has been updated.  You may log in now!',
+        #                         notification_title='Reset password', notification_popup=True))
+        return redirect('/')
+    else:
+        return setup_home_template(notification='Account not found',
+                                   notification_title='Reset password', reset_pass_popup=False)
 
 
 @application.route('/resend', methods=['POST'])

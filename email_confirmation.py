@@ -3,19 +3,9 @@ from itsdangerous import URLSafeTimedSerializer
 from config import app
 from flask_mail import Mail
 import boto3
-import os
 
 
 mail = Mail(app)
-# app.config.update(dict(
-#     DEBUG=True,
-#     MAIL_SERVER='smtp.gmail.com',
-#     MAIL_PORT=465,
-#     MAIL_USE_TLS=False,
-#     MAIL_USE_SSL=True,
-#     MAIL_USERNAME='my_username@gmail.com',
-#     MAIL_PASSWORD='my_password',
-# ))
 
 email_text = 'Welcome! Thanks for signing up. Please follow this link to activate your account:'
 
@@ -57,15 +47,15 @@ def confirm_token(token, expiration=3600):
 def create_verify_email(email):
     token = generate_confirmation_token(email)
     confirm_url = url_for('verify_email', token=token, _external=True)
-    html = render_template('email.html', confirm_url=confirm_url)
+    html = render_template('email_verify.html', confirm_url=confirm_url)
     subject = "Gambits Casino: Please verify your email"
     send_email(subject=subject, recipient=email, html=html)
 
 
 def create_reset_pass_email(email):
     token = generate_confirmation_token(email)
-    confirm_url = url_for('verify_email', token=token, _external=True)
-    html = render_template('email.html', confirm_url=confirm_url)
+    confirm_url = url_for('reset_password', token=token, _external=True)
+    html = render_template('email_reset_pass.html', confirm_url=confirm_url)
     subject = "Gambits Casino: Password reset"
     send_email(subject=subject, recipient=email, html=html)
 
@@ -73,6 +63,6 @@ def create_reset_pass_email(email):
 def create_forgot_password_email(email):
     token = generate_confirmation_token(email)
     confirm_url = url_for('verify_email', token=token, _external=True)
-    html = render_template('email.html', confirm_url=confirm_url)
+    html = render_template('email_verify.html', confirm_url=confirm_url)
     subject = "Gambits Casino: Please verify your email"
     send_email(subject=subject, recipient=email, html=html)

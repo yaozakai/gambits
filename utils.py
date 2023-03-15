@@ -17,7 +17,7 @@ icon_placement = []
 game_titles = []
 
 url = 'https://api.cqgame.games/'
-icon_path = 'static/icons/cq9'
+static_path = 'static'
 authKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2M2VjZTczODM1ZTYyMzhjYzI2MTdlOTEiLCJhY2NvdW50IjoiZ2FtYml0c19zdyIsIm93bmVyIjoiNjNlY2U3MzgzNWU2MjM4Y2MyNjE3ZTkxIiwicGFyZW50Ijoic2VsZiIsImN1cnJlbmN5IjoiVVNEIiwianRpIjoiODIxMTIzMzE5IiwiaWF0IjoxNjc2NDcwMDcyLCJpc3MiOiJDeXByZXNzIiwic3ViIjoiU1NUb2tlbiJ9.mj1H6gOiA402u8DJhC9Go1CdFFSXab3OhDVagqhmWHE'
 
 
@@ -154,8 +154,9 @@ def reload_game_titles():
 
 
 def reload_icon_placement():
-    print('reloading csv:' + icon_path)
-    icon_files = [f for f in listdir(icon_path) if isfile(join(icon_path, f)) and not f.endswith('.DS_Store')]
+    icon_path_local = static_path + '/icons/cq9'
+    print('reloading csv:' + icon_path_local)
+    icon_files = [f for f in listdir(icon_path_local) if isfile(join(icon_path_local, f)) and not f.endswith('.DS_Store')]
     reader = csv.DictReader(open('static/csv/icon_placement.csv', mode='r', encoding='utf-8-sig'))
     placement = {name: [] for name in reader.fieldnames}
     for row in reader:
@@ -189,7 +190,7 @@ def load_crypto_prices():
     return price_array
 
 
-def verify_user(token):
+def create_notification(token):
     notification_json = {
         "notification_title": 'Account verification',
         "notification": ''

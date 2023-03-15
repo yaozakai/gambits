@@ -4,7 +4,7 @@
   <div class="album py-5 gallery-bg">
 
     {% for category in icon_placement %}
-        <h5 class="font-color gallery-header"><img style="height:32px;" src="static/icons/ui/category_select/png/003-poker-cards.png"> {{ category }}</h5>
+        <h5 class="font-color gallery-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/003-poker-cards.png"> {{ category }}</h5>
         <div class="container">
             <div class="row">
                 {% for k in icon_placement[category] %}
@@ -14,7 +14,7 @@
                     {% else %}
                         <div class="card shadow-sm">
                     {% endif %}
-                            <img src="{{ icon_path }}/{{ k }}" style="height: 100%;">
+                            <img src="{{ static_path }}static/icons/cq9/{{ k }}" style="height: 100%;">
                             {% for game_title in game_titles %}
                                 {% if game_title['gamecode'] == k.split("_")[0] %}
                                     <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"

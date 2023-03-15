@@ -58,6 +58,14 @@ def db_get_user(user_id):
     return user
 
 
+def db_set_password(email, password):
+    dataclass_login = UserEntry()
+    user = dataclass_login.query.filter_by(email=email).first()
+    user.password = generate_password_hash(password, method='sha256')
+    db.session.commit()
+    return user
+
+
 def db_new_login(login_form):
     # dataclass_sid = SidEntry()
     # dataclass_login = LoginEntry()

@@ -6,7 +6,7 @@ import requests
 from flask import request, flash, render_template, jsonify
 from markupsafe import Markup
 
-from application import theSession, uaform, icon_placement, game_titles, icon_path
+from application import theSession, uaform, icon_placement, game_titles, static_path
 from config import app
 from db_classes import db_login_get_wallet, db, db_get_balance, \
     db_new_sid
@@ -84,7 +84,7 @@ def slots():
             # UA2().launch_game(game_id)
 
     return render_template('gallery.html', which_tab=request.url.rsplit('/', 1)[1], form=uaform, icon_files=icon_files,
-                           game_titles=game_titles, icon_path=icon_path)
+                           game_titles=game_titles, icon_path=static_path)
 
 
 @app.route('/baccarat', methods=['GET', 'POST'])
@@ -102,7 +102,7 @@ def baccarat():
             UAT().launch_game(game_id)
 
     return render_template('gallery.html', which_tab=request.url.rsplit('/', 1)[1], form=uaform, icon_files=icon_files,
-                           game_titles=game_titles, icon_path=icon_path)
+                           game_titles=game_titles, icon_path=static_path)
 
 
 @app.route('/blackjack', methods=['GET', 'POST'])
@@ -118,7 +118,7 @@ def blackjack():
             # UA2().launch_game(game_id)
 
     return render_template('gallery.html', which_tab=request.url.rsplit('/', 1)[1], form=uaform, icon_files=icon_files,
-                           game_titles=game_titles, icon_path=icon_path)
+                           game_titles=game_titles, icon_path=static_path)
 
 
 @app.route('/roulette', methods=['GET', 'POST'])
@@ -134,7 +134,7 @@ def roulette():
             # UA2().launch_game(game_id)
 
     return render_template('gallery.html', which_tab=request.url.rsplit('/', 1)[1], form=uaform, icon_files=icon_files,
-                           game_titles=game_titles, icon_path=icon_path)
+                           game_titles=game_titles, icon_path=static_path)
 
 
 @app.route('/dice', methods=['GET', 'POST'])
@@ -150,7 +150,7 @@ def dice():
             UA2().launch_game(game_id)
 
     return render_template('gallery.html', which_tab=request.url.rsplit('/', 1)[1], form=uaform, icon_files=icon_files,
-                           game_titles=game_titles, icon_path=icon_path)
+                           game_titles=game_titles, icon_path=static_path)
 
 
 @app.route('/poker', methods=['GET', 'POST'])
@@ -166,7 +166,7 @@ def poker():
             UA2().launch_game(game_id)
 
     return render_template('gallery.html', which_tab=request.url.rsplit('/', 1)[1], form=uaform, icon_files=icon_files,
-                           game_titles=game_titles, icon_path=icon_path)
+                           game_titles=game_titles, icon_path=static_path)
 
 
 @app.route('/game_shows', methods=['GET', 'POST'])
@@ -182,7 +182,7 @@ def game_shows():
             UA2().launch_game(game_id)
 
     return render_template('gallery.html', which_tab=request.url.rsplit('/', 1)[1], form=uaform, icon_files=icon_files,
-                           game_titles=game_titles, icon_path=icon_path)
+                           game_titles=game_titles, icon_path=static_path)
 
 
 @app.route('/ft', methods=['GET', 'POST'])
