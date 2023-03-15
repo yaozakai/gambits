@@ -242,7 +242,9 @@ def set_password():
         #                            notification_title='Reset password', reset_pass_popup=False)
         # return redirect(url_for('home', notification='Password has been updated.  You may log in now!',
         #                         notification_title='Reset password', notification_popup=True))
-        return redirect('/')
+        # return redirect('/')
+        return jsonify(notification='Password has been updated.  You may log in now!',
+                                   notification_title='Reset password', reset_pass_popup=False)
     else:
         return setup_home_template(notification='Account not found',
                                    notification_title='Reset password', reset_pass_popup=False)

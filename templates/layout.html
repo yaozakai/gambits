@@ -66,7 +66,6 @@
     </head>
 
   <body style="font-family: Futura;">
-
     <header>
         <div class="container-fluid">
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
@@ -389,7 +388,7 @@
                                     $(".error").html('<p>'+self.error.toString()+'</p>');
                                 }
                             } else {
-                                location.reload();
+                                location.href = "{{ url_for('home') }}"
                             }
                           },
                           error: function(e) {
@@ -586,6 +585,14 @@
                         "password":document.getElementById("newPassword").value,
                       }),
                       success: function(self) {
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "{{ url_for('home') }}", true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send(JSON.stringify({
+                            notification: 'Password has been updated.  You may log in now!',
+                            notification_title: 'Reset password'
+                        }));
                         $(".notification").html('<p>'+self.notification+'</p>');
                         $(".notification_title").html('<p>'+self.notification_title+'</p>');
 
