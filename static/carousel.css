@@ -509,3 +509,7 @@ h3 {
     padding: 0.5rem;
     display: none;
 }
+
+#forgotPassword {
+    float: right;
+}

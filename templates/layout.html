@@ -261,7 +261,7 @@
 
                 </div>
                 <div class="modal-body">
-                    <div class='notification green-text'>Enter your email to update password</div>
+                    <div class='green-text'>Enter your email to update password</div>
 
                     <input type="text" id="forgotPassEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                     <br>
@@ -347,7 +347,7 @@
                         <span class="font-color">
                             {{ login_form.rememberme(id_="login-rememberme") }}
                             <label for="login-rememberme">Keep me logged in</label>
-                            <button style="float: right;" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">Forgot password?</button>
+                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">Forgot password?</button>
                         </span>
                         <div id="login-recaptcha"></div>
                         {{ login_form.hidden_tag() }}

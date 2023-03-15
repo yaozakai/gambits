@@ -1,6 +1,7 @@
 import json
 
 from flask import request
+from sqlalchemy import desc
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from db_classes import *
@@ -40,8 +41,10 @@ def db_user_verification(email, password):
 
 def db_new_user(register_form):
     # create a session id
-    raw_str = str(UserEntry().query.count() + 1).zfill(8)
-    user_id = '-'.join([raw_str[:4], raw_str[4:]])
+    # user_id = str(UserEntry().query.count() + 1).zfill(8)
+    user_id = str(int(UserEntry().query.order_by(desc('user_id')).first().user_id) + 1).zfill(8)
+
+    # user_id = '-'.join([raw_str[:4], raw_str[4:]])
     dataclass_user = UserEntry(user_id,
                                register_form.data['email'],
                                register_form.data['username'],
