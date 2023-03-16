@@ -1,0 +1,378 @@
+<!-- Modals -->
+
+<script type="text/javascript">
+
+    grecaptcha.ready(function() {
+      widgetId1 = grecaptcha.render("login-recaptcha", {
+              "sitekey" : "{{  RECAPTCHA_PUBLIC_KEY  }}",
+              'theme' : 'dark'
+      });
+      widgetId2 = grecaptcha.render("reg-recaptcha", {
+              'sitekey' : '{{  RECAPTCHA_PUBLIC_KEY  }}',
+              'theme' : 'dark'
+      });
+    });
+</script>
+<!-- forgot password -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="forgotPasswordModalLabel">Forgot Password</h3>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <div class="modal-body">
+                    <div class='green-text'>Enter your email to update password</div>
+
+                    <input type="text" id="forgotPassEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                    <br>
+                    <button type="button" id="forgotEmailSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">Send email</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function(){
+            $('#forgotPasswordModal').on('show.bs.modal', function(){
+                $("#forgotPassEmail").val('');
+            });
+
+            $('#forgotEmailSend').on('click', function(){
+                $.ajax({
+                          url: "/forgot_pass",
+                          type: "post",
+                          dataType: "json",
+                          contentType: "application/json; charset=UTF-8",
+                          data: JSON.stringify({
+                            "email":document.getElementById("forgotPassEmail").value,
+                          }),
+                          success: function(self) {
+                            if (typeof self.notification != 'undefined'){
+                                $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                                $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+
+                                $('#notificationModal').modal('show');
+                                $('#forgotPasswordModal').modal('hide');
+                            }
+                          },
+                          error: function(e) {
+                            console.log(e);
+                          }
+                        });
+            });
+        });
+    </script>
+
+<!-- Login -->
+
+    {% if not current_user.is_authenticated %}
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <script>
+                $(document).ready(function(){
+                  $('#loginModal').on('show.bs.modal', function(){
+                     $(".error").html('');
+                     $("#login-email").val("");
+                     $("#login-password").val("");
+                     $("#login-rememberme").prop("checked", false);
+                     grecaptcha.reset(widgetId1);
+                     document.getElementById('login-email').placeholder = "";
+                     document.getElementById('login-password').placeholder = "";
+                  });
+                });
+            </script>
+
+            <div class="modal-dialog" role="document" id="loginDialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="loginModalLabel">Login</h3>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <span class="modal-body">
+
+                        <input type="hidden" name="csrf_token" value="{{ login_form.csrf_token.current_token }}">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text whiteFont">E-mail</span>
+
+                            {{ login_form.email(id_="login-email", class_="form-control") }}
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text whiteFont">Password</span>
+                            {{ login_form.password(id_="login-password", class_="form-control") }}
+                        </div>
+
+                        <span class="font-color">
+                            {{ login_form.rememberme(id_="login-rememberme") }}
+                            <label for="login-rememberme">Keep me logged in</label>
+                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">Forgot password?</button>
+                        </span>
+                        <div id="login-recaptcha"></div>
+                        {{ login_form.hidden_tag() }}
+                        <span>
+                            {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
+                            <div class='error'></div>
+
+                        </span>
+                    </span>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $('#loginbtn').on('click', function(){
+                        event.preventDefault();
+                        var email = $("#login-email").val();
+                        var password = $("#login-password").val();
+                        var csrf_token = $("#csrf_token").val();
+                        var rememberme = document.querySelector('#login-rememberme').checked;
+                        var recaptcha = grecaptcha.getResponse();
+                        $.ajax({
+                          url: "/login",
+                          type: "post",
+                          dataType: "json",
+                          contentType: "application/json; charset=UTF-8",
+                          data: JSON.stringify({
+                            "email":email,
+                            "password":password,
+                            "rememberme":rememberme,
+                            "recaptcha":recaptcha,
+                            "csrf_token":csrf_token
+                          }),
+                          success: function(self) {
+                            if (typeof self.error != 'undefined'){
+                                if (typeof self.resend_email != 'undefined'){
+                                    $(".error").html(self.error.toString()+'<br>Click <button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">resend</button> to re-send verification email');
+                                } else {
+                                    $(".error").html('<p>'+self.error.toString()+'</p>');
+                                }
+                            } else {
+                                location.href = "{{ url_for('home') }}"
+                            }
+                          },
+                          error: function(e) {
+                            console.log(e);
+                          }
+                        });
+                    });
+                });
+                $(document).on('click', '#resendEmail', function(self){
+                    event.preventDefault();
+                    $.ajax({
+                      url: "/resend",
+                      type: "post",
+                      dataType: "json",
+                      contentType: "application/json; charset=UTF-8",
+                      data: JSON.stringify({
+                        "email":$('#resendEmail').val()
+                      }),
+                      success: function(self) {
+                        if (typeof self.notification != 'undefined'){
+                            $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                            $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+
+                            $('#notificationModal').modal('show');
+                            $('#registerModal').modal('hide');
+                            $('#loginModal').modal('hide');
+                        }
+                      },
+                      error: function(e) {
+                        console.log(e);
+                      }
+                    });
+                });
+            </script>
+        </div>
+
+    <!-- Register -->
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <script>
+                $(document).ready(function(){
+                  $('#registerModal').on('show.bs.modal', function(){
+                     $(".error").html('');
+                     $("#reg-email").val("");
+                     $("#reg-password").val("");
+                     $("#reg-referral").val("");
+                     $("#reg-username").val("");
+                     grecaptcha.reset(widgetId2);
+                  });
+                });
+            </script>
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="registerModalLabel">Register</h3>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+                    <div>
+                        re-send verification email
+                    </div>
+                    <div class="modal-body">
+                        {{ register_form.csrf_token }}
+                        <div class="input-group mb-3">
+                          <span class="input-group-text whiteFont">E-mail</span>
+                          {{ register_form.email(id_="reg-email", class_="form-control") }}
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text whiteFont">Username</span>
+                            {{ register_form.username(id_="reg-username", class_="form-control") }}
+                        </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text whiteFont">Password</span>
+                          {{ register_form.password(id_="reg-password", class_="form-control") }}
+                        </div>
+                        <div class="input-group mb-3">
+                          <span class="input-group-text whiteFont">Bonus</span>
+                          {{ register_form.referral(id_="reg-referral", class_="form-control") }}
+                        </div>
+                        <div id="reg-recaptcha"></div>
+                        {{ register_form.hidden_tag() }}
+                        <span >
+                            {{ register_form.register(class_="btn btn-outline-success btn-lg", style_="float: left;", id_="registerbtn") }}
+                              <div class='error'></div>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $('#registerbtn').on('click', function(){
+                    event.preventDefault();
+                    var email = $("#reg-email").val();
+                    var username = $("#reg-username").val();
+                    var password = $("#reg-password").val();
+                    var referral = $("#reg-referral").val();
+                    var recaptcha = grecaptcha.getResponse(widgetId2);
+                    $.ajax({
+                      url: "/register",
+                      type: "post",
+                      dataType: "json",
+                      contentType: "application/json; charset=UTF-8",
+                      data: JSON.stringify({
+                        "email":email,
+                        "password":password,
+                        "username":username,
+                        "referral":referral,
+                        "recaptcha":recaptcha
+                      }),
+                      success: function(self) {
+                        if (typeof self.resend_email != 'undefined'){
+                            $(".error").html(self.error.toString()+'<br>Click <button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">resend</button> to re-send verification email');
+                        } else {
+                            if (typeof self.error != 'undefined'){
+                                $(".error").html('<p>'+self.error.toString()+'</p>');
+                            } else if (typeof self.notification != 'undefined'){
+                                $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                                $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+                                $('#notificationModal').modal('show');
+                                $('#registerModal').modal('hide');
+                            }
+                        }
+                      },
+                      error: function(e) {
+                        console.log(e);
+                      }
+                    });
+                });
+            });
+        </script>
+    {% endif %}
+
+
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="notificationModalLabel"><div class="notification_title">{{ notification_title }}</div></h3>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class='notification green-text'>{{ notification }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="resetPassModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="resetPassModalLabel"><div class="resetPass_title">Reset password</div></h3>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class='notification green-text'>Enter a new password</div>
+
+                    <input type="password" id="newPassword" class="form-control" placeholder="Password" aria-label="Email" aria-describedby="basic-addon1">
+                    <br>
+                    <button type="button" id="newPasswordSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">Set password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% if notification_popup == true %}
+        <script language="JavaScript" type="text/javascript">
+            $(document).ready(function(){
+                $('#notificationModal').modal('show');
+            });
+        </script>
+    {% elif reset_pass == true %}
+        <script language="JavaScript" type="text/javascript">
+            $(document).ready(function(){
+                $('#resetPassModal').modal('show');
+
+            });
+
+            $('#newPasswordSend').on('click', function(){
+                $.ajax({
+                      url: "/set_password",
+                      type: "post",
+                      dataType: "json",
+                      contentType: "application/json; charset=UTF-8",
+                      data: JSON.stringify({
+                        "password":document.getElementById("newPassword").value,
+                      }),
+                      success: function(self) {
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "{{ url_for('home') }}", true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.send(JSON.stringify({
+                            notification: 'Password has been updated.  You may log in now!',
+                            notification_title: 'Reset password'
+                        }));
+                        $(".notification").html('<p>'+self.notification+'</p>');
+                        $(".notification_title").html('<p>'+self.notification_title+'</p>');
+
+                        $('#notificationModal').modal('show');
+                      },
+
+
+                      error: function(e) {
+                        console.log(e);
+                      }
+                });
+
+            });
+
+
+
+        </script>
+    {% endif %}
+

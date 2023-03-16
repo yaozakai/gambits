@@ -4,8 +4,8 @@
   <div class="album py-5 gallery-bg">
 
     {% for category in icon_placement %}
-        <h5 class="font-color gallery-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/003-poker-cards.png"> {{ category }}</h5>
         <div class="container">
+            <h5 class="font-color gallery-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/003-poker-cards.png"> {{ category }}</h5>
             <div class="row">
                 {% for k in icon_placement[category] %}
                 <div class="col">

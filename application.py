@@ -216,6 +216,17 @@ def reset(token):
         #                         notification_title='Reset Password'), code=307)
 
 
+@application.route('/modals')
+def modals():
+    csrf_token = csrf.generate_csrf()
+    login_form = LoginForm()
+    login_form.csrf_token.data = csrf_token
+    register_form = RegisterForm()
+    register_form.csrf_token.data = csrf_token
+    return render_template('modals.html', login_form=login_form, register_form=register_form,
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY)
+
+
 def setup_home_template(notification_title, notification, reset_pass_popup):
     csrf_token = csrf.generate_csrf()
     login_form = LoginForm()
