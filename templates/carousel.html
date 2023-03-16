@@ -1,0 +1,39 @@
+<div class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner" id="myCarousel" >
+    <div class="carousel-item">
+      <img src="{{ static_path }}static/banner/streetfighter.jpg" class="d-block w-100">
+      <div class="carousel-caption">
+        <h1>Diamond hands.</h1>Let's go to the moon.
+<!--            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>-->
+      </div>
+    </div>
+    <div class="carousel-item active">
+      <img src="{{ static_path }}static/banner/golden_wealth_baccarat_banner_1980x800_2021_08_06_branded.png" class="d-block w-100">
+      <div class="carousel-caption">
+        <h1>Win Cypto.</h1>Go big or go home.
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{{ static_path }}static/banner/NFTMegaWays_RedTiger.jpg" class="d-block w-100">
+      <div class="carousel-caption">
+        <h1>LFG.</h1>It's the only way WAGMI.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script language="JavaScript" type="text/javascript">
+    $(document).ready(function(){
+        $('.carousel').carousel({
+            interval: 3000
+        })
+        $('.carousel-control.left').click(function() {
+            $('#myCarousel').carousel('prev');
+        });
+
+        $('.carousel-control.right').click(function() {
+            $('#myCarousel').carousel('next');
+        });
+
+    });
+</script>

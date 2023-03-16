@@ -227,6 +227,24 @@ def modals():
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY)
 
 
+@application.route('/navigationbar')
+def navigationbar():
+
+    return render_template('navigationbar.html')
+
+
+@application.route('/topbar')
+def topbar():
+
+    return render_template('topbar.html', static_path=static_path)
+
+
+@application.route('/carousel')
+def carousel():
+
+    return render_template('carousel.html')
+
+
 def setup_home_template(notification_title, notification, reset_pass_popup):
     csrf_token = csrf.generate_csrf()
     login_form = LoginForm()

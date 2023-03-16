@@ -1,29 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container-fluid" id="top_bar">
-      <a class="navbar-brand" href="/">
-        <img src="static/icons/ui/favicon.png" style="height: 25px;">
-        <img src="static/icons/ui/main_title.png" style="height: 30px;">
-      </a>
+<header>
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
+          <div class="top-bar-desktop">
+            <a class="navbar-brand" href="/">
+              <img src="{{ static_path }}/icons/ui/favicon.png" style="height: 25px;">
+              <img src="{{ static_path }}/icons/ui/main_title.png" class="main-logo">
+            </a>
+          </div>
+          <div class="top-bar-desktop">
+            {% if current_user.is_authenticated %}
+              <div class="font-color login-data">
+                  Hi {{ current_user.username }} ♥️🙏🏼
+                  <div id="balance" data-toggle="tooltip" data-placement="bottom" title="Balance refreshes every 30 seconds">
+                      {{ current_user.balance }} {{ current_user.currency }}
+                  </div>
+              </div>
+            {% endif %}
+            <!--      Logo -->
+            <a class="navbar-brand" href="https://discord.gg/ebjsys6h">
+                <i class="bi bi-discord"></i>
+            </a>
+            <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">
+                <i class="bi bi-twitter"></i>
+            </a>
+            {% if current_user.is_authenticated %}
 
-      <div class="navbar-dark navbar-brand top-bar-right-side" id="top_bar_right" style="display: inline-block;padding-right: 0px;">
-        <div class="btn top-bar-right-side deposit-div" id="balance" style="display: inline-block;padding-right: 0px;"></div>
-
-    <!--      Wallet Button-->
-
-        <button class="btn btn-outline-success" id="login" name="login" value="connect" >
-          <i class="bi bi-wallet2"></i>
-          Connect
-        </button>
-        <!--      <div id="disconnect">-->
-        <button id="disconnect" class="btn btn-outline-success">
-          <i class="bi bi-x-circle"></i>
-        </button>
-      </div>
-      <!--      open phantom-->
-      <script language="JavaScript" type="text/javascript" src="/static/phantom.js"></script>
-    <!--      -->
+                <a class="btn btn-outline-success" href="/profile">Profile</a>
+<!--                    <button href="/logout" class="btn btn-outline-success" id="logoutbtn" method="post" type="submit" name="logout">-->
+                <a class="btn btn-outline-success" href="/logout">Log out</a>
+<!--                    </button>-->
+            {% else %}
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                  <div >Log in</div>
+                </button>
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
+                  <div >Register</div>
+                </button>
+            {% endif %}
+          </div>
+          <div class="top-bar-mobile">
+              <img src="{{ static_path }}static/icons/ui/main_title.png" class="main-logo">
+              <div>
+                  <a class="navbar-brand" href="https://discord.gg/ebjsys6h">
+                    <i class="bi bi-discord"></i>
+                  </a>
+                  <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">
+                    <i class="bi bi-twitter"></i>
+                  </a>
+              </div>
+          </div>
+          <div class="top-bar-mobile" style="transform: scale(1.2); padding-right:5px;">
+              <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                  <div >Log in</div>
+              </button>
+              <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
+                  <div >Register</div>
+              </button>
+          </div>
+        </nav>
     </div>
-  </nav>
-</html>
+</header>
+
+
+{% if current_user.is_authenticated %}
+    <script language="JavaScript" type="text/javascript">
+    $(document).ready(function(){
+        var balance_field = document.getElementById("balance");
+        function updater() {
+            fetch('/getBalance')
+            .then(response => response.text())
+            .then(text => (balance_field.innerHTML = text));  // update page with new data
+        }
+        setInterval(updater, 30000);  // run `updater()` every (30s)
+    });
+    </script>
+{% endif %}
