@@ -390,8 +390,7 @@ h3 {
 
 .close {
     color: #28a745;
-    background-color: #28a74500;
-    border: none;
+    text-shadow: none;
     font-size: xx-large;
 }
 
@@ -508,4 +507,12 @@ h3 {
 
 #forgotPassword {
     float: right;
+}
+
+#loadingSpinner {
+    align-self: center;
+}
+
+#gamelaunchModalWindow {
+    width: 300px;
 }

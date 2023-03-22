@@ -19,7 +19,7 @@
                                 {% if game_title['gamecode'] == k.split("_")[0] %}
                                     <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
                                         {% if current_user.is_authenticated %}
-                                                name="launch" >
+                                                name="launch" data-bs-toggle="modal" data-bs-target="#gamelaunchModal">
                                         {% else %}
                                                 data-bs-toggle="modal" data-bs-target="#registerModal">
                                         {% endif %}
@@ -53,6 +53,7 @@
                     "id":$(this).attr("id")
                   }),
                   success: function(self) {
+                    $('#gamelaunchModal').modal('hide');
                     window.open(self.link.toString());
                   },
                   error: function(e) {
