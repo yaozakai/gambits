@@ -200,9 +200,17 @@ body {
     color: #28a745;
     font-weight: 400;
 }
+
 .top-bar-right-side {
-    margin-left: auto;
-    margin-right: 0;
+    float: right;
+    position: relative;
+    /* display: table-cell; */
+    top: 3px;
+}
+
+.top-bar-desktop {
+    width: 100%;
+    display: contents;
 }
 
 /* NAV BAR STUFF */
@@ -246,8 +254,8 @@ body {
 
 
 .green-text {
-  color: #28a745;
-  border-color: #28a745;
+  color: #1a8754;
+  border-color: #1a8754;
 }
 
 .btn-outline-success:hover {
@@ -392,6 +400,8 @@ h3 {
     color: #28a745;
     text-shadow: none;
     font-size: xx-large;
+    background: #00000000;
+    border: none;
 }
 
 .whiteFont {
@@ -418,15 +428,16 @@ h3 {
     border: 1px solid #323232;
 }
 
-.font-color {
-    color: #28a745;
-}
-
 .login-data {
-    display: inline;
+    /* display: inline; */
     position: relative;
+    display: table-cell;
     top: 3px;
-    right: 15px;
+    /* display: inline-block; */
+    /* display: inline-block; */
+    text-align: center;
+    /* right: 15px; */
+    bottom: 10px;
 }
 
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -515,4 +526,13 @@ h3 {
 
 #gamelaunchModalWindow {
     width: 300px;
+}
+
+#language-select {
+    height: 35px;
+    top: 3px;
+    position: relative;
+    background-color: #4f4151;
+    border-radius: 0.25rem;
+    /* border-color: cornsilk; */
 }

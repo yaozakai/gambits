@@ -123,7 +123,7 @@
 
 @media (min-width: 539px) {
     .top-bar-mobile { display:none; }
-    .top-bar-desktop { display:unset; }
+    .top-bar-desktop {/* display: table; */}
 }
 
 @media (max-width: 538px) {

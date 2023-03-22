@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var myCarousel = document.getElementById("myCarousel");
 
         // Get the offset position of the navbar
-      if (window.pageYOffset >= myCarousel.clientHeight) {
+      if (window.pageYOffset >= myCarousel.offsetHeight) {
         snap_mode = true;
 
         middle_bar.classList.add("stickyMiddle")

@@ -2,53 +2,71 @@
     <div class="container-fluid">
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
           <div class="top-bar-desktop">
+<!-- LOGO -->
             <a class="navbar-brand" href="/">
               <img src="{{ static_path }}/icons/ui/favicon.png" style="height: 25px;">
               <img src="{{ static_path }}/icons/ui/main_title.png" class="main-logo">
             </a>
-          </div>
-          <div class="top-bar-desktop">
+
+<!-- BALANCE (if logged in) -->
             {% if current_user.is_authenticated %}
-              <div class="font-color login-data">
+              <div class="green-text login-data">
                   Hi {{ current_user.username }} ♥️🙏🏼
                   <div id="balance" data-toggle="tooltip" data-placement="bottom" title="Balance refreshes every 30 seconds">
                       {{ current_user.balance }} {{ current_user.currency }}
                   </div>
               </div>
             {% endif %}
-            <!--      Logo -->
-            <a class="navbar-brand" href="https://discord.gg/ebjsys6h">
-                <i class="bi bi-discord"></i>
-            </a>
-            <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">
-                <i class="bi bi-twitter"></i>
-            </a>
-            {% if current_user.is_authenticated %}
+<!-- SOCIALS (Desktop) -->
+<!--            <a class="navbar-brand" href="https://discord.gg/ebjsys6h">-->
+<!--                <i class="bi bi-discord"></i>-->
+<!--            </a>-->
+<!--            <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">-->
+<!--                <i class="bi bi-twitter"></i>-->
+<!--            </a>-->
+            <div class="top-bar-right-side">
+                <select id="language-select" class="green-text">
+                    <option value="en">English</option>
+                    <option value="cn">Trad Ch</option>
+                    <option value="b5">Simp Ch</option>
+                    <option value="ja">Japan</option>
+                    <option value="id">Indo</option>
+                    <option value="ko">Korea</option>
+                    <option value="vn">Viet</option>
+                    <option value="pt">Port</option>
+                </select>
 
-                <a class="btn btn-outline-success" href="/profile">Profile</a>
-<!--                    <button href="/logout" class="btn btn-outline-success" id="logoutbtn" method="post" type="submit" name="logout">-->
-                <a class="btn btn-outline-success" href="/logout">Log out</a>
-<!--                    </button>-->
-            {% else %}
-                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
-                  <div >Log in</div>
-                </button>
-                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
-                  <div >Register</div>
-                </button>
-            {% endif %}
+<!-- PROFILE/LOGOUT (if logged in) -->
+                {% if current_user.is_authenticated %}
+
+                    <a class="btn btn-outline-success" href="/profile">Profile</a>
+                    <a class="btn btn-outline-success" href="/logout">Log out</a>
+                {% else %}
+<!-- LOGIN/REGISTER (if NOT logged in) -->
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                      <div >Log in</div>
+                    </button>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
+                      <div >Register</div>
+                    </button>
+                {% endif %}
+            </div>
           </div>
+<!-- MOBILE -->
           <div class="top-bar-mobile">
+<!-- LOGO -->
               <img src="{{ static_path }}/icons/ui/main_title.png" class="main-logo">
-              <div>
-                  <a class="navbar-brand" href="https://discord.gg/ebjsys6h">
-                    <i class="bi bi-discord"></i>
-                  </a>
-                  <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">
-                    <i class="bi bi-twitter"></i>
-                  </a>
-              </div>
+<!-- SOCIALS -->
+<!--              <div>-->
+<!--                  <a class="navbar-brand" href="https://discord.gg/ebjsys6h">-->
+<!--                    <i class="bi bi-discord"></i>-->
+<!--                  </a>-->
+<!--                  <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">-->
+<!--                    <i class="bi bi-twitter"></i>-->
+<!--                  </a>-->
+<!--              </div>-->
           </div>
+<!-- LOGIN/REGISTER (if NOT logged in) -->
           <div class="top-bar-mobile" style="transform: scale(1.2); padding-right:5px;">
               <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
                   <div >Log in</div>
