@@ -3,6 +3,7 @@ import functools
 import json
 import re
 import datetime
+import chinese_converter
 from os import listdir
 from os.path import isfile, join
 
@@ -151,6 +152,13 @@ def reload_game_titles():
     x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
     global game_titles
     game_titles = x.json()['data']
+    # translate simplified to traditional chinese
+    for game_title in game_titles:
+        for title in game_title['nameset']:
+            if title['lang'] == 'zh-cn':
+                trad = {'name': chinese_converter.to_traditional(title['name']), 'lang': 'b5'}
+                game_title['nameset'].append(trad)
+                break
 
 
 def reload_icon_placement():

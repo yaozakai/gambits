@@ -18,7 +18,7 @@
               </div>
             {% endif %}
 <!-- SOCIALS (Desktop) -->
-<!--            <a class="navbar-brand" href="https://discord.gg/ebjsys6h">-->
+<!--            <a class="navbar        d" href="https://discord.gg/ebjsys6h">-->
 <!--                <i class="bi bi-discord"></i>-->
 <!--            </a>-->
 <!--            <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">-->
@@ -27,18 +27,41 @@
             <div class="top-bar-right-side">
                 <select id="language-select" class="green-text">
                     <option value="en">English</option>
-                    <option value="cn">Trad Ch</option>
-                    <option value="b5">Simp Ch</option>
+                    <option value="b5">Trad Ch</option>
+                    <option value="zh-cn">Simp Ch</option>
                     <option value="ja">Japan</option>
                     <option value="id">Indo</option>
                     <option value="ko">Korea</option>
                     <option value="vn">Viet</option>
-                    <option value="pt">Port</option>
+                    <option value="pt-br">Port</option>
                 </select>
+
+                <script>
+                    $(document).ready(function(){
+                        $('#language-select').change(function(){
+                            event.preventDefault();
+                            lang = document.getElementById("language-select").value;
+                            $.ajax({
+                              url: "/",
+                              type: "post",
+                              dataType: "json",
+                              contentType: "application/json; charset=UTF-8",
+                              data: JSON.stringify({
+                                "lang":lang
+                              }),
+                              success: function(response) {
+                                window.location.reload();
+                              },
+                              error: function(e) {
+                                console.log(e);
+                              }
+                            });
+                        });
+                    });
+                </script>
 
 <!-- PROFILE/LOGOUT (if logged in) -->
                 {% if current_user.is_authenticated %}
-
                     <a class="btn btn-outline-success" href="/profile">Profile</a>
                     <a class="btn btn-outline-success" href="/logout">Log out</a>
                 {% else %}

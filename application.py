@@ -87,6 +87,16 @@ def launch():
         return jsonify(link=link)
 
 
+# @application.route('/language', methods=['GET', 'POST'])
+# def language():
+#     if request.method == 'POST':
+#         if len(request.data) > 0:
+#             lang = json.loads(request.data)['lang']
+#         else:
+#             lang = 'en'
+#         return jsonify({'redirect': url_for("/", lang=lang)})
+
+
 @application.route('/', methods=['GET', 'POST'])
 def home():
     # if session['logged_in']:
@@ -107,10 +117,16 @@ def home():
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
 
+    if len(request.data) > 0:
+        lang = json.loads(request.data)['lang']
+    else:
+        lang = 'en'
+
     return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
-                           notification=notification, notification_title=notification_title, reset_pass=False)
+                           notification=notification, notification_title=notification_title, reset_pass=False,
+                           lang=lang)
 
 
 @application.route('/profile', methods=['GET', 'POST'])

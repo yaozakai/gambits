@@ -24,10 +24,9 @@
                                                 data-bs-toggle="modal" data-bs-target="#registerModal">
                                         {% endif %}
                                         Play now<br><br>
-                                        {% for title in game_title['nameset'] if title['lang'] == 'en' %}
+                                        {% for title in game_title['nameset'] if title['lang'] == lang %}
                                             {{ title['name'] }}
                                         {% endfor %}
-                                        {{ game_title['nameset']['en'] }}
                                     </button>
                                 {% endif %}
                             {% endfor %}
@@ -62,7 +61,7 @@
                 });
             });
         });
-        </script>
+    </script>
 
 
 

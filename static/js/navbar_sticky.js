@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // When the user scrolls the page, execute myFunction
     window.addEventListener('scroll', myFunction);
-    window.scrollTo(0, 0);
+
     myFunction();
     //window.onscroll = function() {myFunction()};
 
