@@ -33,8 +33,6 @@ body {
 
 /* Carousel base class */
 .carousel {
-  bottom: 50px;
-  position: unset;
   /* margin: 0px 15% 0px 15%; */
   height: 450px;
 }
@@ -64,9 +62,7 @@ body {
   padding-top: 30px;
 }
 
-.carousel-indicators     {
-  bottom: -55px;
-}
+
 
 /* Declare heights because of positioning of img element */
 .carousel-item {
