@@ -12,7 +12,7 @@ from flask_wtf import csrf
 import utils
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
-from forms import LoginForm, RegisterForm, verify_captcha
+from forms import LoginForm, RegisterForm, verify_captcha, LanguageForm
 from utils import *
 from config import app as application
 from consts import RECAPTCHA_PUBLIC_KEY
@@ -117,8 +117,12 @@ def home():
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
 
-    if len(request.data) > 0:
-        lang = json.loads(request.data)['lang']
+    # lang_form = LanguageForm()
+    if request.method == 'POST' and 'language-select' in request.form:
+        lang = request.form['language-select']
+    #
+    # if len(request.data) > 0:
+    #     lang = json.loads(request.data)['lang']
     else:
         lang = 'en'
 

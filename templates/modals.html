@@ -169,7 +169,7 @@
                             "recaptcha":recaptcha,
                             "csrf_token":csrf_token
                           }),
-                          success: function(self) {
+                            success: function(self) {
                             if (typeof self.error != 'undefined'){
                                 if (typeof self.resend_email != 'undefined'){
                                     $(".error").html(self.error.toString()+'<br>Click <button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">resend</button> to re-send verification email');

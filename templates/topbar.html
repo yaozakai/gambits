@@ -25,40 +25,18 @@
 <!--                <i class="bi bi-twitter"></i>-->
 <!--            </a>-->
             <div class="top-bar-right-side">
-                <select id="language-select" class="green-text">
-                    <option value="en">English</option>
-                    <option value="b5">Trad Ch</option>
-                    <option value="zh-cn">Simp Ch</option>
-                    <option value="ja">Japan</option>
-                    <option value="id">Indo</option>
-                    <option value="ko">Korea</option>
-                    <option value="vn">Viet</option>
-                    <option value="pt-br">Port</option>
-                </select>
-
-                <script>
-                    $(document).ready(function(){
-                        $('#language-select').change(function(){
-                            event.preventDefault();
-                            lang = document.getElementById("language-select").value;
-                            $.ajax({
-                              url: "/",
-                              type: "post",
-                              contentType: "application/json; charset=UTF-8",
-                              data: JSON.stringify({
-                                "lang":lang
-                              }),
-                              success: function(response) {
-                                document.write(response);
-<!--                                alert(response);-->
-                              },
-                              error: function(e) {
-                                console.log(e);
-                              }
-                            });
-                        });
-                    });
-                </script>
+                <form method="POST" style="display: inline;">
+                    <select id="language-select" name="language-select" class="green-text" onchange="this.form.submit();">
+                        <option value="en">English</option>
+                        <option value="b5">Trad Ch</option>
+                        <option value="zh-cn">Simp Ch</option>
+                        <option value="ja">Japan</option>
+                        <option value="id">Indo</option>
+                        <option value="ko">Korea</option>
+                        <option value="vn">Viet</option>
+                        <option value="pt-br">Port</option>
+                    </select>
+                </form>
 
 <!-- PROFILE/LOGOUT (if logged in) -->
                 {% if current_user.is_authenticated %}

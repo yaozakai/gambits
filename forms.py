@@ -396,6 +396,13 @@ class RegisterForm(FlaskForm):
     # login = SubmitField('Log in')
 
 
+class LanguageForm(FlaskForm):
+    selector = SelectField('Language', choices=[('en', 'English'), ('b5', '繁體中文'), ('zh-cn', '简体中文'),
+                                                ('ja', '日本'), ('id', 'Bahasa Indo'), ('ko', '한국어'),
+                                                ('vn', 'Việt'), ('pt-br', 'Português')
+                                                ])
+
+
 class UserSettingsForm(FlaskForm):
     reader = csv.DictReader(open('static/csv/currencies.csv', mode='r', encoding='utf-8-sig'))
     currency_choices = []
