@@ -44,13 +44,13 @@
                             $.ajax({
                               url: "/",
                               type: "post",
-                              dataType: "json",
                               contentType: "application/json; charset=UTF-8",
                               data: JSON.stringify({
                                 "lang":lang
                               }),
                               success: function(response) {
-                                window.location.reload();
+                                document.write(response);
+<!--                                alert(response);-->
                               },
                               error: function(e) {
                                 console.log(e);

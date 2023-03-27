@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="{{ lang }}">
 
     <head>
         <meta charset="utf-8">
@@ -71,9 +71,16 @@
       <div id="navigationbar"></div>
 
       <!-- GALLERY MAIN -->
+<!--      <script>-->
+<!--        $(function() {-->
+<!--            $("#main_section").load("/gallery");-->
+<!--        });-->
+<!--      </script>-->
       <div id="main_section">
-        {% block content %}{% endblock %}
+          {% block gallery %}{% endblock %}
       </div>
+
+
 
       <!-- MODALS -->
       <script>

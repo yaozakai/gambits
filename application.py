@@ -261,6 +261,18 @@ def carousel():
     return render_template('carousel.html')
 
 
+@application.route('/gallery')
+def gallery():
+
+    if len(request.data) > 0:
+        lang = json.loads(request.data)['lang']
+    else:
+        lang = 'en'
+
+    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+                           static_path='', lang=lang)
+
+
 def setup_home_template(notification_title, notification, reset_pass_popup):
     csrf_token = csrf.generate_csrf()
     login_form = LoginForm()
