@@ -120,9 +120,6 @@ def home():
     # lang_form = LanguageForm()
     if request.method == 'POST' and 'language-select' in request.form:
         lang = request.form['language-select']
-    #
-    # if len(request.data) > 0:
-    #     lang = json.loads(request.data)['lang']
     else:
         lang = 'en'
 
@@ -253,10 +250,15 @@ def navigationbar():
     return render_template('navigationbar.html')
 
 
-@application.route('/topbar')
+@application.route('/topbar', methods=['POST'])
 def topbar():
 
-    return render_template('topbar.html', static_path=static_path)
+    if request.method == 'POST' and 'lang' in request.form:
+        lang = request.form['lang']
+    else:
+        lang = 'en'
+
+    return render_template('topbar.html', static_path=static_path, lang=lang)
 
 
 @application.route('/carousel')

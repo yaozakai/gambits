@@ -17,7 +17,7 @@
 </script>
 
 
-<!-- forgot password -->
+<!-- game launch popup -->
     <div class="modal fade" id="gamelaunchModal" tabindex="-1" role="dialog" aria-labelledby="gamelaunchModalWindow" aria-hidden="true">
         <div class="modal-dialog" role="document" id="gamelaunchModalWindow">
             <div class="modal-content">
@@ -69,26 +69,26 @@
 
             $('#forgotEmailSend').on('click', function(){
                 $.ajax({
-                          url: "/forgot_pass",
-                          type: "post",
-                          dataType: "json",
-                          contentType: "application/json; charset=UTF-8",
-                          data: JSON.stringify({
-                            "email":document.getElementById("forgotPassEmail").value,
-                          }),
-                          success: function(self) {
-                            if (typeof self.notification != 'undefined'){
-                                $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                                $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+                      url: "/forgot_pass",
+                      type: "post",
+                      dataType: "json",
+                      contentType: "application/json; charset=UTF-8",
+                      data: JSON.stringify({
+                        "email":document.getElementById("forgotPassEmail").value,
+                      }),
+                      success: function(self) {
+                        if (typeof self.notification != 'undefined'){
+                            $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                            $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
 
-                                $('#notificationModal').modal('show');
-                                $('#forgotPasswordModal').modal('hide');
-                            }
-                          },
-                          error: function(e) {
-                            console.log(e);
-                          }
-                        });
+                            $('#notificationModal').modal('show');
+                            $('#forgotPasswordModal').modal('hide');
+                        }
+                      },
+                      error: function(e) {
+                        console.log(e);
+                      }
+                });
             });
         });
     </script>
@@ -114,7 +114,7 @@
             <div class="modal-dialog" role="document" id="loginDialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title" id="loginModalLabel">Login</h3>
+                        <h3 class="modal-title" id="loginModalLabel">Login{{ lang }}</h3>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

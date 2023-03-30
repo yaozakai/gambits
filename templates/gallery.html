@@ -27,6 +27,7 @@
                                         {% for title in game_title['nameset'] if title['lang'] == lang %}
                                             {{ title['name'] }}
                                         {% endfor %}
+<!--                                        {{ game_title['nameset']|select(lang) }}-->
                                     </button>
                                 {% endif %}
                             {% endfor %}

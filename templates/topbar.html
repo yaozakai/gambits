@@ -27,15 +27,25 @@
             <div class="top-bar-right-side">
                 <form method="POST" style="display: inline;">
                     <select id="language-select" name="language-select" class="green-text" onchange="this.form.submit();">
-                        <option value="en">English</option>
-                        <option value="b5">Trad Ch</option>
-                        <option value="zh-cn">Simp Ch</option>
-                        <option value="ja">Japan</option>
-                        <option value="id">Indo</option>
-                        <option value="ko">Korea</option>
-                        <option value="vn">Viet</option>
-                        <option value="pt-br">Port</option>
+
+
+                        <option value="en" id="lang-en">English</option>
+                        <option value="b5" id="lang-b5">Trad Ch</option>
+                        <option value="zh-cn" id="lang-zh-cn">Simp Ch</option>
+                        <option value="ja" id="lang-ja">Japan</option>
+                        <option value="id" id="lang-id">Indo</option>
+                        <option value="ko" id="lang-ko">Korea</option>
+                        <option value="vn" id="lang-vn">Viet</option>
+                        <option value="pt-br" id="lang-pt-br">Port</option>
+
                     </select>
+                    <script>
+                        $(document).ready(function(){
+                            active_lang = document.getElementById("lang-" + "{{ lang }}");
+                            active_lang.setAttribute("selected", "selected");
+
+                        });
+                    </script>
                 </form>
 
 <!-- PROFILE/LOGOUT (if logged in) -->

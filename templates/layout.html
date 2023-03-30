@@ -47,7 +47,7 @@
       <!-- TOP BAR -->
       <script>
         $(function() {
-            $("#topbar").load("/topbar");
+            $("#topbar").load("/topbar", {'lang': '{{ lang }}'});
         });
         window.scrollTo(0, 0);
       </script>
@@ -76,9 +76,7 @@
 <!--            $("#main_section").load("/gallery");-->
 <!--        });-->
 <!--      </script>-->
-      <div id="main_section">
-          {% block gallery %}{% endblock %}
-      </div>
+      <div id="main_section">{% block gallery %}{% endblock %}</div>
 
 
 
