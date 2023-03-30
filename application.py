@@ -1,10 +1,5 @@
-# import database
-# import solana
-# from solana.rpc.api import Client
 import flask as flask
-# import cq9_api as cq9_api
 
-# from userAuth import UAT
 from flask import render_template
 from flask_login import login_required, logout_user, login_user
 from flask_wtf import csrf
@@ -16,9 +11,9 @@ from forms import LoginForm, RegisterForm, verify_captcha, LanguageForm
 from utils import *
 from config import app as application
 from consts import RECAPTCHA_PUBLIC_KEY
-from cq9_api import cq9_api, game_launch, player_report_today
+from route_cq9_api import cq9_api, game_launch, player_report_today
+from route_template import template
 from utils import reload_game_titles, reload_icon_placement, create_notification, icon_placement, game_titles
-from datetime import datetime
 
 uaform = None
 ftform = None
@@ -233,52 +228,6 @@ def reset(token):
         #                         notification_title='Reset Password'), code=307)
 
 
-@application.route('/modals')
-def modals():
-    csrf_token = csrf.generate_csrf()
-    login_form = LoginForm()
-    login_form.csrf_token.data = csrf_token
-    register_form = RegisterForm()
-    register_form.csrf_token.data = csrf_token
-    return render_template('modals.html', login_form=login_form, register_form=register_form,
-                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY)
-
-
-@application.route('/navigationbar')
-def navigationbar():
-
-    return render_template('navigationbar.html')
-
-
-@application.route('/topbar', methods=['POST'])
-def topbar():
-
-    if request.method == 'POST' and 'lang' in request.form:
-        lang = request.form['lang']
-    else:
-        lang = 'en'
-
-    return render_template('topbar.html', static_path=static_path, lang=lang)
-
-
-@application.route('/carousel')
-def carousel():
-
-    return render_template('carousel.html')
-
-
-@application.route('/gallery')
-def gallery():
-
-    if len(request.data) > 0:
-        lang = json.loads(request.data)['lang']
-    else:
-        lang = 'en'
-
-    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           static_path='', lang=lang)
-
-
 def setup_home_template(notification_title, notification, reset_pass_popup):
     csrf_token = csrf.generate_csrf()
     login_form = LoginForm()
@@ -388,4 +337,5 @@ if __name__ == '__main__':
     reload_icon_placement()
     reload_game_titles()
     application.register_blueprint(cq9_api)
+    application.register_blueprint(template)
     application.run()

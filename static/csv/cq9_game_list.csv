@@ -825,7 +825,7 @@ slot,108,Jump Higher mobile,web,id,TRUE,FALSE,Salto más alto Móvil,es
 ,,,,zh-cn,,,Jump Higher Mobile,vn
 ,,,,en,,,もっとジャンプハイ モバイル,ja
 ,,,,ko,,,Melompat lebih tinggi Bergerak,id
-slot,109,Rave Jump mobile,web,ja,TRUE,FALSE,Rave Jump Bergerak,id
+slot,109,Rave Jump Mobile,web,ja,TRUE,FALSE,Rave Jump Bergerak,id
 ,,,,es,,,レイヴ・ジャンプ モバイル,ja
 ,,,,th,,,单手跳起来,zh-cn
 ,,,,id,,,Rave Jump Mobile,vn
@@ -1013,7 +1013,7 @@ slot,226,Lucky Tigers,web,zh-cn,TRUE,FALSE,多虎多财,zh-cn
 ,,,,en,,,Lucky Tigers,en
 ,,,,th,,,เสือน้อยสุดเฮง,th
 ,,,,ko,,,럭키 타이거,ko
-live,GINKGO01,motivation,web,zh-tw,TRUE,FALSE,motivation,ja
+live,GINKGO01,Motivation,web,zh-tw,TRUE,FALSE,motivation,ja
 ,,,,en,,,motivation,zh-cn
 ,,,,ja,,,motivation,zh-tw
 ,,,,zh-cn,,,motivation,en
