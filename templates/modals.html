@@ -123,20 +123,20 @@
 
                         <input type="hidden" name="csrf_token" value="{{ login_form.csrf_token.current_token }}">
                         <div class="input-group mb-3">
-                            <span class="input-group-text whiteFont">E-mail</span>
+                            <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
 
                             {{ login_form.email(id_="login-email", class_="form-control") }}
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text whiteFont">Password</span>
+                            <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
                             {{ login_form.password(id_="login-password", class_="form-control") }}
                         </div>
 
                         <span class="green-text">
                             {{ login_form.rememberme(id_="login-rememberme") }}
-                            <label for="login-rememberme">Keep me logged in</label>
-                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">Forgot password?</button>
+                            <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>
+                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
                         </span>
                         <div id="login-recaptcha"></div>
                         {{ login_form.hidden_tag() }}
@@ -244,19 +244,19 @@
                     <div class="modal-body">
                         {{ register_form.csrf_token }}
                         <div class="input-group mb-3">
-                          <span class="input-group-text whiteFont">E-mail</span>
+                          <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
                           {{ register_form.email(id_="reg-email", class_="form-control") }}
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text whiteFont">Username</span>
+                            <span class="input-group-text whiteFont">{{ translations['username'][lang] }}</span>
                             {{ register_form.username(id_="reg-username", class_="form-control") }}
                         </div>
                         <div class="input-group mb-3">
-                          <span class="input-group-text whiteFont">Password</span>
+                          <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
                           {{ register_form.password(id_="reg-password", class_="form-control") }}
                         </div>
                         <div class="input-group mb-3">
-                          <span class="input-group-text whiteFont">Bonus</span>
+                          <span class="input-group-text whiteFont">{{ translations['bonus'][lang] }}</span>
                           {{ register_form.referral(id_="reg-referral", class_="form-control") }}
                         </div>
                         <div id="reg-recaptcha"></div>

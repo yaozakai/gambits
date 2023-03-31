@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template, json
 from flask_wtf import csrf
+from wtforms import Label
 
 import utils
 from forms import LoginForm, RegisterForm
@@ -40,10 +41,12 @@ def modals():
         lang = 'en'
 
     csrf_token = csrf.generate_csrf()
-    login_form = LoginForm()
+    login_form = LoginForm(lang)
     login_form.csrf_token.data = csrf_token
+    login_form.login.label = Label("login", utils.translations['log in'][lang])
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
+    register_form.register.label = Label("register", utils.translations['register'][lang])
     return render_template('modals.html', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, lang=lang, translations=utils.translations)
 
