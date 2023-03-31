@@ -5,7 +5,7 @@
 
     {% for category in icon_placement %}
         <div class="container">
-            <h5 class="green-text gallery-header" id="heading{{ loop.index }}"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/003-poker-cards.png"> {{ category }}</h5>
+            <h5 class="green-text gallery-header" id="heading{{ loop.index }}"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/{{ category }}.png">{{ translations[category][lang] }}</h5>
             <div class="row">
                 {% for k in icon_placement[category] %}
                 <div class="col">

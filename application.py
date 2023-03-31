@@ -121,7 +121,7 @@ def home():
                            static_path='', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
                            notification=notification, notification_title=notification_title, reset_pass=False,
-                           lang=lang)
+                           lang=lang, translations=utils.translations)
 
 
 @application.route('/profile', methods=['GET', 'POST'])

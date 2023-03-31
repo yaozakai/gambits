@@ -14,6 +14,7 @@ body {
     color: #28a745;
     height: 100%;
     width: 15%;
+    font-size: 1.2rem;
     -moz-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
     -webkit-transition: all .2s ease-in;
@@ -314,7 +315,7 @@ body {
 }
 
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-.stickyMiddle + .content {
+.stickyMiddle + .content {font-size: 1.2rem;
   padding-top: 60px;
 }
 

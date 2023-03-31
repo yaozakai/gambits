@@ -65,7 +65,7 @@
       <!-- Main menu bar -->
       <script>
         $(function() {
-            $("#navigationbar").load("/navigationbar");
+            $("#navigationbar").load("/navigationbar", {'lang': '{{ lang }}'});
         });
       </script>
       <div id="navigationbar"></div>
@@ -83,7 +83,7 @@
       <!-- MODALS -->
       <script>
         $(function() {
-            $("#modals").load("/modals");
+            $("#modals").load("/modals", {'lang': '{{ lang }}'});
         });
       </script>
       <div id="modals"></div>
