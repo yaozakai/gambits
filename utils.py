@@ -16,6 +16,7 @@ from email_confirmation import confirm_token
 
 icon_placement = []
 game_titles = []
+translations = {}
 
 url = 'https://api.cqgame.games/'
 static_path = 'static'
@@ -145,9 +146,23 @@ def send_json(status='', sid='', uuid='', balance=''):
     return jsonify(dump)
 
 
+def reload_translations():
+    print('reload_translations')
+    reader = csv.DictReader(open('static/csv/translations.csv', mode='r', encoding='utf-8-sig'))
+    global translations
+    # translations = {name: [] for name in reader.fieldnames}
+    for row in reader:
+        # print(row)
+        # trad = {'name': chinese_converter.to_traditional(row['zh-cn']), 'lang': 'b5'}
+        row['b5'] = chinese_converter.to_traditional(row['zh-cn'])
+        translations[row['name']] = row
+    pass
+
+
 def reload_game_titles():
     titles = {}
-    # reader = csv.DictReader(open('static/csv/evo_game_list.csv', mode='r', encoding='utf-8-sig'))
+    print('reload_game_titles')
+
     myobj = {'Authorization': authKey, 'Content-Type': 'application/json; charset=UTF-8'}
     x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
     global game_titles
@@ -163,7 +178,7 @@ def reload_game_titles():
 
 def reload_icon_placement():
     icon_path_local = static_path + '/icons/cq9'
-    print('reloading csv:' + icon_path_local)
+    print('reloading icon placement:' + icon_path_local)
     icon_files = [f for f in listdir(icon_path_local) if isfile(join(icon_path_local, f)) and not f.endswith('.DS_Store')]
     reader = csv.DictReader(open('static/csv/icon_placement.csv', mode='r', encoding='utf-8-sig'))
     placement = {name: [] for name in reader.fieldnames}

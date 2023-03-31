@@ -30,13 +30,14 @@
 
 
                         <option value="en" id="lang-en">English</option>
-                        <option value="b5" id="lang-b5">Trad Ch</option>
-                        <option value="zh-cn" id="lang-zh-cn">Simp Ch</option>
-                        <option value="ja" id="lang-ja">Japan</option>
-                        <option value="id" id="lang-id">Indo</option>
-                        <option value="ko" id="lang-ko">Korea</option>
-                        <option value="vn" id="lang-vn">Viet</option>
-                        <option value="pt-br" id="lang-pt-br">Port</option>
+                        <option value="b5" id="lang-b5">繁體中文</option>
+                        <option value="zh-cn" id="lang-zh-cn">简体中文</option>
+                        <option value="ja" id="lang-ja">日本</option>
+                        <option value="id" id="lang-id">Bahasa</option>
+                        <option value="ko" id="lang-ko">한국어</option>
+                        <option value="vn" id="lang-vn">Việt</option>
+                        <option value="pt-br" id="lang-pt-br">Português</option>
+                        <option value="es" id="lang-es">Española</option>
 
                     </select>
                     <script>
@@ -55,10 +56,10 @@
                 {% else %}
 <!-- LOGIN/REGISTER (if NOT logged in) -->
                     <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
-                      <div >Log in</div>
+                      <div >{{ translations['log in'][lang] }}</div>
                     </button>
                     <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
-                      <div >Register</div>
+                      <div >{{ translations['register'][lang] }}</div>
                     </button>
                 {% endif %}
             </div>
@@ -80,10 +81,10 @@
 <!-- LOGIN/REGISTER (if NOT logged in) -->
           <div class="top-bar-mobile" style="transform: scale(1.2); padding-right:5px;">
               <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
-                  <div >Log in</div>
+                  <div >{{ translations['log in'][lang] }}</div>
               </button>
               <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
-                  <div >Register</div>
+                  <div >{{ translations['register'][lang] }}</div>
               </button>
           </div>
         </nav>

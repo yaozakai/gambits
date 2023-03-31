@@ -335,6 +335,7 @@ def update_games():
 if __name__ == '__main__':
     application.debug = True
     reload_icon_placement()
+    reload_translations()
     reload_game_titles()
     application.register_blueprint(cq9_api)
     application.register_blueprint(template)

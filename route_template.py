@@ -18,7 +18,7 @@ def topbar():
     else:
         lang = 'en'
 
-    return render_template('topbar.html', static_path=static_path, lang=lang)
+    return render_template('topbar.html', static_path=static_path, lang=lang, translations=utils.translations)
 
 
 @template.route('/modals')
