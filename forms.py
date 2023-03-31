@@ -312,14 +312,14 @@ country_choices = [('AD', 'Andorra'),
                    ('AB', 'Abkhazia'),
                    ('XK', 'Kosovo')]
 
-game_choices = [('game_shows', 'Game Shows'),
-                ('baccarat_sicbo', 'Baccarat'),
-                ('poker', 'Poker'),
-                ('top_games', 'Top Games'),
-                ('roulette', 'Roulette'),
-                ('blackjack', 'Blackjack'),
-                ('reward_games', 'Reward Games'),
-                ('slots', 'Slots')]
+# game_choices = [('game_shows', 'Game Shows'),
+#                 ('baccarat_sicbo', 'Baccarat'),
+#                 ('poker', 'Poker'),
+#                 ('top_games', 'Top Games'),
+#                 ('roulette', 'Roulette'),
+#                 ('blackjack', 'Blackjack'),
+#                 ('reward_games', 'Reward Games'),
+#                 ('slots', 'Slots')]
 
 
 class OneWalletAddUser(FlaskForm):
@@ -396,24 +396,24 @@ class RegisterForm(FlaskForm):
     # login = SubmitField('Log in')
 
 
-class LanguageForm(FlaskForm):
-    selector = SelectField('Language', choices=[('en', 'English'), ('b5', '繁體中文'), ('zh-cn', '简体中文'),
-                                                ('ja', '日本'), ('id', 'Bahasa Indo'), ('ko', '한국어'),
-                                                ('vn', 'Việt'), ('pt-br', 'Português')
-                                                ])
-
-
-class UserSettingsForm(FlaskForm):
-    reader = csv.DictReader(open('static/csv/currencies.csv', mode='r', encoding='utf-8-sig'))
-    currency_choices = []
-    for row in reader:
-        currency_choices.append([row['Name'], row['Symbol']])
-    print('done: reload_evo_game_titles')
-    # firstName = StringField('First Name', [validators.DataRequired()])
-    # lastName = StringField('Last Name', [validators.DataRequired()])
-    username = StringField('Username')  # , [validators.DataRequired()])
-    # country = SelectField('Country', choices=country_choices)
-    language = SelectField('Language', choices=language_choices)
-    currency = SelectField('Currency', choices=currency_choices)
-    # game = SelectField('Game Category', choices=game_choices)
-    update = SubmitField('Update')
+# class LanguageForm(FlaskForm):
+#     selector = SelectField('Language', choices=[('en', 'English'), ('b5', '繁體中文'), ('zh-cn', '简体中文'),
+#                                                 ('ja', '日本'), ('id', 'Bahasa Indo'), ('ko', '한국어'),
+#                                                 ('vn', 'Việt'), ('pt-br', 'Português')
+#                                                 ])
+#
+#
+# class UserSettingsForm(FlaskForm):
+#     reader = csv.DictReader(open('static/csv/currencies.csv', mode='r', encoding='utf-8-sig'))
+#     currency_choices = []
+#     for row in reader:
+#         currency_choices.append([row['Name'], row['Symbol']])
+#     print('done: reload_evo_game_titles')
+#     # firstName = StringField('First Name', [validators.DataRequired()])
+#     # lastName = StringField('Last Name', [validators.DataRequired()])
+#     username = StringField('Username')  # , [validators.DataRequired()])
+#     # country = SelectField('Country', choices=country_choices)
+#     language = SelectField('Language', choices=language_choices)
+#     currency = SelectField('Currency', choices=currency_choices)
+#     # game = SelectField('Game Category', choices=game_choices)
+#     update = SubmitField('Update')
