@@ -38,7 +38,6 @@
     }
 
     .fixed-middle {
-        height: 166px;
         top: 505px;
     }
 }
@@ -50,9 +49,7 @@
         height: 180px;
     }
 
-    .fixed-middle {
-        height: 166px;
-    }
+
     .gallery-btn{
         /* background-color: #49505787; */
         /* color: #d0ffdb; */
@@ -88,7 +85,7 @@
     }
 
     #main_section {
-        margin-top: 70px;
+        margin-top: 100px;
     }
 }
 

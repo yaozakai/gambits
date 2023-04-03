@@ -54,39 +54,43 @@
       <div id="topbar"></div>
 
     <main class="main-bg min-vh-100">
-      <!-- CAROUSEL -->
-      <script>
+        <!-- CAROUSEL -->
+        <script>
         $(function() {
             $("#carousel").load("/carousel");
         });
-      </script>
-      <div id="carousel"></div>
+        </script>
+        <div id="carousel"></div>
 
-      <!-- Main menu bar -->
-      <script>
+        <!-- Main menu bar -->
+        <script>
         $(function() {
             $("#navigationbar").load("/navigationbar", {'lang': '{{ lang }}'});
         });
-      </script>
-      <div id="navigationbar"></div>
+        </script>
+        <div id="navigationbar"></div>
 
-      <!-- GALLERY MAIN -->
-<!--      <script>-->
-<!--        $(function() {-->
-<!--            $("#main_section").load("/gallery");-->
-<!--        });-->
-<!--      </script>-->
-      <div id="main_section">{% block gallery %}{% endblock %}</div>
+        <!-- GALLERY MAIN -->
+        <!--      <script>-->
+        <!--        $(function() {-->
+        <!--            $("#main_section").load("/gallery");-->
+        <!--        });-->
+        <!--      </script>-->
+        <div id="main_section">
+            {% if report_date is defined %}
+                {% block profile %}{% endblock %}
+            {% else %}
+                {% block gallery %}{% endblock %}
+            {% endif %}
+        </div>
 
-
-
-      <!-- MODALS -->
-      <script>
+        <!-- MODALS -->
+        <script>
         $(function() {
             $("#modals").load("/modals", {'lang': '{{ lang }}'});
         });
-      </script>
-      <div id="modals"></div>
+        </script>
+        <div id="modals"></div>
 
     </main>
       <!-- FOOTER -->

@@ -1,18 +1,4 @@
-<!-- Recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script type="text/javascript">
 
-    grecaptcha.ready(function() {
-      widgetId1 = grecaptcha.render("login-recaptcha", {
-              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
-              'theme' : 'dark'
-      });
-      widgetId2 = grecaptcha.render("reg-recaptcha", {
-              'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
-              'theme' : 'dark'
-      });
-    });
-</script>
 
 
 <!-- game launch popup -->
@@ -407,3 +393,18 @@
         </script>
     {% endif %}
 
+<!-- Recaptcha -->
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script type="text/javascript">
+
+    grecaptcha.ready(function() {
+      widgetId1 = grecaptcha.render("login-recaptcha", {
+              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
+              'theme' : 'dark'
+      });
+      widgetId2 = grecaptcha.render("reg-recaptcha", {
+              'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
+              'theme' : 'dark'
+      });
+    });
+</script>

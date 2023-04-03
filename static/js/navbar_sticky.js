@@ -20,18 +20,18 @@ document.addEventListener('DOMContentLoaded', function() {
 //        snap_mode = true;
 
 //        middle_bar.classList.add("stickyMiddle")
-        middle_bar.style.top = "56.74px"
-        middle_bar.style.position = "fixed"
-        main_section.style.marginTop = middle_bar.clientHeight + "px"
+        middle_bar.style.top = "56.74px";
+        middle_bar.style.position = "fixed";
+        main_section.style.marginTop = "5px";
 
 //        main_section.style.position = "fixed"
       } else {
 //        snap_mode = false;
         middle_bar.classList.remove("stickyMiddle");
-        middle_bar.style.top = top_bar.clientHeight + "px"
-        middle_bar.style.position = "static"
-        main_section.style.marginTop = "0px"
-        main_section.style.paddingTop = "0px"
+        middle_bar.style.top = top_bar.clientHeight + "px";
+        middle_bar.style.position = "static";
+        main_section.style.marginTop = "0px";
+        main_section.style.paddingTop = "0px";
 //        main_section.style.position = "unset"
       }
     }

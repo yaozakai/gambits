@@ -325,7 +325,7 @@ body {
 }
 
 .fixed-middle {
-    height: 140px;
+    /* height: 140px; */
     top: 356px;
     position: absolute;
     z-index:1030;

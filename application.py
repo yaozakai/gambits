@@ -52,10 +52,10 @@ def profile():
         report_date = report_date.strftime('%Y-%m-%d')
         if rec is None:
             return render_template('profile.html', rec=[], num_results=0,
-                                   report_date=report_date)
+                                   report_date=report_date, lang=lang)
         else:
             return render_template('profile.html', rec=rec['Data'], num_results=rec['TotalSize'],
-                                   report_date=report_date)
+                                   report_date=report_date, lang=lang)
 
 
 @application.route("/logout", methods=['GET', 'POST'])
