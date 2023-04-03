@@ -22,7 +22,7 @@ iframe_game_toggle = False
 stream = ''
 datastream = {}
 price_array = []
-wallet = ''
+lang = ''
 
 
 # CAPTCHA_CONFIG = {'SECRET_CAPTCHA_KEY': 'sshhhhhhh secret cphaata key'}
@@ -112,6 +112,7 @@ def home():
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
 
+    global lang
     if request.method == 'POST' and 'language-select' in request.form:
         lang = request.form['language-select']
     else:
@@ -133,7 +134,7 @@ def redirect_home():
 
 @application.route('/verify/<token>', endpoint='verify_email', methods=['GET'])
 def verify(token):
-    notification_json = create_notification(token)
+    notification_json = create_notification(token, lang)
     return redirect(url_for('home', notification=notification_json['notification'],
                             notification_title=notification_json['notification_title']), code=307)
 
@@ -174,12 +175,12 @@ def login():
                         # return render_template('profile.html', page_call='profile')
                         # return redirect(next or url_for('profile'))
                     else:
-                        return jsonify(error='Your account is created but not verified yet',
-                                       resend_email=email)
+                        return jsonify(error=translations['created not verified'][lang],
+                                       resend_email=email, link_text=translations['resend verification email'][lang])
                 else:
-                    return jsonify(error='Invalid e-mail or password')
+                    return jsonify(error=translations['invalid email or password'][lang])
             else:
-                return jsonify(error='Invalid email format')
+                return jsonify(error=translations['invalid email format'][lang])
         else:
             if len(login_form.email.errors):
                 email_error = login_form.email.errors[0]
@@ -192,9 +193,9 @@ def login():
             if email_error or password_error:
                 return jsonify(error="", email_error=email_error, password_error=password_error)
             else:
-                return jsonify(error='Please refresh the website')
+                return jsonify(error=translations['please reload'][lang])
     else:
-        return jsonify({"error": 'reCaptcha not verified'})
+        return jsonify({"error": translations['recaptcha not verified'][lang]})
     # if LoginForm().validate_on_submit():
     #     return "the form has been submitted. Success!"
 
@@ -206,10 +207,8 @@ def forgot_pass():
     if db_getuser_email(email) is not None:
         create_reset_pass_email(email)
 
-    return jsonify(notification_title='Forgot password', notification='If <b>' + email +
-                                                                      '</b> exists, an email to reset your password '
-                                                                      'will be sent to you.<br>Please check your email '
-                                                                      'and click the link to verify.')
+    return jsonify(notification_title=translations['forgot password'][lang],
+                   notification=translations['email sent to'][lang])
 
 
 @application.route('/reset/<token>', endpoint='reset_password', methods=['GET'])
@@ -220,8 +219,8 @@ def reset(token):
         session["email"] = email
         return setup_home_template(notification='', notification_title='', reset_pass_popup=True)
     else:
-        return setup_home_template(notification='Token expired, please try again',
-                                   notification_title='Reset Password', reset_pass_popup=False)
+        return setup_home_template(notification=translations['token expired'][lang],
+                                   notification_title=translations['reset password'][lang], reset_pass_popup=False)
 
         # return redirect(url_for('home', notification='Token expired, please try again',
         #                         notification_title='Reset Password'), code=307)
@@ -254,19 +253,19 @@ def set_password():
         # return redirect(url_for('home', notification='Password has been updated.  You may log in now!',
         #                         notification_title='Reset password', notification_popup=True))
         # return redirect('/')
-        return jsonify(notification='Password has been updated.  You may log in now!',
-                                   notification_title='Reset password', reset_pass_popup=False)
+        return jsonify(notification=translations['password has been updated'][lang],
+                       notification_title=translations['reset password'][lang], reset_pass_popup=False)
     else:
         return setup_home_template(notification='Account not found',
-                                   notification_title='Reset password', reset_pass_popup=False)
+                                   notification_title=translations['reset password'][lang], reset_pass_popup=False)
 
 
 @application.route('/resend', methods=['POST'])
 def resend():
     email = json.loads(request.data)['email'][0:-1]
     create_verify_email(email)
-    return jsonify(notification_title='Verify account', notification='An e-mail has been sent to <b>' + email +
-                                                                     '</b>.<br>Please check your email and click the link to verify.')
+    return jsonify(notification_title=translations['verify account'][lang],
+                   notification=translations['email sent to'][lang])
 
 
 @application.route('/register', methods=['GET', 'POST'])
@@ -279,7 +278,7 @@ def register():
         register_form = RegisterForm()
         email = register_form.email.data
         if email_valid(email):
-            password_not_valid = validate_password(register_form.password.data)
+            password_not_valid = validate_password(register_form.password.data, lang)
             username = register_form.username.data
             if len(username) > 2:
                 # CHANGE this to == 0 on production
@@ -293,25 +292,30 @@ def register():
                             # create the user
                             create_verify_email(email)
                             db_new_user(register_form)
-                            return jsonify(notification_title='Verify account',
-                                           notification='An e-mail has been sent to <b>' + email +
-                                                        '</b>.<br>Please check your inbox and click the link in the '
-                                                        'email to verify.')
+                            return jsonify(notification_title=translations['verify account'][lang],
+                                           notification=translations['email sent to'][lang])
                         else:
                             if user.is_active():
-                                return jsonify(error='Account with this e-mail exists')
+                                return jsonify(error=translations['account exists'][lang])
                             else:
-                                return jsonify(error='Account with this username exists')
+                                return jsonify(error=translations['account exists but not activated'][lang],
+                                               resend_email=email,
+                                               link_text=translations['resend verification email'][lang])
                     else:
-                        return jsonify(error='Your account is created but not verified yet', resend_email=email)
+                        if user.is_active():
+                            return jsonify(error=translations['account exists'][lang])
+                        else:
+                            return jsonify(error=translations['account exists but not activated'][lang],
+                                           resend_email=email,
+                                           link_text=translations['resend verification email'][lang])
                 else:
                     return jsonify(error=password_not_valid)
             else:
-                return jsonify(error='Username must be more than 2 characters')
+                return jsonify(error=translations['username more than 2'][lang])
         else:
-            return jsonify(error='Invalid e-mail format')
+            return jsonify(error=translations['invalid email format'][lang])
     else:
-        return jsonify(error='reCaptcha not verified')
+        return jsonify(error=translations['recaptcha not verified'][lang])
 
 
 @application.route('/getBalance', methods=['GET', 'POST'])
@@ -321,7 +325,7 @@ def get_balance():
         user = db_get_user(session['_user_id'])
         return str(user.balance) + ' ' + user.currency
     else:
-        return 'Reload website'
+        return translations['reload website'][lang]
 
 
 @application.route('/update', methods=['GET', 'POST'])

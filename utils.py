@@ -82,7 +82,7 @@ def username_valid(s):
     return False
 
 
-def validate_password(password):
+def validate_password(password, lang):
     """
     Verify the strength of 'password'
     Returns a dict indicating the wrong criteria
@@ -97,31 +97,31 @@ def validate_password(password):
     # calculating the length
     length_error = len(password) < 8
     if length_error:
-        errors.append("Password must be 8 characters or more")
+        errors.append(translations['password must be 8 chars'][lang])
 
     # searching for digits
     digit_error = re.search(r"\d", password) is None
     if digit_error:
         if len(errors):
-            errors.append("<br>Password missing numerical digit (0-9)")
+            errors.append("<br>" + translations['password missing number'][lang])
         else:
-            errors.append("Password missing numerical digit (0-9)")
+            errors.append(translations['password missing number'][lang])
 
     # searching for uppercase
     uppercase_error = re.search(r"[A-Z]", password) is None
     if uppercase_error:
         if len(errors):
-            errors.append("<br>Password missing uppercase digit (A-Z)")
+            errors.append("<br>" + translations['password missing uppercase digit'][lang])
         else:
-            errors.append("Password missing uppercase digit (A-Z)")
+            errors.append(translations['password missing uppercase digit'][lang])
 
     # searching for lowercase
     lowercase_error = re.search(r"[a-z]", password) is None
     if lowercase_error:
         if len(errors):
-            errors.append("<br>Password missing lowercase digit (a-z)")
+            errors.append("<br>" + translations['password missing lowercase'][lang])
         else:
-            errors.append("Password missing lowercase digit (a-z)")
+            errors.append(translations['password missing lowercase'][lang])
 
     # searching for symbols
     # symbol_error = re.search(r"[ !#$%&'()*+,-./[\\\]^_`{|}~"+r'"]', password) is None
@@ -213,29 +213,20 @@ def load_crypto_prices():
     return price_array
 
 
-def create_notification(token):
+def create_notification(token, lang):
     notification_json = {
-        "notification_title": 'Account verification',
+        "notification_title": translations['account verification'][lang],
         "notification": ''
     }
-    notification_title = 'Account verification'
     email = confirm_token(token)
     if email:
         user = UserEntry().query.filter_by(email=email).first_or_404()
-        if user.is_active():
-            notification_json['notification'] = 'Account already verified. Please login'
-            notification = 'Account already verified. Please login'
-            # return redirect(url_for('home', data=jsonify(notification_json)), code=307)
-        else:
+        notification_json['notification'] = translations['account already verified'][lang]
+        if not user.is_active():
             user.active = True
             db.session.commit()
-            notification_json['notification'] = 'Account has been verified! Please login'
-            notification = 'Account has been verified! Please login'
-            # return redirect(url_for('home', data=jsonify(notification_json)), code=307)
     else:
-        notification_json['notification'] = 'The confirmation link is invalid or has expired'
-        notification = 'The confirmation link is invalid or has expired'
-        # return redirect(url_for('home', data=jsonify(notification_json)), code=307)
+        notification_json['notification'] = translations['confirmation link'][lang]
 
     return notification_json
 
