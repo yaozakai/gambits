@@ -38,7 +38,7 @@ def load_user(user_id):
 @application.route('/search', methods=['GET', 'POST'])
 @login_required
 def search():
-    pass
+    return render_template('page_search.html', search_page=True, lang=session['lang'])
 
 
 @application.route('/profile', methods=['GET', 'POST'])
@@ -56,10 +56,10 @@ def profile():
         rec = player_report_today(db_get_user(username).username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
         if rec is None:
-            return render_template('profile.html', rec=[], num_results=0,
+            return render_template('page_profile.html', rec=[], num_results=0,
                                    report_date=report_date, lang=session['lang'])
         else:
-            return render_template('profile.html', rec=rec['Data'], num_results=rec['TotalSize'],
+            return render_template('page_profile.html', rec=rec['Data'], num_results=rec['TotalSize'],
                                    report_date=report_date, lang=session['lang'])
 
 
@@ -154,7 +154,7 @@ def login():
                         session['admin'] = user.is_admin()
                         # output['page'] = 'profile'
                         return jsonify(output)
-                        # return render_template('profile.html', page_call='profile')
+                        # return render_template('page_profile.html', page_call='profile')
                         # return redirect(next or url_for('profile'))
                     else:
                         return jsonify(error=translations['created not verified'][session['lang']],

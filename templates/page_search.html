@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block search %}
+
+<div class="container shadow py-2">
+    <h3 class="green-text">Search Player</h3><br>
+    <h5 class="green-text"><div id="num_results" style="display: inline;">{{ num_results }}</div> results</h5>
+    <div class="col-3 justify-content-center">
+        <div class="input-group mb-3">
+            <span class="input-group-text whiteFont">Date</span>
+            <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("td[colspan=12]").find("p").hide();
+        $("table").click(function(event) {
+            event.stopPropagation();
+            var $target = $(event.target);
+            if ( $target.closest("td").attr("colspan") > 1 ) {
+                $target.slideUp();
+                $target.closest("tr").next().find("div").slideToggle();
+
+            } else {
+                $target.closest("tr").next().find("div").slideToggle();
+
+            }
+        });
+
+        const selectElement = document.getElementById('reportDate');
+        selectElement.addEventListener("change", (event) => {
+            $.ajax({
+                url: "/profile",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                    "reportDate":selectElement.value
+                }),
+                success: function(self) {
+                    htmloutput = "";
+                    results = self.rec;
+                    $("#num_results").html(self.num_results);
+                    if (self.num_results == 0) {
+                        htmloutput = "<div class=\"green-text\">No data</div>";
+                    } else {
+                        for (let i = 0; i < results.length; i++) {
+                            htmloutput = htmloutput + "<tr>";
+                            htmloutput = htmloutput + "<td>" + results[i]["endroundtime"].substring(11, 19) + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["status"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["gametype"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["gamecode"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";-->
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";-->
+                            htmloutput = htmloutput + "<td>" + results[i]["rake"] + "</td>";
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";-->
+<!--                            htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">Detail:" + results[i]["detail"] + "<br>Result:" + results[i]["gameresult"] + "</div></td></tr>";-->
+                        };
+                    }
+
+
+                    document.getElementById("results").innerHTML = htmloutput;
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        });
+    });
+
+</script>
+
+<table id="data" class="table table-hover table-dark container green-text">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Status</th>
+          <th>Type</th>
+          <th>Gamename</th>
+          <th>Round</th>
+        <th>Bet</th>
+        <th>Win</th>
+        <th>Valid Bet</th>
+<!--        <th>Jackpot</th>-->
+<!--        <th>JackContribution</th>-->
+        <th>Rake</th>
+<!--        <th>Room Fee</th>-->
+      </tr>
+    </thead>
+    <tbody id="results"></tbody>
+
+</table>
+<!--    {% if num_results == 0 %}-->
+<!--        <div class="green-text">-->
+<!--          No Data-->
+<!--        </div>-->
+<!--    {% endif %}-->
+
+{% endblock %}
+
