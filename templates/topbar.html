@@ -25,6 +25,9 @@
 <!--                <i class="bi bi-twitter"></i>-->
 <!--            </a>-->
             <div class="top-bar-right-side">
+                {% if current_user.is_authenticated and session['admin'] %}
+                    <a class="btn btn-outline-success" href="/search"><i class="bi bi-search"></i></a>
+                {% endif %}
                 <form method="POST" style="display: inline;">
                     <select id="language-select" name="language-select" class="green-text" onchange="this.form.submit();">
 

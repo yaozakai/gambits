@@ -213,7 +213,7 @@ def load_crypto_prices():
     return price_array
 
 
-def create_notification(token, lang):
+def activate_account(token, lang):
     notification_json = {
         "notification_title": translations['account verification'][lang],
         "notification": ''

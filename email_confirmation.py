@@ -1,9 +1,8 @@
-from flask import url_for, render_template
+from flask import url_for, render_template, session
 from itsdangerous import URLSafeTimedSerializer
 from config import app
 from flask_mail import Mail
 import boto3
-
 
 mail = Mail(app)
 
@@ -44,10 +43,10 @@ def confirm_token(token, expiration=3600):
     return email
 
 
-def create_verify_email(email):
+def create_verify_email(email, translations):
     token = generate_confirmation_token(email)
-    confirm_url = url_for('verify_email', token=token, _external=True)
-    html = render_template('email_verify.html', confirm_url=confirm_url)
+    confirm_url = url_for('verify_email', token=token, lang=session['lang'], _external=True)
+    html = render_template('email_verify.html', confirm_url=confirm_url, translations=translations)
     subject = "Gambits Casino: Please verify your email"
     send_email(subject=subject, recipient=email, html=html)
 

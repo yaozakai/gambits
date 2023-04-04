@@ -54,6 +54,7 @@ class UserEntry(UserMixin, db.Model):
     balance = db.Column(db.Numeric(50), default=0)
     referral = db.Column(db.String(50))
     active = db.Column(db.Boolean, default=False)
+    admin = db.Column(db.Boolean, default=False)
     logged_in = db.Column(db.Boolean, default=False)
     is_anonymous = False
     currency = db.Column(db.String(10), default='USD')
@@ -71,6 +72,12 @@ class UserEntry(UserMixin, db.Model):
 
     def is_active(self):
         if self.query.filter_by(email=self.email).first_or_404().active:
+            return True
+        else:
+            return False
+
+    def is_admin(self):
+        if self.query.filter_by(email=self.email).first_or_404().admin:
             return True
         else:
             return False

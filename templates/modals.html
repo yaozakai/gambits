@@ -156,7 +156,7 @@
                             success: function(self) {
                             if (typeof self.error != 'undefined'){
                                 if (typeof self.resend_email != 'undefined'){
-                                    $(".error").html(self.error.toString()+'<br><button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">self.link_text.toString()</button>');
+                                    $(".error").html(self.error.toString() + '<br><button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">' + self.link_text + '</button>');
                                 } else {
                                     $(".error").html('<p>'+self.error.toString()+'</p>');
                                 }

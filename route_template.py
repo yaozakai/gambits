@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, json
+from flask import Blueprint, request, render_template, json, session
 from flask_wtf import csrf
 from wtforms import Label
 
@@ -15,40 +15,40 @@ template = Blueprint('template', __name__)
 def topbar():
 
     if request.method == 'POST' and 'lang' in request.form:
-        lang = request.form['lang']
+        session['lang'] = request.form['lang']
     else:
-        lang = 'en'
+        session['lang'] = 'en'
 
-    return render_template('topbar.html', static_path=static_path, lang=lang, translations=utils.translations)
+    return render_template('topbar.html', static_path=static_path, lang=session['lang'], translations=utils.translations)
 
 
 @template.route('/navigationbar', methods=['POST'])
 def navigationbar():
 
     if request.method == 'POST' and 'lang' in request.form:
-        lang = request.form['lang']
+        session['lang'] = request.form['lang']
     else:
-        lang = 'en'
+        session['lang'] = 'en'
 
-    return render_template('navigationbar.html', lang=lang, translations=utils.translations)
+    return render_template('navigationbar.html', lang=session['lang'], translations=utils.translations)
 
 
 @template.route('/modals', methods=['POST', 'GET'])
 def modals():
     if request.method == 'POST' and 'lang' in request.form:
-        lang = request.form['lang']
+        session['lang'] = request.form['lang']
     else:
-        lang = 'en'
+        session['lang'] = 'en'
 
     csrf_token = csrf.generate_csrf()
-    login_form = LoginForm(lang)
+    login_form = LoginForm(session['lang'])
     login_form.csrf_token.data = csrf_token
-    login_form.login.label = Label("login", utils.translations['log in'][lang])
+    login_form.login.label = Label("login", utils.translations['log in'][session['lang']])
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
-    register_form.register.label = Label("register", utils.translations['register'][lang])
+    register_form.register.label = Label("register", utils.translations['register'][session['lang']])
     return render_template('modals.html', login_form=login_form, register_form=register_form,
-                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, lang=lang, translations=utils.translations)
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, lang=session['lang'], translations=utils.translations)
 
 
 @template.route('/carousel')
@@ -61,9 +61,9 @@ def carousel():
 def gallery():
 
     if len(request.data) > 0:
-        lang = json.loads(request.data)['lang']
+        session['lang'] = json.loads(request.data)['lang']
     else:
-        lang = 'en'
+        session['lang'] = 'en'
 
     return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           static_path='', lang=lang, translations=utils.translations)
+                           static_path='', lang=session['lang'], translations=utils.translations)

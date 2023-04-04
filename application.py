@@ -13,7 +13,7 @@ from config import app as application
 from consts import RECAPTCHA_PUBLIC_KEY
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_template import template
-from utils import reload_game_titles, reload_icon_placement, create_notification, icon_placement, game_titles
+from utils import reload_game_titles, reload_icon_placement, activate_account, icon_placement, game_titles
 
 uaform = None
 ftform = None
@@ -22,7 +22,6 @@ iframe_game_toggle = False
 stream = ''
 datastream = {}
 price_array = []
-lang = ''
 
 
 # CAPTCHA_CONFIG = {'SECRET_CAPTCHA_KEY': 'sshhhhhhh secret cphaata key'}
@@ -34,6 +33,12 @@ lang = ''
 @application.login_manager.user_loader
 def load_user(user_id):
     return db_get_user(user_id)
+
+
+@application.route('/search', methods=['GET', 'POST'])
+@login_required
+def search():
+    pass
 
 
 @application.route('/profile', methods=['GET', 'POST'])
@@ -52,19 +57,10 @@ def profile():
         report_date = report_date.strftime('%Y-%m-%d')
         if rec is None:
             return render_template('profile.html', rec=[], num_results=0,
-                                   report_date=report_date, lang=lang)
+                                   report_date=report_date, lang=session['lang'])
         else:
             return render_template('profile.html', rec=rec['Data'], num_results=rec['TotalSize'],
-                                   report_date=report_date, lang=lang)
-
-
-@application.route("/logout", methods=['GET', 'POST'])
-@login_required
-def logout():
-    session.pop('logged_in', None)
-    logout_user()
-
-    return redirect(url_for('home'))
+                                   report_date=report_date, lang=session['lang'])
 
 
 @application.route("/launch", methods=['GET', 'POST'])
@@ -112,29 +108,23 @@ def home():
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
 
-    global lang
     if request.method == 'POST' and 'language-select' in request.form:
-        lang = request.form['language-select']
+        session['lang'] = request.form['language-select']
     else:
-        lang = 'en'
+        session['lang'] = 'en'
 
     return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
                            notification=notification, notification_title=notification_title, reset_pass=False,
-                           lang=lang, translations=utils.translations)
+                           lang=session['lang'], translations=utils.translations)
 
 
-@application.route('/profile', methods=['GET', 'POST'])
-@application.route("/logout", methods=['GET', 'POST'])
-@application.route("/launch", methods=['GET', 'POST'])
-def redirect_home():
-    redirect(url_for('home'))
-
-
-@application.route('/verify/<token>', endpoint='verify_email', methods=['GET'])
-def verify(token):
-    notification_json = create_notification(token, lang)
+@application.route('/verify', endpoint='verify_email', methods=['GET'])
+def verify():
+    token = request.args['token']
+    session['lang'] = request.args['lang']
+    notification_json = activate_account(token, session['lang'])
     return redirect(url_for('home', notification=notification_json['notification'],
                             notification_title=notification_json['notification_title']), code=307)
 
@@ -170,17 +160,18 @@ def login():
 
                         login_user(user, remember=login_form.rememberme.data)
                         output = user.serialize()
+                        session['admin'] = user.is_admin()
                         # output['page'] = 'profile'
                         return jsonify(output)
                         # return render_template('profile.html', page_call='profile')
                         # return redirect(next or url_for('profile'))
                     else:
-                        return jsonify(error=translations['created not verified'][lang],
-                                       resend_email=email, link_text=translations['resend verification email'][lang])
+                        return jsonify(error=translations['created not verified'][session['lang']],
+                                       resend_email=email, link_text=translations['resend verification email'][session['lang']])
                 else:
-                    return jsonify(error=translations['invalid email or password'][lang])
+                    return jsonify(error=translations['invalid email or password'][session['lang']])
             else:
-                return jsonify(error=translations['invalid email format'][lang])
+                return jsonify(error=translations['invalid email format'][session['lang']])
         else:
             if len(login_form.email.errors):
                 email_error = login_form.email.errors[0]
@@ -193,11 +184,27 @@ def login():
             if email_error or password_error:
                 return jsonify(error="", email_error=email_error, password_error=password_error)
             else:
-                return jsonify(error=translations['please reload'][lang])
+                return jsonify(error=translations['please reload'][session['lang']])
     else:
-        return jsonify({"error": translations['recaptcha not verified'][lang]})
+        return jsonify({"error": translations['recaptcha not verified'][session['lang']]})
     # if LoginForm().validate_on_submit():
     #     return "the form has been submitted. Success!"
+
+
+@application.route("/logout", methods=['GET', 'POST'])
+@login_required
+def logout():
+    session.pop('logged_in', None)
+    logout_user()
+
+    return redirect(url_for('home'))
+
+
+@application.route('/profile', methods=['GET', 'POST'])
+@application.route("/logout", methods=['GET', 'POST'])
+@application.route("/launch", methods=['GET', 'POST'])
+def redirect_home():
+    redirect(url_for('home'))
 
 
 @application.route('/forgot_pass', methods=['POST'])
@@ -207,8 +214,8 @@ def forgot_pass():
     if db_getuser_email(email) is not None:
         create_reset_pass_email(email)
 
-    return jsonify(notification_title=translations['forgot password'][lang],
-                   notification=translations['email sent to'][lang])
+    return jsonify(notification_title=translations['forgot password'][session['lang']],
+                   notification=translations['email sent to'][session['lang']])
 
 
 @application.route('/reset/<token>', endpoint='reset_password', methods=['GET'])
@@ -219,8 +226,8 @@ def reset(token):
         session["email"] = email
         return setup_home_template(notification='', notification_title='', reset_pass_popup=True)
     else:
-        return setup_home_template(notification=translations['token expired'][lang],
-                                   notification_title=translations['reset password'][lang], reset_pass_popup=False)
+        return setup_home_template(notification=translations['token expired'][session['lang']],
+                                   notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
 
         # return redirect(url_for('home', notification='Token expired, please try again',
         #                         notification_title='Reset Password'), code=307)
@@ -253,19 +260,19 @@ def set_password():
         # return redirect(url_for('home', notification='Password has been updated.  You may log in now!',
         #                         notification_title='Reset password', notification_popup=True))
         # return redirect('/')
-        return jsonify(notification=translations['password has been updated'][lang],
-                       notification_title=translations['reset password'][lang], reset_pass_popup=False)
+        return jsonify(notification=translations['password has been updated'][session['lang']],
+                       notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
     else:
         return setup_home_template(notification='Account not found',
-                                   notification_title=translations['reset password'][lang], reset_pass_popup=False)
+                                   notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
 
 
 @application.route('/resend', methods=['POST'])
 def resend():
     email = json.loads(request.data)['email'][0:-1]
-    create_verify_email(email)
-    return jsonify(notification_title=translations['verify account'][lang],
-                   notification=translations['email sent to'][lang])
+    create_verify_email(email, translations)
+    return jsonify(notification_title=translations['verify account'][session['lang']],
+                   notification=translations['email sent to'][session['lang']])
 
 
 @application.route('/register', methods=['GET', 'POST'])
@@ -278,7 +285,7 @@ def register():
         register_form = RegisterForm()
         email = register_form.email.data
         if email_valid(email):
-            password_not_valid = validate_password(register_form.password.data, lang)
+            password_not_valid = validate_password(register_form.password.data, session['lang'])
             username = register_form.username.data
             if len(username) > 2:
                 # CHANGE this to == 0 on production
@@ -290,32 +297,32 @@ def register():
                         user = db_getuser_username(username)
                         if user is None:
                             # create the user
-                            create_verify_email(email)
+                            create_verify_email(email, translations)
                             db_new_user(register_form)
-                            return jsonify(notification_title=translations['verify account'][lang],
-                                           notification=translations['email sent to'][lang])
+                            return jsonify(notification_title=translations['verify account'][session['lang']],
+                                           notification=translations['email sent to'][session['lang']])
                         else:
                             if user.is_active():
-                                return jsonify(error=translations['account exists'][lang])
+                                return jsonify(error=translations['account exists'][session['lang']])
                             else:
-                                return jsonify(error=translations['account exists but not activated'][lang],
+                                return jsonify(error=translations['account exists but not activated'][session['lang']],
                                                resend_email=email,
-                                               link_text=translations['resend verification email'][lang])
+                                               link_text=translations['resend verification email'][session['lang']])
                     else:
                         if user.is_active():
-                            return jsonify(error=translations['account exists'][lang])
+                            return jsonify(error=translations['account exists'][session['lang']])
                         else:
-                            return jsonify(error=translations['account exists but not activated'][lang],
+                            return jsonify(error=translations['account exists but not activated'][session['lang']],
                                            resend_email=email,
-                                           link_text=translations['resend verification email'][lang])
+                                           link_text=translations['resend verification email'][session['lang']])
                 else:
                     return jsonify(error=password_not_valid)
             else:
-                return jsonify(error=translations['username more than 2'][lang])
+                return jsonify(error=translations['username more than 2'][session['lang']])
         else:
-            return jsonify(error=translations['invalid email format'][lang])
+            return jsonify(error=translations['invalid email format'][session['lang']])
     else:
-        return jsonify(error=translations['recaptcha not verified'][lang])
+        return jsonify(error=translations['recaptcha not verified'][session['lang']])
 
 
 @application.route('/getBalance', methods=['GET', 'POST'])
@@ -325,7 +332,7 @@ def get_balance():
         user = db_get_user(session['_user_id'])
         return str(user.balance) + ' ' + user.currency
     else:
-        return translations['reload website'][lang]
+        return translations['reload website'][session['lang']]
 
 
 @application.route('/update', methods=['GET', 'POST'])

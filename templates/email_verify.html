@@ -1,8 +1,5 @@
 
-
-<p>Welcome! Thanks for signing up. Please follow this link to activate your account:</p>
-<p><a href="{{ confirm_url }}">{{ confirm_url }}</a></p>
-<br>
-<p>Cheers!</p>
-
-
+    <p>{{ translations['email-activate'][session['lang']] }}</p>
+    <p><a href="{{ confirm_url }}">{{ confirm_url }}</a></p>
+    <br>
+    <p>{{ translations['thank you'][session['lang']] }}</p>
