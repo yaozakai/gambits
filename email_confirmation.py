@@ -47,15 +47,15 @@ def create_verify_email(email, translations):
     token = generate_confirmation_token(email)
     confirm_url = url_for('verify_email', token=token, lang=session['lang'], _external=True)
     html = render_template('email_verify.html', confirm_url=confirm_url, translations=translations)
-    subject = "Gambits Casino: Please verify your email"
+    subject = "Gambits Casino: " + translations['please verify your email'][session['lang']]
     send_email(subject=subject, recipient=email, html=html)
 
 
-def create_reset_pass_email(email):
+def create_reset_pass_email(email, translations):
     token = generate_confirmation_token(email)
-    confirm_url = url_for('reset_password', token=token, _external=True)
-    html = render_template('email_reset_pass.html', confirm_url=confirm_url)
-    subject = "Gambits Casino: Password reset"
+    confirm_url = url_for('reset_password', lang=session['lang'], token=token, _external=True)
+    html = render_template('email_reset_pass.html', confirm_url=confirm_url, translations=translations)
+    subject = "Gambits Casino: " + translations['password reset'][session['lang']]
     send_email(subject=subject, recipient=email, html=html)
 
 

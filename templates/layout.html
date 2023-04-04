@@ -87,7 +87,9 @@
         <!-- MODALS -->
         <script>
         $(function() {
-            $("#modals").load("/modals", {'lang': '{{ lang }}'});
+            $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',
+                           'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'
+                           });
         });
         </script>
         <div id="modals"></div>

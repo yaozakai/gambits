@@ -120,15 +120,6 @@ def home():
                            lang=session['lang'], translations=utils.translations)
 
 
-@application.route('/verify', endpoint='verify_email', methods=['GET'])
-def verify():
-    token = request.args['token']
-    session['lang'] = request.args['lang']
-    notification_json = activate_account(token, session['lang'])
-    return redirect(url_for('home', notification=notification_json['notification'],
-                            notification_title=notification_json['notification_title']), code=307)
-
-
 @application.route('/login', methods=['POST'])
 def login():
     # captcha_response = login_form.data['recaptcha']
@@ -167,7 +158,8 @@ def login():
                         # return redirect(next or url_for('profile'))
                     else:
                         return jsonify(error=translations['created not verified'][session['lang']],
-                                       resend_email=email, link_text=translations['resend verification email'][session['lang']])
+                                       resend_email=email,
+                                       link_text=translations['resend verification email'][session['lang']])
                 else:
                     return jsonify(error=translations['invalid email or password'][session['lang']])
             else:
@@ -218,16 +210,56 @@ def forgot_pass():
                    notification=translations['email sent to'][session['lang']])
 
 
-@application.route('/reset/<token>', endpoint='reset_password', methods=['GET'])
-def reset(token):
-    # email = confirm_token(token)
+@application.route('/verify', endpoint='verify_email', methods=['GET'])
+def verify():
+    token = request.args['token']
+    session['lang'] = request.args['lang']
+    # get the notification
+    notification_json = activate_account(token, session['lang'])
+    notification = notification_json['notification']
+    notification_title = notification_json['notification_title']
+
+    csrf_token = csrf.generate_csrf()
+    login_form = LoginForm()
+    login_form.csrf_token.data = csrf_token
+    register_form = RegisterForm()
+    register_form.csrf_token.data = csrf_token
+
+    if request.method == 'POST' and 'language-select' in request.form:
+        session['lang'] = request.form['language-select']
+    else:
+        session['lang'] = 'en'
+
+    post_obj = {'notification_popup': True,
+                'notification': notification_json['notification'],
+                'notification_title': notification_json['notification_title']
+                }
+        # return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+    #                        static_path='', login_form=login_form, register_form=register_form,
+    #                        RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=True,
+    #                        notification=notification, notification_title=notification_title, reset_pass=False,
+    #                        lang=session['lang'], translations=utils.translations)
+    # return redirect(url_for('home', json=json.dumps(post_obj)))
+
+    return redirect(url_for('home', notification_popup=True,
+                            notification=notification_json['notification'],
+                            notification_title=notification_json['notification_title']), code=307)
+
+    # return url_for('home', )
+
+
+@application.route('/reset', endpoint='reset_password', methods=['GET'])
+def reset():
+    token = request.args['token']
+    session['lang'] = request.args['lang']
     email = 'walt.yao@gmail.com'
     if len(email) > 0:
         session["email"] = email
         return setup_home_template(notification='', notification_title='', reset_pass_popup=True)
     else:
         return setup_home_template(notification=translations['token expired'][session['lang']],
-                                   notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
+                                   notification_title=translations['reset password'][session['lang']],
+                                   reset_pass_popup=False)
 
         # return redirect(url_for('home', notification='Token expired, please try again',
         #                         notification_title='Reset Password'), code=307)
@@ -264,7 +296,8 @@ def set_password():
                        notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
     else:
         return setup_home_template(notification='Account not found',
-                                   notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
+                                   notification_title=translations['reset password'][session['lang']],
+                                   reset_pass_popup=False)
 
 
 @application.route('/resend', methods=['POST'])

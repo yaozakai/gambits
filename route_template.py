@@ -48,7 +48,9 @@ def modals():
     register_form.csrf_token.data = csrf_token
     register_form.register.label = Label("register", utils.translations['register'][session['lang']])
     return render_template('modals.html', login_form=login_form, register_form=register_form,
-                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, lang=session['lang'], translations=utils.translations)
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, lang=session['lang'], translations=utils.translations,
+                           notification_popup=request.form['notification_popup'], notification=request.form['notification'],
+                           notification_title=request.form['notification_title'])
 
 
 @template.route('/carousel')

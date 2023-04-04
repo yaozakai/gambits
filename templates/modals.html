@@ -342,14 +342,13 @@
         </div>
     </div>
 
-
-    {% if notification_popup == true %}
+    {% if notification_popup == 'True' %}
         <script language="JavaScript" type="text/javascript">
             $(document).ready(function(){
                 $('#notificationModal').modal('show');
             });
         </script>
-    {% elif reset_pass == true %}
+    {% elif reset_pass == 'True' %}
         <script language="JavaScript" type="text/javascript">
             $(document).ready(function(){
                 $('#resetPassModal').modal('show');

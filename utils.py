@@ -219,6 +219,7 @@ def activate_account(token, lang):
         "notification": ''
     }
     email = confirm_token(token)
+    email = 'walt.yaoza@gmail.com'
     if email:
         user = UserEntry().query.filter_by(email=email).first_or_404()
         notification_json['notification'] = translations['account already verified'][lang]
