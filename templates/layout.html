@@ -33,7 +33,7 @@
         <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
 
         <!--    reCaptcha  -->
-        <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+        <script src='https://www.google.com/recaptcha/api.js?hl={{ lang }}' async defer></script>
 
           <!-- Jquery -->
         <script src="https://code.jquery.com/jquery-3.6.4.slim.js" integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
       <!-- TOP BAR -->
       <script>
         $(function() {
-            $("#topbar").load("/topbar", {'lang': '{{ lang }}'});
+            $("#topbar").load("/topbar");
         });
         window.scrollTo(0, 0);
       </script>
@@ -65,7 +65,7 @@
         <!-- Main menu bar -->
         <script>
         $(function() {
-            $("#navigationbar").load("/navigationbar", {'lang': '{{ lang }}'});
+            $("#navigationbar").load("/navigationbar");
         });
         </script>
         <div id="navigationbar"></div>

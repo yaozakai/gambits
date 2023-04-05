@@ -1,11 +1,20 @@
 import json
 
 from flask import request
-from sqlalchemy import desc
+from sqlalchemy import desc, literal
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from db_classes import *
 from utils import get_timestamp
+
+
+def db_search_user(search_term):
+    search_term = "%{}%".format(search_term)
+    query = UserEntry().query.filter(
+        literal(search_term).contains(UserEntry().email),
+        literal(search_term).contains(UserEntry().username)
+    )
+    return query
 
 
 def db_getuser_email(email):

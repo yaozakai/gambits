@@ -41,6 +41,31 @@ def search():
     return render_template('page_search.html', search_page=True, lang=session['lang'])
 
 
+@application.route('/search_user', methods=['GET', 'POST'])
+@login_required
+def search_user():
+    search_input = json.loads(request.data)['search_input']
+
+    result = db_search_user(search_input)
+    rec = []
+    for row in result:
+        entry = {'user_id': row.user_id,
+                 'created': row.created.strftime('%m/%d/%y - %H:%M'),
+                 'username': row.username,
+                 'email': row.email,
+                 'referral': row.referral,
+                 'balance': row.balance,
+                 'currency': row.currency,
+                 'active': row.active,
+                 'admin': row.admin,
+                 'logged_in': row.logged_in
+                 }
+
+        rec.append(entry)
+
+    return jsonify(lang=session['lang'], rec=rec, num_results=len(rec))
+
+
 @application.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
@@ -230,10 +255,10 @@ def verify():
     else:
         session['lang'] = 'en'
 
-    post_obj = {'notification_popup': True,
-                'notification': notification_json['notification'],
-                'notification_title': notification_json['notification_title']
-                }
+    # post_obj = {'notification_popup': True,
+    #             'notification': notification_json['notification'],
+    #             'notification_title': notification_json['notification_title']
+    #             }
         # return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
     #                        static_path='', login_form=login_form, register_form=register_form,
     #                        RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=True,

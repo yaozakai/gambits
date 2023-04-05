@@ -15,9 +15,9 @@ language_choices = [('al', 'Albanian'),
                     ('bg', 'Bulgarian'),
                     ('cf', 'Canadian French'),
                     ('ca', 'Catalan, Valencian'),
-                    ('cn', 'Chinese (Simplified)'),
+                    ('zh-cn', 'Chinese (Simplified)'),
                     # ('zh', 'Chinese (Simplified)'),
-                    ('b5', 'Chinese (Traditional)'),
+                    ('zh-tw', 'Chinese (Traditional)'),
                     ('hr', 'Croatian'),
                     ('cs', 'Czech'),
                     ('dk', 'Danish'),
@@ -397,9 +397,9 @@ class RegisterForm(FlaskForm):
 
 
 # class LanguageForm(FlaskForm):
-#     selector = SelectField('Language', choices=[('en', 'English'), ('b5', '繁體中文'), ('zh-cn', '简体中文'),
+#     selector = SelectField('Language', choices=[('en', 'English'), ('zh-tw', '繁體中文'), ('zh-cn', '简体中文'),
 #                                                 ('ja', '日本'), ('id', 'Bahasa Indo'), ('ko', '한국어'),
-#                                                 ('vn', 'Việt'), ('pt-br', 'Português')
+#                                                 ('vi', 'Việt'), ('pt-br', 'Português')
 #                                                 ])
 #
 #

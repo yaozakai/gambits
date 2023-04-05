@@ -33,19 +33,19 @@
 
 
                         <option value="en" id="lang-en">English</option>
-                        <option value="b5" id="lang-b5">繁體中文</option>
+                        <option value="zh-tw" id="lang-zh-tw">繁體中文</option>
                         <option value="zh-cn" id="lang-zh-cn">简体中文</option>
                         <option value="ja" id="lang-ja">日本</option>
                         <option value="id" id="lang-id">Bahasa</option>
                         <option value="ko" id="lang-ko">한국어</option>
-                        <option value="vn" id="lang-vn">Việt</option>
+                        <option value="vi" id="lang-vi">Việt</option>
                         <option value="pt-br" id="lang-pt-br">Português</option>
                         <option value="es" id="lang-es">Española</option>
 
                     </select>
                     <script>
                         $(document).ready(function(){
-                            active_lang = document.getElementById("lang-" + "{{ lang }}");
+                            active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
                             active_lang.setAttribute("selected", "selected");
 
                         });
@@ -59,10 +59,10 @@
                 {% else %}
 <!-- LOGIN/REGISTER (if NOT logged in) -->
                     <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
-                      <div >{{ translations['log in'][lang] }}</div>
+                      <div >{{ translations['log in'][session['lang']] }}</div>
                     </button>
                     <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
-                      <div >{{ translations['register'][lang] }}</div>
+                      <div >{{ translations['register'][session['lang']] }}</div>
                     </button>
                 {% endif %}
             </div>
@@ -84,10 +84,10 @@
 <!-- LOGIN/REGISTER (if NOT logged in) -->
           <div class="top-bar-mobile" style="transform: scale(1.2); padding-right:5px;">
               <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
-                  <div >{{ translations['log in'][lang] }}</div>
+                  <div >{{ translations['log in'][session['lang']] }}</div>
               </button>
               <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
-                  <div >{{ translations['register'][lang] }}</div>
+                  <div >{{ translations['register'][session['lang']] }}</div>
               </button>
           </div>
         </nav>

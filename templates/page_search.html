@@ -4,11 +4,16 @@
 <div class="container shadow py-2">
     <h3 class="green-text">Search Player</h3><br>
     <h5 class="green-text"><div id="num_results" style="display: inline;">{{ num_results }}</div> results</h5>
-    <div class="col-3 justify-content-center">
-        <div class="input-group mb-3">
-            <span class="input-group-text whiteFont">Date</span>
-            <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
+    <div class="col-8">
+        <div class="input-group">
+            <span class="input-group-text whiteFont">Email</span>
+            <input id="search_input" class="form-control" value="{{ report_date }}"/>
+            <span class="input-group-text whiteFont">Username</span>
+            <input id="search_username" class="form-control" value="{{ report_date }}"/>
         </div>
+        <div class="input-group mb-3">
+        </div>
+            <button class="btn btn-primary" id="search_user">Search</button>
     </div>
 
 
@@ -30,15 +35,16 @@
             }
         });
 
-        const selectElement = document.getElementById('reportDate');
-        selectElement.addEventListener("change", (event) => {
+        const search_user = document.getElementById('search_user');
+        const search_input = document.getElementById('search_input');
+        search_user.addEventListener("click", (event) => {
             $.ajax({
-                url: "/profile",
+                url: "/search_user",
                 type: "post",
                 dataType: "json",
                 contentType: "application/json; charset=UTF-8",
                 data: JSON.stringify({
-                    "reportDate":selectElement.value
+                    "search_input":search_input.value
                 }),
                 success: function(self) {
                     htmloutput = "";
@@ -49,24 +55,22 @@
                     } else {
                         for (let i = 0; i < results.length; i++) {
                             htmloutput = htmloutput + "<tr>";
-                            htmloutput = htmloutput + "<td>" + results[i]["endroundtime"].substring(11, 19) + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["status"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["gametype"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["gamecode"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";
-<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";-->
-<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";-->
-                            htmloutput = htmloutput + "<td>" + results[i]["rake"] + "</td>";
-<!--                            htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";-->
-<!--                            htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">Detail:" + results[i]["detail"] + "<br>Result:" + results[i]["gameresult"] + "</div></td></tr>";-->
+                            htmloutput = htmloutput + "<td>" + results[i]["user_id"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["created"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["username"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["email"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["referral"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["balance"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["currency"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["active"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["admin"] + "</td>";
+                            htmloutput = htmloutput + "<td>" + results[i]["logged_in"] + "</td>";
+                            htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">Detail:" + results[i]["detail"] + "<br>Result:" + results[i]["gameresult"] + "</div></td></tr>";
                         };
                     }
 
 
-                    document.getElementById("results").innerHTML = htmloutput;
+                    document.getElementById("search_user_results").innerHTML = htmloutput;
                 },
                 error: function(e) {
                     console.log(e);
@@ -80,21 +84,19 @@
 <table id="data" class="table table-hover table-dark container green-text">
     <thead>
       <tr>
-        <th>Time</th>
-        <th>Status</th>
-          <th>Type</th>
-          <th>Gamename</th>
-          <th>Round</th>
-        <th>Bet</th>
-        <th>Win</th>
-        <th>Valid Bet</th>
-<!--        <th>Jackpot</th>-->
-<!--        <th>JackContribution</th>-->
-        <th>Rake</th>
-<!--        <th>Room Fee</th>-->
+        <th>User ID</th>
+        <th>Created</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Referral</th>
+        <th>Balance</th>
+        <th>Currency</th>
+        <th>Active</th>
+        <th>Admin</th>
+        <th>Logged In</th>
       </tr>
     </thead>
-    <tbody id="results"></tbody>
+    <tbody id="search_user_results"></tbody>
 
 </table>
 <!--    {% if num_results == 0 %}-->

@@ -11,23 +11,19 @@ static_path = 'static'
 template = Blueprint('template', __name__)
 
 
-@template.route('/topbar', methods=['POST'])
+@template.route('/topbar', methods=['POST', 'GET'])
 def topbar():
 
-    if request.method == 'POST' and 'lang' in request.form:
-        session['lang'] = request.form['lang']
-    else:
+    if 'lang' not in session:
         session['lang'] = 'en'
 
     return render_template('topbar.html', static_path=static_path, lang=session['lang'], translations=utils.translations)
 
 
-@template.route('/navigationbar', methods=['POST'])
+@template.route('/navigationbar', methods=['POST', 'GET'])
 def navigationbar():
 
-    if request.method == 'POST' and 'lang' in request.form:
-        session['lang'] = request.form['lang']
-    else:
+    if 'lang' not in session:
         session['lang'] = 'en'
 
     return render_template('navigationbar.html', lang=session['lang'], translations=utils.translations)
@@ -35,9 +31,8 @@ def navigationbar():
 
 @template.route('/modals', methods=['POST', 'GET'])
 def modals():
-    if request.method == 'POST' and 'lang' in request.form:
-        session['lang'] = request.form['lang']
-    else:
+
+    if 'lang' not in session:
         session['lang'] = 'en'
 
     csrf_token = csrf.generate_csrf()
@@ -62,9 +57,7 @@ def carousel():
 @template.route('/gallery')
 def gallery():
 
-    if len(request.data) > 0:
-        session['lang'] = json.loads(request.data)['lang']
-    else:
+    if 'lang' not in session:
         session['lang'] = 'en'
 
     return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,

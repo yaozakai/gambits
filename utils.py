@@ -153,8 +153,8 @@ def reload_translations():
     # translations = {name: [] for name in reader.fieldnames}
     for row in reader:
         # print(row)
-        # trad = {'name': chinese_converter.to_traditional(row['zh-cn']), 'lang': 'b5'}
-        row['b5'] = chinese_converter.to_traditional(row['zh-cn'])
+        # trad = {'name': chinese_converter.to_traditional(row['zh-cn']), 'lang': 'zh-tw'}
+        # row['zh-tw'] = chinese_converter.to_traditional(row['zh-cn'])
         translations[row['name']] = row
     pass
 
@@ -171,7 +171,7 @@ def reload_game_titles():
     for game_title in game_titles:
         for title in game_title['nameset']:
             if title['lang'] == 'zh-cn':
-                trad = {'name': chinese_converter.to_traditional(title['name']), 'lang': 'b5'}
+                trad = {'name': chinese_converter.to_traditional(title['name']), 'lang': 'zh-tw'}
                 game_title['nameset'].append(trad)
                 break
 
@@ -219,7 +219,7 @@ def activate_account(token, lang):
         "notification": ''
     }
     email = confirm_token(token)
-    email = 'walt.yaoza@gmail.com'
+    # email = 'walt.yaoza@gmail.com'
     if email:
         user = UserEntry().query.filter_by(email=email).first_or_404()
         notification_json['notification'] = translations['account already verified'][lang]
