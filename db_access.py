@@ -1,7 +1,7 @@
 import json
 
 from flask import request
-from sqlalchemy import desc, literal
+from sqlalchemy import desc, literal, column, text
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from db_classes import *
@@ -9,11 +9,11 @@ from utils import get_timestamp
 
 
 def db_search_user(search_term):
-    search_term = "%{}%".format(search_term)
-    query = UserEntry().query.filter(
-        literal(search_term).contains(UserEntry().email),
-        literal(search_term).contains(UserEntry().username)
-    )
+    # search_term = "%{}%".format(search_term)
+    # quak = UserEntry()
+    query = UserEntry().query.from_statement(text("SELECT * FROM users WHERE email LIKE '%' || LOWER('za') || '%' ")).all()
+    # query = UserEntry().query.filter_by(email=search_term)
+
     return query
 
 

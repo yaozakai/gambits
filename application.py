@@ -136,7 +136,7 @@ def home():
     if request.method == 'POST' and 'language-select' in request.form:
         session['lang'] = request.form['language-select']
     else:
-        session['lang'] = 'en'
+        session['lang'] = 'zh-tw'
 
     return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', login_form=login_form, register_form=register_form,
@@ -149,7 +149,8 @@ def home():
 def login():
     # captcha_response = login_form.data['recaptcha']
     captcha_response = json.loads(request.data)['recaptcha']
-
+    if 'lang' not in session:
+        session['lang'] = 'zh-tw'
     # verify captcha
     if verify_captcha(captcha_response):
         login_form = LoginForm()
@@ -253,7 +254,7 @@ def verify():
     if request.method == 'POST' and 'language-select' in request.form:
         session['lang'] = request.form['language-select']
     else:
-        session['lang'] = 'en'
+        session['lang'] = 'zh-tw'
 
     # post_obj = {'notification_popup': True,
     #             'notification': notification_json['notification'],

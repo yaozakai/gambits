@@ -15,7 +15,7 @@ template = Blueprint('template', __name__)
 def topbar():
 
     if 'lang' not in session:
-        session['lang'] = 'en'
+        session['lang'] = 'zh-tw'
 
     return render_template('topbar.html', static_path=static_path, lang=session['lang'], translations=utils.translations)
 
@@ -24,7 +24,7 @@ def topbar():
 def navigationbar():
 
     if 'lang' not in session:
-        session['lang'] = 'en'
+        session['lang'] = 'zh-tw'
 
     return render_template('navigationbar.html', lang=session['lang'], translations=utils.translations)
 
@@ -33,7 +33,7 @@ def navigationbar():
 def modals():
 
     if 'lang' not in session:
-        session['lang'] = 'en'
+        session['lang'] = 'zh-tw'
 
     csrf_token = csrf.generate_csrf()
     login_form = LoginForm(session['lang'])
@@ -58,7 +58,7 @@ def carousel():
 def gallery():
 
     if 'lang' not in session:
-        session['lang'] = 'en'
+        session['lang'] = 'zh-tw'
 
     return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', lang=session['lang'], translations=utils.translations)
