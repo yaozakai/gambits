@@ -9,12 +9,15 @@ from utils import get_timestamp
 
 
 def db_search_user(search_term):
-    # search_term = "%{}%".format(search_term)
-    # quak = UserEntry()
-    query = UserEntry().query.from_statement(text("SELECT * FROM users WHERE email LIKE '%' || LOWER('za') || '%' ")).all()
-    # query = UserEntry().query.filter_by(email=search_term)
+    email_query = UserEntry().query.from_statement(
+        text("SELECT * FROM users WHERE email LIKE '%' || LOWER('" + search_term + "') || '%' "))
+    username_query = UserEntry().query.from_statement(
+        text("SELECT * FROM users WHERE username LIKE '%' || LOWER('" + search_term + "') || '%' "))
+    # output = []
+    resulting_list = list(email_query)
+    resulting_list.extend(x for x in username_query if x not in resulting_list)
 
-    return query
+    return resulting_list
 
 
 def db_getuser_email(email):
@@ -154,7 +157,6 @@ def db_refund():
 
 
 def db_bet():
-
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
     balance = float(user.balance)
@@ -191,7 +193,6 @@ def db_bet():
 
 
 def db_takeall():
-
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
     balance = user.balance
@@ -274,7 +275,6 @@ def db_endround():
 
 # db to cq9
 def db_rollout():
-
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
     new_balance = float(user.balance) - float(request.form['amount'])

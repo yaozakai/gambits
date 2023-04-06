@@ -3,17 +3,17 @@
 
 <div class="container shadow py-2">
     <h3 class="green-text">Search Player</h3><br>
-    <h5 class="green-text"><div id="num_results" style="display: inline;">{{ num_results }}</div> results</h5>
-    <div class="col-8">
-        <div class="input-group">
-            <span class="input-group-text whiteFont">Email</span>
-            <input id="search_input" class="form-control" value="{{ report_date }}"/>
-            <span class="input-group-text whiteFont">Username</span>
-            <input id="search_username" class="form-control" value="{{ report_date }}"/>
-        </div>
+    <h5 class="green-text"><div id="num_results" style="display: inline;">{{ rec|length }}</div> result(s)</h5>
+    <div class="col-5">
         <div class="input-group mb-3">
-        </div>
+            <span class="input-group-text whiteFont">Email/Username</span>
+            <input id="search_input" class="form-control" value="{{ report_date }}"/>
             <button class="btn btn-primary" id="search_user">Search</button>
+
+
+        </div>
+
+<!--            <button class="btn btn-primary" id="search_user">Search</button>-->
     </div>
 
 
