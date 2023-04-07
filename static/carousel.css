@@ -14,6 +14,7 @@ body {
     color: #28a745;
     height: 100%;
     width: 15%;
+    /* height: 100%; */
     font-size: 1.2rem;
     -moz-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
@@ -42,11 +43,11 @@ body {
 .carousel-inner {height: 100%;}
 
 .carousel-control-next{
-  height: 370px;
+  /* height: 370px; */
 }
 
 .carousel-control-prev{
-  height: 370px;
+  /* height: 100%; */
 }
 
 
@@ -144,6 +145,7 @@ body {
     height: 200px;
     margin-bottom: 50px;
     background: #736988;
+    font-size: 1.5rem;
 }
 
 .large-card .card {
@@ -211,6 +213,15 @@ body {
     display: contents;
 }
 
+.top-bar-mobile {
+    width: 100%;
+    padding: 3px 9px 0px 9px;
+}
+
+#top-bar-mobile-right {
+    float: right;
+}
+
 /* NAV BAR STUFF */
 
 .nav-bar-selector {
@@ -243,7 +254,8 @@ body {
     display: inline-block;
     padding-left: 0px;
     padding-right: 0px;
-    margin: 0px 8px 0px 5px;
+    margin: 0px 8px 0px 3px;
+    padding: 9px 0px 0 0;
 }
 
 .nav-link:hover {
@@ -356,8 +368,8 @@ h3 {
 }
 
 .midBarIcon {
-    height:32px;
-    margin-top: 10px;
+    height: 46px;
+    margin-bottom: 6px;
 }
 
 .modal-content {
@@ -435,13 +447,20 @@ h3 {
     bottom: 10px;
 }
 
+.login-data-mobile {
+    /* top: 8px; */
+    width: 100%;
+    position: relative;
+    display: inline-block;
+}
+
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #83001c;
   font-size: .8rem;
   opacity: 1; /* Firefox */
 }
 
-#balance {
+.balanceBox {
     display: inline;
     /* border-color: #28a745; */
     border: 1px solid #126224;
