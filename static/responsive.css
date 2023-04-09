@@ -168,9 +168,9 @@
 
 @media (max-width: 538px) {
 
-    .fixed-middle {top: 314px;height: 90px;}
+    .fixed-middle {top: 295px;height: 90px;}
     .top-bar-desktop { display:none; }
-    .main-bg {margin-top: 75px;}
+    .main-bg {margin-top: 55px;}
     .top-bar-mobile {/* display:inline-block; *//* margin-left: 5px; */position: absolute;top: 5px;}
     .main-logo {/* height: 23px; */position: relative;top: 3px;}
     .carousel {height: 240px;}
