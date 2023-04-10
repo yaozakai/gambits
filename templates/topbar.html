@@ -76,7 +76,7 @@
 <!-- MOBILE -->
             <div class="top-bar-mobile">
             <!-- LOGO -->
-                <img src="{{ static_path }}/icons/ui/main_title.png" class="main-logo">
+                <a href="/"><img src="{{ static_path }}/icons/ui/main_title.png" class="main-logo"></a>
                 <!-- SOCIALS -->
                 <!--              <div>-->
                 <!--                  <a class="navbar-brand" href="https://discord.gg/ebjsys6h">-->
@@ -101,15 +101,16 @@
                 </div>
                 {% if current_user.is_authenticated %}
                     <div class="green-text login-data-mobile">
-                        <div style="float: left;">
-                            <div class="balanceBox" id="balance2" data-toggle="tooltip" data-placement="bottom" title="Balance refreshes every 30 seconds">
-                              {{ current_user.balance }} {{ current_user.currency }}
-                            </div>
+                        <div style="float: left;padding-top: 8px;padding-left: 3px;"> Hi {{ current_user.username }} ♥️🙏🏼</div>
+
+                        <div style="float: right;">
                             <div class="btn btn-transparent" id="refresh_balance" style="height: 43px; display: inline-block;">
                                 <h3><i class="bi bi-arrow-clockwise"></i></h3>
                             </div>
+                            <div class="balanceBox" id="balance2" data-toggle="tooltip" data-placement="bottom" title="Balance refreshes every 30 seconds">
+                              {{ current_user.balance }} {{ current_user.currency }}
+                            </div>
                         </div>
-                        <div style="float: right;padding-top: 7px;"> Hi {{ current_user.username }} ♥️🙏🏼</div>
                     </div>
                 {% endif %}
 
@@ -136,6 +137,7 @@
             updater();
         });
         setInterval(updater, 30000);  // run `updater()` every (30s)
+        window.scrollTo(0, 0);
     });
     </script>
 {% endif %}

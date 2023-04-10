@@ -130,7 +130,8 @@ body {
 }
 
 .main-logo {
-    height: 25px;
+    height: 100%;
+    width: 50%;
 }
 
 
@@ -148,10 +149,11 @@ body {
     font-size: 1.5rem;
 }
 
-.large-card .card {
+.large-card {
     width: 200px;
     height: 200px;
     margin-bottom: 50px;
+    align-items: center;
 }
 
 .card-img-top {
@@ -368,7 +370,7 @@ h3 {
 }
 
 .midBarIcon {
-    height: 46px;
+    height: 38px;
     margin-bottom: 6px;
 }
 
@@ -448,7 +450,7 @@ h3 {
 }
 
 .login-data-mobile {
-    /* top: 8px; */
+    top: 3px;
     width: 100%;
     position: relative;
     display: inline-block;
@@ -549,4 +551,8 @@ h3 {
     background-color: #4f4151;
     border-radius: 0.25rem;
     /* border-color: cornsilk; */
+}
+
+.large-card {
+    width: 100%;
 }

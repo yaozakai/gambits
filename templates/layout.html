@@ -53,7 +53,7 @@
       </script>
       <div id="topbar"></div>
 
-    <main class="main-bg min-vh-100">
+    <main class="main-bg min-vh-100" id="main-gallery">
         <!-- CAROUSEL -->
         <script>
         $(function() {
@@ -117,8 +117,35 @@
         <!--        </font>-->
     </footer>
       <!-- UI Javascript -->
-      <script language="JavaScript" type="text/javascript" src="{{ static_path }}static/js/navbar_sticky.js"></script>
+        <script language="JavaScript" type="text/javascript" src="{{ static_path }}static/js/navbar_sticky.js"></script>
+        <script language="JavaScript" type="text/javascript">
 
+            $(document).ready(function(){
+                var main_bg = document.getElementById("main-gallery");
+                var top_bar = document.getElementById("topbar");
+                {% if current_user.is_authenticated %}
+                    main_bg.style.marginTop = "90px";
+                {% endif %}
+            });
+            document.addEventListener('DOMContentLoaded', function() {
+                // When the user scrolls the page, execute myFunction
+                window.addEventListener('resize', myFunction);
+
+                myFunction();
+
+                function myFunction() {
+<!--                    var top_bar = document.getElementById("main_section");-->
+
+                    var main_bg = document.getElementById("main-gallery");
+                    if (window.innerWidth > 767) {
+                        var main_bg = document.getElementById("main-gallery");
+                        main_bg.style.marginTop = "60px";
+                    } else {
+                        main_bg.style.marginTop = "90px";
+                    }
+                }
+            });
+        </script>
   </body>
 
 
