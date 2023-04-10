@@ -168,14 +168,14 @@
 
 @media (max-width: 538px) {
 
-    .fixed-middle {top: 295px;height: 90px;}
+    .fixed-middle {top: 275px;height: 90px;}
     .top-bar-desktop { display:none; }
     .main-bg {margin-top: 55px;}
     .top-bar-mobile {/* display:inline-block; *//* margin-left: 5px; */position: absolute;top: 5px;}
     .main-logo {/* height: 23px; */position: relative;top: 3px;}
-    .carousel {height: 240px;}
+    .carousel {height: 220px;}
     .nav-link {/* transform: scale(1.3); */font-size: small;}
-    #main_section {margin-top: 58px;}
+    #main_section {margin-top: 100px;}
     #top_bar {height: 90px;}
     #top_bar_not_logged {height: 55px;}
 }

@@ -10,29 +10,36 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
     function myFunction() {
         // Get the navbar
-        const top_bar = document.getElementById("top_bar");
+        const top_bar = document.getElementById("top-navbar");
         const middle_bar = document.getElementById("middle_bar");
         const main_section = document.getElementById("main_section");
         const myCarousel = document.getElementById("carousel");
 
+        if (middle_bar) {
         // Get the offset position of the navbar
-      if (window.pageYOffset >= myCarousel.offsetHeight) {
-//        snap_mode = true;
+            if (window.pageYOffset > myCarousel.clientHeight) {
+            //        snap_mode = true;
 
-//        middle_bar.classList.add("stickyMiddle")
-        middle_bar.style.top = "56.74px";
-        middle_bar.style.position = "fixed";
-        main_section.style.marginTop = "5px";
+            //        middle_bar.classList.add("stickyMiddle")
+                    middle_bar.style.top = top_bar.offsetTop + "px";
+            middle_bar.style.position = "fixed";
+            //        middle_bar.style.zIndex = "100";
+            //        main_section.style.marginTop = "5px";
 
-//        main_section.style.position = "fixed"
-      } else {
-//        snap_mode = false;
-        middle_bar.classList.remove("stickyMiddle");
-        middle_bar.style.top = top_bar.clientHeight + "px";
-        middle_bar.style.position = "static";
-        main_section.style.marginTop = "0px";
-        main_section.style.paddingTop = "0px";
-//        main_section.style.position = "unset"
-      }
+            //        main_section.style.position = "fixed"
+            } else {
+            //        snap_mode = false;
+            //        middle_bar.classList.remove("stickyMiddle");
+            //        middle_bar.style.top = top_bar.offsetTop + "px";
+                    middle_bar.style.top = top_bar.offsetTop + myCarousel.clientHeight + "px";
+
+            middle_bar.style.position = "absolute";
+            //        main_section.style.marginTop = "0px";
+            //        main_section.style.paddingTop = "0px";
+            //        main_section.style.position = "unset"
+            }
+        }
+
     }
+    window.scrollTo(0, 0);
 });
