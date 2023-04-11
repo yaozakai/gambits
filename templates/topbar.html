@@ -1,4 +1,5 @@
 <header>
+
     <div class="container-fluid" id="top-navbar">
         {% if current_user.is_authenticated %}
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
@@ -36,7 +37,7 @@
                     <select id="language-select" name="language-select" class="green-text" onchange="this.form.submit();">
 
 
-                        <option value="en" id="lang-en">English</option>
+                        <option value="en" id="lang-en"><i class="flag flag-us"></i>English</option>
                         <option value="zh-tw" id="lang-zh-tw">繁體中文</option>
                         <option value="zh-cn" id="lang-zh-cn">简体中文</option>
                         <option value="ja" id="lang-ja">日本</option>

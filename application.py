@@ -4,6 +4,7 @@ from flask import render_template
 from flask_login import login_required, logout_user, login_user
 from flask_wtf import csrf
 
+
 import utils
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email

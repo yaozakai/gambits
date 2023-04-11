@@ -1,6 +1,8 @@
 from flask import Flask
 import secrets
 from flask_login import LoginManager
+# from flask_mobility import Mobility
+
 
 from consts import *
 
@@ -26,5 +28,5 @@ login_manager = LoginManager()
 # login_manager.login_view = 'profile'
 app.config.from_object(__name__)
 login_manager.init_app(app)
-
+# Mobility(app)
 

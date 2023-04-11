@@ -123,10 +123,19 @@
             $(document).ready(function(){
                 var main_bg = document.getElementById("main-gallery");
                 var top_bar = document.getElementById("topbar");
-                {% if current_user.is_authenticated %}
-                    main_bg.style.marginTop = "90px";
-                {% endif %}
+
+                if (window.innerWidth > 767) {
+                    main_bg.style.marginTop = "57px";
+                } else {
+                    {% if current_user.is_authenticated %}
+                        main_bg.style.marginTop = "90px";
+                    {% else %}
+                        main_bg.style.marginTop = "55px";
+                    {% endif %}
+                }
+
             });
+
             document.addEventListener('DOMContentLoaded', function() {
                 // When the user scrolls the page, execute myFunction
                 window.addEventListener('resize', myFunction);
@@ -139,9 +148,13 @@
                     var main_bg = document.getElementById("main-gallery");
                     if (window.innerWidth > 767) {
                         var main_bg = document.getElementById("main-gallery");
-                        main_bg.style.marginTop = "60px";
+                        main_bg.style.marginTop = "55px";
                     } else {
+                    {% if current_user.is_authenticated %}
                         main_bg.style.marginTop = "90px";
+                    {% else %}
+                        main_bg.style.marginTop = "55px";
+                    {% endif %}
                     }
                 }
             });

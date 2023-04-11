@@ -129,6 +129,10 @@ body {
   letter-spacing: -.05rem;
 }
 
+#gallery-bg {
+    padding-bottom: 50px;
+}
+
 .main-logo {
     height: 100%;
     width: 50%;
@@ -143,7 +147,7 @@ body {
 
 .card {
     width: 200px;
-    height: 200px;
+    height: 160px;
     margin-bottom: 50px;
     background: #736988;
     font-size: 1.5rem;
@@ -153,7 +157,7 @@ body {
     width: 200px;
     height: 200px;
     margin-bottom: 50px;
-    align-items: center;
+    margin: 0 auto;
 }
 
 .card-img-top {
@@ -207,7 +211,8 @@ body {
     float: right;
     position: relative;
     /* display: table-cell; */
-    top: 3px;
+    top: 0px;
+    margin-right: 9px;
 }
 
 .top-bar-desktop {
