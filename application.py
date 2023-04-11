@@ -104,20 +104,21 @@ def launch():
         return jsonify(link=link)
 
 
-# @application.route('/language', methods=['GET', 'POST'])
-# def language():
-#     if request.method == 'POST':
-#         if len(request.data) > 0:
-#             lang = json.loads(request.data)['lang']
-#         else:
-#             lang = 'en'
-#         return jsonify({'redirect': url_for("/", lang=lang)})
+@application.route('/lang/<token>', methods=['GET', 'POST'])
+def language(lang):
+    if request.method == 'POST':
+        if len(request.data) > 0:
+            lang = json.loads(request.data)['lang']
+        else:
+            lang = 'en'
+        return jsonify({'redirect': url_for("/", lang=lang)})
 
 
 @application.route('/', methods=['GET', 'POST'])
 def home():
     # if session['logged_in']:
     #     db_get_user(session['_user_id'])
+
     notification = ''
     notification_title = ''
     if 'notification' in request.args:
@@ -138,6 +139,16 @@ def home():
         session['lang'] = request.form['language-select']
     else:
         session['lang'] = 'zh-tw'
+
+    session['flag'] = session['lang']
+    if session['flag'] == 'en':
+        session['flag'] = 'gb'
+    elif session['flag'] == 'zh-tw':
+        session['flag'] = 'tw'
+    elif session['flag'] == 'zh-cn':
+        session['flag'] = 'cn'
+    elif session['flag'] == 'ja':
+        session['flag'] = 'jp'
 
     return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', login_form=login_form, register_form=register_form,

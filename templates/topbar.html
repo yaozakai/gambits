@@ -1,10 +1,12 @@
 <header>
-
+<!--    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet" />
     <div class="container-fluid" id="top-navbar">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
         {% if current_user.is_authenticated %}
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
+             id="top_bar">
         {% else %}
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar_not_logged">
+            id="top_bar_not_logged">
         {% endif %}
           <div class="top-bar-desktop">
 <!-- LOGO -->
@@ -33,29 +35,65 @@
                 {% if current_user.is_authenticated and session['admin'] %}
                     <a class="btn btn-outline-success" href="/search"><i class="bi bi-search"></i></a>
                 {% endif %}
-                <form method="POST" style="display: inline;">
-                    <select id="language-select" name="language-select" class="green-text" onchange="this.form.submit();">
 
+                <div class="dropdown">
+                    <form method="POST">
+                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="language-select" >
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="en" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></button>
+                            </li>
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="zh-tw" id="lang-zh-tw"><span class="flag-icon flag-icon-tw me-1"></span> <span>繁體中文</span></button>
+                            </li>
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="zh-cn" id="lang-zh-cn"><span class="flag-icon flag-icon-cn me-1"></span> <span>简体中文</span></button>
+                            </li>
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="ja" id="lang-ja"><span class="flag-icon flag-icon-jp me-1"></span> <span>日本</span></button>
+                            </li>
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="id" id="lang-id"><span class="flag-icon flag-icon-id me-1"></span> <span>Bahasa</span></button>
+                            </li>
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="kr" id="lang-kr"><span class="flag-icon flag-icon-kr me-1"></span> <span>한국어</span></button>
+                            </li>
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="vn" id="lang-vn"><span class="flag-icon flag-icon-vn me-1"></span> <span>Việt</span></button>
+                            </li>
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="br" id="lang-br"><span class="flag-icon flag-icon-br me-1"></span> <span>Português</span></button>
+                            </li>
+                            <li >
+                                <button class="dropdown-item" name="language-select" value="es" id="lang-es"><span class="flag-icon flag-icon-es me-1"></span> <span>Española</span></button>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+<!--                <form method="POST" style="display: inline;">-->
+<!--                    <select id="language-select" name="language-select" class="green-text" onchange="this.form.submit();">-->
 
-                        <option value="en" id="lang-en"><i class="flag flag-us"></i>English</option>
-                        <option value="zh-tw" id="lang-zh-tw">繁體中文</option>
-                        <option value="zh-cn" id="lang-zh-cn">简体中文</option>
-                        <option value="ja" id="lang-ja">日本</option>
-                        <option value="id" id="lang-id">Bahasa</option>
-                        <option value="ko" id="lang-ko">한국어</option>
-                        <option value="vi" id="lang-vi">Việt</option>
-                        <option value="pt-br" id="lang-pt-br">Português</option>
-                        <option value="es" id="lang-es">Española</option>
+<!--                        <option value="en" id="lang-en"><img src="{{ static_path }}/icons/flags/en.svg">English</option>-->
+<!--                        <option value="zh-tw" id="lang-zh-tw">繁體中文</option>-->
+<!--                        <option value="zh-cn" id="lang-zh-cn">简体中文</option>-->
+<!--                        <option value="ja" id="lang-ja">日本</option>-->
+<!--                        <option value="id" id="lang-id">Bahasa</option>-->
+<!--                        <option value="ko" id="lang-ko">한국어</option>-->
+<!--                        <option value="vi" id="lang-vi">Việt</option>-->
+<!--                        <option value="pt-br" id="lang-pt-br">Português</option>-->
+<!--                        <option value="es" id="lang-es">Española</option>-->
 
-                    </select>
+<!--                    </select>-->
                     <script>
                         $(document).ready(function(){
                             active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
-                            active_lang.setAttribute("selected", "selected");
+                            active_lang.classList.add("active");
 
                         });
                     </script>
-                </form>
+<!--                </form>-->
 
 <!-- PROFILE/LOGOUT (if logged in) -->
                 {% if current_user.is_authenticated %}
@@ -114,14 +152,19 @@
                         </div>
                     </div>
                 {% endif %}
-
             </div>
-<!-- LOGIN/REGISTER (if NOT logged in) -->
-
         </nav>
     </div>
 </header>
 
+<script language="JavaScript" type="text/javascript">
+    $(document).ready(function(){
+        function set_lang() {
+<!--            var balance_field = document.getElementById("balance");-->
+
+        }
+    });
+</script>
 
 {% if current_user.is_authenticated %}
     <script language="JavaScript" type="text/javascript">
