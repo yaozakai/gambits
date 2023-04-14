@@ -6,7 +6,7 @@ Flask-Mail~=0.9.1
 flask_simple_captcha~=1.1.1
 flask_sqlalchemy==2.5.1
 Flask-WTF~=1.0.1
-itsdangerous~=2.1.2
+itsdangerous~=2.0.1
 Jinja2~=3.1.2
 MarkupSafe~=2.1.2
 psycopg2-binary~=2.9.5
