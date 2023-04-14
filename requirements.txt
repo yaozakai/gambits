@@ -1,6 +1,6 @@
 captcha~=0.4
 click~=8.0.4
-Flask~=2.2.2
+Flask~=2.0.3
 Flask-Login~=0.6.2
 Flask-Mail~=0.9.1
 flask_simple_captcha~=1.1.1
