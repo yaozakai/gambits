@@ -4,7 +4,7 @@ from wtforms.validators import InputRequired
 import socket
 import requests
 import forms
-from consts import RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY
+from constants import RECAPTCHA_PUBLIC_KEY, RECAPTCHA_PRIVATE_KEY
 import csv
 
 language_choices = [('al', 'Albanian'),

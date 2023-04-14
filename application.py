@@ -11,7 +11,7 @@ from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import LoginForm, RegisterForm, verify_captcha
 from utils import *
 from config import app as application
-from consts import RECAPTCHA_PUBLIC_KEY
+from constants import RECAPTCHA_PUBLIC_KEY
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_template import template
 from utils import reload_game_titles, reload_icon_placement, activate_account, icon_placement, game_titles

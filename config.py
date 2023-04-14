@@ -4,7 +4,7 @@ from flask_login import LoginManager
 # from flask_mobility import Mobility
 
 
-from consts import *
+from constants import *
 
 app = Flask(__name__)
 

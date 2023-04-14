@@ -579,3 +579,8 @@ h3 {
     background-color: #0d3516 !important;
         border-color: #0d3516 !important;
 }
+
+#main-icon {
+    height: 26px;
+    padding-left: 2px;
+}

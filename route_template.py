@@ -4,7 +4,7 @@ from wtforms import Label
 
 import utils
 from forms import LoginForm, RegisterForm
-from consts import RECAPTCHA_PUBLIC_KEY
+from constants import RECAPTCHA_PUBLIC_KEY
 
 static_path = 'static'
 
