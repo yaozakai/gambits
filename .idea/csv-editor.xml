@@ -3,20 +3,6 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="/static/csv/cq9_game_list copy.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/static/csv/cq9_game_list.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/static/csv/currencies.csv">
           <value>
             <Attribute>
@@ -32,13 +18,6 @@
           </value>
         </entry>
         <entry key="/static/csv/icon_placement.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/static/csv/languages.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
