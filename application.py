@@ -427,6 +427,9 @@ if __name__ == '__main__':
     reload_game_titles()
     application.register_blueprint(cq9_api)
     application.register_blueprint(template)
+
+    print('Socket: ' + socket.gethostname())
+    # print('SQLALCHEMY_DATABASE_URI: ' + socket.gethostname())
     if socket.gethostname() == 'srv.gambits.vip':
         application.run(port=80)
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':

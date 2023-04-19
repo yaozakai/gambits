@@ -6,7 +6,7 @@ RECAPTCHA_PRIVATE_KEY = "6LdaDkMkAAAAADSxpkyC0xrSXRhrSceaU8GZ2F-O"
 # SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:rR0sWw9GPJ14@gambits-db.cqzbnbnbi3rk.ap-northeast-2.rds.amazonaws.com:5432/postgres'
 
 if socket.gethostname() == 'srv.gambits.vip':
-    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://admin_admin:uDnf3QLZkbCXHVb7@0.0.0.0:3306/admin_db'
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://admin_admin:uDnf3QLZkbCXHVb7@srv.gambits.vip:3306/admin_db'
 elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
     SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://admin_admin:uDnf3QLZkbCXHVb7@185.221.201.253:3306/admin_db'
 SQLALCHEMY_ENGINE_OPTIONS = {
