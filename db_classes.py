@@ -53,9 +53,9 @@ class UserEntry(UserMixin, db.Model):
     password = db.Column(db.String(255))
     balance = db.Column(db.Numeric(50), default=0)
     referral = db.Column(db.String(50))
-    active = db.Column(db.Boolean, default=False)
-    admin = db.Column(db.Boolean, default=False)
-    logged_in = db.Column(db.Boolean, default=False)
+    active = db.Column(db.Numeric(1), default=0)
+    admin = db.Column(db.Numeric(1), default=0)
+    logged_in = db.Column(db.Numeric(1), default=0)
     is_anonymous = False
     currency = db.Column(db.String(10), default='USD')
 

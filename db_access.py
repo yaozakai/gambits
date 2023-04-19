@@ -54,7 +54,10 @@ def db_user_verification(email, password):
 def db_new_user(register_form):
     # create a session id
     # user_id = str(UserEntry().query.count() + 1).zfill(8)
-    user_id = str(int(UserEntry().query.order_by(desc('user_id')).first().user_id) + 1).zfill(8)
+    if UserEntry().query.count():
+        user_id = str(int(UserEntry().query.order_by(desc('user_id')).first().user_id) + 1).zfill(8)
+    else:
+        user_id = '00000001'
 
     # user_id = '-'.join([raw_str[:4], raw_str[4:]])
     dataclass_user = UserEntry(user_id,

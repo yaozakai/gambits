@@ -348,6 +348,10 @@ def resend():
 
 @application.route('/register', methods=['GET', 'POST'])
 def register():
+
+    if 'lang' not in session:
+        session['lang'] = 'zh-tw'
+
     # sharing the same captcha as login
     captcha_response = json.loads(request.data)['recaptcha']
 
