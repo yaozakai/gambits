@@ -2,7 +2,6 @@ from flask import Flask
 import secrets
 from flask_login import LoginManager
 
-
 from constants import *
 
 app = Flask(__name__)
