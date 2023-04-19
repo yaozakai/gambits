@@ -1,3 +1,5 @@
+import socket
+
 import flask as flask
 
 from flask import render_template
@@ -419,9 +421,14 @@ def update_games():
 
 if __name__ == '__main__':
     application.debug = True
+
     reload_icon_placement()
     reload_translations()
     reload_game_titles()
     application.register_blueprint(cq9_api)
     application.register_blueprint(template)
-    application.run()
+    if socket.gethostname() == 'srv.gambits.vip':
+        application.run(port=80)
+    elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
+        application.run()
+
