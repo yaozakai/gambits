@@ -431,7 +431,7 @@ if __name__ == '__main__':
     print('Socket: ' + socket.gethostname())
     # print('SQLALCHEMY_DATABASE_URI: ' + socket.gethostname())
     if socket.gethostname() == 'srv.gambits.vip':
-        application.run()
+        application.run(port=80)
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
         application.run()
 
