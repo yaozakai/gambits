@@ -1,7 +1,6 @@
 from flask import Flask
 import secrets
 from flask_login import LoginManager
-# from flask_mobility import Mobility
 
 
 from constants import *
@@ -16,6 +15,7 @@ app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
 app.config['SECURITY_PASSWORD_SALT'] = secrets.token_urlsafe(16)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = SQLALCHEMY_ENGINE_OPTIONS
 app.config['RECAPTCHA_USE_SSL'] = False
 # app.config['RECAPTCHA_SITE_KEY'] = RECAPTCHA_PUBLIC_KEY  # <-- Add your site key
 # app.config['RECAPTCHA_SECRET_KEY'] = RECAPTCHA_PRIVATE_KEY  # <-- Add your secret key
