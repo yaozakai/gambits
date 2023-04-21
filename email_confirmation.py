@@ -6,10 +6,10 @@ import boto3
 
 mail = Mail(app)
 
-email_text = 'Welcome! Thanks for signing up. Please follow this link to activate your account:'
+email_text = 'Welcome! Thanks for signing up. Please follow this link to activate your account: '
 
 
-def send_email(subject, recipient, html):
+def send_email(subject, recipient, html, text):
     ses_client = boto3.client('ses',
                               region_name=app.config['SES_REGION'],
                               aws_access_key_id=app.config['AWS_ACCESS_KEY_ID'],
@@ -19,7 +19,7 @@ def send_email(subject, recipient, html):
     response = ses_client.send_email(
         Destination={'ToAddresses': [recipient], },
         Message={'Body': {'Html': {'Charset': 'UTF-8', 'Data': html, },
-                          'Text': {'Charset': 'UTF-8', 'Data': email_text, }, },
+                          'Text': {'Charset': 'UTF-8', 'Data': text, }, },
                  'Subject': {'Charset': 'UTF-8', 'Data': subject, }, },
         Source=app.config['SES_EMAIL_SOURCE']
     )
@@ -48,7 +48,7 @@ def create_verify_email(email, translations):
     confirm_url = url_for('verify_email', token=token, lang=session['lang'], _external=True)
     html = render_template('email_verify.html', confirm_url=confirm_url, translations=translations)
     subject = "Gambits Casino: " + translations['please verify your email'][session['lang']]
-    send_email(subject=subject, recipient=email, html=html)
+    send_email(subject=subject, recipient=email, html=html, text=email_text + confirm_url)
 
 
 def create_reset_pass_email(email, translations):

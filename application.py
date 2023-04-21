@@ -433,5 +433,5 @@ if __name__ == '__main__':
     if socket.gethostname() == 'srv.gambits.vip':
         application.run(host='0.0.0.0')
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
-        application.run()
+        application.run(host='192.168.1.107')
 

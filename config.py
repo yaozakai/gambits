@@ -7,7 +7,7 @@ from constants import *
 app = Flask(__name__)
 
 app.config['SES_REGION'] = 'ap-northeast-2'
-app.config['SES_EMAIL_SOURCE'] = 'no-reply@gambits.casino'
+app.config['SES_EMAIL_SOURCE'] = 'no-reply@gambits.vip'
 app.config['AWS_ACCESS_KEY_ID'] = 'AKIASUDHOIDDYWZ754XV'
 app.config['AWS_SECRET_ACCESS_KEY'] = AWS_SECRET_ACCESS_KEY
 app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
