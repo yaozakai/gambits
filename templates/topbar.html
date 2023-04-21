@@ -17,15 +17,7 @@
                       <img src="{{ static_path }}/icons/ui/main_title.png" class="main-logo">
                     </a>
                 </div>
-                <!-- BALANCE (if logged in) -->
-                {% if current_user.is_authenticated %}
-                  <div class="green-text login-data">
-                      Hi {{ current_user.username }} ♥️🙏🏼
-                      <div class="balanceBox" id="balance" data-toggle="tooltip" data-placement="bottom" title="Balance refreshes every 30 seconds">
-                          {{ current_user.balance }} {{ current_user.currency }}
-                      </div>
-                  </div>
-                {% endif %}
+
                 <!-- SOCIALS (Desktop) -->
                 <!--            <a class="navbar        d" href="https://discord.gg/ebjsys6h">-->
                 <!--                <i class="bi bi-discord"></i>-->
@@ -36,71 +28,74 @@
                 <div class="top-bar-right-side">
                     {% if current_user.is_authenticated and session['admin'] %}
                         <a class="btn btn-outline-success" href="/search"><i class="bi bi-search"></i></a>
+                    {% else %}
+
                     {% endif %}
 
-                    <div class="dropdown">
-                        <form method="POST">
-                            <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="language-select" >
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="en" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></button>
-                                </li>
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="zh-tw" id="lang-zh-tw"><span class="flag-icon flag-icon-tw me-1"></span> <span>繁體中文</span></button>
-                                </li>
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="zh-cn" id="lang-zh-cn"><span class="flag-icon flag-icon-cn me-1"></span> <span>简体中文</span></button>
-                                </li>
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="ja" id="lang-ja"><span class="flag-icon flag-icon-jp me-1"></span> <span>日本</span></button>
-                                </li>
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="id" id="lang-id"><span class="flag-icon flag-icon-id me-1"></span> <span>Bahasa</span></button>
-                                </li>
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="kr" id="lang-kr"><span class="flag-icon flag-icon-kr me-1"></span> <span>한국어</span></button>
-                                </li>
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="vn" id="lang-vn"><span class="flag-icon flag-icon-vn me-1"></span> <span>Việt</span></button>
-                                </li>
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="br" id="lang-br"><span class="flag-icon flag-icon-br me-1"></span> <span>Português</span></button>
-                                </li>
-                                <li >
-                                    <button class="dropdown-item" name="language-select" value="es" id="lang-es"><span class="flag-icon flag-icon-es me-1"></span> <span>Española</span></button>
-                                </li>
-                            </ul>
-                        </form>
-                    </div>
-                <!--                <form method="POST" style="display: inline;">-->
-                <!--                    <select id="language-select" name="language-select" class="green-text" onchange="this.form.submit();">-->
 
-                <!--                        <option value="en" id="lang-en"><img src="{{ static_path }}/icons/flags/en.svg">English</option>-->
-                <!--                        <option value="zh-tw" id="lang-zh-tw">繁體中文</option>-->
-                <!--                        <option value="zh-cn" id="lang-zh-cn">简体中文</option>-->
-                <!--                        <option value="ja" id="lang-ja">日本</option>-->
-                <!--                        <option value="id" id="lang-id">Bahasa</option>-->
-                <!--                        <option value="ko" id="lang-ko">한국어</option>-->
-                <!--                        <option value="vi" id="lang-vi">Việt</option>-->
-                <!--                        <option value="pt-br" id="lang-pt-br">Português</option>-->
-                <!--                        <option value="es" id="lang-es">Española</option>-->
 
-                <!--                    </select>-->
-                        <script>
-                            $(document).ready(function(){
-                                active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
-                                active_lang.classList.add("active");
+                    <script>
+                        $(document).ready(function(){
+                            active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
+                            active_lang.classList.add("active");
 
-                            });
-                        </script>
-                <!--                </form>-->
+                        });
+                    </script>
 
                 <!-- PROFILE/LOGOUT (if logged in) -->
                     {% if current_user.is_authenticated %}
-                        <a class="btn btn-outline-success" href="/profile">{{ translations['profile'][session['lang']] }}</a>
-                        <a class="btn btn-outline-success" href="/logout">{{ translations['log out'][session['lang']] }}</a>
+                    <div class="green-text login-data">
+                      ♥️🙏 Hi
+                    </div>
+
+                    <div class="dropdown open">
+                      <button class="btn btn-outline-success dropdown-toggle" id="dLabel" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ current_user.username }}
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu multi-level" aria-labelledby="dLabel">
+                        <li class="dropdown-submenu green-text">
+                            <a href="#"><span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span></a>Language
+
+                            <ul class="dropdown-menu">
+                                <form method="POST">
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="en" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="zh-tw" id="lang-zh-tw"><span class="flag-icon flag-icon-tw me-1"></span> <span>繁體中文</span></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="zh-cn" id="lang-zh-cn"><span class="flag-icon flag-icon-cn me-1"></span> <span>简体中文</span></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="ja" id="lang-ja"><span class="flag-icon flag-icon-jp me-1"></span> <span>日本</span></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="id" id="lang-id"><span class="flag-icon flag-icon-id me-1"></span> <span>Bahasa</span></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="kr" id="lang-kr"><span class="flag-icon flag-icon-kr me-1"></span> <span>한국어</span></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="vn" id="lang-vn"><span class="flag-icon flag-icon-vn me-1"></span> <span>Việt</span></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="br" id="lang-br"><span class="flag-icon flag-icon-br me-1"></span> <span>Português</span></button>
+                                    </li>
+                                    <li>
+                                        <button class="dropdown-item" name="language-select" value="es" id="lang-es"><span class="flag-icon flag-icon-es me-1"></span> <span>Española</span></button>
+                                    </li>
+                                </form>
+                            </ul>
+                        </li>
+
+                        <li><a class="btn dropdown-item" href="/profile">{{ translations['profile'][session['lang']] }}</a></li>
+                        <li><a class="btn dropdown-item" href="/logout">{{ translations['log out'][session['lang']] }}</a></li>
+                      </ul>
+                    </div>
+
+
                     {% else %}
                 <!-- LOGIN/REGISTER (if NOT logged in) -->
                         <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -110,6 +105,8 @@
                           <div >{{ translations['register'][session['lang']] }}</div>
                         </button>
                     {% endif %}
+
+
                 </div>
             </div>
 

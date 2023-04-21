@@ -175,9 +175,9 @@
     .carousel {height: 220px;}
     .nav-link {/* transform: scale(1.3); */font-size: small;}
     #main_section {margin-top: 100px;}
-    #top_bar {height: 90px;}
+    #top_bar {/* height: 90px; */}
     #top_bar_not_logged {/* height: 55px; */}
-    .main-logo {height: 12px;/* width: 25%; *//* position: relative; *//* top: 0px; */}
+    .main-logo {/* height: 12px; *//* width: 25%; *//* position: relative; *//* top: 0px; */}
 
 
 }
@@ -197,9 +197,9 @@
     .main-logo {display: none;}
 }
 
-@media (max-width: 400px) {
+@media (max-width: 440px) {
     #main-icon {height: 16px;}
-    .main-logo {height: 9px;}
+    .main-logo {height: 12px;}
 }
 
 @media (max-width: 347px) {

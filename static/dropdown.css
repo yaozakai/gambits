@@ -1,0 +1,16 @@
+.dropdown-submenu {
+  position: relative;
+  margin-left: 7px;
+}
+
+.dropdown-submenu > .dropdown-menu {
+  right: 100%;
+  /* -6px gives dropdown-menu's padding+border */
+  top: -6px;
+}
+
+.dropdown-submenu:hover > .dropdown-menu, .dropdown-submenu > a:focus + .dropdown-menu {
+  /* :focus support is incomplete - pressing Tab sets focus to submenu, but that immediately hides submenu */
+  display: block;
+  color: #1a8754;
+}

@@ -30,6 +30,13 @@ body {
   background: #252027!important;
 }
 
+.btn-check:active+.btn-outline-success:focus, .btn-check:checked+.btn-outline-success:focus, .btn-outline-success.active:focus, .btn-outline-success.dropdown-toggle.show:focus, .btn-outline-success:active:focus {
+    box-shadow: unset;
+    color: unset;
+}
+
+
+
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -142,7 +149,7 @@ body {
 /* GALLERY STUFF */
 .main-bg {
     background: #332a34;
-    /* margin-top: 56px; */
+    margin-top: 57px;
 }
 
 .card {
@@ -276,9 +283,9 @@ body {
 }
 
 .btn-outline-success:hover {
+    background-color: #252027;
+    border-color: #524252;
     color: #28a745;
-    background-color: #828282;
-    border-color: #c8ed07;
 }
 
 #disconnect {
@@ -446,7 +453,8 @@ h3 {
     /* display: inline; */
     position: relative;
     display: table-cell;
-    top: 3px;
+    top: 7px;
+    margin-right: 6px;
     /* display: inline-block; */
     /* display: inline-block; */
     text-align: center;
@@ -564,6 +572,18 @@ h3 {
 
 .dropdown-item {
     color: #28a745;
+    padding: 0.25rem 0.5rem;
+}
+
+.dropdown-item:hover {
+    border-radius: 0rem;
+    background-color: #0d3516 !important;
+    border-color: #0d3516 !important;
+    
+}
+
+.dropdown-menu {
+    background-color: #342a34;
 }
 
 .dropdown-item.active, .dropdown-item:active {
