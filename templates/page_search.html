@@ -2,8 +2,8 @@
 {% block search %}
 
 <div class="container shadow py-2">
-    <h3 class="green-text">Search Player</h3><br>
-    <h5 class="green-text"><div id="num_results" style="display: inline;">{{ rec|length }}</div> result(s)</h5>
+    <h3 class="green-text-outline">Search Player</h3><br>
+    <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> result(s)</h5>
     <div class="col-5">
         <div class="input-group mb-3">
             <span class="input-group-text whiteFont">Email/Username</span>
@@ -51,7 +51,7 @@
                     results = self.rec;
                     $("#num_results").html(self.num_results);
                     if (self.num_results == 0) {
-                        htmloutput = "<div class=\"green-text\">No data</div>";
+                        htmloutput = "<div class=\"green-text-outline\">No data</div>";
                     } else {
                         for (let i = 0; i < results.length; i++) {
                             htmloutput = htmloutput + "<tr>";
@@ -81,7 +81,7 @@
 
 </script>
 
-<table id="data" class="table table-hover table-dark container green-text">
+<table id="data" class="table table-hover table-dark container green-text-outline">
     <thead>
       <tr>
         <th>User ID</th>
@@ -100,7 +100,7 @@
 
 </table>
 <!--    {% if num_results == 0 %}-->
-<!--        <div class="green-text">-->
+<!--        <div class="green-text-outline">-->
 <!--          No Data-->
 <!--        </div>-->
 <!--    {% endif %}-->

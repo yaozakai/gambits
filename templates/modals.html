@@ -34,7 +34,7 @@
 
                 </div>
                 <div class="modal-body">
-                    <div class='green-text'>Enter your email to update password</div>
+                    <div class='green-text-outline'>Enter your email to update password</div>
 
                     <input type="text" id="forgotPassEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
                     <br>
@@ -117,10 +117,10 @@
                             {{ login_form.password(id_="login-password", class_="form-control") }}
                         </div>
 
-                        <span class="green-text">
+                        <span class="green-text-outline">
                             {{ login_form.rememberme(id_="login-rememberme") }}
                             <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>
-                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
+                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text-outline">{{ translations['forgot password'][lang] }}?</button>
                         </span>
                         <div id="login-recaptcha"></div>
                         {{ login_form.hidden_tag() }}
@@ -299,6 +299,16 @@
                     });
                 });
             });
+            grecaptcha.ready(function() {
+                  widgetId1 = grecaptcha.render("login-recaptcha", {
+                          "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
+                          'theme' : 'dark'
+                  });
+                  widgetId2 = grecaptcha.render("reg-recaptcha", {
+                          'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
+                          'theme' : 'dark'
+                  });
+                });
         </script>
     {% endif %}
 
@@ -314,7 +324,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class='notification green-text'>{{ notification }}</div>
+                    <div class='notification green-text-outline'>{{ notification }}</div>
                 </div>
             </div>
         </div>
@@ -332,7 +342,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class='notification green-text'>Enter a new password</div>
+                    <div class='notification green-text-outline'>Enter a new password</div>
 
                     <input type="password" id="newPassword" class="form-control" placeholder="Password" aria-label="Email" aria-describedby="basic-addon1">
                     <br>
@@ -390,20 +400,6 @@
 
 
         </script>
-    {% endif %}
+{% endif %}
 
-<!-- Recaptcha -->
-<script src="https://www.google.com/recaptcha/api.js?hl={{ lang }}"></script>
-<script type="text/javascript">
 
-    grecaptcha.ready(function() {
-      widgetId1 = grecaptcha.render("login-recaptcha", {
-              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
-              'theme' : 'dark'
-      });
-      widgetId2 = grecaptcha.render("reg-recaptcha", {
-              'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
-              'theme' : 'dark'
-      });
-    });
-</script>

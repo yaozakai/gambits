@@ -167,13 +167,48 @@ def reload_game_titles():
     x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
     global game_titles
     game_titles = x.json()['data']
-    # translate simplified to traditional chinese
+
+    file = open('static/csv/game_list.csv', 'w', encoding='utf-8-sig')
+    game_list = csv.writer(file)
+
+    # header
+    row = []
+    lang_header = ['en', 'zh-tw', 'zh-cn', 'ko', 'ja', 'th', 'vn', 'id', 'pt-br', 'es']
+    for header_name in game_titles[0]:
+        if header_name != 'nameset':
+            row.append(header_name)
+    # for lang in lang_header:
+    #     row.append(lang)
+
+    row.extend(lang_header)
+    game_list.writerow(row)
+
     for game_title in game_titles:
+        # translate simplified to traditional chinese
         for title in game_title['nameset']:
             if title['lang'] == 'zh-cn':
                 trad = {'name': chinese_converter.to_traditional(title['name']), 'lang': 'zh-tw'}
                 game_title['nameset'].append(trad)
                 break
+
+        # write to csv
+        row = []
+        for field in game_title:
+            if field == 'nameset':
+                # search and iterate through supported languages for matches
+                for lang in lang_header:
+                    for lang_entry in game_title[field]:
+                        if lang_entry['lang'] == lang:
+                            row.append(lang_entry['name'])
+                            lang_found = True
+                    if not lang_found:
+                        row.append('')
+
+            else:
+                row.append(game_title[field])
+
+        game_list.writerow(row)
+    file.close()
 
 
 def reload_icon_placement():
