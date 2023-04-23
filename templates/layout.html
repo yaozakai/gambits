@@ -22,6 +22,7 @@
 <!-- Custom styles for this template -->
         <link  type="text/css" href="{{ url_for('static', filename='nav.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='btn.css') }}" rel="stylesheet">
+        <link  type="text/css" href="{{ url_for('static', filename='gallery.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='carousel.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='dropdown.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='responsive.css') }}" rel="stylesheet">
@@ -57,13 +58,21 @@
       <div id="topbar"></div>
 
     <main class="main-bg min-vh-100" id="main-gallery">
-        <!-- CAROUSEL -->
+        <!-- Video panels -->
         <script>
         $(function() {
-            $("#carousel").load("/carousel");
+            $("#video-large").load("/carousel");
         });
         </script>
-        <div id="carousel"></div>
+        <div id="video-large"></div>
+
+        <!-- CAROUSEL -->
+<!--        <script>-->
+<!--        $(function() {-->
+<!--            $("#carousel").load("/carousel");-->
+<!--        });-->
+<!--        </script>-->
+<!--        <div id="carousel"></div>-->
 
         <!-- Main menu bar -->
         <script>

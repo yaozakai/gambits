@@ -8,6 +8,7 @@
 
 body {
   color: #5a5a5a;
+  background: black;
 }
 
 .bg-dark {
@@ -25,7 +26,7 @@ body {
 /* Carousel base class */
 .carousel {
   /* margin: 0px 15% 0px 15%; */
-  height: 450px;
+  /*height: 450px;*/
 }
 
 .carousel-inner {height: 100%;}

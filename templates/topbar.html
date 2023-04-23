@@ -59,7 +59,7 @@
                             </script>
                             <li><a class="btn dropdown-item" href="/profile">{{ translations['profile'][session['lang']] }}</a></li>
                             <li class="dropdown-submenu">
-                                Language: <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
+                                {{ translations['language'][session['lang']] }}:  <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>
                                 <ul class="dropdown-menu">
                                     <form method="POST">
                                         <li>
@@ -136,11 +136,11 @@
             .then(text => (balance_field.innerHTML = text))  // update page with new data
             .then(text => (balance_field2.innerHTML = text));  // update page with new data
         }
-        $('#refresh_balance').on('click', function(){
+        $('#dLabel').on('click', function(){
             updater();
         });
-        setInterval(updater, 30000);  // run `updater()` every (30s)
-        window.scrollTo(0, 0);
+<!--        setInterval(updater, 30000);  // run `updater()` every (30s)-->
+<!--        window.scrollTo(0, 0);-->
     });
     </script>
 {% endif %}

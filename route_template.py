@@ -51,7 +51,7 @@ def modals():
 @template.route('/carousel')
 def carousel():
 
-    return render_template('carousel.html')
+    return render_template('carousel.html', translations=utils.translations)
 
 
 @template.route('/gallery')
