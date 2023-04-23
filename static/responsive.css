@@ -182,24 +182,22 @@
 
 }
 
-
-
-
-
-
 @media (min-width: 768px) {
     .nav-link { font-size: 1.2rem; }
 
 }
 
-@media (max-width: 280px) {
+@media (max-width: 355px) {
     #main-icon {height: 14px;}
     .main-logo {display: none;}
 }
 
-@media (max-width: 440px) {
-    #main-icon {height: 16px;}
-    .main-logo {height: 12px;}
+@media (max-width: 425px) {
+    .main-logo { height: 4vw; }
+}
+
+@media (max-width: 390px) {
+    .main-logo {height: 3.4vw;}
 }
 
 @media (max-width: 347px) {
@@ -242,11 +240,5 @@
     .game-show {
         font-size: .49rem;
     }
-}
-
-@media (min-width: 62em) {
-  .featurette-heading {
-    margin-top: 7rem;
-  }
 }
 

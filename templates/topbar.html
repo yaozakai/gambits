@@ -50,17 +50,20 @@
                                   {{ current_user.balance }} {{ current_user.currency }}
                             </li>
                             <div class="dropdown-divider"></div>
-                            <script>
-                                $(document).ready(function(){
-                                    active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
-                                    active_lang.classList.add("active");
-
-                                });
-                            </script>
                             <li><a class="btn dropdown-item" href="/profile">{{ translations['profile'][session['lang']] }}</a></li>
                             <li class="dropdown-submenu">
                                 {{ translations['language'][session['lang']] }}:  <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>
                                 <ul class="dropdown-menu">
+                    {% else %}
+                                <div class="dropdown">
+                                    <form method="POST">
+                                        <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
+                                        </button>
+                                        <ul class="dropdown-menu green-text" aria-labelledby="dropdownMenuButton1" id="language-select" >
+
+
+                    {% endif %}
                                     <form method="POST">
                                         <li>
                                             <button class="dropdown-item" name="language-select" value="en" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></button>
@@ -90,15 +93,24 @@
                                             <button class="dropdown-item" name="language-select" value="es" id="lang-es"><span class="flag-icon flag-icon-es me-1"></span> <span>Española</span></button>
                                         </li>
                                     </form>
+                    {% if current_user.is_authenticated %}
                                 </ul>
                             </li>
+                            <script>
+                                $(document).ready(function(){
+                                    active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
+                                    active_lang.classList.add("active");
+
+                                });
+                            </script>
                             <div class="dropdown-divider"></div>
                             <li><a class="btn dropdown-item" href="/logout">{{ translations['log out'][session['lang']] }}</a></li>
                         </ul>
                     </div>
-
-
                     {% else %}
+                        </div>
+
+
                 <!-- LOGIN/REGISTER (if NOT logged in) -->
                         <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
                           <div >{{ translations['log in'][session['lang']] }}</div>
