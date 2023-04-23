@@ -15,6 +15,7 @@
     margin-left: auto;
     margin-right: auto;
     top: 20px;
+    max-width: 1115px;
 }
 
 .video-element-video {
@@ -42,10 +43,10 @@
     /* height: 8vw; */
     width: 75vw;
     margin-top: 18vw;
-    margin-right: 20px;
+    margin-right: 22px;
     max-width: 160px;
     max-height: 62px;
-    min-height: 45px;
+    min-height: 41px;
     min-width: 108px;
     /* float: right; */
 }
@@ -53,7 +54,7 @@
 .video-element-description {
     margin-top: 16vw;
     margin-left: 10px;
-    width: 73%;
+    width: 80vw;
 }
 
 .video-element-overlay {
@@ -67,6 +68,7 @@
     width: 101%;
     background-image: linear-gradient(to bottom, #342a3424, #342a34FA 65%, #342a34FF 100%);
     display: flex;
+    max-width: 1115px;
 }
 
 .video-element-logo {
@@ -75,11 +77,8 @@
     max-width: 375px;
 }
 
+
 /*
-@media (max-width: 1250px) {
-    .video-container {
-        width: 70%;
-    }
 
     .video-element-description {
         margin-left: 10px;
