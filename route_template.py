@@ -48,10 +48,10 @@ def modals():
                            notification_title=request.form['notification_title'])
 
 
-@template.route('/carousel')
-def carousel():
+@template.route('/top-section')
+def top_section():
 
-    return render_template('carousel.html', translations=utils.translations)
+    return render_template('top-section.html', translations=utils.translations)
 
 
 @template.route('/gallery')

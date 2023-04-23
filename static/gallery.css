@@ -2,19 +2,19 @@
     text-align = center;
 }
 
-#video-large {
+#top-section {
     /* width: 50%; */
     /* text-align: center; */
 }
 
 .video-container {
-    text-align: center;
+    /* text-align: center; */
     position: relative;
-    width: 50%;
+    width: 80%;
     height: 700px;
     margin-left: auto;
     margin-right: auto;
-    top: 45px;
+    top: 20px;
 }
 
 .video-element-video {
@@ -25,11 +25,35 @@
     left: 0;
     right: 0;
     width: 100%;
+    height: 29vw;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.video-element-title {
+    font-size: x-large;
+    color: greenyellow;
+    text-shadow: 2px 4px black;
+
+}
+
+.video-element-button {
+    z-index: 3;
+    /* height: 8vw; */
+    width: 75vw;
+    margin-top: 18vw;
+    margin-right: 20px;
+    max-width: 160px;
+    max-height: 62px;
+    min-height: 45px;
+    min-width: 108px;
+    /* float: right; */
 }
 
 .video-element-description {
-    margin-top: 33%;
-
+    margin-top: 16vw;
+    margin-left: 10px;
+    width: 73%;
 }
 
 .video-element-overlay {
@@ -39,27 +63,31 @@
     margin-right: auto;
     left: 0;
     right: 0;
-    height: 39vw;
-    width: 100%;
-    background-image: linear-gradient(to bottom, #342a3424, #342a34FA 50%, #342a34FA 100%);
+    height: 29vw;
+    width: 101%;
+    background-image: linear-gradient(to bottom, #342a3424, #342a34FA 65%, #342a34FF 100%);
+    display: flex;
 }
 
-.video-element-title {
-    width: 45%;
+.video-element-logo {
+    width: 31vw;
     top: 5px;
+    max-width: 375px;
 }
 
-
+/*
 @media (max-width: 1250px) {
     .video-container {
         width: 70%;
     }
 
     .video-element-description {
-        margin-top: 21%;
+        margin-left: 10px;
+        margin-top: 19vw;
+        width: 275%;
     }
 }
-
+*/
 
 @media (max-width: 584px) {
     .video-container {
@@ -68,10 +96,21 @@
     }
 
     .video-element-description {
-        margin-top: 12vh;
+        margin-top: 24vw;
+    }
+
+    .video-element-button {
+        margin-top: 26vw;
+        height: 9vw;
+        width: 80vw;
+    }
+
+    .video-element-title {
+        font-size: large;
     }
 
     .video-element-overlay {
-        height: 55vw;
+        height: 40vw;
+        background-image: linear-gradient(to bottom, #342a3424, #342a34FA 70%, #342a34FF 100%);
     }
 }

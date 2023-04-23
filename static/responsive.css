@@ -192,7 +192,7 @@
 
 }
 
-@media (max-width: 360px) {
+@media (max-width: 280px) {
     #main-icon {height: 14px;}
     .main-logo {display: none;}
 }
