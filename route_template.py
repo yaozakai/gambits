@@ -48,18 +48,18 @@ def modals():
                            notification_title=request.form['notification_title'])
 
 
-@template.route('/top-section')
-def top_section():
+@template.route('/topSection')
+def topSection():
 
     return render_template('top-games.html', translations=utils.translations, icon_placement=utils.icon_placement,
                            game_titles=utils.game_titles, static_path='')
 
 
-@template.route('/mid-section')
-def mid_section():
+@template.route('/midSection')
+def midSection():
 
     if 'lang' not in session:
         session['lang'] = 'zh-tw'
 
-    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+    return render_template('live-baccarat.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', lang=session['lang'], translations=utils.translations)

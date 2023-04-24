@@ -63,7 +63,7 @@
         <div id="top-section"></div>
         <script>
         $(function() {
-            $("#top-section").load("/top-section");
+            $("#top-section").load("/topSection");
         });
         </script>
 
@@ -76,14 +76,12 @@
         });
         </script>
 
-        <!-- After navbar -->
-<!--        <div id="mid-section"></div>-->
-<!--        <script>-->
-<!--        $(function() {-->
-<!--            $("#mid-section").load("/mid-section");-->
-<!--&lt;!&ndash;            document.getElementById("mid-section").offsetTop = document.getElementById("top-section").offsetTop;&ndash;&gt;-->
-<!--        });-->
-<!--        </script>-->
+        <div id="mid-section"></div>
+        <script>
+        $(function() {
+            $("#mid-section").load("/midSection");
+        });
+        </script>
 
 
         <!-- GALLERY MAIN -->
@@ -104,10 +102,19 @@
 
         <!-- MODALS -->
         <script>
-        $(function() {
+
+        $(window).on('load', function(){
             $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',
-                           'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'
-                           });
+                'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});
+
+            topbar = $("#top_bar_not_logged").height();
+            topbar2 = $("#top_bar").height();
+            if (typeof topbar !== 'undefined') {
+                $('.main-bg').css('margin-top', topbar + 10 + 'px');
+            } else {
+                $('.main-bg').css('margin-top',topbar2 + 10 + 'px');
+            }
+
         });
         </script>
         <div id="modals"></div>

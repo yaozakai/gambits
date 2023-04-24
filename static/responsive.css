@@ -11,8 +11,8 @@
 @media (max-width: 769px) {
 
     .card {
-        width: 138px;
-        height: 113px;
+        /* width: 100%; */
+        /* height: 113px; */
         /* margin-right: -14px; */
     }
 }
@@ -167,7 +167,7 @@
 @media (max-width: 538px) {
 
     .fixed-middle {top: 704px;height: 80px;}
-    .main-bg {margin-top: 55px;}
+    .main-bg {/* margin-top: 55px; */}
     .carousel {height: 220px;}
     .nav-link {/* transform: scale(1.3); */font-size: small;}
     #main_section {margin-top: 100px;}
@@ -189,7 +189,7 @@
 }
 
 @media (max-width: 381px) {
-    .main-logo {/* display: none; */}
+    .main-logo {/* display: none; */height: 3vw;}
 }
 
 @media (max-width: 347px) {

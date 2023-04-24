@@ -24,6 +24,7 @@ body {
 
 .badge {
     margin: 10px;
+    position: absolute;
 }
 
 
@@ -125,13 +126,13 @@ body {
 /* GALLERY STUFF */
 .main-bg {
     background: #332a34;
-    margin-top: 57px;
+    /* margin-top: 57px; */
 }
 
 .card {
     width: 200px;
-    height: 160px;
-    margin-bottom: 50px;
+    /* height: 160px; */
+    margin-bottom: 20px;
     background: #736988;
     font-size: 1.5rem;
 }

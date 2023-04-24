@@ -1,14 +1,25 @@
 .top-section-icon {
-    height: 9vw;
-    max-height: 76px;
-    min-height: 48px;
-    margin: 5px 10px 5px 0px;
+    height: 30vw;
+    /* max-height: 76px; */
+    /* min-height: 48px; */
+    margin: 5px 5px 5px 7px;
 }
 
 .top-section-container {
     max-width: 768px;
     display: inline-flex;
     /* width: 100vw; */
+}
+
+.top-game-thumb-top {
+}
+
+.top-games-expand {
+
+}
+
+.top-games-cover {
+
 }
 
 .list-group-top-section {
@@ -76,6 +87,7 @@
 
     .view-small {
         display: block;
+        width: 50%;
     }
 
 }
@@ -91,7 +103,7 @@
     }
 
     .badge {
-        margin-left: 13vw!important;
+        margin-left: vw!important;
     }
 }
 
