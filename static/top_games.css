@@ -1,29 +1,29 @@
-.top-games-icon {
+.top-section-icon {
     height: 9vw;
     max-height: 76px;
     min-height: 48px;
     margin: 5px 10px 5px 0px;
 }
 
-.top-games-container {
+.top-section-container {
     max-width: 768px;
     display: inline-flex;
     /* width: 100vw; */
 }
 
-.list-group-top-games {
+.list-group-top-section {
     width: 100%;
     margin-right: 40px;
 }
 
-#top-games-header {
+#top-section-header {
     display: inline-flex;
     justify-content: center;
     margin-top: 15px;
     width: 100%;
 }
 
-#top-games {
+#top-section {
     /* display: grid; */
     justify-content: center;
 }
@@ -82,12 +82,16 @@
 
 @media (max-width: 768px) {
 
-    .list-group-top-games {
+    .list-group-top-section {
         justify-content: center;
         width: 100%;
         margin-right: auto;
         margin-left: auto;
         max-width: 600px;
+    }
+
+    .badge {
+        margin-left: 13vw!important;
     }
 }
 
@@ -107,20 +111,19 @@
         display: block;
     }
 
-
-    .list-group-top-games {
+    .list-group-top-section {
         justify-content: center;
         width: 100%;
         margin-right: auto;
         margin-left: auto;
-        max-width: 330px;
+        max-width: 100%;
     }
 
-    .top-games-container {
+    .top-section-container {
         width: 100%;
     }
 
-    #top-games-header {
+    #top-section-header {
         /* width: 100%; */
     }
 

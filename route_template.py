@@ -48,17 +48,17 @@ def modals():
                            notification_title=request.form['notification_title'])
 
 
-@template.route('/top-games')
+@template.route('/top-section')
 def top_games():
 
-    return render_template('top-games.html', translations=utils.translations, icon_placement=utils.icon_placement,
+    return render_template('top-section.html', translations=utils.translations, icon_placement=utils.icon_placement,
                            game_titles=utils.game_titles, static_path='',)
 
 
-@template.route('/top-section')
+@template.route('/mid-section')
 def top_section():
 
-    return render_template('top-section.html', translations=utils.translations)
+    return render_template('mid-section.html', translations=utils.translations)
 
 
 @template.route('/gallery')
