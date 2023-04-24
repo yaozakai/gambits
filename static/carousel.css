@@ -1,4 +1,4 @@
-/* GLOBAL STYLES
+/* overrides
 -------------------------------------------------- */
 
 • { font-family: Futura; src: local('Futura Std'); }
@@ -15,7 +15,15 @@ body {
   background: #252027!important;
 }
 
+.list-group-item-dark {
+    color: #27f759;
+    background-color: #252028;
+    margin-bottom: 1px;
+}
 
+.badge {
+    margin: 10px;
+}
 
 
 
@@ -23,22 +31,7 @@ body {
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
-/* Carousel base class */
-.carousel {
-  /* margin: 0px 15% 0px 15%; */
-  /*height: 450px;*/
-}
-
 .carousel-inner {height: 100%;}
-
-.carousel-control-next{
-  /* height: 370px; */
-}
-
-.carousel-control-prev{
-  /* height: 100%; */
-}
-
 
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -214,8 +207,6 @@ body {
     margin: 0 auto;
     padding-top: 30px;
 }
-
-
 
 /* Page content */
 .content {

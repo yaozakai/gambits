@@ -224,6 +224,7 @@ def reload_icon_placement():
                 for icon in icon_files:
                     if icon.split('_')[0] == placement_name:
                         placement[header_name].append(icon)
+                        break;
 
                     # [string for string in icon_files if row[header_name] in string]
                 # if len(icon_filename) > 0:

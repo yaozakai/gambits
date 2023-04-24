@@ -41,30 +41,6 @@
 
   </div>
 
-    <script>
-        $(document).ready(function(){
-            $('.launch').on('click', function(){
-                event.preventDefault();
-                $.ajax({
-                  url: "/launch",
-                  type: "post",
-                  dataType: "json",
-                  contentType: "application/json; charset=UTF-8",
-                  data: JSON.stringify({
-                    "id":$(this).attr("id")
-                  }),
-                  success: function(self) {
-                    $('#gamelaunchModal').modal('hide');
-                    window.open(self.link.toString());
-                  },
-                  error: function(e) {
-                    console.log(e);
-                  }
-                });
-            });
-        });
-    </script>
-
 
 
 {% endblock gallery %}

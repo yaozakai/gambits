@@ -48,6 +48,13 @@ def modals():
                            notification_title=request.form['notification_title'])
 
 
+@template.route('/top-games')
+def top_games():
+
+    return render_template('top-games.html', translations=utils.translations, icon_placement=utils.icon_placement,
+                           game_titles=utils.game_titles, static_path='',)
+
+
 @template.route('/top-section')
 def top_section():
 

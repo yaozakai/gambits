@@ -161,7 +161,8 @@
 }
 
 
-@media (max-width: 584px) {
+@media (max-width: 575px) {
+
     .video-container-wide {
         width: 100%;
         top: 6px;

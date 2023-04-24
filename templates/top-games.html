@@ -1,0 +1,66 @@
+{% for category in icon_placement if category == 'top games' %}
+<h5 class="video-element-title gallery-header" id="top-games-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/{{ category }}.png"> {{ translations['top games'][session['lang']] }}</h5>
+<div class="container top-games-container">
+    <ul class="list-group list-group-top-games view-small">
+        {% for k in icon_placement[category] %}
+          <li class="list-group-item-dark list-group-item-action d-flex align-items-center">
+            <span class="badge bg-warning text-dark">{{ loop.index }}</span>
+            <div class="top-games-icon">
+                <img src="{{ static_path }}static/icons/cq9/{{ k }}" style="height: 100%;">
+            </div>
+            {% for game_title in game_titles if game_title['gamecode'] == k.split("_")[0] %}
+                {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
+                    {{ title['name'] }}
+                {% endfor %}
+            {% endfor %}
+          </li>
+        {% endfor %}
+    </ul>
+
+        <ul class="list-group list-group-top-games view-med">
+
+        {% for k in icon_placement[category] if loop.index > 6 %}
+              <li class="list-group-item-dark list-group-item-action d-flex align-items-center">
+                <span class="badge bg-warning text-dark">{{ loop.index }}</span>
+                <div class="top-games-icon">
+                    <img src="{{ static_path }}static/icons/cq9/{{ k }}" style="height: 100%;">
+
+                </div>
+                {% for game_title in game_titles if game_title['gamecode'] == k.split("_")[0] %}
+                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
+                        {{ title['name'] }}
+                    {% endfor %}
+                {% endfor %}
+
+              </li>
+
+        {% endfor %}
+        </ul>
+
+    </div>
+{% endfor %}
+
+
+    <script>
+        $(document).ready(function(){
+            $('.launch').on('click', function(){
+                event.preventDefault();
+                $.ajax({
+                  url: "/launch",
+                  type: "post",
+                  dataType: "json",
+                  contentType: "application/json; charset=UTF-8",
+                  data: JSON.stringify({
+                    "id":$(this).attr("id")
+                  }),
+                  success: function(self) {
+                    $('#gamelaunchModal').modal('hide');
+                    window.open(self.link.toString());
+                  },
+                  error: function(e) {
+                    console.log(e);
+                  }
+                });
+            });
+        });
+    </script>

@@ -270,22 +270,9 @@ def verify():
     else:
         session['lang'] = 'zh-tw'
 
-    # post_obj = {'notification_popup': True,
-    #             'notification': notification_json['notification'],
-    #             'notification_title': notification_json['notification_title']
-    #             }
-        # return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-    #                        static_path='', login_form=login_form, register_form=register_form,
-    #                        RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=True,
-    #                        notification=notification, notification_title=notification_title, reset_pass=False,
-    #                        lang=session['lang'], translations=utils.translations)
-    # return redirect(url_for('home', json=json.dumps(post_obj)))
-
     return redirect(url_for('home', notification_popup=True,
                             notification=notification_json['notification'],
                             notification_title=notification_json['notification_title']), code=307)
-
-    # return url_for('home', )
 
 
 @application.route('/reset', endpoint='reset_password', methods=['GET'])
