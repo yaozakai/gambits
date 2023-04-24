@@ -1,11 +1,8 @@
 {% for category in icon_placement if category == 'top games' %}
 <h5 class="video-element-title gallery-header" id="top-section-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/{{ category }}.png"> {{ translations['top games'][session['lang']] }}</h5>
 <div class="container top-section-container">
-        {% for k in icon_placement[category] %}
-          {% if loop.index % 5 == 1 %}
     <ul class="list-group list-group-top-section view-small">
-        <ul class="list-group list-group-top-section view-small">
-          {% endif %}
+        {% for k in icon_placement[category] %}
           <li class="list-group-item-dark list-group-item-action d-flex align-items-center">
             <span class="badge bg-warning text-dark">{{ loop.index }}</span>
             <div class="top-section-icon">
@@ -17,9 +14,6 @@
                 {% endfor %}
             {% endfor %}
           </li>
-            {% if loop.index % 5 == 0 %}
-        </ul>
-            {% endif %}
         {% endfor %}
     </ul>
 

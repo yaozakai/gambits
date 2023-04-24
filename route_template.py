@@ -49,20 +49,14 @@ def modals():
 
 
 @template.route('/top-section')
-def top_games():
+def top_section():
 
-    return render_template('top-section.html', translations=utils.translations, icon_placement=utils.icon_placement,
-                           game_titles=utils.game_titles, static_path='',)
+    return render_template('top-games.html', translations=utils.translations, icon_placement=utils.icon_placement,
+                           game_titles=utils.game_titles, static_path='')
 
 
 @template.route('/mid-section')
-def top_section():
-
-    return render_template('mid-section.html', translations=utils.translations)
-
-
-@template.route('/gallery')
-def gallery():
+def mid_section():
 
     if 'lang' not in session:
         session['lang'] = 'zh-tw'

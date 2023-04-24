@@ -240,7 +240,7 @@ body {
 
 .fixed-middle {
     /* height: 140px; */
-    top: 475px;
+    /* top: 475px; */
     position: absolute;
     z-index: 100;
     /* height: 145px; */

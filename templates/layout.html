@@ -59,37 +59,32 @@
       <div id="topbar"></div>
 
     <main class="main-bg min-vh-100" id="main-gallery">
-        <!-- Top ten list -->
+        <!-- Top section -->
+        <div id="top-section"></div>
         <script>
         $(function() {
             $("#top-section").load("/top-section");
         });
         </script>
-        <div id="top-section"></div>
 
-        <!-- Video panels -->
-        <script>
-        $(function() {
-            $("#mid-section").load("/mid-section");
-        });
-        </script>
-        <div id="mid-section"></div>
-
-        <!-- CAROUSEL -->
-<!--        <script>-->
-<!--        $(function() {-->
-<!--            $("#carousel").load("/carousel");-->
-<!--        });-->
-<!--        </script>-->
-<!--        <div id="carousel"></div>-->
-
-        <!-- Main menu bar -->
+        <!-- Nav bar -->
+        <div id="navigationbar"></div>
         <script>
         $(function() {
             $("#navigationbar").load("/navigationbar");
+<!--            document.getElementById("navigationbar").offsetTop = document.getElementById("top-section").clientHeight + document.getElementById("topbar").clientHeight +  "px";-->
         });
         </script>
-        <div id="navigationbar"></div>
+
+        <!-- After navbar -->
+<!--        <div id="mid-section"></div>-->
+<!--        <script>-->
+<!--        $(function() {-->
+<!--            $("#mid-section").load("/mid-section");-->
+<!--&lt;!&ndash;            document.getElementById("mid-section").offsetTop = document.getElementById("top-section").offsetTop;&ndash;&gt;-->
+<!--        });-->
+<!--        </script>-->
+
 
         <!-- GALLERY MAIN -->
         <!--      <script>-->
