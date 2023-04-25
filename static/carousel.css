@@ -2,7 +2,6 @@
 /* overrides
 -------------------------------------------------- */
 
-{ font-family: Futura; src: local('Futura Std'); }
 
 
 /* Padding below the footer and lighter body text */
@@ -23,8 +22,10 @@ body {
 }
 
 .badge {
-    margin: 10px;
+    margin: 3px;
     position: absolute;
+    height: 6vw;
+    font-size: small;
 }
 
 
@@ -135,6 +136,7 @@ body {
     margin-bottom: 20px;
     background: #736988;
     font-size: 1.5rem;
+    border: none;
 }
 
 .large-card {

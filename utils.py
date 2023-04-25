@@ -221,10 +221,14 @@ def reload_icon_placement():
         for header_name in reader.fieldnames:
             if len(row[header_name]) > 0:
                 placement_name = row[header_name]
+                icon_found = False
                 for icon in icon_files:
                     if icon.split('_')[0] == placement_name:
+                        icon_found = True
                         placement[header_name].append(icon)
                         break;
+                if not icon_found:
+                    print('filename: ' + placement_name + ' not found')
 
                     # [string for string in icon_files if row[header_name] in string]
                 # if len(icon_filename) > 0:
