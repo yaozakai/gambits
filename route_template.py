@@ -56,7 +56,7 @@ def topSection():
 
 
 @template.route('/midSection')
-def midSection():
+def midsection():
 
     if 'lang' not in session:
         session['lang'] = 'zh-tw'

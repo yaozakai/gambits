@@ -144,6 +144,12 @@
     max-width: 375px;
 }
 
+.video-container-parent {
+    height: 80vw;
+    display: inline-flex;
+    flex-direction: column;
+}
+
 
 /*
 
