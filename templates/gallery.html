@@ -1,10 +1,29 @@
 {% extends "layout.html" %}
 {% block gallery %}
+    <!-- Mid section -->
+    <div id="mid-section"></div>
+    <script>
+    $(function() {
+        $("#mid-section").load("/midSection");
+    });
+    </script>
+
+    <hr class="dropdown-divider" style="top: 8px; position: relative;">
+
+    <!-- Top section -->
+    <div id="top-section"></div>
+    <script>
+    $(function() {
+        $("#top-section").load("/topSection");
+    });
+    </script>
+
+
 
   <div class="album" id="gallery-bg">
 
-    {% for category in icon_placement %}
-        <div class="container">
+    {% for category in icon_placement if category != 'top games' %}
+        <div class="container" >
             <h5 class="green-text-outline gallery-header" id="heading{{ loop.index }}"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/{{ category }}.png"> {{ translations[category][lang] }}</h5>
             <div class="row">
                 {% for k in icon_placement[category] %}
