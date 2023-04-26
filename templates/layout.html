@@ -22,6 +22,7 @@
 <!-- Custom styles for this template -->
         <link  type="text/css" href="{{ url_for('static', filename='nav.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='btn.css') }}" rel="stylesheet">
+        <link  type="text/css" href="{{ url_for('static', filename='topbot_bar.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='gallery.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='top_games.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='carousel.css') }}" rel="stylesheet">
@@ -57,7 +58,7 @@
       </script>
       <div id="topbar"></div>
 
-    <main class="main-bg min-vh-100" id="main-gallery">
+    <main class="main-bg min-vh-100">
         <!-- Nav bar -->
         <div id="navigationbar"></div>
         <script>
@@ -79,9 +80,9 @@
         <!-- MODALS -->
         <script>
 
-<!--        $(window).on('load', function(){-->
-<!--            $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',-->
-<!--                'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});-->
+        $(window).on('load', function(){
+            $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',
+                'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});
 
 <!--            topbar = $("#top_bar_not_logged").height();-->
 <!--            topbar2 = $("#top_bar").height();-->
@@ -91,7 +92,7 @@
 <!--                $('.main-bg').css('margin-top',topbar2 + 10 + 'px');-->
 <!--            }-->
 
-<!--        });-->
+        });
         </script>
         <div id="modals"></div>
 
@@ -117,23 +118,23 @@
     </footer>
       <!-- UI Javascript -->
         <script language="JavaScript" type="text/javascript" src="{{ static_path }}static/js/navbar_sticky.js"></script>
-        <script language="JavaScript" type="text/javascript">
+<!--        <script language="JavaScript" type="text/javascript">-->
 
 
-            document.addEventListener('DOMContentLoaded', function() {
-                // When the user scrolls the page, execute myFunction
-                window.addEventListener('resize', myFunction);
+<!--            document.addEventListener('DOMContentLoaded', function() {-->
+<!--                // When the user scrolls the page, execute myFunction-->
+<!--                window.addEventListener('resize', myFunction);-->
 
-                myFunction();
+<!--                myFunction();-->
 
-                function myFunction() {
-                    var top_bar = document.getElementById("main_section");
+<!--                function myFunction() {-->
+<!--                    var top_bar = document.getElementById("main_section");-->
 
-                    var main_bg = document.getElementById("main-gallery");
+<!--                    var main_bg = document.getElementById("main-gallery");-->
 
-                }
-            });
-        </script>
+<!--                }-->
+<!--            });-->
+<!--        </script>-->
   </body>
 
 

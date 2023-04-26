@@ -11,33 +11,31 @@
 <!--      <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/sports.png"><br>-->
 <!--      Sports-->
 <!--    </a>-->
-    <a class="nav-link" id="nav1" onClick="reply_click(this.id)">
-      <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/slots.png"><br>
+
+    <a class="nav-link" id="nav-fishing" onClick="reply_click(this.id)">
+        <h9>{{  translations['fishing'][lang] }}</h9>
+        <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/fishing.png"><br>
+    </a>
+    <a class="nav-link" id="nav-arcade" onClick="reply_click(this.id)">
+        <h9>{{  translations['arcade'][lang] }}</h9>
+        <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/arcade.png"><br>
+    </a>
+    <a class="nav-link" id="nav-pvp" onClick="reply_click(this.id)">
+        <h9>{{  translations['pvp'][lang] }}</h9>
+        <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/pvp.png"><br>
+    </a>
+    <a class="nav-link" id="nav-slots" onClick="reply_click(this.id)">
         <h9>{{ translations['slots'][lang] }}</h9>
-    </a>
-    <a class="nav-link" id="nav2" onClick="reply_click(this.id)">
-      <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/baccarat.png"><br>
-      <h9>{{  translations['baccarat'][lang] }}</h9>
-    </a>
-    <a class="nav-link" id="nav3" onClick="reply_click(this.id)">
-      <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/fishing.png"><br>
-      <h9>{{  translations['fishing'][lang] }}</h9>
-    </a>
-    <a class="nav-link" id="nav4" onClick="reply_click(this.id)">
-      <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/arcade.png"><br>
-      <h9>{{  translations['arcade'][lang] }}</h9>
-    </a>
-    <a class="nav-link" id="nav5" onClick="reply_click(this.id)">
-      <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/pvp.png"><br>
-      <h9>{{  translations['pvp'][lang] }}</h9>
+        <img class="midBarIcon" src="{{ static_path }}static/icons/ui/category_select/png/slots.png"><br>
     </a>
 
     <script>
-        const yOffset = -170;
+        const yOffset = 0;
 
         function reply_click(clicked_id){
-            const element = document.getElementById("heading".concat(clicked_id.substr(clicked_id.length - 1)));
-            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            const element = document.getElementById("top_bar") + document.getElementById("mid_section");
+            const element = document.getElementById("heading-".concat(clicked_id.split('-')[1]));
+            const y = element.getBoundingClientRect().top + yOffset;
 <!--          alert(clicked_id);-->
 <!--            var element = document.getElementById("heading".concat(clicked_id.substr(clicked_id.length - 1)));-->
 <!--            element.scrollIntoView();-->

@@ -17,7 +17,7 @@ def topbar():
     if 'lang' not in session:
         session['lang'] = 'zh-tw'
 
-    return render_template('topbar.html', static_path=static_path, lang=session['lang'], translations=utils.translations)
+    return render_template('section-topbar.html', static_path=static_path, lang=session['lang'], translations=utils.translations)
 
 
 @template.route('/navigationbar', methods=['POST', 'GET'])
@@ -26,7 +26,7 @@ def navigationbar():
     if 'lang' not in session:
         session['lang'] = 'zh-tw'
 
-    return render_template('navigationbar.html', lang=session['lang'], translations=utils.translations)
+    return render_template('section-navbar.html', lang=session['lang'], translations=utils.translations)
 
 
 @template.route('/modals', methods=['POST', 'GET'])
@@ -49,17 +49,21 @@ def modals():
 
 
 @template.route('/topSection')
-def topSection():
+def top_section():
+
+    return render_template('live-baccarat.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+                           static_path='', lang=session['lang'], translations=utils.translations)
+
+
+@template.route('/midSection')
+def mid_section():
 
     return render_template('top-games.html', translations=utils.translations, icon_placement=utils.icon_placement,
                            game_titles=utils.game_titles, static_path='')
 
 
-@template.route('/midSection')
-def midsection():
+@template.route('/botSection')
+def bot_section():
 
-    if 'lang' not in session:
-        session['lang'] = 'zh-tw'
-
-    return render_template('live-baccarat.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', lang=session['lang'], translations=utils.translations)

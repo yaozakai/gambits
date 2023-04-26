@@ -40,7 +40,7 @@
     width: 100%;
 }
 
-#top-section {
+#mid-section {
     /* display: grid; */
     justify-content: center;
 }
@@ -161,7 +161,7 @@
     }
 
     #middle_bar {
-        padding: 0px 2% 0px 2%;
+        padding: 0px 0% 0px 0%;
     }
 
 }

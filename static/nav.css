@@ -45,8 +45,8 @@
     display: inline-block;
     padding-left: 0px;
     padding-right: 0px;
-    margin: 0px 8px 0px 3px;
-    padding: 9px 0px 0 0;
+    /* margin: 0px auto 0px auto; */
+    /* padding: 9px 0px 0 0; */
     color: #28a745;
     height: 100%;
     width: 15%;

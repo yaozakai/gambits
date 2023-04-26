@@ -152,7 +152,7 @@ def home():
     elif session['flag'] == 'ja':
         session['flag'] = 'jp'
 
-    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+    return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
                            notification=notification, notification_title=notification_title, reset_pass=False,
@@ -302,7 +302,7 @@ def setup_home_template(notification_title, notification, reset_pass_popup):
         notification_popup = True
     else:
         notification_popup = False
-    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+    return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='../', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
                            notification=notification, notification_title=notification_title,
