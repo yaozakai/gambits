@@ -5,3 +5,4 @@
 !.elasticbeanstalk/*.global.yml
 venv/*
 *.pyc
+game_list.csv

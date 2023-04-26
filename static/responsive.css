@@ -169,7 +169,7 @@
     .fixed-middle {/* top: 704px; */bottom: 0px;position: fixed;height: 80px;}
     .main-bg {/* margin-top: 55px; */}
     .carousel {height: 220px;}
-    .nav-link {/* transform: scale(1.3); */font-size: small;padding: 2px 0 0px 0;}
+    .nav-link {/* transform: scale(1.3); */font-size: small;width: 21vw;padding: 2px 0vw 0px 0vw;display: inline-grid;justify-content: center;}
     #main_section {margin-top: 56px;}
     #top_bar {/* height: 90px; */}
     #top_bar_not_logged {/* height: 55px; */}
