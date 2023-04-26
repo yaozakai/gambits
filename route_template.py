@@ -42,7 +42,7 @@ def modals():
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
     register_form.register.label = Label("register", utils.translations['register'][session['lang']])
-    return render_template('modals.html', login_form=login_form, register_form=register_form,
+    return render_template('template-modals.html', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, lang=session['lang'], translations=utils.translations,
                            notification_popup=request.form['notification_popup'], notification=request.form['notification'],
                            notification_title=request.form['notification_title'])
@@ -58,12 +58,12 @@ def top_section():
 @template.route('/midSection')
 def mid_section():
 
-    return render_template('gallery.html', translations=utils.translations, icon_placement=utils.icon_placement,
+    return render_template('template-gallery.html', translations=utils.translations, icon_placement=utils.icon_placement,
                            game_titles=utils.game_titles, static_path='')
 
 
 @template.route('/botSection')
 def bot_section():
 
-    return render_template('gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+    return render_template('template-gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            static_path='', lang=session['lang'], translations=utils.translations)

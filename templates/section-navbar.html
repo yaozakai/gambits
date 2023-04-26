@@ -30,16 +30,24 @@
     </a>
 
     <script>
-        const yOffset = 0;
+
+
+
+<!--        const yOffset = document.getElementById("top-games-container").clientHeight + document.getElementById("top-games-container").offsetY;-->
 
         function reply_click(clicked_id){
-            const element = document.getElementById("top_bar") + document.getElementById("mid_section");
-            const element = document.getElementById("heading-".concat(clicked_id.split('-')[1]));
-            const y = element.getBoundingClientRect().top + yOffset;
-<!--          alert(clicked_id);-->
-<!--            var element = document.getElementById("heading".concat(clicked_id.substr(clicked_id.length - 1)));-->
-<!--            element.scrollIntoView();-->
+            const id = "header-" + clicked_id.split('-')[1];
+            const yOffset = document.getElementById('top_bar').clientHeight + 20;
+            const element = document.getElementById(id);
+            const y = element.getBoundingClientRect().top + window.pageYOffset - yOffset;
+
             window.scrollTo({top: y, behavior: 'smooth'});
+
+<!--            alert("header-" + clicked_id.split('-')[1]);-->
+<!--            const element = document.getElementById()-->
+<!--            element.scrollIntoView({alignToTop: 'true'});-->
+    <!--            const element = document.getElementById("heading-".concat(clicked_id.split('-')[1]));-->
+    <!--            const y = element.getBoundingClientRect().top - yOffset;-->
         }
 
     </script>
