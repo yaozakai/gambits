@@ -59,41 +59,43 @@
       <div id="topbar"></div>
 
     <main class="main-bg min-vh-100">
-        <!-- Nav bar -->
-        <div id="navigationbar"></div>
-        <script>
-        $(function() {
-            $("#navigationbar").load("/navigationbar");
-<!--            document.getElementById("navigationbar").offsetTop = document.getElementById("top-section").clientHeight + document.getElementById("topbar").clientHeight +  "px";-->
-        });
-        </script>
-        <div id="main_section">
-            {% if search_page is defined %}
-                {% block search %}{% endblock %}
-            {% elif report_date is defined %}
-                {% block profile %}{% endblock %}
-            {% else %}
-                {% block gallery %}{% endblock %}
-            {% endif %}
+        <div>
+            <!-- Nav bar -->
+            <div id="navigationbar"></div>
+            <script>
+            $(function() {
+                $("#navigationbar").load("/navigationbar");
+    <!--            document.getElementById("navigationbar").offsetTop = document.getElementById("top-section").clientHeight + document.getElementById("topbar").clientHeight +  "px";-->
+            });
+            </script>
+            <div id="main_section">
+                {% if search_page is defined %}
+                    {% block search %}{% endblock %}
+                {% elif report_date is defined %}
+                    {% block profile %}{% endblock %}
+                {% else %}
+                    {% block gallery %}{% endblock %}
+                {% endif %}
+            </div>
+
+            <!-- MODALS -->
+            <script>
+
+            $(window).on('load', function(){
+                $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',
+                    'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});
+
+    <!--            topbar = $("#top_bar_not_logged").height();-->
+    <!--            topbar2 = $("#top_bar").height();-->
+    <!--            if (typeof topbar !== 'undefined') {-->
+    <!--                $('.main-bg').css('margin-top', topbar + 10 + 'px');-->
+    <!--            } else {-->
+    <!--                $('.main-bg').css('margin-top',topbar2 + 10 + 'px');-->
+    <!--            }-->
+
+            });
+            </script>
         </div>
-
-        <!-- MODALS -->
-        <script>
-
-        $(window).on('load', function(){
-            $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',
-                'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});
-
-<!--            topbar = $("#top_bar_not_logged").height();-->
-<!--            topbar2 = $("#top_bar").height();-->
-<!--            if (typeof topbar !== 'undefined') {-->
-<!--                $('.main-bg').css('margin-top', topbar + 10 + 'px');-->
-<!--            } else {-->
-<!--                $('.main-bg').css('margin-top',topbar2 + 10 + 'px');-->
-<!--            }-->
-
-        });
-        </script>
         <div id="modals"></div>
 
     </main>

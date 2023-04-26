@@ -1,7 +1,7 @@
-<h5 class="video-element-title gallery-header" id="top-section-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/top games.png"> {{ translations['top games'][session['lang']] }}</h5>
+<h5 class="video-element-title gallery-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/top games.png"> {{ translations['top games'][session['lang']] }}</h5>
 
 {% for category in icon_placement if category == 'top games' %}
-<div class="top-section-container">
+<div class="gallery-container">
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
         {% if outer_loop.index % 4 == 1 %}

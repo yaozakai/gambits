@@ -6,7 +6,7 @@
     /* margin: 5px 5px 5px 5px; */
 }
 
-.top-section-container {
+.gallery-container {
     max-width: 768px;
     display: inline-flex;
     /* margin-left: auto; */
@@ -33,7 +33,7 @@
     margin-right: 40px;
 }
 
-#top-section-header {
+.gallery-header {
     display: inline-flex;
     justify-content: center;
     margin-top: 15px;
@@ -42,7 +42,8 @@
 
 #mid-section {
     /* display: grid; */
-    justify-content: center;
+    height: 400vw;
+    /* justify-content: center; */
 }
 
 .top-games-button-overlay {
@@ -152,12 +153,8 @@
         max-width: 100%;
     }
 
-    .top-section-container {
+    .gallery-container {
         width: 100%;
-    }
-
-    #top-section-header {
-        /* width: 100%; */
     }
 
     #middle_bar {

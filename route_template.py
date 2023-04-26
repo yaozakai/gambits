@@ -58,7 +58,7 @@ def top_section():
 @template.route('/midSection')
 def mid_section():
 
-    return render_template('top-games.html', translations=utils.translations, icon_placement=utils.icon_placement,
+    return render_template('gallery.html', translations=utils.translations, icon_placement=utils.icon_placement,
                            game_titles=utils.game_titles, static_path='')
 
 

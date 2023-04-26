@@ -1,6 +1,6 @@
 {% for category in icon_placement if category == 'top games' %}
-<h5 class="video-element-title gallery-header" id="top-section-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/{{ category }}.png"> {{ translations['top games'][session['lang']] }}</h5>
-<div class="container top-section-container">
+<h5 class="video-element-title gallery-header"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/{{ category }}.png"> {{ translations['top games'][session['lang']] }}</h5>
+<div class="container gallery-container">
     <ul class="list-group list-group-top-section view-small">
         {% for k in icon_placement[category] %}
           <li class="list-group-item-dark list-group-item-action d-flex align-items-center">

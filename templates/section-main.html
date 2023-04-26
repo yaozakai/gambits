@@ -8,7 +8,6 @@
     });
     </script>
 
-    <hr class="dropdown-divider" style="top: 8px; position: relative;">
 
     <!-- mid section -->
     <div id="mid-section"></div>
@@ -20,45 +19,45 @@
 
 
 
-  <div class="album" id="gallery-bg">
+<!--  <div class="album" id="gallery-bg">-->
 
-    {% for category in icon_placement if category != 'top games' %}
-        <div class="container" >
-            <h5 class="green-text-outline gallery-header" id="heading-{{ category }}"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/{{ category }}.png"> {{ translations[category][lang] }}</h5>
-            <div class="row">
-                {% for k in icon_placement[category] %}
-                <div class="col">
-                    {% if category == 'baccarat' %}
-                        <div class="large-card card shadow-sm">
-                    {% else %}
-                        <div class="card shadow-sm">
-                    {% endif %}
-                            <img src="{{ static_path }}static/icons/cq9/{{ k }}" style="height: 100%;">
-                            {% for game_title in game_titles %}
-                                {% if game_title['gamecode'] == k.split("_")[0] %}
-                                    <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
-                                        {% if current_user.is_authenticated %}
-                                                name="launch" data-bs-toggle="modal" data-bs-target="#gamelaunchModal">
-                                        {% else %}
-                                                data-bs-toggle="modal" data-bs-target="#registerModal">
-                                        {% endif %}
-                                        Play now<br><br>
-                                        {% for title in game_title['nameset'] if title['lang'] == lang %}
-                                            {{ title['name'] }}
-                                        {% endfor %}
-<!--                                        {{ game_title['nameset']|select(lang) }}-->
-                                    </button>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    {% endfor %}
+<!--    {% for category in icon_placement if category != 'top games' %}-->
+<!--        <div class="container" >-->
+<!--            <h5 class="green-text-outline gallery-header" id="heading-{{ category }}"><img style="height:32px;" src="{{ static_path }}static/icons//ui/category_select/png/{{ category }}.png"> {{ translations[category][lang] }}</h5>-->
+<!--            <div class="row">-->
+<!--                {% for k in icon_placement[category] %}-->
+<!--                <div class="col">-->
+<!--                    {% if category == 'baccarat' %}-->
+<!--                        <div class="large-card card shadow-sm">-->
+<!--                    {% else %}-->
+<!--                        <div class="card shadow-sm">-->
+<!--                    {% endif %}-->
+<!--                            <img src="{{ static_path }}static/icons/cq9/{{ k }}" style="height: 100%;">-->
+<!--                            {% for game_title in game_titles %}-->
+<!--                                {% if game_title['gamecode'] == k.split("_")[0] %}-->
+<!--                                    <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"-->
+<!--                                        {% if current_user.is_authenticated %}-->
+<!--                                                name="launch" data-bs-toggle="modal" data-bs-target="#gamelaunchModal">-->
+<!--                                        {% else %}-->
+<!--                                                data-bs-toggle="modal" data-bs-target="#registerModal">-->
+<!--                                        {% endif %}-->
+<!--                                        Play now<br><br>-->
+<!--                                        {% for title in game_title['nameset'] if title['lang'] == lang %}-->
+<!--                                            {{ title['name'] }}-->
+<!--                                        {% endfor %}-->
+<!--&lt;!&ndash;                                        {{ game_title['nameset']|select(lang) }}&ndash;&gt;-->
+<!--                                    </button>-->
+<!--                                {% endif %}-->
+<!--                            {% endfor %}-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    {% endfor %}-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    {% endfor %}-->
 
-  </div>
+<!--  </div>-->
 
 
 
