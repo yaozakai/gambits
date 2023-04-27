@@ -1,31 +1,32 @@
-<div class=" navbar-expand-md bg-dark nav-bar-selector fixed-middle" id="middle_bar">
+<nav class=" navbar-expand-md bg-dark nav-bar-selector fixed-middle" id="navigation-bar">
 
-    <a class="nav-link" id="nav-baccarat" onClick="reply_click(this.id)">
+<!--    <a class="nav-link" id="nav-baccarat" onClick="reply_click(this.id)">-->
+    <a class="nav-link" id="nav-baccarat" href="#header-baccarat">
         <h9>{{  translations['baccarat'][lang] }}</h9>
         <img class="midBarIcon" src="{{ root_path }}static/icons/navbar/baccarat.png"><br>
     </a>
 
-    <a class="nav-link" id="nav-top-games" onClick="reply_click(this.id)">
+    <a class="nav-link" id="nav-top-games" href="#header-top-games">
         <h9>{{  translations['top-games'][lang] }}</h9>
         <img class="midBarIcon" src="{{ root_path }}static/icons/navbar/top-games.png"><br>
     </a>
 
-    <a class="nav-link" id="nav-fishing" onClick="reply_click(this.id)">
+    <a class="nav-link" id="nav-fishing" href="#header-fishing">
         <h9>{{  translations['fishing'][lang] }}</h9>
         <img class="midBarIcon" src="{{ root_path }}static/icons/navbar/fishing.png"><br>
     </a>
 
-    <a class="nav-link" id="nav-arcade" onClick="reply_click(this.id)">
+    <a class="nav-link" id="nav-arcade" href="#header-arcade">
         <h9>{{  translations['arcade'][lang] }}</h9>
         <img class="midBarIcon" src="{{ root_path }}static/icons/navbar/arcade.png"><br>
     </a>
 
-    <a class="nav-link" id="nav-pvp" onClick="reply_click(this.id)">
+    <a class="nav-link" id="nav-pvp" href="#header-pvp">
         <h9>{{  translations['pvp'][lang] }}</h9>
         <img class="midBarIcon" src="{{ root_path }}static/icons/navbar/pvp.png"><br>
     </a>
 
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="nav-slots" onClick="reply_click(this.id)">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="nav-slots" href="#header-slots">
         <h9>{{  translations['slots'][lang] }}</h9>
         <img class="midBarIcon" src="{{ root_path }}static/icons/navbar/slots.png"><br>
         <ul class="dropdown-menu dropdown-menu-left">
@@ -35,24 +36,63 @@
           </ul>
     </a>
 
-<!--    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="top" id="nav-slots" onClick="reply_click(this.id)" >-->
-<!--        <h9>{{ translations['slots'][lang] }}</h9>-->
-<!--        <img class="midBarIcon" src="{{ root_path }}static/icons/navbar/slots.png">-->
-
-<!--    </a>-->
-
 
     <script>
 
-        function reply_click(clicked_id){
-            const id = "header-" + clicked_id.split(/-(.*)/s)[1];
-            const yOffset = document.getElementById('top_bar').clientHeight + 20;
-            const element = document.getElementById(id);
-            const y = element.getBoundingClientRect().top + window.pageYOffset - yOffset;
+<!--    var offset = 80;-->
 
-            window.scrollTo({top: y, behavior: 'smooth'});
-        }
+<!--    $('.nav-bar-selector li a').click(function(event) {-->
+<!--        event.preventDefault();-->
+<!--        $($(this).attr('href'))[0].scrollIntoView();-->
+<!--        scrollBy(0, -offset);-->
+<!--    });-->
+
+<!--        function reply_click(clicked_id){-->
+<!--    $('.nav-link').click(function(event) {-->
+<!--        event.preventDefault();-->
+<!--        $($(this).attr('href'))[0].scrollIntoView();-->
+<!--        scrollBy(0, -30);-->
+<!--    });-->
+
+<!--            const id = "header-" + clicked_id.split(/-(.*)/s)[1];-->
+<!--            const yOffset = document.getElementById('top_bar').clientHeight + 20;-->
+<!--            const element = document.getElementById(id);-->
+<!--            const y = element.getBoundingClientRect().top + window.pageYOffset - yOffset;-->
+
+<!--            window.scrollTo({top: y, behavior: 'smooth'});-->
+<!--            scrollBy(0, -80);-->
+
+<!--        }-->
+
+<!--        document.addEventListener('DOMContentLoaded', function() {-->
+<!--            // When the user scrolls the page, execute myFunction-->
+<!--            window.addEventListener('resize', myFunction);-->
+<!--            // execute-->
+<!--        });-->
+
+<!--  get the headers from mid-section-->
+<!--        var dict = {};-->
+<!--        const elements_h5 = document.getElementById('mid-section').getElementsByTagName('h5');-->
+<!--        for( i=0; i< elements_h5.length; i++ )-->
+<!--        {-->
+<!--            var element_h5 = elements_h5[i];-->
+<!--            dict[i].id = element_h5.id;-->
+<!--            dict[i].position = element_h5.getBoundingClientRect().top;-->
+<!--        }-->
+
+<!--        let lastKnownScrollPosition = 0;-->
+<!--        let ticking = false;-->
+
+<!--        function doSomething(scrollPos) {-->
+<!--        for( i=0; i< dict.length; i++ )-->
+<!--        {-->
+<!--            if(numCorrect >= dict[i].position && numCorrect < dict[i+1].position) {-->
+<!--                document.getElementById(dict[i].id).classList.add('active');-->
+<!--            }-->
+<!--        }-->
+
+
 
     </script>
 
-</div>
+</nav>

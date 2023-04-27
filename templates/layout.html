@@ -53,7 +53,7 @@
 
     </head>
 
-  <body style="font-family: Futura, sans-serif; ">
+  <body style="font-family: Futura, sans-serif; "  data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true" data-bs-offset="40">
       <!-- TOP BAR -->
       <script>
         $(function() {
@@ -72,7 +72,7 @@
     <!--            document.getElementById("navigationbar").offsetTop = document.getElementById("top-section").clientHeight + document.getElementById("topbar").clientHeight +  "px";-->
             });
             </script>
-            <div id="main_section">
+            <div id="main_section" >
                 {% if search_page is defined %}
                     {% block search %}{% endblock %}
                 {% elif report_date is defined %}

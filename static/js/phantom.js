@@ -18,12 +18,12 @@ function disconnect() {
     if (document.getElementById("top_bar").clientWidth < 768) {
         document.getElementById("top_bar").style.height = '64px';
         document.getElementById("myCarousel").style.marginTop = document.getElementById("top_bar").clientHeight + 'px';
-//        document.getElementById("middle_bar").style.marginTop = document.getElementById("myCarousel").clientHeight + document.getElementById("top_bar").clientHeight + 'px';
+//        document.getElementById("navigation-bar").style.marginTop = document.getElementById("myCarousel").clientHeight + document.getElementById("top_bar").clientHeight + 'px';
 
         if (window.pageYOffset >= document.getElementById("myCarousel").clientHeight) {
-            document.getElementById("middle_bar").style.marginTop = '-46px';
+            document.getElementById("navigation-bar").style.marginTop = '-46px';
         } else {
-            document.getElementById("middle_bar").style.marginTop = '42px';
+            document.getElementById("navigation-bar").style.marginTop = '42px';
         }
     }
 };
@@ -87,7 +87,7 @@ function login() {
                     document.getElementById("top_bar").style.height = '110px';
                     myCarousel_window.style.marginTop = document.getElementById("top_bar").clientHeight + 'px';
 
-                    document.getElementById("middle_bar").style.marginTop = '-8px';
+                    document.getElementById("navigation-bar").style.marginTop = '-8px';
                     document.getElementById("main_section").style.marginTop = '62px';
 
                 }

@@ -62,7 +62,7 @@
 }
 
 .dropdown-toggle::after {
-     border-top: none;
+     /* border-top: none; */
 }
 
 .dropdown-slots {
