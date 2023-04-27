@@ -33,7 +33,7 @@
   color: #28a745;
   /* padding-top: 10px; */
   vertical-align: middle;
-  margin-right: 15px;
+  margin-right: 0px;
 }
 
 .navbar-dark:hover .navbar-brand:hover {
@@ -59,4 +59,12 @@
 }
 
 .nav-link:hover {
+}
+
+.dropdown-toggle::after {
+     border-top: none;
+}
+
+.dropdown-slots {
+    transform: translate3d(0px)!important
 }

@@ -153,7 +153,7 @@ def home():
         session['flag'] = 'jp'
 
     return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           static_path='', login_form=login_form, register_form=register_form,
+                           root_path='', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
                            notification=notification, notification_title=notification_title, reset_pass=False,
                            lang=session['lang'], translations=utils.translations)
@@ -303,7 +303,7 @@ def setup_home_template(notification_title, notification, reset_pass_popup):
     else:
         notification_popup = False
     return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           static_path='../', login_form=login_form, register_form=register_form,
+                           root_path='../', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
                            notification=notification, notification_title=notification_title,
                            reset_pass=reset_pass_popup)

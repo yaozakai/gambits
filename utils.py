@@ -19,7 +19,7 @@ game_titles = []
 translations = {}
 
 url = 'https://api.cqgame.games/'
-static_path = 'static'
+root_path = 'static'
 authKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2M2VjZTczODM1ZTYyMzhjYzI2MTdlOTEiLCJhY2NvdW50IjoiZ2FtYml0c19zdyIsIm93bmVyIjoiNjNlY2U3MzgzNWU2MjM4Y2MyNjE3ZTkxIiwicGFyZW50Ijoic2VsZiIsImN1cnJlbmN5IjoiVVNEIiwianRpIjoiODIxMTIzMzE5IiwiaWF0IjoxNjc2NDcwMDcyLCJpc3MiOiJDeXByZXNzIiwic3ViIjoiU1NUb2tlbiJ9.mj1H6gOiA402u8DJhC9Go1CdFFSXab3OhDVagqhmWHE'
 
 
@@ -212,7 +212,7 @@ def reload_game_titles():
 
 
 def reload_icon_placement():
-    icon_path_local = static_path + '/icons/cq9'
+    icon_path_local = root_path + '/icons/cq9'
     print('reloading icon placement:' + icon_path_local)
     icon_files = [f for f in listdir(icon_path_local) if isfile(join(icon_path_local, f)) and not f.endswith('.DS_Store')]
     reader = csv.DictReader(open('static/csv/icon_placement.csv', mode='r', encoding='utf-8-sig'))

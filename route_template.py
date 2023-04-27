@@ -6,7 +6,7 @@ import utils
 from forms import LoginForm, RegisterForm
 from constants import RECAPTCHA_PUBLIC_KEY
 
-static_path = 'static'
+root_path = 'static'
 
 template = Blueprint('template', __name__)
 
@@ -17,7 +17,7 @@ def topbar():
     if 'lang' not in session:
         session['lang'] = 'zh-tw'
 
-    return render_template('section-topbar.html', static_path=static_path, lang=session['lang'], translations=utils.translations)
+    return render_template('section-topbar.html', root_path=root_path, lang=session['lang'], translations=utils.translations)
 
 
 @template.route('/navigationbar', methods=['POST', 'GET'])
@@ -52,18 +52,18 @@ def modals():
 def top_section():
 
     return render_template('live-baccarat.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           static_path='', lang=session['lang'], translations=utils.translations)
+                           root_path='', lang=session['lang'], translations=utils.translations)
 
 
 @template.route('/midSection')
 def mid_section():
 
     return render_template('template-gallery.html', translations=utils.translations, icon_placement=utils.icon_placement,
-                           game_titles=utils.game_titles, static_path='')
+                           game_titles=utils.game_titles, root_path='')
 
 
 @template.route('/botSection')
 def bot_section():
 
     return render_template('template-gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           static_path='', lang=session['lang'], translations=utils.translations)
+                           root_path='', lang=session['lang'], translations=utils.translations)
