@@ -387,7 +387,13 @@ h3 {
     align-self: center;
 }
 
-#gamelaunchModalWindow {
+.spinner-border {
+    height: unset;
+    width: unset;
+    border: unset;
+}
+
+#loadingscreenModalWindow {
     width: 300px;
 }
 

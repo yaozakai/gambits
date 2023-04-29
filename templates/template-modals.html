@@ -1,12 +1,12 @@
 
 
 
-<!-- game launch popup -->
-    <div class="modal fade" id="gamelaunchModal" tabindex="-1" role="dialog" aria-labelledby="gamelaunchModalWindow" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" id="gamelaunchModalWindow">
+<!-- loading.... popup -->
+    <div class="modal fade" id="loadingscreenModal" tabindex="-1" role="dialog" aria-labelledby="loadingscreenModalWindow" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" id="loadingscreenModalWindow">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="gamelaunchModalLabel">Loading</h3>
+                    <h3 class="modal-title" id="loadingscreenModalLabel">Loading</h3>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -14,8 +14,9 @@
                 </div>
                 <div class="modal-body" id="loadingSpinner">
                     <div class="spinner-border text-success" role="status">
-                      <span class="sr-only">Loading...</span>
+                        <img src="{{ root_path }}static/logos/favicon.png" class="main-logo">
                     </div>
+                    <span class="sr-only">Loading...</span>
                 </div>
             </div>
         </div>
@@ -120,7 +121,7 @@
                         <span class="green-text-outline">
                             {{ login_form.rememberme(id_="login-rememberme") }}
                             <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>
-                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text-outline">{{ translations['forgot password'][lang] }}?</button>
+                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
                         </span>
                         <div id="login-recaptcha"></div>
                         {{ login_form.hidden_tag() }}
@@ -252,17 +253,19 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
-        <script>
+                <script>
             $(document).ready(function(){
                 $('#registerbtn').on('click', function(){
+                    $('#loadingscreenModal').modal('show');
+
                     event.preventDefault();
+
                     var email = $("#reg-email").val();
                     var username = $("#reg-username").val();
                     var password = $("#reg-password").val();
                     var referral = $("#reg-referral").val();
                     var recaptcha = grecaptcha.getResponse(widgetId2);
+
                     $.ajax({
                       url: "/register",
                       type: "post",
@@ -276,6 +279,8 @@
                         "recaptcha":recaptcha
                       }),
                       success: function(self) {
+                        $('#loadingscreenModal').modal('hide');
+
                         if (typeof self.resend_email != 'undefined'){
                             if (typeof self.link_text != 'undefined'){
                                 $(".error").html(self.error.toString()+'<br><button id=\"resendEmail\" class=\"modal-error-link\" value=\"' + self.resend_email + '/">' + self.link_text.toString() + '</button>');
@@ -310,6 +315,8 @@
                   });
                 });
         </script>
+            </div>
+        </div>
     {% endif %}
 
 

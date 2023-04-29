@@ -2,6 +2,7 @@ from flask import Flask
 # from flask_session import Session
 import secrets
 from flask_login import LoginManager
+from flask_mail import Mail
 
 from constants import *
 
@@ -34,4 +35,5 @@ login_manager = LoginManager()
 # login_manager.login_view = 'profile'
 app.config.from_object(__name__)
 login_manager.init_app(app)
+mail = Mail(app)
 # Mobility(app)

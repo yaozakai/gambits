@@ -5,14 +5,12 @@ from email.mime.text import MIMEText
 
 from flask import url_for, render_template, session
 from itsdangerous import URLSafeTimedSerializer
-from config import app
-from flask_mail import Mail, Message
+from config import app, mail
+from flask_mail import Message
 import boto3
 
-mail = Mail(app)
 
 # email_text = 'Welcome! Thanks for signing up. Please follow this link to activate your account: '
-
 
 def send_email(subject, recipient, html, text):
     msg = Message(subject=subject,
@@ -101,7 +99,8 @@ def create_verify_email(email, translations):
     confirm_url = url_for('verify_email', token=token, lang=session['lang'], _external=True)
     html = render_template('email_verify.html', confirm_url=confirm_url, translations=translations, root_path='../')
     subject = "Gambits Casino: " + translations['please verify your email'][session['lang']]
-    send_email(subject=subject, recipient=email, html=html, text=translations['email-activate'][session['lang']] + confirm_url)
+    send_email(subject=subject, recipient=email, html=html,
+               text=translations['email-activate'][session['lang']] + confirm_url)
 
 
 def create_reset_pass_email(email, translations):

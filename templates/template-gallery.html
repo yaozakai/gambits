@@ -27,7 +27,7 @@
 
                             <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
                                 {% if current_user.is_authenticated %}
-                                        name="launch" data-bs-toggle="modal" data-bs-target="#gamelaunchModal">
+                                        name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                 {% else %}
                                         data-bs-toggle="modal" data-bs-target="#registerModal">
                                 {% endif %}
@@ -76,7 +76,7 @@
 
                             <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
                                 {% if current_user.is_authenticated %}
-                                        name="launch" data-bs-toggle="modal" data-bs-target="#gamelaunchModal">
+                                        name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                 {% else %}
                                         data-bs-toggle="modal" data-bs-target="#registerModal">
                                 {% endif %}
@@ -125,7 +125,7 @@
 
                             <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
                                 {% if current_user.is_authenticated %}
-                                        name="launch" data-bs-toggle="modal" data-bs-target="#gamelaunchModal">
+                                        name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                 {% else %}
                                         data-bs-toggle="modal" data-bs-target="#registerModal">
                                 {% endif %}
@@ -174,7 +174,7 @@
 
                             <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
                                 {% if current_user.is_authenticated %}
-                                        name="launch" data-bs-toggle="modal" data-bs-target="#gamelaunchModal">
+                                        name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                 {% else %}
                                         data-bs-toggle="modal" data-bs-target="#registerModal">
                                 {% endif %}
@@ -201,7 +201,7 @@
 <div class="gallery-container">
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
-        {% if outer_loop.index % 22 == 1 %}
+        {% if outer_loop.index % 61 == 1 %}
             <div class="view-small">
         {% endif %}
                 <div class="med-card card shadow-sm">
@@ -223,7 +223,7 @@
 
                             <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
                                 {% if current_user.is_authenticated %}
-                                        name="launch" data-bs-toggle="modal" data-bs-target="#gamelaunchModal">
+                                        name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                 {% else %}
                                         data-bs-toggle="modal" data-bs-target="#registerModal">
                                 {% endif %}
@@ -236,7 +236,7 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-        {% if outer_loop.index % 22 == 0 %}
+        {% if outer_loop.index % 61 == 0 %}
             </div>
         {% endif %}
     {% endfor %}
@@ -259,7 +259,7 @@
                 "id":$(this).attr("id")
               }),
               success: function(self) {
-                $('#gamelaunchModal').modal('hide');
+                $('#loadingscreenModal').modal('hide');
                 window.open(self.link.toString());
               },
               error: function(e) {

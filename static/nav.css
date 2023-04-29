@@ -65,11 +65,25 @@
      /* border-top: none; */
 }
 
-.dropdown-slots {
+.slots-dropdown {
     transform: translate3d(0px)!important
 }
 
 .nav-link:hover {
     color: #b5b6b944;
     border-color: #b5b6b944 #b5b6b944 #ffffff;
+}
+
+#slots-dropdown {
+    width: 100%;
+    bottom: 80px;
+    z-index: 5;
+    display: none;
+    justify-content: center;
+    padding-top: 0px;
+    /* margin: auto auto auto auto; */
+}
+
+.nav-link-title {
+    text-align: center;
 }
