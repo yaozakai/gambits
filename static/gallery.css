@@ -41,6 +41,15 @@
     margin-top: -150px;
 }
 
+.gallery-slots-header {
+    display: inline-flex;
+    justify-content: center;
+    margin-top: 15px;
+    width: 100%;
+    padding-top: 186px;
+    margin-top: -150px;
+}
+
 #mid-section {
     /* display: grid; */
     height: 100%;
