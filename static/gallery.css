@@ -61,6 +61,46 @@
 
 .top-games-button-overlay-title{position: absolute;z-index: 4;/* top: 0px; */bottom: 0px;/* height: 100%; */width: 100%;text-align: center;color: #ffe204;text-shadow: 2px 3px 7px black;font-size: small;margin-bottom: 7px;}
 
+.card {
+    width: 200px;
+    /* height: 160px; */
+    margin-bottom: 20px;
+    background: #736988;
+    font-size: 1.5rem;
+    border: none;
+}
+
+.card-fishing {width: 42vw!important;height: 33vw!important;}
+.card-pvp {width: 80vw!important;height: 39vw!important;}
+
+.large-card {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 50px;
+    margin: 0 auto;
+}
+
+.card-img-top {
+    height: 120px;
+}
+
+.gallery-btn {
+    font-size: .8rem;
+    position: absolute;
+    width: 100%;
+    font-weight: 300;
+    height: 100%;
+    background-color: #00000000;
+    color: #00000000;
+    white-space: normal;
+}
+
+.gallery-btn:hover {
+    background-color: #000000BB;
+    color: #28a745;
+    font-weight: 400;
+}
+
 @media (min-width: 1367px) {
 
 /* Class widths */
@@ -109,7 +149,7 @@
 
     .view-small {
         display: grid;
-        width: 50%;
+        width: 100%;
         justify-content: center;
     }
 
@@ -156,6 +196,7 @@
 
     .gallery-container {
         width: 100%;
+        justify-content: center;
     }
 
     #navigation-bar {

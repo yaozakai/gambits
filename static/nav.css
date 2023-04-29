@@ -68,3 +68,8 @@
 .dropdown-slots {
     transform: translate3d(0px)!important
 }
+
+.nav-link:hover {
+    color: #b5b6b944;
+    border-color: #b5b6b944 #b5b6b944 #ffffff;
+}

@@ -15,10 +15,9 @@ mail = Mail(app)
 
 
 def send_email(subject, recipient, html, text):
-    msg = Message("Hello",
-                  sender="no-reply@gambits.vip",
+    msg = Message(subject=subject,
+                  sender=('Gambit\'s Casino', 'no-reply@gambits.vip'),
                   recipients=[recipient],
-                  subject=subject,
                   body=text,
                   html=html)
     mail.send(msg)
@@ -102,7 +101,7 @@ def create_verify_email(email, translations):
     confirm_url = url_for('verify_email', token=token, lang=session['lang'], _external=True)
     html = render_template('email_verify.html', confirm_url=confirm_url, translations=translations, root_path='../')
     subject = "Gambits Casino: " + translations['please verify your email'][session['lang']]
-    send_email(subject=subject, recipient=email, html=html, text=translations['email-activate'] + confirm_url)
+    send_email(subject=subject, recipient=email, html=html, text=translations['email-activate'][session['lang']] + confirm_url)
 
 
 def create_reset_pass_email(email, translations):

@@ -1,7 +1,7 @@
 
 {% for category in icon_placement if category == 'top-games' %}
 <hr class="dropdown-divider" style="top: 8px; position: relative;">
-<h5 class="video-element-title gallery-header" id="header-top-games"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png"> {{ translations[category][session['lang']] }}</h5>
+<div class="video-element-title gallery-header" id="header-top-games"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png"> {{ translations[category][session['lang']] }}</div>
 <div class="gallery-container">
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
@@ -50,18 +50,18 @@
 
 {% for category in icon_placement if category == 'fishing' %}
 <hr class="dropdown-divider" style="top: 8px; position: relative;">
-<h5 class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</h5>
+<div class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</div>
 <div class="gallery-container">
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
         {% if outer_loop.index % 2 == 1 %}
             <div class="view-small">
         {% endif %}
-                <div class="med-card card shadow-sm">
+                <div class="med-card card card-{{ category }} shadow-sm">
                     {% for game_title in game_titles %}
                         {% if game_title['gamecode'] == k.split("_")[0] %}
                             <div class="gallery-thumb-top">
-                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>
+<!--                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>-->
                                 <div class="top-section-icon">
                                     <img class="gallery-img" src="{{ root_path }}static/icons/cq9/{{ k }}">
                                 </div>
@@ -99,7 +99,7 @@
 
 {% for category in icon_placement if category == 'arcade' %}
 <hr class="dropdown-divider" style="top: 8px; position: relative;">
-<h5 class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</h5>
+<div class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</div>
 <div class="gallery-container">
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
@@ -110,7 +110,7 @@
                     {% for game_title in game_titles %}
                         {% if game_title['gamecode'] == k.split("_")[0] %}
                             <div class="gallery-thumb-top">
-                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>
+<!--                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>-->
                                 <div class="top-section-icon">
                                     <img class="gallery-img" src="{{ root_path }}static/icons/cq9/{{ k }}">
                                 </div>
@@ -148,18 +148,18 @@
 
 {% for category in icon_placement if category == 'pvp' %}
 <hr class="dropdown-divider" style="top: 8px; position: relative;">
-<h5 class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</h5>
+<div class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</div>
 <div class="gallery-container">
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
-        {% if outer_loop.index % 1 == 0 %}
+        {% if outer_loop.index % 3 == 1 %}
             <div class="view-small">
         {% endif %}
-                <div class="med-card card shadow-sm">
+                <div class="med-card card card-{{ category }} shadow-sm">
                     {% for game_title in game_titles %}
                         {% if game_title['gamecode'] == k.split("_")[0] %}
                             <div class="gallery-thumb-top">
-                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>
+<!--                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>-->
                                 <div class="top-section-icon">
                                     <img class="gallery-img" src="{{ root_path }}static/icons/cq9/{{ k }}">
                                 </div>
@@ -187,7 +187,7 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-        {% if outer_loop.index % 1 == 0 %}
+        {% if outer_loop.index % 3 == 0 %}
             </div>
         {% endif %}
     {% endfor %}
@@ -197,7 +197,7 @@
 
 {% for category in icon_placement if category == 'slots' %}
 <hr class="dropdown-divider" style="top: 8px; position: relative;">
-<h5 class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</h5>
+<div class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons//navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</div>
 <div class="gallery-container">
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
@@ -208,7 +208,7 @@
                     {% for game_title in game_titles %}
                         {% if game_title['gamecode'] == k.split("_")[0] %}
                             <div class="gallery-thumb-top">
-                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>
+<!--                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>-->
                                 <div class="top-section-icon">
                                     <img class="gallery-img" src="{{ root_path }}static/icons/cq9/{{ k }}">
                                 </div>
