@@ -1,5 +1,14 @@
+<body style="
+    font-family: Futura, sans-serif;
+    background-color: #332a34;
+    color: #198754;
+    text-align: center;
+    height: 100%;
+    ">
 
+    <img src="{{ root_path }}static/logos/gambits_logo.png"><br>
     <p>{{ translations['email-activate'][session['lang']] }}</p>
     <p><a href="{{ confirm_url }}">{{ confirm_url }}</a></p>
     <br>
     <p>{{ translations['thank you'][session['lang']] }}</p>
+</body>

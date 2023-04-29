@@ -3,16 +3,14 @@
     color: unset;
 }
 
-btn-link {
+.modal-error-link {
+    background: #00000000;
     border: none;
-    outline: none;
-    background: none;
+    text-decoration: underline;
+    margin-left: -5px;
     cursor: pointer;
     color: #0000EE;
-    padding: 0;
-    text-decoration: underline;
-    font-family: inherit;
-    font-size: inherit;
+
 }
 
 .btn-outline-dark {

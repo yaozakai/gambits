@@ -199,7 +199,7 @@ def login():
                     else:
                         return jsonify(error=translations['created not verified'][session['lang']],
                                        resend_email=email,
-                                       link_text=translations['resend verification email'][session['lang']])
+                                       link_text=translations['resend verification'][session['lang']])
                 else:
                     return jsonify(error=translations['invalid email or password'][session['lang']])
             else:
@@ -371,14 +371,14 @@ def register():
                             else:
                                 return jsonify(error=translations['account exists but not activated'][session['lang']],
                                                resend_email=email,
-                                               link_text=translations['resend verification email'][session['lang']])
+                                               link_text=translations['resend verification'][session['lang']])
                     else:
                         if user.is_active():
                             return jsonify(error=translations['account exists'][session['lang']])
                         else:
                             return jsonify(error=translations['account exists but not activated'][session['lang']],
                                            resend_email=email,
-                                           link_text=translations['resend verification email'][session['lang']])
+                                           link_text=translations['resend verification'][session['lang']])
                 else:
                     return jsonify(error=password_not_valid)
             else:

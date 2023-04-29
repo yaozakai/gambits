@@ -7,10 +7,16 @@ from constants import *
 
 app = Flask(__name__)
 
-app.config['SES_REGION'] = 'ap-northeast-2'
-app.config['SES_EMAIL_SOURCE'] = 'no-reply@gambits.vip'
-app.config['AWS_ACCESS_KEY_ID'] = 'AKIASUDHOIDDYWZ754XV'
-app.config['AWS_SECRET_ACCESS_KEY'] = AWS_SECRET_ACCESS_KEY
+app.config['MAIL_SERVER'] = 'mail.gambits.vip'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'no-reply@gambits.vip'
+app.config['MAIL_PASSWORD'] = 'Km09omm9HhwLCz44'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+# app.config['SES_REGION'] = 'ap-northeast-2'
+# app.config['SES_EMAIL_SOURCE'] = 'no-reply@gambits.vip'
+# app.config['AWS_ACCESS_KEY_ID'] = 'AKIASUDHOIDDYWZ754XV'
+# app.config['AWS_SECRET_ACCESS_KEY'] = AWS_SECRET_ACCESS_KEY
 app.config['SECRET_KEY'] = secrets.token_urlsafe(16)
 app.config['SECURITY_PASSWORD_SALT'] = secrets.token_urlsafe(16)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -29,4 +35,3 @@ login_manager = LoginManager()
 app.config.from_object(__name__)
 login_manager.init_app(app)
 # Mobility(app)
-
