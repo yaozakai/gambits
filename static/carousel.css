@@ -383,18 +383,26 @@ h3 {
     float: right;
 }
 
-#loadingSpinner {
-    align-self: center;
-}
-
-.spinner-border {
+.game-launch-spinner {
     height: unset;
     width: unset;
     border: unset;
+    align-self: center;
 }
+
+.login-reg-spinner {
+    background-color: #7fffd4;
+    display: none;
+    position: absolute;
+}
+
 
 #loadingscreenModalWindow {
     width: 300px;
+}
+
+.spinner-logo {
+    height: 9vw;
 }
 
 #language-select {

@@ -53,17 +53,3 @@ def top_section():
 
     return render_template('live-baccarat.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            root_path='', lang=session['lang'], translations=utils.translations)
-
-
-@template.route('/midSection')
-def mid_section():
-
-    return render_template('template-gallery.html', translations=utils.translations, icon_placement=utils.icon_placement,
-                           game_titles=utils.game_titles, root_path='')
-
-
-@template.route('/botSection')
-def bot_section():
-
-    return render_template('template-gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           root_path='', lang=session['lang'], translations=utils.translations)

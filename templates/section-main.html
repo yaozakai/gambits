@@ -499,6 +499,8 @@
 <script>
     $(document).ready(function(){
 <!--    alert({{ category }});-->
+        $('#navigation-bar').scrollspy();
+
         $('.launch').on('click', function(){
             event.preventDefault();
             $.ajax({

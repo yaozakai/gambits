@@ -21,8 +21,6 @@
         <div class="top-bar-right-side">
             {% if current_user.is_authenticated and session['admin'] %}
                 <a class="btn btn-outline-success" href="/search"><i class="bi bi-search"></i></a>
-            {% else %}
-
             {% endif %}
 
         <!-- PROFILE/LOGOUT (if logged in) -->
@@ -49,11 +47,11 @@
                         <ul class="dropdown-menu">
             {% else %}
                         <div class="dropdown">
-                            <form method="POST">
-                                <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
-                                </button>
-                                <ul class="dropdown-menu green-text" aria-labelledby="dropdownMenuButton1" id="language-select" >
+<!--                            <form method="POST">-->
+                            <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
+                            </button>
+                            <ul class="dropdown-menu green-text" aria-labelledby="dropdownMenuButton1" id="language-select" >
 
 
             {% endif %}
@@ -131,18 +129,17 @@
     <script language="JavaScript" type="text/javascript">
     $(document).ready(function(){
         var balance_field = document.getElementById("balance");
-        var balance_field2 = document.getElementById("balance2");
         function updater() {
-            fetch('/getBalance')
-            .then(response => response.text())
-            .then(text => (balance_field.innerHTML = text))  // update page with new data
-            .then(text => (balance_field2.innerHTML = text));  // update page with new data
+            const response = fetch('/getBalance');
+            balance_field.value = response;
+
+
+<!--            .then(response => response.text())-->
+<!--            .then(text => (balance_field.innerHTML = text))；  // update page with new data-->
         }
         $('#dLabel').on('click', function(){
             updater();
         });
-<!--        setInterval(updater, 30000);  // run `updater()` every (30s)-->
-<!--        window.scrollTo(0, 0);-->
     });
     </script>
 {% endif %}

@@ -392,11 +392,11 @@ def register():
 @application.route('/getBalance', methods=['GET', 'POST'])
 @login_required
 def get_balance():
-    if session['logged_in']:
-        user = db_get_user(session['_user_id'])
-        return str(user.balance) + ' ' + user.currency
-    else:
-        return translations['reload website'][session['lang']]
+    # if session['logged_in']:
+    user = db_get_user(session['_user_id'])
+    return str(user.balance) + ' ' + user.currency
+    # else:
+    #     return translations['reload website'][session['lang']]
 
 
 @application.route('/update', methods=['GET', 'POST'])
