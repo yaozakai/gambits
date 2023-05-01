@@ -7,6 +7,7 @@ from flask import url_for, render_template, session
 from itsdangerous import URLSafeTimedSerializer
 from config import app, mail
 from flask_mail import Message
+
 import boto3
 
 

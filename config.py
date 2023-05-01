@@ -8,10 +8,12 @@ from constants import *
 
 app = Flask(__name__)
 
-app.config['MAIL_SERVER'] = 'mail.gambits.vip'
+app.config['MAIL_SERVER'] = 'in-v3.mailjet.com'
 app.config['MAIL_PORT'] = 587
-app.config['MAIL_USERNAME'] = 'no-reply@gambits.vip'
-app.config['MAIL_PASSWORD'] = 'Km09omm9HhwLCz44'
+# app.config['MAIL_USERNAME'] = 'no-reply@gambits.vip'
+# app.config['MAIL_PASSWORD'] = 'Km09omm9HhwLCz44'
+app.config['MAIL_USERNAME'] = 'fd2972476e41bace13b99e5a60cb5e0f'
+app.config['MAIL_PASSWORD'] = 'ef3b620094a614e516615983cc7dce89'
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 # app.config['SES_REGION'] = 'ap-northeast-2'

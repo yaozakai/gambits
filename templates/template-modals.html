@@ -85,6 +85,8 @@
                      $("#login-email").val("");
                      $("#login-password").val("");
                      $("#login-rememberme").prop("checked", false);
+                     $('#login-spinner').hide();
+
                      grecaptcha.reset(widgetId1);
                      document.getElementById('login-email').placeholder = "";
                      document.getElementById('login-password').placeholder = "";
@@ -222,6 +224,8 @@
                      $("#reg-password").val("");
                      $("#reg-referral").val("");
                      $("#reg-username").val("");
+                     $('#reg-spinner').hide();
+
                      grecaptcha.reset(widgetId2);
                   });
                 });
@@ -322,7 +326,7 @@
                             }
                         }
                         $('#reg-spinner').hide();
-                        
+
                       },
                       error: function(e) {
                         console.log(e);
