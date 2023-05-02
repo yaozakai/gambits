@@ -3,17 +3,19 @@
     /* width: 50%; */
     /* text-align: center; */
     height: 80vw;
+    max-height: 465px;
 }
 
 .video-container-wide {
     /* text-align: center; */
     position: relative;
-    width: 80%;
-    /* height: 29vw; */
+    width: 100%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
     top: 20px;
-    max-width: 1115px;
+    /* max-width: 1115px; */
+    max-height: 230px;
 }
 
 .video-container-narrow {
@@ -65,7 +67,8 @@
     z-index: 3;
     height: 5vw;
     width: 75vw;
-    margin-top: 18vw;
+    margin-top: auto;
+    margin-bottom: 6%;
     margin-right: 22px;
     max-width: 160px;
     max-height: 62px;
@@ -88,7 +91,8 @@
 }
 
 .video-element-description-wide {
-    margin-top: 16vw;
+    margin-top: auto;
+    margin-bottom: 5%;
     margin-left: 10px;
     width: 80vw;
 }
@@ -112,7 +116,7 @@
     width: 101%;
     background-image: linear-gradient(to bottom, #342a3424, #342a34FA 65%, #342a34FF 100%);
     display: flex;
-    max-width: 1115px;
+    /* max-width: 1115px; */
 }
 
 .video-element-overlay-narrow {
@@ -130,9 +134,11 @@
 }
 
 .video-element-logo-wide {
-    width: 31vw;
+    width: auto;
     top: 5px;
-    max-width: 375px;
+    max-height: 35px;
+    object-fit: cover;
+    display: block;
 }
 
 .video-element-logo-narrow {
@@ -143,8 +149,10 @@
 
 .video-container-parent {
     height: 100%;
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
+    max-width: 768px;
+    align-items: center;
 }
 
 
@@ -169,8 +177,8 @@
 @media (max-width: 575px) {
 
     .video-container-wide {
-        width: 100%;
-        height: 100%;
+        /* width: 100%; */
+        /* height: 100%; */
         top: 6px;
     }
 
@@ -189,8 +197,12 @@
         font-size: large;
     }
 
+    .video-element-logo-wide {
+        width: 31vw;
+    }
+
     .video-element-overlay-wide {
-        height: 40vw;
-        background-image: linear-gradient(to bottom, #342a3424, #342a34FA 70%, #342a34FF 100%);
+        /* height: 40vw; */
+        /* background-image: linear-gradient(to bottom, #342a3424, #342a34FA 70%, #342a34FF 100%); */
     }
 }

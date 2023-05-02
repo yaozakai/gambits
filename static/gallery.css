@@ -10,15 +10,17 @@
     max-width: 768px;
     display: inline-flex;
     /* margin-left: auto; */
+    /* margin-right: auto; */
     width: 100%;
 }
 
 .gallery-header-icon {
     height: 8vw;
     margin-right: 10px;
+    max-height: 64px;
 }
 
-.gallery-thumb-top {height: 100%;object-fit: cover;width: 100%;/* border: none; */}
+.gallery-thumb-top {height: 100%;/* object-fit: cover; */width: 100%;object-position: center top;/* border: none; */}
 
 
 .gallery-img {
@@ -51,36 +53,56 @@
 }
 
 #mid-section {
-    /* display: grid; */
+    display: grid;
     height: 100%;
-    /* justify-content: center; */
+    justify-content: center;
+}
+
+.view-small {
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    margin: 0 1px 0 1px;
 }
 
 .top-games-button-overlay {
-    height: 100%;
-    width: 103%;
+    height: 102%;
+    width: 102%;
     position: absolute;
-    display: flex;
+    /* display: flex; */
     /* justify-content: center; */
     top: 0px;
     background-image: linear-gradient(to bottom, #342a3424, #342a34DA 72%, #342a34FF 90%, #342a34FF 100%);
-    left: -1px;
-    /* right: 2px; */
+    left: -1%;
+    right: -1%;
+    top: -1%;
+    bottom: -1%;
 }
 
-.top-games-button-overlay-title{position: absolute;z-index: 4;/* top: 0px; */bottom: 0px;/* height: 100%; */width: 100%;text-align: center;color: #ffe204;text-shadow: 2px 3px 7px black;font-size: small;margin-bottom: 7px;}
+.top-games-button-overlay-title {
+    position: absolute
+    ;z-index: 4;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    color: #ffe204;
+    text-shadow: 2px 3px 7px black;
+    font-size: large;
+    margin-bottom: 7px;
+}
 
 .card {
-    width: 200px;
+    /* width: 100%; */
     /* height: 160px; */
     margin-bottom: 20px;
     background: #736988;
     font-size: 1.5rem;
     border: none;
+    max-height: 140px;
 }
 
-.card-fishing {width: 42vw!important;height: 33vw!important;}
-.card-pvp {width: 80vw!important;height: 39vw!important;}
+.card-fishing {width: 42vw!important;height: 33vw!important;max-width: 300px;max-height: 200px;}
+.card-pvp {width: 80vw!important;height: 39vw!important;max-width: 800px;max-height: 180px;}
 
 .large-card {
     width: 200px;
@@ -102,67 +124,23 @@
     background-color: #00000000;
     color: #00000000;
     white-space: normal;
+    border-radius: 0px;
 }
 
 .gallery-btn:hover {
     background-color: #000000BB;
     color: #28a745;
     font-weight: 400;
+    font-size: small;
+    border-radius: 0px;
 }
 
-@media (min-width: 1367px) {
-
-/* Class widths */
-
-
-    .view-med {
-        display: none;
+@media (min-width: 769px) {
+    .gallery-btn:hover {
+        font-size: 1.5rem;
     }
-
-    .view-small {
-        display: none;
-    }
-
 }
 
-@media (max-width: 1366px) {
-
-    #navigation-bar {
-        padding: 0px 12% 0px 12%;
-    }
-
-/* Class widths */
-    .view-large {
-        display: none;
-    }
-
-
-
-    .view-small {
-        display: none;
-    }
-
-}
-
-/* Tablet-------------------------------------------------- */
-@media (max-width: 900px) {
-
-/* Class widths */
-    .view-large {
-        display: none;
-    }
-
-    .view-med {
-        display: none;
-    }
-
-    .view-small {
-        display: grid;
-        width: 100%;
-        justify-content: center;
-    }
-
-}
 
 @media (max-width: 768px) {
 
@@ -177,23 +155,18 @@
     .badge {
         margin-left: vw!important;
     }
+
+    .top-games-button-overlay-title {
+        font-size: small;
+    }
+
+    .gallery-btn:hover {
+        font-size: small;
+    }
 }
 
 /* Mobile-------------------------------------------------- */
 @media (max-width: 414px) {
-
-/* Class widths */
-    .view-large {
-        display: none;
-    }
-
-    .view-med {
-        display: none;
-    }
-
-    .view-small {
-        display: block;
-    }
 
     .list-group-top-section {
         justify-content: center;
@@ -206,10 +179,6 @@
     .gallery-container {
         width: 100%;
         justify-content: center;
-    }
-
-    #navigation-bar {
-        padding: 0px 0% 0px 0%;
     }
 
 }

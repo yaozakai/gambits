@@ -42,16 +42,15 @@
 }
 
 .nav-link {
-    display: inline-block;
+    display: inline-grid;
     padding-left: 0px;
     padding-right: 0px;
-    /* margin: 0px auto 0px auto; */
-    /* padding: 9px 0px 0 0; */
     color: #28a745;
     height: 100%;
-    width: 15%;
-    /* height: 100%; */
-    font-size: 1.2rem;
+    width: 15vw;
+    padding: 4px 0vw 0px 0vw;
+    justify-content: center;
+    font-size: 0.6rem;
     -moz-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
     -webkit-transition: all .2s ease-in;
@@ -61,12 +60,13 @@
 .nav-link:hover {
 }
 
-.dropdown-toggle::after {
-     /* border-top: none; */
+#navigation-bar {
+    padding: 0px 0% 0px 0%;
+    width: 100%;
 }
 
-.slots-dropdown {
-    transform: translate3d(0px)!important
+.dropdown-toggle::after {
+     /* border-top: none; */
 }
 
 .nav-link:hover {
@@ -76,14 +76,108 @@
 
 #slots-dropdown {
     width: 100%;
-    bottom: 80px;
+    bottom: 17vw;
     z-index: 5;
     display: none;
     justify-content: center;
     padding-top: 0px;
+    padding-bottom: 0px;
     /* margin: auto auto auto auto; */
+    display: flex;
+    margin-bottom: 0px;
 }
 
 .nav-link-title {
     text-align: center;
+    font-size: 0.7rem;
+}
+
+.navbar-icon {
+    height: 11vw;
+    margin: 0 auto 0 auto;
+    max-height: 72px;
+}
+
+.navbar-fixed {
+    position: fixed;
+    /* margin: auto; */
+    /* left: auto; */
+    /* right: auto; */
+    z-index: 100;
+    bottom: 0px;
+    /* height: 80px; */
+    box-shadow: 0px -3px 2px 0px rgb(26 135 84);
+    max-height: 112px;
+    max-width: 1120px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.nav-link-container {
+    display: grid;
+}
+
+@media (max-width: 347px) {
+    .nav-link { font-size: 0.8rem; }
+
+    .navbar-icon {
+        height: 11vw;
+        margin-bottom: 6px
+    }
+
+}
+/* navbar starts to grow from here*/
+@media (max-width: 419px) {
+    .navbar-fixed {
+        height: 80px;
+    }
+
+    .navbar-icon {
+        height: 10vw;
+    }
+
+}
+/* navbar starts to grow from here*/
+@media (max-width: 514px) {
+    .navbar-fixed {
+    }
+
+    .navbar-icon {
+    }
+
+}
+
+@media (min-width: 640px) {
+    #slots-dropdown {
+    bottom: 108px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-fixed {
+        height: 17vw;
+
+    }
+
+    .navbar-icon {
+        height: 9vw;
+        margin: 0 auto 0 auto;
+    }
+
+}
+
+@media (min-width: 769px) {
+    .navbar-fixed {
+        height: 113px;
+
+    }
+
+    .navbar-icon {
+
+    }
+
+    .nav-link-title {
+        font-size: 1rem;
+    }
+
 }
