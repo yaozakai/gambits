@@ -62,7 +62,7 @@
 
 #navigation-bar {
     padding: 0px 0% 0px 0%;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .dropdown-toggle::after {
@@ -70,7 +70,7 @@
 }
 
 .nav-link:hover {
-    color: #b5b6b944;
+    color: #28a745;
     border-color: #b5b6b944 #b5b6b944 #ffffff;
 }
 
@@ -108,7 +108,7 @@
     /* height: 80px; */
     box-shadow: 0px -3px 2px 0px rgb(26 135 84);
     max-height: 112px;
-    max-width: 1120px;
+    /* max-width: 1120px; */
     left: 50%;
     transform: translate(-50%, 0);
 }
@@ -149,7 +149,7 @@
 
 @media (min-width: 640px) {
     #slots-dropdown {
-    bottom: 108px;
+    bottom: 114px;
     }
 }
 

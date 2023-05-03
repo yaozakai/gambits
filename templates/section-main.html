@@ -362,7 +362,9 @@
                                     {% else %}
                                             data-bs-toggle="modal" data-bs-target="#registerModal">
                                     {% endif %}
-                                    {{ translations['playnow'][session['lang']] }}<br><br>
+                                    {{ translations['playnow'][session['lang']] }}<br><br>                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
+                                        {{ title['name'] }}
+                                    {% endfor %}
         <!--                                        {{ game_title['nameset']|select(lang) }}-->
                                 </button>
                             {% endif %}
@@ -406,7 +408,9 @@
                                     {% else %}
                                             data-bs-toggle="modal" data-bs-target="#registerModal">
                                     {% endif %}
-                                    {{ translations['playnow'][session['lang']] }}<br><br>
+                                    {{ translations['playnow'][session['lang']] }}<br><br>                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
+                                        {{ title['name'] }}
+                                    {% endfor %}
         <!--                                        {{ game_title['nameset']|select(lang) }}-->
                                 </button>
                             {% endif %}
@@ -450,7 +454,9 @@
                                     {% else %}
                                             data-bs-toggle="modal" data-bs-target="#registerModal">
                                     {% endif %}
-                                    {{ translations['playnow'][session['lang']] }}<br><br>
+                                    {{ translations['playnow'][session['lang']] }}<br><br>                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
+                                        {{ title['name'] }}
+                                    {% endfor %}
         <!--                                        {{ game_title['nameset']|select(lang) }}-->
                                 </button>
                             {% endif %}

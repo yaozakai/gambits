@@ -35,42 +35,45 @@
             <h9  class="nav-link-title">{{  translations['slots'][lang] }}</h9>
             <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots.png">
         </a>
+        <nav class="dropdown-menu navbar-fixed bar-selector " id="slots-dropdown">
+
+            <a class="nav-link" id="nav-slots-action" href="#header-slots-action">
+                <h9  class="nav-link-title">{{  translations['slots-action'][lang] }}</h9>
+                <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-action.png">
+            </a>
+
+            <a class="nav-link" id="nav-slots-animals" href="#header-slots-animals">
+                <h9 class="nav-link-title">{{  translations['slots-animals'][lang] }}</h9>
+                <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-animals.png">
+            </a>
+
+            <a class="nav-link" id="nav-slots-cute" href="#header-slots-cute">
+                <h9  class="nav-link-title">{{  translations['slots-cute'][lang] }}</h9>
+                <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-cute.png">
+            </a>
+
+            <a class="nav-link" id="nav-slots-fantasy" href="#header-slots-fantasy">
+                <h9  class="nav-link-title">{{  translations['slots-fantasy'][lang] }}</h9>
+                <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-fantasy.png">
+            </a>
+
+            <a class="nav-link" id="nav-slots-jump" href="#header-slots-jump">
+                <h9  class="nav-link-title">{{  translations['slots-jump'][lang] }}</h9>
+                <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-jump.png">
+            </a>
+
+            <a class="nav-link" id="nav-slots-treasure" href="#header-slots-treasure">
+                <h9  class="nav-link-title">{{  translations['slots-treasure'][lang] }}</h9>
+                <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-treasure.png">
+            </a>
+        </nav>
     </nav>
 
-    <nav class="dropdown-menu navbar-fixed bar-selector " id="slots-dropdown">
 
-        <a class="nav-link" id="nav-slots-action" href="#header-slots-action">
-            <h9  class="nav-link-title">{{  translations['slots-action'][lang] }}</h9>
-            <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-action.png">
-        </a>
-
-        <a class="nav-link" id="nav-slots-animals" href="#header-slots-animals">
-            <h9 class="nav-link-title">{{  translations['slots-animals'][lang] }}</h9>
-            <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-animals.png">
-        </a>
-
-        <a class="nav-link" id="nav-slots-cute" href="#header-slots-cute">
-            <h9  class="nav-link-title">{{  translations['slots-cute'][lang] }}</h9>
-            <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-cute.png">
-        </a>
-
-        <a class="nav-link" id="nav-slots-fantasy" href="#header-slots-fantasy">
-            <h9  class="nav-link-title">{{  translations['slots-fantasy'][lang] }}</h9>
-            <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-fantasy.png">
-        </a>
-
-        <a class="nav-link" id="nav-slots-jump" href="#header-slots-jump">
-            <h9  class="nav-link-title">{{  translations['slots-jump'][lang] }}</h9>
-            <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-jump.png">
-        </a>
-
-        <a class="nav-link" id="nav-slots-treasure" href="#header-slots-treasure">
-            <h9  class="nav-link-title">{{  translations['slots-treasure'][lang] }}</h9>
-            <img class="navbar-icon" src="{{ root_path }}static/icons/navbar/slots/slots-treasure.png">
-        </a>
-    </nav>
 </nav>
 <script>
+
+
 
 // select the target node
 
@@ -84,6 +87,18 @@ var nav_slots_cute = document.getElementById('nav-slots-cute');
 var nav_slots_animals = document.getElementById('nav-slots-animals');
 var nav_slots_action = document.getElementById('nav-slots-action');
 
+dropdown.style.display = "none";
+
+<!--    $(document).ready(function(){-->
+
+        $('#nav-slots').on('click', function(){
+            dropdown.style.display = "flex";
+            var header = document.getElementById('header-slots').scrollIntoView();
+<!--            if (header) {-->
+<!--                header.scrollIntoView();-->
+<!--            }-->
+        });
+<!--    });-->
 
 function callback (mutations) {
     if (nav_slots.classList.contains('active')) {
