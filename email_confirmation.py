@@ -21,60 +21,32 @@ def send_email(subject, recipient, html, text):
                   html=html)
     mail.send(msg)
 
-    #
+    # import smtplib
+    # import ssl
+    # from email.mime.multipart import MIMEMultipart
+    # from email.mime.text import MIMEText
     # sender_email = "no-reply@gambits.vip"
-    # receiver_email = recipient
+    # receiver_email = "intensity_@hotmail.com"
     # password = "Km09omm9HhwLCz44"
-    #
     # message = MIMEMultipart("alternative")
-    # message["Subject"] = subject
+    # message["Subject"] = 'ta-da!'
     # message["From"] = sender_email
     # message["To"] = receiver_email
-    #
     # # Turn these into plain/html MIMEText objects
-    # part1 = MIMEText(text, "plain")
-    # part2 = MIMEText(html, "html")
-    #
+    # part1 = MIMEText('text', "plain")
+    # part2 = MIMEText('<br>yesy', "html")
     # # Add HTML/plain-text parts to MIMEMultipart message
     # # The email client will try to render the last part first
     # message.attach(part1)
     # message.attach(part2)
-    #
     # # Create secure connection with server and send email
     # context = ssl.create_default_context()
-    # with smtplib.SMTP_SSL("mail.gambits.vip", 465, context=context) as server:
+    # with smtplib.SMTP_SSL("smtpout.secureserver.net", 465, context=context) as server:
     #     server.login(sender_email, password)
     #     server.sendmail(
     #         sender_email, receiver_email, message.as_string()
     #     )
     #     server.quit()
-    #
-    # # port = 465  # For SSL
-    # # smtp_server = "mail.gambits.vip"
-    # # sender_email = "no-reply@gambits.vip"  # Enter your address
-    # # receiver_email = "walt.yaoza@gmail.com"  # Enter receiver address
-    # # password = "vPAajVSLw4C5AKZf"
-    # # message = """\
-    # # Subject: Hi there
-    # # This message is sent from Python."""
-    # # context = ssl.create_default_context()
-    # # with smtplib.SMTP_SSL(smtp_server, port, context=context) as server:
-    # #     server.login(sender_email, password)
-    # #     server.sendmail(sender_email, receiver_email, message)
-    #
-    # # ses_client = boto3.client('ses',
-    # #                           region_name=app.config['SES_REGION'],
-    # #                           aws_access_key_id=app.config['AWS_ACCESS_KEY_ID'],
-    # #                           aws_secret_access_key=app.config['AWS_SECRET_ACCESS_KEY']
-    # #                           )
-    # # # sending email with all details with amzon ses
-    # # response = ses_client.send_email(
-    # #     Destination={'ToAddresses': [recipient], },
-    # #     Message={'Body': {'Html': {'Charset': 'UTF-8', 'Data': html, },
-    # #                       'Text': {'Charset': 'UTF-8', 'Data': text, }, },
-    # #              'Subject': {'Charset': 'UTF-8', 'Data': subject, }, },
-    # #     Source=app.config['SES_EMAIL_SOURCE']
-    # # )
 
 
 def generate_confirmation_token(email):

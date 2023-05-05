@@ -188,6 +188,8 @@
                 });
                 $(document).on('click', '#resendEmail', function(self){
                     event.preventDefault();
+                    $('#registerModal').modal('hide');
+                    $('#loginModal').modal('hide');
                     $.ajax({
                       url: "/resend",
                       type: "post",
@@ -202,8 +204,7 @@
                             $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
 
                             $('#notificationModal').modal('show');
-                            $('#registerModal').modal('hide');
-                            $('#loginModal').modal('hide');
+
                         }
                       },
                       error: function(e) {
