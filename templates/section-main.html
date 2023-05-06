@@ -155,7 +155,7 @@
         {% for k in icon_placement[category] %}
             {% set outer_loop = loop %}
             {% if outer_loop.index % 3 == 1 %}
-                <div class="view-small">
+                <div class="view-small" id="gallery-pvp-container">
             {% endif %}
                     <div class="med-card card card-{{ category }} shadow-sm">
                         {% for game_title in game_titles %}

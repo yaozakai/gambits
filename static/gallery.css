@@ -139,6 +139,16 @@
     .gallery-btn:hover {
         font-size: 1.5rem;
     }
+
+    #gallery-pvp-container {
+        display: inline-flex;
+    }
+
+    .card-pvp {
+        max-width: 218px;
+        max-height: 250px;
+        margin: 0 10px 0 10px;
+    }
 }
 
 
@@ -163,6 +173,7 @@
     .gallery-btn:hover {
         font-size: small;
     }
+
 }
 
 /* Mobile-------------------------------------------------- */

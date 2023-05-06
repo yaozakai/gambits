@@ -108,15 +108,40 @@ def launch():
 def language(lang):
     if request.method == 'POST':
         if len(request.data) > 0:
-            lang = json.loads(request.data)['lang']
+            session['lang'] = json.loads(request.data)['lang']
         else:
             set_session_geo_lang(request.remote_addr)
-            lang = session['lang']
-        return jsonify({'redirect': url_for("/", lang=lang)})
+        set_flag_from_lang()
+        return jsonify({'redirect': url_for("/", lang=session['lang'])})
+
+
+def set_flag_from_lang():
+    if session['lang'] == 'zh-tw':
+        session['flag'] = 'tw'
+    elif session['lang'] == 'zh-cn':
+        session['flag'] = 'cn'
+    elif session['lang'] == 'ja':
+        session['flag'] = 'jp'
+    elif session['lang'] == 'id':
+        session['flag'] = 'id'
+    elif session['lang'] == 'br':
+        session['flag'] = 'br'
+    elif session['lang'] == 'ko':
+        session['flag'] = 'ko'
+    elif session['lang'] == 'vn':
+        session['flag'] = 'vn'
+    elif session['lang'] == 'es':
+        session['flag'] = 'es'
+    elif session['lang'] == 'en':
+        session['flag'] = 'gb'
 
 
 def set_session_geo_lang(ip_address):
-    request_url = 'https://geolocation-db.com/jsonp/' + ip_address
+    if socket.gethostname() == 'srv.gambits.vip':
+        address = ip_address
+    else:
+        address = input('Enter the IP:')
+    request_url = 'https://geolocation-db.com/jsonp/' + address
     response = requests.get(request_url)
     result = response.content.decode()
     result = result.split("(")[1].strip(")")
@@ -124,21 +149,27 @@ def set_session_geo_lang(ip_address):
 
     if result['country_code'] == 'TW':
         session['lang'] = 'zh-tw'
-        session['flag'] = result['country_code'].lower()
+        # session['flag'] = result['country_code'].lower()
     elif result['country_code'] == 'CN':
-        session['flag'] = result['country_code'].lower()
+        # session['flag'] = result['country_code'].lower()
         session['lang'] = 'zh-cn'
     elif result['country_code'] == 'JP':
-        session['flag'] = result['country_code'].lower()
+        # session['flag'] = result['country_code'].lower()
         session['lang'] = 'ja'
     elif result['country_code'] == 'ID':
-        session['flag'] = result['country_code'].lower()
+        # session['flag'] = result['country_code'].lower()
         session['lang'] = 'id'
+    elif result['country_code'] == 'KO':
+        # session['flag'] = result['country_code'].lower()
+        session['lang'] = 'ko'
+    elif result['country_code'] == 'VN':
+        # session['flag'] = result['country_code'].lower()
+        session['lang'] = 'vn'
     elif result['country_code'] == 'BR' or result['country_code'] == 'PT' or result['country_code'] == 'CV' or \
             result['country_code'] == 'AO' or result['country_code'] == 'MZ' or result['country_code'] == 'GW' or \
             result['country_code'] == 'TP':
         session['lang'] = 'br'
-        session['flag'] = 'br'
+        # session['flag'] = 'br'
     elif result['country_code'] == 'ES' or result['country_code'] == 'AR' or result['country_code'] == 'MX' or \
             result['country_code'] == 'CO' or result['country_code'] == 'PE' or result['country_code'] == 'CL' or \
             result['country_code'] == 'VE' or result['country_code'] == 'GT' or result['country_code'] == 'EC' or \
@@ -147,10 +178,10 @@ def set_session_geo_lang(ip_address):
             result['country_code'] == 'NI' or result['country_code'] == 'CR' or result['country_code'] == 'PA' or \
             result['country_code'] == 'UY' or result['country_code'] == 'PR':
         session['lang'] = 'es'
-        session['flag'] = 'es'
+        # session['flag'] = 'es'
     else:
         session['lang'] = 'en'
-        session['flag'] = 'gb'
+        # session['flag'] = 'gb'
 
 
 @application.route('/', methods=['GET', 'POST'])
@@ -181,6 +212,7 @@ def home():
     else:
         # find user's location
         set_session_geo_lang(request.remote_addr)
+    set_flag_from_lang()
 
     return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            root_path='', login_form=login_form, register_form=register_form,
