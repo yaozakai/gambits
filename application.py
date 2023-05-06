@@ -153,7 +153,7 @@ def set_session_geo_lang(ip_address):
         session['flag'] = 'gb'
 
 
-@application.route('/', methods=['POST'])
+@application.route('/', methods=['GET', 'POST'])
 def home():
     # if session['logged_in']:
     #     db_get_user(session['_user_id'])
@@ -161,6 +161,7 @@ def home():
     # notification should always be blank here
     notification = ''
     notification_title = ''
+    notification_popup = False
     # if 'notification' in request.args:
     #     notification = request.args['notification']
     #     notification_popup = True
