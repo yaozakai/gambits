@@ -5,6 +5,7 @@
     color: #198754;
     text-align: center;
     height: 100%;
+    width: 100%;
     margin: 0px;
     " xmlns="http://www.w3.org/1999/html">
 <!--    <div class="navbar navbar-expand-md navbar-dark bg-dark" id="top_bar" style="">-->
@@ -44,8 +45,8 @@
     <div style="font-size: large;">
         <p>{{ translations['email-reset-pass'][session['lang']] }}</p>
         <p>
-            </p><form action="{{ confirm_url }}">
-                <button type="submit" class="btn btn-outline-success" style="
+            </p>
+                <a href="{{ confirm_url }}" type="submit" class="btn btn-outline-success" style="
                     font-size: x-large;
                     color: greenyellow;
                     text-shadow: 2px 4px black;
@@ -67,9 +68,8 @@
                     border-radius: 0.25rem;
                     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
                 ">
-                    {{ translations['verify account'][session['lang']] }}
-                </button>
-            </form>
+                    {{ translations['reset password'][session['lang']] }}
+                </a>
         <br>
         <p>{{ translations['thank you'][session['lang']] }}</p>
     </div>

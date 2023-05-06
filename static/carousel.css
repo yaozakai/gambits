@@ -387,8 +387,10 @@ h3 {
 
 .spinner-logo {
     height: 30px;
-    /* top: -2px; */
-    /* position: relative; */
+    top: -2px;
+    left: auto;
+    right: auto;
+    position: relative;
 }
 
 #language-select {

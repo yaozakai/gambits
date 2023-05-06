@@ -73,15 +73,22 @@ def db_new_user(register_form):
 def db_get_user(user_id):
     dataclass_login = UserEntry()
     user = dataclass_login.query.filter_by(user_id=user_id).first()
-    return user
+    if user is None:
+        return False
+    else:
+        return user
 
 
 def db_set_password(email, password):
     dataclass_login = UserEntry()
+
     user = dataclass_login.query.filter_by(email=email).first()
-    user.password = generate_password_hash(password, method='sha256')
-    db.session.commit()
-    return user
+    if user is None:
+        return False
+    else:
+        user.password = generate_password_hash(password, method='sha256')
+        db.session.commit()
+        return user
 
 
 def db_new_login(login_form):

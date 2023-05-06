@@ -2,21 +2,19 @@ import socket
 
 import flask as flask
 
-from flask import render_template
 from flask_login import login_required, logout_user, login_user
-from flask_wtf import csrf
-
 
 import utils
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
-from forms import LoginForm, RegisterForm, verify_captcha
+from forms import verify_captcha
 from utils import *
 from config import app as application
 from constants import RECAPTCHA_PUBLIC_KEY
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_template import template
-from utils import reload_game_titles, reload_icon_placement, activate_account, icon_placement, game_titles
+from route_user import user
+from utils import reload_game_titles, reload_icon_placement, setup_home_template
 
 uaform = None
 ftform = None
@@ -112,24 +110,64 @@ def language(lang):
         if len(request.data) > 0:
             lang = json.loads(request.data)['lang']
         else:
-            lang = 'en'
+            set_session_geo_lang(request.remote_addr)
+            lang = session['lang']
         return jsonify({'redirect': url_for("/", lang=lang)})
 
 
-@application.route('/', methods=['GET', 'POST'])
+def set_session_geo_lang(ip_address):
+    request_url = 'https://geolocation-db.com/jsonp/' + ip_address
+    response = requests.get(request_url)
+    result = response.content.decode()
+    result = result.split("(")[1].strip(")")
+    result = json.loads(result)
+
+    if result['country_code'] == 'TW':
+        session['lang'] = 'zh-tw'
+        session['flag'] = result['country_code'].lower()
+    elif result['country_code'] == 'CN':
+        session['flag'] = result['country_code'].lower()
+        session['lang'] = 'zh-cn'
+    elif result['country_code'] == 'JP':
+        session['flag'] = result['country_code'].lower()
+        session['lang'] = 'ja'
+    elif result['country_code'] == 'ID':
+        session['flag'] = result['country_code'].lower()
+        session['lang'] = 'id'
+    elif result['country_code'] == 'BR' or result['country_code'] == 'PT' or result['country_code'] == 'CV' or \
+            result['country_code'] == 'AO' or result['country_code'] == 'MZ' or result['country_code'] == 'GW' or \
+            result['country_code'] == 'TP':
+        session['lang'] = 'br'
+        session['flag'] = 'br'
+    elif result['country_code'] == 'ES' or result['country_code'] == 'AR' or result['country_code'] == 'MX' or \
+            result['country_code'] == 'CO' or result['country_code'] == 'PE' or result['country_code'] == 'CL' or \
+            result['country_code'] == 'VE' or result['country_code'] == 'GT' or result['country_code'] == 'EC' or \
+            result['country_code'] == 'BO' or result['country_code'] == 'CU' or result['country_code'] == 'DM' or \
+            result['country_code'] == 'DO' or result['country_code'] == 'PY' or result['country_code'] == 'SV' or \
+            result['country_code'] == 'NI' or result['country_code'] == 'CR' or result['country_code'] == 'PA' or \
+            result['country_code'] == 'UY' or result['country_code'] == 'PR':
+        session['lang'] = 'es'
+        session['flag'] = 'es'
+    else:
+        session['lang'] = 'en'
+        session['flag'] = 'gb'
+
+
+@application.route('/', methods=['POST'])
 def home():
     # if session['logged_in']:
     #     db_get_user(session['_user_id'])
 
+    # notification should always be blank here
     notification = ''
     notification_title = ''
-    if 'notification' in request.args:
-        notification = request.args['notification']
-        notification_popup = True
-    else:
-        notification_popup = False
-    if 'notification_title' in request.args:
-        notification_title = request.args['notification_title']
+    # if 'notification' in request.args:
+    #     notification = request.args['notification']
+    #     notification_popup = True
+    # else:
+    #     notification_popup = False
+    # if 'notification_title' in request.args:
+    #     notification_title = request.args['notification_title']
 
     csrf_token = csrf.generate_csrf()
     login_form = LoginForm()
@@ -140,17 +178,8 @@ def home():
     if request.method == 'POST' and 'language-select' in request.form:
         session['lang'] = request.form['language-select']
     else:
-        session['lang'] = 'zh-tw'
-
-    session['flag'] = session['lang']
-    if session['flag'] == 'en':
-        session['flag'] = 'gb'
-    elif session['flag'] == 'zh-tw':
-        session['flag'] = 'tw'
-    elif session['flag'] == 'zh-cn':
-        session['flag'] = 'cn'
-    elif session['flag'] == 'ja':
-        session['flag'] = 'jp'
+        # find user's location
+        set_session_geo_lang(request.remote_addr)
 
     return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            root_path='', login_form=login_form, register_form=register_form,
@@ -250,31 +279,6 @@ def forgot_pass():
                    notification=translations['email sent to'][session['lang']])
 
 
-@application.route('/verify', endpoint='verify_email', methods=['GET'])
-def verify():
-    token = request.args['token']
-    session['lang'] = request.args['lang']
-    # get the notification
-    notification_json = activate_account(token, session['lang'])
-    notification = notification_json['notification']
-    notification_title = notification_json['notification_title']
-
-    csrf_token = csrf.generate_csrf()
-    login_form = LoginForm()
-    login_form.csrf_token.data = csrf_token
-    register_form = RegisterForm()
-    register_form.csrf_token.data = csrf_token
-
-    if request.method == 'POST' and 'language-select' in request.form:
-        session['lang'] = request.form['language-select']
-    else:
-        session['lang'] = 'zh-tw'
-
-    return redirect(url_for('home', notification_popup=True,
-                            notification=notification_json['notification'],
-                            notification_title=notification_json['notification_title']), code=307)
-
-
 @application.route('/reset', endpoint='reset_password', methods=['GET'])
 def reset():
     token = request.args['token']
@@ -292,33 +296,11 @@ def reset():
         #                         notification_title='Reset Password'), code=307)
 
 
-def setup_home_template(notification_title, notification, reset_pass_popup):
-    csrf_token = csrf.generate_csrf()
-    login_form = LoginForm()
-    login_form.csrf_token.data = csrf_token
-    register_form = RegisterForm()
-    register_form.csrf_token.data = csrf_token
-    if len(notification) > 0:
-        notification_popup = True
-    else:
-        notification_popup = False
-    return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-                           root_path='../', login_form=login_form, register_form=register_form,
-                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
-                           notification=notification, notification_title=notification_title,
-                           reset_pass=reset_pass_popup)
-
-
 @application.route("/set_password", methods=['POST'])
 def set_password():
     email = session.pop("email", None)
     password = json.loads(request.data)['password']
     if db_set_password(email, password) is not None:
-        # return setup_home_template(notification='Password has been updated.  You may log in now!',
-        #                            notification_title='Reset password', reset_pass_popup=False)
-        # return redirect(url_for('home', notification='Password has been updated.  You may log in now!',
-        #                         notification_title='Reset password', notification_popup=True))
-        # return redirect('/')
         return jsonify(notification=translations['password has been updated'][session['lang']],
                        notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
     else:
@@ -337,7 +319,6 @@ def resend():
 
 @application.route('/register', methods=['GET', 'POST'])
 def register():
-
     if 'lang' not in session:
         session['lang'] = 'zh-tw'
 
@@ -413,6 +394,7 @@ if __name__ == '__main__':
     reload_game_titles()
     application.register_blueprint(cq9_api)
     application.register_blueprint(template)
+    application.register_blueprint(user)
 
     print('Socket: ' + socket.gethostname())
     # print('SQLALCHEMY_DATABASE_URI: ' + socket.gethostname())
@@ -421,4 +403,3 @@ if __name__ == '__main__':
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
         application.debug = True
         application.run(host='192.168.1.107')
-

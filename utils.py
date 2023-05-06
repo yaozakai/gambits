@@ -8,11 +8,15 @@ from os import listdir
 from os.path import isfile, join
 
 import requests
-from flask import jsonify, request, redirect, url_for, session
+from flask import jsonify, request, redirect, url_for, session, render_template
 from urllib.parse import urlparse, urljoin
 
+from flask_wtf import csrf
+
+from constants import RECAPTCHA_PUBLIC_KEY
 from db_classes import UserEntry, db
 from email_confirmation import confirm_token
+from forms import LoginForm, RegisterForm
 
 icon_placement = []
 game_titles = []
@@ -213,8 +217,9 @@ def reload_game_titles():
 
 def reload_icon_placement():
     icon_path_local = root_path + '/icons/cq9'
-    print('reloading icon placement:' + icon_path_local)
+    print('Loading files from:' + icon_path_local)
     icon_files = [f for f in listdir(icon_path_local) if isfile(join(icon_path_local, f)) and not f.endswith('.DS_Store')]
+    print('Loading icon_placement.csv')
     reader = csv.DictReader(open('static/csv/icon_placement.csv', mode='r', encoding='utf-8-sig'))
     placement = {name: [] for name in reader.fieldnames}
     for row in reader:
@@ -226,9 +231,9 @@ def reload_icon_placement():
                     if icon.split('_')[0] == placement_name:
                         icon_found = True
                         placement[header_name].append(icon)
-                        break;
+                        break
                 if not icon_found:
-                    print('filename: ' + placement_name + ' not found')
+                    print('   icon_placement.csv: gamecode -' + placement_name + '- not found')
 
                     # [string for string in icon_files if row[header_name] in string]
                 # if len(icon_filename) > 0:
@@ -272,3 +277,19 @@ def activate_account(token, lang):
     return notification_json
 
 
+def setup_home_template(notification_title, notification, reset_pass_popup):
+    csrf_token = csrf.generate_csrf()
+    login_form = LoginForm()
+    login_form.csrf_token.data = csrf_token
+    register_form = RegisterForm()
+    register_form.csrf_token.data = csrf_token
+    if len(notification) > 0:
+        notification_popup = True
+    else:
+        notification_popup = False
+    return render_template('section-main.html', icon_placement=icon_placement, game_titles=game_titles,
+                           root_path='../', login_form=login_form, register_form=register_form,
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, translations=translations,
+                           notification_popup=notification_popup,
+                           notification=notification, notification_title=notification_title,
+                           reset_pass=reset_pass_popup)

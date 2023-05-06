@@ -3,12 +3,10 @@ import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-from flask import url_for, render_template, session
+from flask import url_for, render_template, session, request
 from itsdangerous import URLSafeTimedSerializer
 from config import app, mail
 from flask_mail import Message
-
-import boto3
 
 
 # email_text = 'Welcome! Thanks for signing up. Please follow this link to activate your account: '
@@ -70,10 +68,11 @@ def confirm_token(token, expiration=3600):
 def create_verify_email(email, translations):
     token = generate_confirmation_token(email)
     confirm_url = url_for('verify_email', token=token, lang=session['lang'], _external=True)
-    html = render_template('email_verify.html', confirm_url=confirm_url, translations=translations, root_path='../')
+    html = render_template('email_verify.html', confirm_url=confirm_url, translations=translations,
+                           host_url=request.host_url)
     subject = "Gambits Casino: " + translations['please verify your email'][session['lang']]
     send_email(subject=subject, recipient=email, html=html,
-               text=translations['email-activate'][session['lang']] + confirm_url)
+               text=translations['email-activate'][session['lang']] + ' ' + confirm_url)
 
 
 def create_reset_pass_email(email, translations):
@@ -83,10 +82,3 @@ def create_reset_pass_email(email, translations):
     subject = "Gambits Casino: " + translations['password reset'][session['lang']]
     send_email(subject=subject, recipient=email, html=html)
 
-
-def create_forgot_password_email(email):
-    token = generate_confirmation_token(email)
-    confirm_url = url_for('verify_email', token=token, _external=True)
-    html = render_template('email_verify.html', confirm_url=confirm_url)
-    subject = "Gambits Casino: Please verify your email"
-    send_email(subject=subject, recipient=email, html=html)
