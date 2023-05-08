@@ -1,6 +1,6 @@
 import json
 
-from flask import request
+from flask import request, session
 from sqlalchemy import desc, literal, column, text
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -65,6 +65,7 @@ def db_new_user(register_form):
                                register_form.data['username'],
                                generate_password_hash(register_form.data['password'], method='sha256'),
                                register_form.data['referral'])
+    dataclass_user.lang = session['lang']
     db.session.add(dataclass_user)
     db.session.commit()
     return True
@@ -89,6 +90,16 @@ def db_set_password(email, password):
         user.password = generate_password_hash(password, method='sha256')
         db.session.commit()
         return user
+
+
+def db_set_language():
+    dataclass_login = UserEntry()
+    if '_user_id' in session:
+        user = dataclass_login.query.filter_by(user_id=session['_user_id']).first()
+        if user is not None:
+            user.lang = session['lang']
+            db.session.commit()
+            return
 
 
 def db_new_login(login_form):

@@ -154,35 +154,32 @@
                         var rememberme = document.querySelector('#login-rememberme').checked;
                         var recaptcha = grecaptcha.getResponse();
                         $.ajax({
-                          url: "/login",
-                          type: "post",
-                          dataType: "json",
-                          contentType: "application/json; charset=UTF-8",
-                          data: JSON.stringify({
-                            "email":email,
-                            "password":password,
-                            "rememberme":rememberme,
-                            "recaptcha":recaptcha,
-                            "csrf_token":csrf_token
-                          }),
+                            url: "/login",
+                            type: "post",
+                            dataType: "json",
+                            contentType: "application/json; charset=UTF-8",
+                            data: JSON.stringify({
+                                "email":email,
+                                "password":password,
+                                "rememberme":rememberme,
+                                "recaptcha":recaptcha,
+                                "csrf_token":csrf_token
+                            }),
                             success: function(self) {
-
-                            if (typeof self.error != 'undefined'){
-                                $('#login-spinner').hide();
-                                if (typeof self.resend_email != 'undefined'){
-                                    $(".error").html(self.error.toString() + '<br><button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">' + self.link_text + '</button>');
+                                if (typeof self.error != 'undefined'){
+                                    $('#login-spinner').hide();
+                                    if (typeof self.resend_email != 'undefined'){
+                                        $(".error").html(self.error.toString() + '<br><button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">' + self.link_text + '</button>');
+                                    } else {
+                                        $(".error").html('<p>'+self.error.toString()+'</p>');
+                                    }
                                 } else {
-                                    $(".error").html('<p>'+self.error.toString()+'</p>');
+                                    location.href = "{{ url_for('home') }}"
                                 }
-                            } else {
-                                location.href = "{{ url_for('home') }}"
+                            },
+                            error: function(e) {
+                                console.log(e);
                             }
-
-
-                          },
-                          error: function(e) {
-                            console.log(e);
-                          }
                         });
                     });
                 });

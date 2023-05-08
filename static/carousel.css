@@ -21,14 +21,13 @@ body {
     margin-bottom: 1px;
 }
 
-.badge {
-    margin: 3px;
-    position: absolute;
-    height: 6vw;
-    font-size: small;
-    max-height: 23px;
+.btn-check:focus+.btn-outline-success, .btn-outline-success:focus {
+    box-shadow: none;
 }
 
+.btn-check:hover+.btn-outline-success, .btn-outline-success:hover {
+    box-shadow: 0 0 0 0.25rem rgb(26 135 84);
+}
 
 
 
@@ -121,7 +120,7 @@ body {
 }
 
 .main-logo {
-    height: 18px;
+    height: 14px;
     /* width: 50%; */
 }
 
@@ -370,6 +369,7 @@ h3 {
     background-color: #120e12;
     display: flex;
     position: absolute;
+    justify-content: center;
 }
 
 .spinner-border {

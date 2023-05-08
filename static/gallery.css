@@ -101,6 +101,14 @@
     max-height: 140px;
 }
 
+.badge {
+    margin: 3px;
+    position: absolute;
+    height: 6vw;
+    font-size: small;
+    max-height: 23px;
+}
+
 .card-fishing {width: 42vw!important;height: 33vw!important;max-width: 300px;max-height: 200px;}
 .card-pvp {width: 80vw!important;height: 39vw!important;max-width: 800px;max-height: 180px;}
 

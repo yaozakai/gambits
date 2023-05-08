@@ -26,7 +26,7 @@
         <!-- PROFILE/LOGOUT (if logged in) -->
             {% if current_user.is_authenticated %}
             <div class="green-text" style="margin-right: 8px;">
-              ♥️🙏 Hi
+              ♥️🙏 {{ translations['hi'][session['lang']] }}
             </div>
 
             <div class="dropdown open">
@@ -43,7 +43,7 @@
                     <div class="dropdown-divider"></div>
                     <li><a class="btn dropdown-item" href="/profile">{{ translations['profile'][session['lang']] }}</a></li>
                     <li class="dropdown-submenu">
-                        {{ translations['language'][session['lang']] }}:  <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>
+                        <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>{{ translations['language'][session['lang']] }}
                         <ul class="dropdown-menu">
             {% else %}
                         <div class="dropdown">

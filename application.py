@@ -140,7 +140,8 @@ def set_session_geo_lang(ip_address):
     if socket.gethostname() == 'srv.gambits.vip':
         address = ip_address
     else:
-        address = input('Enter the IP:')
+        address = ip_address
+        # address = input('Enter the IP:')
     request_url = 'https://geolocation-db.com/jsonp/' + address
     response = requests.get(request_url)
     result = response.content.decode()
@@ -209,7 +210,8 @@ def home():
 
     if request.method == 'POST' and 'language-select' in request.form:
         session['lang'] = request.form['language-select']
-    else:
+        db_set_language()
+    elif 'lang' not in session:
         # find user's location
         set_session_geo_lang(request.remote_addr)
     set_flag_from_lang()
@@ -244,16 +246,18 @@ def login():
             # verify valid email
             if email_valid(email):
                 # check user exists and then verify password
-                user = db_user_verification(email, password)
-                if user is not None:
-                    if user.is_active():
+                user_db = db_user_verification(email, password)
+                if user_db is not None:
+                    if user_db.is_active():
                         # log the login
                         db_new_login(login_form)
                         session['logged_in'] = True
 
-                        login_user(user, remember=login_form.rememberme.data)
-                        output = user.serialize()
-                        session['admin'] = user.is_admin()
+                        session['lang'] = user_db.get_lang()
+
+                        login_user(user_db, remember=login_form.rememberme.data)
+                        output = user_db.serialize()
+                        session['admin'] = user_db.is_admin()
                         # output['page'] = 'profile'
                         return jsonify(output)
                         # return render_template('page_profile.html', page_call='profile')

@@ -58,6 +58,7 @@ class UserEntry(UserMixin, db.Model):
     logged_in = db.Column(db.Numeric(1), default=0)
     is_anonymous = False
     currency = db.Column(db.String(10), default='USD')
+    lang = db.Column(db.String(10), default='en')
 
     # page = ''
 
@@ -71,16 +72,18 @@ class UserEntry(UserMixin, db.Model):
         self.username = username
 
     def is_active(self):
-        if self.query.filter_by(email=self.email).first_or_404().active:
-            return True
-        else:
-            return False
+        # if self.query.filter_by(email=self.email).first_or_404().active:
+        #     return True
+        # else:
+        #     return False
+        return self.active
+
+    def get_lang(self):
+        # return self.query.filter_by(email=self.email).first_or_404().lang
+        return self.lang
 
     def is_admin(self):
-        if self.query.filter_by(email=self.email).first_or_404().admin:
-            return True
-        else:
-            return False
+        return self.admin
 
     def get_id(self):
         if self.user_id is None:
@@ -89,12 +92,13 @@ class UserEntry(UserMixin, db.Model):
 
     def is_authenticated(self):
         # check user exists
-        query = self.query.filter_by(email=self.email).first_or_404()
-        if query is not None:
-            # return logged_in state
-            return query.logged_in
-        else:
-            return False
+        # query = self.query.filter_by(email=self.email).first_or_404()
+        # if query is not None:
+        #     # return logged_in state
+        #     return query.logged_in
+        # else:
+        #     return False
+        return self.logged_in
 
     def serialize(self):
         return {"user_id": self.get_id(),

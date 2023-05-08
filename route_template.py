@@ -14,8 +14,8 @@ template = Blueprint('template', __name__)
 @template.route('/topbar', methods=['POST', 'GET'])
 def topbar():
 
-    if 'lang' not in session:
-        session['lang'] = 'zh-tw'
+    # if 'lang' not in session:
+    #     session['lang'] = 'zh-tw'
 
     return render_template('section-topbar.html', root_path=root_path, lang=session['lang'], translations=utils.translations)
 
@@ -23,8 +23,8 @@ def topbar():
 @template.route('/navigationbar', methods=['POST', 'GET'])
 def navigationbar():
 
-    if 'lang' not in session:
-        session['lang'] = 'zh-tw'
+    # if 'lang' not in session:
+    #     session['lang'] = 'zh-tw'
 
     return render_template('section-navbar.html', lang=session['lang'], translations=utils.translations)
 
@@ -32,8 +32,8 @@ def navigationbar():
 @template.route('/modals', methods=['POST', 'GET'])
 def modals():
 
-    if 'lang' not in session:
-        session['lang'] = 'zh-tw'
+    # if 'lang' not in session:
+    #     session['lang'] = 'zh-tw'
 
     csrf_token = csrf.generate_csrf()
     login_form = LoginForm(session['lang'])
