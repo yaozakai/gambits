@@ -411,8 +411,8 @@ def register():
 @login_required
 def get_balance():
     # if session['logged_in']:
-    user = db_get_user(session['_user_id'])
-    return str(user.balance) + ' ' + user.currency
+    user_db = db_get_user(session['_user_id'])
+    return str(user_db.balance) + ' ' + user_db.currency
     # else:
     #     return translations['reload website'][session['lang']]
 

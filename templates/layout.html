@@ -63,8 +63,10 @@
             <div id="main_section" >
                 {% if search_page is defined %}
                     {% block search %}{% endblock %}
+            </div>
                 {% elif report_date is defined %}
                     {% block profile %}{% endblock %}
+            </div>
                 {% else %}
                     {% block gallery %}{% endblock %}
                 {% endif %}

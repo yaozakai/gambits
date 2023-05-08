@@ -30,12 +30,12 @@
             </div>
 
             <div class="dropdown open">
-                <button class="btn btn-outline-success dropdown-toggle" id="dLabel" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-outline-success dropdown-toggle" id="top-bar-dropdown-button" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{ current_user.username }}
                 <span class="caret"></span>
                 </button>
 
-                <ul class="dropdown-menu multi-level green-text" aria-labelledby="dLabel">
+                <ul class="dropdown-menu multi-level green-text" aria-labelledby="top-bar-dropdown-button">
                     <li class="dropdown-item" id="balance">
 
                           {{ current_user.balance }} {{ current_user.currency }}
@@ -132,13 +132,23 @@
         function updater() {
             const response = fetch('/getBalance');
             balance_field.value = response;
-
-
-<!--            .then(response => response.text())-->
-<!--            .then(text => (balance_field.innerHTML = text))；  // update page with new data-->
         }
-        $('#dLabel').on('click', function(){
-            updater();
+        $('#top-bar-dropdown-button').on('click', function(){
+<!--            updater();-->
+            event.preventDefault();
+            $.ajax({
+                url: "/getBalance",
+                type: "post",
+                success: function(self) {
+<!--                    alert('work bitch' + self);-->
+
+
+                    document.getElementById("balance").innerHTML = self;
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
         });
     });
     </script>
