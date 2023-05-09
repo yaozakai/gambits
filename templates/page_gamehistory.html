@@ -3,12 +3,13 @@
 
 <div class="py-2" style="margin-left: 5%;">
     <h3 class="green-text-outline">Gaming History</h3>
-    <h8 class="green-text-outline">*Timezone is UTC-4</h8>
     <div class="justify-content-center" style="width: 200px;">
         <div class="input-group mb-3">
             <span class="input-group-text whiteFont">Date</span>
             <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
+            <h8 class="green-text-outline">*Timezone is UTC-4</h8>
         </div>
+
     </div>
     <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h5>
 
@@ -37,7 +38,7 @@
         const selectElement = document.getElementById('reportDate');
         selectElement.addEventListener("change", (event) => {
             $.ajax({
-                url: "/profile",
+                url: "/gamehistory",
                 type: "post",
                 dataType: "json",
                 contentType: "application/json; charset=UTF-8",
@@ -68,7 +69,7 @@
                     htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
                     htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
                     htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
-                    htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";
+<!--                    htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";-->
 <!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";-->
 <!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";-->
                     htmloutput = htmloutput + "<td>" + results[i]["rake"] + "</td>";
@@ -92,7 +93,7 @@
         <th>Round</th>
         <th>Bet</th>
         <th>Win</th>
-        <th>Valid Bet</th>
+<!--        <th>Valid Bet</th>-->
 <!--        <th>Jackpot</th>-->
 <!--        <th>JackContribution</th>-->
         <th>Rake</th>
@@ -109,7 +110,7 @@
             <td>{{ record.round }}</td>
             <td>{{ record.bet }}</td>
             <td>{{ record.win }}</td>
-            <td>{{ record.validbet }}</td>
+<!--            <td>{{ record.validbet }}</td>-->
 <!--          <td>{{ record.jackpot }}</td>-->
 <!--          <td>{{ record.jackpotcontribution }}</td>-->
             <td>{{ record.rake }}</td>
@@ -119,21 +120,12 @@
         <tr>
             <td colspan="12" style="padding: 0px;">
                 <div class="rowDrop">
+
+                    {% if record.gametype == 'live' %}
                     <table class="table table-bordered table-sm table-dark profile-container green-text-outline">
                         <tbody >
                             <tr>
                                 <th></th>
-<!--                                {% set player_card_count = [] %}-->
-<!--                                {% for card in record.gameresult.cards if card.tag == 1 %}-->
-<!--                                    {% set nothing = player_card_count.append(card) %}-->
-<!--                                {% endfor %}-->
-<!--                                {% set banker_card_count = [] %}-->
-<!--                                {% for card in record.gameresult.cards if card.tag == 2 %}-->
-<!--                                    {% set nothing = banker_card_count.append(card) %}-->
-<!--                                {% endfor %}-->
-
-<!--                                <th colspan="{{ player_card_count|length }}">Player</th>-->
-<!--                                <th colspan="{{ banker_card_count|length }}">Banker</th>-->
                                 <th>Player</th>
                                 <th>Banker</th>
                             </tr>
@@ -157,6 +149,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    {% endif %}
                     <table class="table table-bordered table-sm table-dark profile-container green-text-outline">
                         <tbody>
                             <tr>

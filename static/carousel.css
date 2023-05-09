@@ -121,7 +121,12 @@ body {
 
 .main-logo {
     height: 23px;
+    display: inherit;
     /* width: 50%; */
+}
+
+.main-logo-long {
+    display: none;
 }
 
 
@@ -352,6 +357,7 @@ h3 {
 .rowDrop {
     padding: 0.5rem;
     display: none;
+    background-color: black;
 }
 
 #forgotPassword {

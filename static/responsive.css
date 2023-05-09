@@ -35,8 +35,12 @@
 
 @media (min-width: 507px) {
     .main-logo {
+        display: none;
+    }
+    .main-logo-long {
         height: 20px;
         width: unset;
+        display: inherit;
     }
 }
 /* OTHERS *******************/

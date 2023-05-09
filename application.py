@@ -67,9 +67,9 @@ def search_user():
     return jsonify(lang=session['lang'], rec=rec, num_results=len(rec))
 
 
-@application.route('/profile', methods=['GET', 'POST'])
+@application.route('/gamehistory', methods=['GET', 'POST'])
 @login_required
-def profile():
+def gamehistory():
     username = session['_user_id']
     # username = '0000-0001'
     if len(request.data) > 0 and 'reportDate' in json.loads(request.data):
@@ -82,10 +82,10 @@ def profile():
         rec = player_report_today(db_get_user(username).username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
         if rec is None:
-            return render_template('page_profile.html', rec=[],
+            return render_template('page_gamehistory.html', rec=[],
                                    report_date=report_date, lang=session['lang'])
         else:
-            return render_template('page_profile.html', rec=rec['Data'],
+            return render_template('page_gamehistory.html', rec=rec['Data'],
                                    report_date=report_date, lang=session['lang'])
 
 
@@ -93,26 +93,31 @@ def profile():
 @login_required
 def launch():
     link = ''
-    if 'logged_in' in session:
-        if session['logged_in']:
-            if '_user_id' in session:
-                user = db_get_user(session['_user_id'])
-                if request.data:
-                    gamecode = json.loads(request.data.decode("utf-8"))['id'].split('_')[0]
-                    link = game_launch(user.username, gamecode)
+    # if 'logged_in' in session:
+    #     if session['logged_in']:
+    if '_user_id' in session:
+        user = db_get_user(session['_user_id'])
+        if request.data:
+            gamecode = json.loads(request.data.decode("utf-8"))['id'].split('_')[0]
+            link = game_launch(user.username, gamecode)
     if link:
         return jsonify(link=link)
 
 
-@application.route('/lang/<token>', methods=['GET', 'POST'])
+@application.route('/lang/<lang>', methods=['GET'])
 def language(lang):
-    if request.method == 'POST':
-        if len(request.data) > 0:
-            session['lang'] = json.loads(request.data)['lang']
+    if request.method == 'GET':
+        if len(lang) > 0:
+            session['lang'] = lang
+            if 'logged_in' in session and session['logged_in'] is True:
+                db_set_language()
         else:
             set_session_geo_lang(request.remote_addr)
         set_flag_from_lang()
-        return jsonify({'redirect': url_for("/", lang=session['lang'])})
+
+    return redirect(url_for('home'))
+    # return setup_home_template(notification='', notification_title='', reset_pass_popup=False)
+    # return jsonify({'redirect': url_for("/", lang=lang)})
 
 
 def set_flag_from_lang():
@@ -187,39 +192,21 @@ def set_session_geo_lang(ip_address):
 
 @application.route('/', methods=['GET', 'POST'])
 def home():
-    # if session['logged_in']:
-    #     db_get_user(session['_user_id'])
-
-    # notification should always be blank here
-    notification = ''
-    notification_title = ''
-    notification_popup = False
-    # if 'notification' in request.args:
-    #     notification = request.args['notification']
-    #     notification_popup = True
-    # else:
-    #     notification_popup = False
-    # if 'notification_title' in request.args:
-    #     notification_title = request.args['notification_title']
-
     csrf_token = csrf.generate_csrf()
     login_form = LoginForm()
     login_form.csrf_token.data = csrf_token
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
 
-    if request.method == 'POST' and 'language-select' in request.form:
-        session['lang'] = request.form['language-select']
-        db_set_language()
-    elif 'lang' not in session:
-        # find user's location
+    if 'lang' not in session:
+        # find user's location, defaults to English
         set_session_geo_lang(request.remote_addr)
     set_flag_from_lang()
 
     return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            root_path='', login_form=login_form, register_form=register_form,
-                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
-                           notification=notification, notification_title=notification_title, reset_pass=False,
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
+                           notification='', notification_title='', reset_pass=False,
                            lang=session['lang'], translations=utils.translations)
 
 
@@ -258,7 +245,7 @@ def login():
                         session['admin'] = user_db.is_admin()
                         # output['page'] = 'profile'
                         return jsonify(output)
-                        # return render_template('page_profile.html', page_call='profile')
+                        # return render_template('page_gamehistory.html', page_call='profile')
                         # return redirect(next or url_for('profile'))
                     else:
                         return jsonify(error=translations['created not verified'][session['lang']],
@@ -296,7 +283,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-@application.route('/profile', methods=['GET', 'POST'])
+@application.route('/gamehistory', methods=['GET', 'POST'])
 @application.route("/logout", methods=['GET', 'POST'])
 @application.route("/launch", methods=['GET', 'POST'])
 def redirect_home():
