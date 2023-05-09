@@ -130,7 +130,7 @@ def cq9_endround():
             error_code = '1003'
         model = {
             "data": {
-                "balance": round(balance, 4),
+                "balance": f'{balance:.2f}',
                 "currency": "USD"
             },
             "status": {
@@ -159,7 +159,7 @@ def cq9_rollout():
             error_code = '1003'
         model = {
             "data": {
-                "balance": round(balance, 4),
+                "balance": f'{balance:.2f}',
                 "currency": "USD"
             },
             "status": {
@@ -188,7 +188,7 @@ def cq9_rollin():
                 error_code = '1003'
         model = {
             "data": {
-                "balance": round(balance, 4),
+                "balance": balance,
                 "currency": "USD"
             },
             "status": {
@@ -208,7 +208,7 @@ def cq9_takeall():
 
             model = {
                 "data": {
-                    "amount": round(balance, 4),
+                    "amount": f'{balance:.2f}',
                     "balance": 0,
                     "currency": "USD"
                 },
@@ -233,7 +233,7 @@ def cq9_refund():
             error_code = '1003'
         model = {
             "data": {
-                "balance": round(balance, 4),
+                "balance": f'{balance:.2f}',
                 "currency": "USD"
             },
             "status": {

@@ -1,0 +1,26 @@
+.profile-container {
+        width: 100%;
+    }
+
+@media (max-width: 768px) {
+    #main-container {
+        width: max-content;
+    }
+    #main-footer {
+        width: max-content;
+    }
+}
+
+@media (max-width: 871px) {
+
+    #results {
+        font-size: small;
+    }
+}
+
+@media (min-width: 1320px) {
+    .profile-container {
+        width: 80%;
+        margin: 0 auto 0 auto;
+    }
+}

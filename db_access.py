@@ -180,10 +180,13 @@ def db_refund():
 def db_bet():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
-    balance = float(user.balance)
+    balance = user.balance
     bet = float(request.form['amount'])
 
     new_balance = balance - bet
+    if user.currency == 'USD':
+        new_balance = format(new_balance, '.2f')
+
     if new_balance > 0:
         if 'platform' in request.form:
             platform = request.form['platform']
@@ -240,7 +243,7 @@ def db_endround():
 
     data = json.loads(request.form['data'])
     for result in data:
-        user.balance = float(user.balance) + result['amount']
+        user.balance = user.balance + result['amount']
 
     # filter out the optional parameters
     if 'freegame' in request.form:
@@ -256,7 +259,7 @@ def db_endround():
     if 'jackpotcontribution' in request.form:
         jackpotcontribution = request.form['jackpotcontribution']
     else:
-        jackpotcontribution = []
+        jackpotcontribution = ''
 
     if 'bonus' in request.form:
         bonus = request.form['bonus']
@@ -291,14 +294,14 @@ def db_endround():
     db.session.add(endround)
     db.session.commit()
 
-    return float(user.balance)
+    return user.balance
 
 
 # db to cq9
 def db_rollout():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
-    new_balance = float(user.balance) - float(request.form['amount'])
+    new_balance = user.balance - float(request.form['amount'])
     if new_balance >= 0:
         user.balance = new_balance
         # write to bet db
@@ -323,7 +326,9 @@ def db_rollin():
     # update the user
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
-    user.balance = float(user.balance) + float(request.form['amount'])
+    user.balance = user.balance + float(request.form['amount'])
+    if user.currency == 'USD':
+        user.balance = format(user.balance, '.2f')
 
     # write to EndRound db
     rollin = RollinEntry(
@@ -345,4 +350,4 @@ def db_rollin():
     db.session.add(rollin)
     db.session.commit()
 
-    return float(user.balance)
+    return user.balance

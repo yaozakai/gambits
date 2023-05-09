@@ -51,7 +51,7 @@ class UserEntry(UserMixin, db.Model):
     username = db.Column(db.String(50), primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     password = db.Column(db.String(255))
-    balance = db.Column(db.Numeric(50), default=0)
+    balance = db.Column(db.Float, default=0)
     referral = db.Column(db.String(50))
     active = db.Column(db.Numeric(1), default=0)
     admin = db.Column(db.Numeric(1), default=0)
@@ -165,17 +165,17 @@ class EndroundEntry(db.Model):
     gamehall = db.Column(db.String(36))
     gamecode = db.Column(db.String(36))
     roundid = db.Column(db.String(50), primary_key=True)
-    data = db.Column(ARRAY(db.String(158)))
+    data = db.Column(db.String(158))
     time = db.Column(db.DateTime)
     freegame = db.Column(db.Integer)
     bonus = db.Column(db.Integer)
     luckydraw = db.Column(db.Integer)
     jackpot = db.Column(db.Integer)
-    jackpotcontribution = db.Column(ARRAY(db.Integer))
+    jackpotcontribution = db.Column(db.Integer)
     freeticket = db.Column(db.Boolean, default=False)
 
     def __init__(self, username='', time='', gamecode='', gamehall='', freegame=0, jackpot=0,
-                 jackpotcontribution=[], bonus=0, luckydraw=False, roundid='', data=[], freeticket=False):
+                 jackpotcontribution='', bonus=0, luckydraw=False, roundid='', data='', freeticket=False):
         self.username = username
         self.gamehall = gamehall
         self.gamecode = gamecode

@@ -26,6 +26,7 @@
         <link  type="text/css" href="{{ url_for('static', filename='gallery.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='carousel.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='dropdown.css') }}" rel="stylesheet">
+        <link  type="text/css" href="{{ url_for('static', filename='profile.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='responsive.css') }}" rel="stylesheet">
 
         <!--   Icons -->
@@ -57,7 +58,11 @@
       </script>
       <div id="topbar"></div>
 
-    <main class="main-bg min-vh-100">
+    <main class="main-bg min-vh-100"
+        {% if report_date is defined %}
+            id="main-container"
+        {% endif %}
+        >
         <div>
             <!-- main_section -->
             <div id="main_section" >
@@ -86,11 +91,12 @@
                 });
             </script>
         </div>
-    </main>
-
-    <div id="modals"></div>
-      <!-- FOOTER -->
-    <footer class="green-text-outline container-fluid footer-bg">
+              <!-- FOOTER -->
+    <footer class="green-text-outline container-fluid footer-bg"
+        {% if report_date is defined %}
+            id="main-footer"
+        {% endif %}
+        >
         <span class="float-end"><a class="green-text-outline" href="#">Back to top</a></span>
         <span>***THIS IS JUST A TEST SITE*** &copy; 2021-2023 Gambits Inc. &middot; <a class="green-text-outline" href="#">Privacy</a> &middot; <a class="green-text-outline" href="#">Terms</a></span>
         <!--        <font style="font-size:.5rem;">-->
@@ -108,6 +114,10 @@
         <!--          <a href="https://www.flaticon.com/free-icons/baccarat" title="baccarat icons">Baccarat icons created by Freepik - Flaticon</a>-->
         <!--        </font>-->
     </footer>
+    </main>
+
+    <div id="modals"></div>
+
       <!-- UI Javascript -->
         <script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/navbar_sticky.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/metamask.js"></script>

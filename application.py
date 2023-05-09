@@ -76,16 +76,16 @@ def profile():
         report_date = json.loads(request.data)['reportDate']
         rec = player_report_today(db_get_user(username).username, report_date)
         # report_date = report_date.strftime('%Y-%m-%d')
-        return jsonify(rec=rec['Data'], num_results=rec['TotalSize'], report_date=report_date)
+        return jsonify(rec=rec['Data'], report_date=report_date)
     else:
         report_date = get_timestamp(False, False)
         rec = player_report_today(db_get_user(username).username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
         if rec is None:
-            return render_template('page_profile.html', rec=[], num_results=0,
+            return render_template('page_profile.html', rec=[],
                                    report_date=report_date, lang=session['lang'])
         else:
-            return render_template('page_profile.html', rec=rec['Data'], num_results=rec['TotalSize'],
+            return render_template('page_profile.html', rec=rec['Data'],
                                    report_date=report_date, lang=session['lang'])
 
 
@@ -227,8 +227,6 @@ def home():
 def login():
     # captcha_response = login_form.data['recaptcha']
     captcha_response = json.loads(request.data)['recaptcha']
-    if 'lang' not in session:
-        session['lang'] = 'zh-tw'
     # verify captcha
     if verify_captcha(captcha_response):
         login_form = LoginForm()
@@ -412,7 +410,9 @@ def register():
 def get_balance():
     # if session['logged_in']:
     user_db = db_get_user(session['_user_id'])
-    return str(user_db.balance) + ' ' + user_db.currency
+    if user_db.currency == 'USD':
+        return f'{user_db.balance:.2f}' + ' ' + user_db.currency
+        # return '{:.2f}'.format(user_db.balance) + ' ' + user_db.currency
     # else:
     #     return translations['reload website'][session['lang']]
 
@@ -440,3 +440,4 @@ if __name__ == '__main__':
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
         application.debug = True
         application.run(host='192.168.1.107')
+        # application.run(port=8000)
