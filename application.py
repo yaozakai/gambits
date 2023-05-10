@@ -33,7 +33,7 @@ price_array = []
 # reloading will check user login state
 @application.login_manager.user_loader
 def load_user(user_id):
-    return db_get_user(user_id)
+    return db_get_user_from_id(user_id)
 
 
 @application.route('/search', methods=['GET', 'POST'])
@@ -74,12 +74,12 @@ def gamehistory():
     # username = '0000-0001'
     if len(request.data) > 0 and 'reportDate' in json.loads(request.data):
         report_date = json.loads(request.data)['reportDate']
-        rec = player_report_today(db_get_user(username).username, report_date)
+        rec = player_report_today(db_get_user().username, report_date)
         # report_date = report_date.strftime('%Y-%m-%d')
         return jsonify(rec=rec['Data'], report_date=report_date)
     else:
         report_date = get_timestamp(False, False)
-        rec = player_report_today(db_get_user(username).username, report_date)
+        rec = player_report_today(db_get_user().username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
         if rec is None:
             return render_template('page_gamehistory.html', rec=[],
@@ -96,7 +96,7 @@ def launch():
     # if 'logged_in' in session:
     #     if session['logged_in']:
     if '_user_id' in session:
-        user = db_get_user(session['_user_id'])
+        user = db_get_user()
         if request.data:
             gamecode = json.loads(request.data.decode("utf-8"))['id'].split('_')[0]
             link = game_launch(user.username, gamecode)
@@ -197,12 +197,12 @@ def home():
     login_form.csrf_token.data = csrf_token
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
-
     if 'lang' not in session:
         # find user's location, defaults to English
+        debug_out('looking up geolocation for language setting...')
         set_session_geo_lang(request.remote_addr)
     set_flag_from_lang()
-
+    debug_out('done')
     return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            root_path='', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
@@ -215,6 +215,7 @@ def login():
     # captcha_response = login_form.data['recaptcha']
     captcha_response = json.loads(request.data)['recaptcha']
     # verify captcha
+    debug_out('login: verifying captcha')
     if verify_captcha(captcha_response):
         login_form = LoginForm()
         if login_form.validate_on_submit():
@@ -231,19 +232,23 @@ def login():
             # verify valid email
             if email_valid(email):
                 # check user exists and then verify password
+                debug_out('login: authenticating')
                 user_db = db_user_verification(email, password)
                 if user_db is not None:
                     if user_db.is_active():
                         # log the login
+                        debug_out('login: update login db')
                         db_new_login(login_form)
                         session['logged_in'] = True
 
                         session['lang'] = user_db.get_lang()
-
+                        debug_out('login: flask login')
                         login_user(user_db, remember=login_form.rememberme.data)
                         output = user_db.serialize()
                         session['admin'] = user_db.is_admin()
                         # output['page'] = 'profile'
+                        debug_out('login: done, reloading website, check ajax success output')
+
                         return jsonify(output)
                         # return render_template('page_gamehistory.html', page_call='profile')
                         # return redirect(next or url_for('profile'))
@@ -396,7 +401,7 @@ def register():
 @login_required
 def get_balance():
     # if session['logged_in']:
-    user_db = db_get_user(session['_user_id'])
+    user_db = db_get_user()
     if user_db.currency == 'USD':
         return f'{user_db.balance:.2f}' + ' ' + user_db.currency
         # return '{:.2f}'.format(user_db.balance) + ' ' + user_db.currency

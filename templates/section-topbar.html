@@ -1,4 +1,4 @@
-<script language="JavaScript" type="module" src="{{ root_path }}/js/metamask_connect.js"></script>
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet" />
 
 
@@ -35,7 +35,7 @@
             <div class="dropdown open">
                 <button class="btn btn-outline-success dropdown-toggle" id="top-bar-dropdown-button" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="top-dropdown-button" id="username-field">{{ current_user.username }}</div>
-                    <div class="top-dropdown-button" id="address-field"></div>
+                    <div class="top-dropdown-button" id="address-field"><i class="bi bi-wallet2"></i> <div class="address-field-sub">{{ current_user.publicAddress }}</div></div>
                 <span class="caret"></span>
                 </button>
 
@@ -48,7 +48,13 @@
                     <div class="dropdown-divider"></div>
 
                     <li>
-                        <button class="btn dropdown-item" id="connect-wallet">{{ translations['connect wallet'][session['lang']] }}</button>
+                        <button class="btn dropdown-item" id="connect-wallet">
+                        {% if current_user.publicAddress|length > 0 %}
+                            {{ translations['change wallet'][session['lang']] }}
+                        {% else %}
+                            {{ translations['connect wallet'][session['lang']] }}
+                        {% endif %}
+                        </button>
                     </li>
 
                     <div class="dropdown-divider"></div>
@@ -99,6 +105,7 @@
                         </ul>
                     </li>
                     <script>
+
                         $(document).ready(function(){
                             active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
                             active_lang.classList.add("active");
@@ -159,6 +166,21 @@
                 }
             });
         });
+
+        var user_field = document.getElementById("username-field")
+        var address_field = document.getElementById("address-field")
+
+        user_field.classList.add('text-animated-username')
+        address_field.classList.add('text-animated-address')
+        address_field.style.width = user_field.clientWidth - 20
+        address_field.style.height = user_field.clientHeight - 20
+<!--        address_field.innerHTML = "{{ current_user.publicAddress }}"-->
+
+<!--        document.getElementById("connect-wallet").classList.add('text-animated-address')-->
     });
+
+
     </script>
+    <script language="JavaScript" type="module" src="{{ root_path }}/js/metamask_connect.js"></script>
 {% endif %}
+

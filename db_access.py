@@ -71,15 +71,6 @@ def db_new_user(register_form):
     return True
 
 
-def db_get_user(user_id):
-    dataclass_login = UserEntry()
-    user = dataclass_login.query.filter_by(user_id=user_id).first()
-    if user is None:
-        return False
-    else:
-        return user
-
-
 def db_set_password(email, password):
     dataclass_login = UserEntry()
 
@@ -100,6 +91,24 @@ def db_set_language():
             user.lang = session['lang']
             db.session.commit()
             return
+
+
+def db_get_user():
+    return UserEntry().query.filter_by(user_id=session['_user_id']).first()
+
+
+def db_get_user_from_id(user_id):
+    return UserEntry().query.filter_by(user_id=user_id).first()
+
+
+def db_set_public_address(public_address):
+    user = UserEntry().query.filter_by(user_id=session['_user_id']).first()
+    if user is None:
+        return False
+    else:
+        user.publicAddress = public_address
+        db.session.commit()
+        return user
 
 
 def db_new_login(login_form):

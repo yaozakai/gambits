@@ -1,15 +1,16 @@
 var usernameField = null
 var addressField = null
+var connect_wallet_button = document.getElementById('connect-wallet')
+    connect_wallet_button.addEventListener('click', connect)
 
-document.getElementById('connect-wallet').addEventListener('click', connect)
-    var usernameField = document.getElementById('username-field')
-    var addressField = document.getElementById('address-field')
 
-//window.addEventListener("DOMContentLoaded", (event) => {
-//
-//    alert('yes')
-//
-//});
+var usernameField = document.getElementById('username-field')
+var addressField = document.getElementById('address-field')
+
+window.addEventListener("DOMContentLoaded", (event) => {
+
+
+});
 
 //<script>
 /* To connect using MetaMask */
@@ -20,12 +21,12 @@ async function connect() {
         window.web3 = new Web3(window.ethereum)
 //        alert(web3.eth.getBalance)
         usernameField = document.getElementById('username-field')
-        usernameField.classList.add('text-animated-one')
+        usernameField.classList.add('text-animated-username')
 
         addressField = document.getElementById('address-field')
         addressField.style.width = usernameField.clientWidth
-        addressField.classList.add('text-animated-two')
-        addressField.innerHTML = '<i class="bi bi-wallet2"></i> ' + accounts[0].slice(0, 6) + "..."
+        addressField.classList.add('text-animated-address')
+//        addressField.innerHTML = '' + accounts[0].slice(0, 6) + "..."
 
         // save address to user
         $.ajax({
@@ -34,10 +35,10 @@ async function connect() {
           dataType: "json",
           contentType: "application/json; charset=UTF-8",
           data: JSON.stringify({
-            "address":accounts[0],
+            "address":accounts[0]
           }),
           success: function(self) {
-
+            connect_wallet_button.innerHTML = self.label
           },
           error: function(e) {
             console.log(e);

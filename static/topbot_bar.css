@@ -21,11 +21,25 @@
     float:left;
 }
 
+#address-field {}
 
-.text-animated-one{
+.address-field-sub {
+    word-wrap: break-word;
+    font-size: xx-small;
+    /* overflow-wrap: break-word; */
+    /* position: fixed; */
+    width: 70px;
+    height: 30px;
+    overflow: hidden;
+    margin-right: auto;
+    margin-left: 2px;
+    white-space: normal;
+}
+
+
+.text-animated-username{
     display:inline;
     position:relative;
-    top:0px;
     animation-name: fade;
     animation-fill-mode: both;
     animation-iteration-count: infinite;
@@ -33,11 +47,13 @@
     animation-direction: alternate;
 
 }
-.text-animated-two{
-    opacity:0;
-    display:inline;
-    position:relative;
-    margin-left:-56px;
+.text-animated-address{
+    display: flex;
+    /* width: 100%; */
+    /* word-wrap: break-word; */
+    /* font-size: xx-small; */
+    position: absolute;
+    /* margin-left: -90px; */
     animation-name: fade;
     animation-fill-mode: both;
     animation-iteration-count: infinite;

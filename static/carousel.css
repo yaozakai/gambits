@@ -208,12 +208,14 @@ h3 {
 .modal-content {
     background-color: #110e11ed;
     height: 100%;
+    border: 1px solid rgb(26 135 84 / 56%);
 }
 
 .modal-header {
     border-bottom-color: #28a745;
     border-width: 0px;
     padding-bottom: 0px;
+    padding-top: 10px;
 }
 
 .modal-footer {

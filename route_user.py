@@ -1,17 +1,23 @@
+import flask
 from flask import Blueprint, request, render_template, json, session, redirect, url_for
+from flask_login import login_required
 from flask_wtf import csrf
 
+from db_access import db_set_public_address
 from forms import LoginForm, RegisterForm
 from utils import *
 
 user = Blueprint('user', __name__)
 
 
-@user.route('/user_new_address', methods=['GET'])
+@user.route('/user_new_address', methods=['POST'])
+# @login_required
 def user_new_address():
-    pass
-
-
+    if 'address' in request.json:
+        db_set_public_address(request.json['address'])
+        return jsonify(label=translations['change wallet'][session['lang']])
+    else:
+        return flask.abort(400)
 
 
 @user.route('/verify', endpoint='verify_email', methods=['GET'])

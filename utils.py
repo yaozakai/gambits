@@ -3,6 +3,9 @@ import functools
 import json
 import re
 import datetime
+import socket
+import time
+
 import chinese_converter
 from os import listdir
 from os.path import isfile, join
@@ -25,6 +28,12 @@ translations = {}
 url = 'https://api.cqgame.games/'
 root_path = 'static'
 authKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2M2VjZTczODM1ZTYyMzhjYzI2MTdlOTEiLCJhY2NvdW50IjoiZ2FtYml0c19zdyIsIm93bmVyIjoiNjNlY2U3MzgzNWU2MjM4Y2MyNjE3ZTkxIiwicGFyZW50Ijoic2VsZiIsImN1cnJlbmN5IjoiVVNEIiwianRpIjoiODIxMTIzMzE5IiwiaWF0IjoxNjc2NDcwMDcyLCJpc3MiOiJDeXByZXNzIiwic3ViIjoiU1NUb2tlbiJ9.mj1H6gOiA402u8DJhC9Go1CdFFSXab3OhDVagqhmWHE'
+
+
+def debug_out(output):
+    if socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
+
+        print(time.strftime("%H:%M:%S", time.localtime()) + ':' + output)
 
 
 def check_token():
