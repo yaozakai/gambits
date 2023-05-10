@@ -132,7 +132,8 @@
                                     </div>
                                 </div>
                                 {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
-                                <button class="btn btn-outline-success btn-lg" id="login-metamask" style="float:left;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;">{{ translations['log in metamask'][session['lang']] }}</button>
+                                <div class="login-with-text green-text text-sm">...{{ translations['or log in with'][session['lang']] }}:</div>
+                                <div><button class="btn btn-outline-success btn-lg" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>
                             </div>
                             <div class='error'></div>
 

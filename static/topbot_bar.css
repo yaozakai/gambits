@@ -16,3 +16,40 @@
     width: 100%;
     padding: 3px 9px 0px 9px;
 }
+
+.top-dropdown-button {
+    float:left;
+}
+
+
+.text-animated-one{
+    display:inline;
+    position:relative;
+    top:0px;
+    animation-name: fade;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    animation-direction: alternate;
+
+}
+.text-animated-two{
+    opacity:0;
+    display:inline;
+    position:relative;
+    margin-left:-56px;
+    animation-name: fade;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    animation-direction: alternate-reverse;
+}
+
+@keyframes fade{
+    0%,50% {
+      opacity: 0;
+}
+    100%{
+      opacity: 1;
+  }
+}

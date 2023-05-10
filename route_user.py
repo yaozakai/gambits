@@ -7,6 +7,13 @@ from utils import *
 user = Blueprint('user', __name__)
 
 
+@user.route('/user_new_address', methods=['GET'])
+def user_new_address():
+    pass
+
+
+
+
 @user.route('/verify', endpoint='verify_email', methods=['GET'])
 def verify():
     token = request.args['token']

@@ -1,12 +1,15 @@
+var usernameField = null
+var addressField = null
 
-//import MetaMaskSDK from '../../@metamask/sdk';
-//
-//const MMSDK = new MetaMaskSDK()
-//
-//const ethereum = MMSDK.getProvider() // You can also access via window.ethereum
-//
-//ethereum.request({method: 'eth_requestAccounts'})
 document.getElementById('connect-wallet').addEventListener('click', connect)
+    var usernameField = document.getElementById('username-field')
+    var addressField = document.getElementById('address-field')
+
+//window.addEventListener("DOMContentLoaded", (event) => {
+//
+//    alert('yes')
+//
+//});
 
 //<script>
 /* To connect using MetaMask */
@@ -16,10 +19,37 @@ async function connect() {
         const accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
         window.web3 = new Web3(window.ethereum)
 //        alert(web3.eth.getBalance)
-        alert(accounts[0])
+        usernameField = document.getElementById('username-field')
+        usernameField.classList.add('text-animated-one')
+
+        addressField = document.getElementById('address-field')
+        addressField.style.width = usernameField.clientWidth
+        addressField.classList.add('text-animated-two')
+        addressField.innerHTML = '<i class="bi bi-wallet2"></i> ' + accounts[0].slice(0, 6) + "..."
+
+        // save address to user
+        $.ajax({
+          url: "/user_new_address",
+          type: "post",
+          dataType: "json",
+          contentType: "application/json; charset=UTF-8",
+          data: JSON.stringify({
+            "address":accounts[0],
+          }),
+          success: function(self) {
+
+          },
+          error: function(e) {
+            console.log(e);
+          }
+        });
+
+//        alert(accounts[0])
     } else {
         console.log("No wallet")
     }
+
+
 }
 //</script>
 

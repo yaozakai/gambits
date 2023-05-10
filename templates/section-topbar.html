@@ -34,23 +34,26 @@
 
             <div class="dropdown open">
                 <button class="btn btn-outline-success dropdown-toggle" id="top-bar-dropdown-button" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ current_user.username }}
+                    <div class="top-dropdown-button" id="username-field">{{ current_user.username }}</div>
+                    <div class="top-dropdown-button" id="address-field"></div>
                 <span class="caret"></span>
                 </button>
 
                 <ul class="dropdown-menu multi-level green-text" aria-labelledby="top-bar-dropdown-button">
 
-                    <li class="dropdown-item" id="balance">
+                    <li class="" id="balance">
 
                           {{ current_user.balance }} {{ current_user.currency }}
                     </li>
+                    <div class="dropdown-divider"></div>
+
                     <li>
                         <button class="btn dropdown-item" id="connect-wallet">{{ translations['connect wallet'][session['lang']] }}</button>
                     </li>
 
                     <div class="dropdown-divider"></div>
                     <li><a class="btn dropdown-item" href="/gamehistory">{{ translations['gamehistory'][session['lang']] }}</a></li>
-                    <li class="dropdown-submenu">
+                    <li class="dropdown-submenu dropdown-item">
                         <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>{{ translations['language'][session['lang']] }}
                         <ul class="dropdown-menu">
             {% else %}

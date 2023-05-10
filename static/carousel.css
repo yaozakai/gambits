@@ -7,7 +7,7 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  color: #5a5a5a;
+  /* color: #5a5a5a; */
   background: black;
 }
 
@@ -27,6 +27,7 @@ body {
 
 .btn-check:hover+.btn-outline-success, .btn-outline-success:hover {
     box-shadow: 0 0 0 0.25rem rgb(26 135 84);
+    color: white!important;
 }
 
 
@@ -218,6 +219,13 @@ h3 {
 .modal-footer {
     border-top-color: #28a745;
 
+}
+
+.login-with-text {
+    float: left;
+    margin: auto 10px auto 15px;
+    position: relative;
+    top: 15px;
 }
 
 .form-control {
@@ -417,7 +425,7 @@ h3 {
     border-radius: 0rem;
     background-color: #0d3516 !important;
     border-color: #0d3516 !important;
-    color: #524252;
+    color: #826d82;
 }
 
 .dropdown-menu {
