@@ -51,6 +51,7 @@ class UserEntry(UserMixin, db.Model):
     username = db.Column(db.String(50), primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     password = db.Column(db.String(255))
+    publicAddress = db.Column(db.String(255))
     balance = db.Column(db.Float, default=0)
     referral = db.Column(db.String(50))
     active = db.Column(db.Numeric(1), default=0)

@@ -1,3 +1,4 @@
+
 <!-- loading.... popup -->
     <div class="modal fade" id="loadingscreenModal" tabindex="-1" role="dialog" aria-labelledby="loadingscreenModalWindow" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document" id="loadingscreenModalWindow">
@@ -131,6 +132,7 @@
                                     </div>
                                 </div>
                                 {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
+                                <button class="btn btn-outline-success btn-lg" id="login-metamask" style="float:left;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;">{{ translations['log in metamask'][session['lang']] }}</button>
                             </div>
                             <div class='error'></div>
 
@@ -439,3 +441,4 @@
 {% endif %}
 
 
+<script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_login.js"></script>
