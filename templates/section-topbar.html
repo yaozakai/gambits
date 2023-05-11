@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
     <div class="top-bar-desktop">
-        <!-- LOGO -->
+        <!-- start LOGO -->
         <div class="navbar-brand">
             <a href="/">
                 <img src="{{ root_path }}/logos/favicon.png" id="main-icon">
@@ -13,30 +13,29 @@
               <img src="{{ root_path }}/logos/gambits_logo long.png" class="main-logo-long">
             </a>
         </div>
+        <!-- end LOGO -->
 
-        <!-- SOCIALS (Desktop) -->
-        <!--            <a class="navbar        d" href="https://discord.gg/ebjsys6h">-->
-        <!--                <i class="bi bi-discord"></i>-->
-        <!--            </a>-->
-        <!--            <a class="navbar-brand" href="https://twitter.com/cryptoraiderio">-->
-        <!--                <i class="bi bi-twitter"></i>-->
-        <!--            </a>-->
+        <!-- start RIGHT SIDE BAR -->
         <div class="top-bar-right-side">
-            {% if current_user.is_authenticated and session['admin'] %}
-                <a class="btn btn-outline-success" href="/search"><i class="bi bi-search"></i></a>
-            {% endif %}
-
-        <!-- PROFILE/LOGOUT (if logged in) -->
             {% if current_user.is_authenticated %}
+                {% if session['admin'] %}
+                    <!-- start SEARCH button -->
+                    <a class="btn btn-outline-success" href="/search"><i class="bi bi-search"></i></a>
+                {% endif %}
+
+            <!-- start GREETING -->
             <div class="green-text" style="margin-right: 8px;">
               ♥️🙏 {{ translations['hi'][session['lang']] }}
             </div>
+            <!-- end GREETING -->
 
+            <!-- start DROPDOWN -->
             <div class="dropdown open">
+                <!-- start DROPDOWN button -->
                 <button class="btn btn-outline-success dropdown-toggle" id="top-bar-dropdown-button" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="top-dropdown-button" id="username-field">{{ current_user.username }}</div>
                     <div class="top-dropdown-button" id="address-field"><i class="bi bi-wallet2"></i> <div class="address-field-sub">{{ current_user.publicAddress }}</div></div>
-                <span class="caret"></span>
+                    <span class="caret"></span>
                 </button>
 
                 <ul class="dropdown-menu multi-level green-text" aria-labelledby="top-bar-dropdown-button">
@@ -62,65 +61,43 @@
                     <li class="dropdown-submenu dropdown-item">
                         <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>{{ translations['language'][session['lang']] }}
                         <ul class="dropdown-menu">
-            {% else %}
+            {% endif %}
+
+            {% if not current_user.is_authenticated %}
                         <div class="dropdown">
-<!--                            <form method="POST">-->
                             <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdown-language" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
                             </button>
                             <ul class="dropdown-menu green-text" aria-labelledby="dropdown-language" id="language-select" >
-
-
             {% endif %}
-<!--                            <form method="POST">-->
-                                <li>
-                                    <a class="dropdown-item" href="/lang/en" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/lang/zh-tw" id="lang-zh-tw"><span class="flag-icon flag-icon-tw me-1"></span> <span>繁體中文</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/lang/zh-cn" id="lang-zh-cn"><span class="flag-icon flag-icon-cn me-1"></span> <span>简体中文</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/lang/ja" id="lang-ja"><span class="flag-icon flag-icon-jp me-1"></span> <span>日本</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/lang/id" id="lang-id"><span class="flag-icon flag-icon-id me-1"></span> <span>Bahasa</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/lang/kr" id="lang-kr"><span class="flag-icon flag-icon-kr me-1"></span> <span>한국어</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/lang/vn" id="lang-vn"><span class="flag-icon flag-icon-vn me-1"></span> <span>Việt</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/lang/br" id="lang-br"><span class="flag-icon flag-icon-br me-1"></span> <span>Português</span></a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/lang/es" id="lang-es"><span class="flag-icon flag-icon-es me-1"></span> <span>Española</span></a>
-                                </li>
-<!--                            </form>-->
-            {% if current_user.is_authenticated %}
-                        </ul>
+                                <li><a class="dropdown-item" href="/lang/en" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></a></li>
+                                <li><a class="dropdown-item" href="/lang/zh-tw" id="lang-zh-tw"><span class="flag-icon flag-icon-tw me-1"></span> <span>繁體中文</span></a></li>
+                                <li><a class="dropdown-item" href="/lang/zh-cn" id="lang-zh-cn"><span class="flag-icon flag-icon-cn me-1"></span> <span>简体中文</span></a></li>
+                                <li><a class="dropdown-item" href="/lang/ja" id="lang-ja"><span class="flag-icon flag-icon-jp me-1"></span> <span>日本</span></a></li>
+                                <li><a class="dropdown-item" href="/lang/id" id="lang-id"><span class="flag-icon flag-icon-id me-1"></span> <span>Bahasa</span></a></li>
+                                <li><a class="dropdown-item" href="/lang/kr" id="lang-kr"><span class="flag-icon flag-icon-kr me-1"></span> <span>한국어</span></a></li>
+                                <li><a class="dropdown-item" href="/lang/vn" id="lang-vn"><span class="flag-icon flag-icon-vn me-1"></span> <span>Việt</span></a></li>
+                                <li><a class="dropdown-item" href="/lang/br" id="lang-br"><span class="flag-icon flag-icon-br me-1"></span> <span>Português</span></a></li>
+                                <li><a class="dropdown-item" href="/lang/es" id="lang-es"><span class="flag-icon flag-icon-es me-1"></span> <span>Española</span></a></li>
+                            </ul>
+            {% if not current_user.is_authenticated %}
+                <!--            close dropdown div-->
+                        </div>
+            {% else %}
                     </li>
-                    <script>
-
-                        $(document).ready(function(){
-                            active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
-                            active_lang.classList.add("active");
-
-                        });
-
-                    </script>
                     <div class="dropdown-divider"></div>
                     <li><a class="btn dropdown-item" href="/logout">{{ translations['log out'][session['lang']] }}</a></li>
                 </ul>
             </div>
-            {% else %}
-                </div>
+            <script>
+                $(document).ready(function(){
+                    active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
+                    active_lang.classList.add("active");
+                });
+            </script>
+            {% endif %}
 
-
+            {% if not current_user.is_authenticated %}
         <!-- LOGIN/REGISTER (if NOT logged in) -->
 <!--                <button class="btn btn-outline-success" id="connect-button">-->
 <!--                  <div >wallet</div>-->
@@ -173,7 +150,7 @@
         user_field.classList.add('text-animated-username')
         address_field.classList.add('text-animated-address')
         address_field.style.width = user_field.clientWidth - 20
-        address_field.style.height = user_field.clientHeight - 20
+        address_field.style.height = user_field.clientHeight
 <!--        address_field.innerHTML = "{{ current_user.publicAddress }}"-->
 
 <!--        document.getElementById("connect-wallet").classList.add('text-animated-address')-->

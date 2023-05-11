@@ -17,35 +17,38 @@ window.addEventListener("DOMContentLoaded", (event) => {
 async function connect() {
 
     if (window.ethereum) {
-        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
-        window.web3 = new Web3(window.ethereum)
-//        alert(web3.eth.getBalance)
-        usernameField = document.getElementById('username-field')
-        usernameField.classList.add('text-animated-username')
+        const accounts = async () =>  await window.ethereum.request({ method: "eth_requestAccounts" })
+        const account_connected = accounts[0] || false;
 
-        addressField = document.getElementById('address-field')
-        addressField.style.width = usernameField.clientWidth
-        addressField.classList.add('text-animated-address')
-//        addressField.innerHTML = '' + accounts[0].slice(0, 6) + "..."
+        if (account_connected) {
 
-        // save address to user
-        $.ajax({
-          url: "/user_new_address",
-          type: "post",
-          dataType: "json",
-          contentType: "application/json; charset=UTF-8",
-          data: JSON.stringify({
-            "address":accounts[0]
-          }),
-          success: function(self) {
-            connect_wallet_button.innerHTML = self.label
-          },
-          error: function(e) {
-            console.log(e);
-          }
-        });
+            window.web3 = new Web3(window.ethereum)
+            usernameField = document.getElementById('username-field')
+            usernameField.classList.add('text-animated-username')
 
-//        alert(accounts[0])
+            addressField = document.getElementById('address-field')
+            addressField.style.width = usernameField.clientWidth
+            addressField.classList.add('text-animated-address')
+
+            // save address to user
+            $.ajax({
+              url: "/user_new_address",
+              type: "post",
+              dataType: "json",
+              contentType: "application/json; charset=UTF-8",
+              data: JSON.stringify({
+                "address":accounts[0]
+              }),
+              success: function(self) {
+                connect_wallet_button.innerHTML = self.label
+              },
+              error: function(e) {
+                console.log(e);
+              }
+            });
+        } else {
+        console.log("Already connected")
+        }
     } else {
         console.log("No wallet")
     }
