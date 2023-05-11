@@ -3,6 +3,7 @@ from flask import Blueprint, request, render_template, json, session, redirect, 
 from flask_login import login_required
 from flask_wtf import csrf
 
+import utils
 from db_access import db_set_public_address
 from forms import LoginForm, RegisterForm
 from utils import *
@@ -15,7 +16,9 @@ user = Blueprint('user', __name__)
 def user_new_address():
     if 'address' in request.json:
         db_set_public_address(request.json['address'])
-        return jsonify(label=translations['change wallet'][session['lang']])
+        session['publicAddress'] = request.json['address']
+        return jsonify(address=session['publicAddress'], address_set_message=utils.translations['address set'],
+                       address_set_title=utils.translations['crypto wallet'])
     else:
         return flask.abort(400)
 

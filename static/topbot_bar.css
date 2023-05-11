@@ -21,7 +21,9 @@
     float:left;
 }
 
-#address-field {}
+#address-field {
+    display:none;
+}
 
 .address-field-sub {
     word-wrap: break-word;
@@ -29,7 +31,7 @@
     /* overflow-wrap: break-word; */
     /* position: fixed; */
     width: 70px;
-    height: 30px;
+    height: 26px;
     overflow: hidden;
     margin-right: auto;
     margin-left: 2px;
@@ -39,13 +41,15 @@
 
 .text-animated-username{
     display:inline;
+    width: 100%;
+    margin-right: -5px;
     position:relative;
     animation-name: fade;
     animation-fill-mode: both;
     animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
     animation-duration: 5s;
     animation-direction: alternate;
-
 }
 .text-animated-address{
     display: flex;
@@ -53,11 +57,12 @@
     /* word-wrap: break-word; */
     /* font-size: xx-small; */
     position: absolute;
-    /* margin-left: -90px; */
     animation-name: fade;
     animation-fill-mode: both;
     animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
     animation-duration: 5s;
+
     animation-direction: alternate-reverse;
 }
 

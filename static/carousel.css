@@ -30,6 +30,24 @@ body {
     color: white!important;
 }
 
+.alert {
+    left: 50%;
+    top: 10px;
+    width: 360px;
+    margin-left: -170px;
+    position: absolute;
+    padding-right: 30px;
+    padding-left: 3px;
+    transition: 1s;
+}
+
+.btn-close-alert {
+    position: absolute;
+    top: 50%;
+    margin-top: -12px;
+    right: 5px;
+}
+
 
 
 /* CUSTOMIZE THE CAROUSEL
