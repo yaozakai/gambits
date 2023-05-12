@@ -1,0 +1,30 @@
+.crypto-icon {
+    height: 100%;
+}
+
+.crypto-button {
+    float:left;
+    border: none;
+    height: 40px;
+}
+
+.crypto-icon {
+    height: 100%;
+}
+
+.crypto-chain-icon {
+    height: 100%;
+}
+
+.blockchain-button {
+    float:left;
+    border: none;
+    height: 40px;
+}
+
+.blockchain-button:active {
+    float:left;
+    border: none;
+    height: 40px;
+}
+

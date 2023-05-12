@@ -29,7 +29,11 @@ body {
     box-shadow: 0 0 0 0.25rem rgb(26 135 84);
     color: white!important;
 }
-
+/*
+.btn-transparent {
+    background-color: transparent;
+}
+*/
 .alert {
     left: 50%;
     top: 10px;
@@ -158,6 +162,8 @@ body {
 .green-text-outline {
   color: #1a8754;
   border-color: #1a8754;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .green-text {
@@ -443,9 +449,9 @@ h3 {
 
 .dropdown-item:hover {
     border-radius: 0rem;
-    background-color: #0d3516 !important;
+    background-color: #1a8754 !important;
     border-color: #0d3516 !important;
-    color: #826d82;
+    color: #adff2e;
 }
 
 .dropdown-menu {

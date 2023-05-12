@@ -34,7 +34,7 @@
 
 #address-field-sub {
     word-wrap: break-word;
-    font-size: xx-small;
+    /* font-size: xx-small; */
     /* overflow-wrap: break-word; */
     /* position: fixed; */
     width: 70px;
@@ -48,7 +48,8 @@
 
 .text-animated-username{
     display:inline;
-    width: 100%;
+    overflow: hidden;
+    width: 84px;
     margin-right: -5px;
     position:relative;
     animation-name: fade;

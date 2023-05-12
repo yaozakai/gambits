@@ -1,7 +1,8 @@
 var usernameField = null
 var addressField = null
 var connect_wallet_button = document.getElementById('connect-wallet')
-    connect_wallet_button.addEventListener('click', connect)
+connect_wallet_button.addEventListener('click', connect)
+document.getElementById('money-send').addEventListener('click', sendMoney)
 
 
 var usernameField = document.getElementById('username-field')
@@ -16,12 +17,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 });
 
-//<script>
 /* To connect using MetaMask */
 async function connect() {
 
     if (typeof window.ethereum !== 'undefined') {
-//        var accounts = async () =>  await window.ethereum.request({ method: "eth_requestAccounts" })
         var accounts = await window.ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] })
         const account_connected = accounts[0] || false;
         if (!account_connected) {
@@ -63,17 +62,43 @@ async function connect() {
     } else {
         console.log("No wallet")
     }
-
-
 }
-//</script>
 
-function checkMetaMaskInstalled() {
-    if(typeof window.ethereum == 'undefined') {
-        alert('not installed');
-    } else {
-        alert('yes you have it');
+async function sendMoney() {
+    // Send Ethereum to an address
+    var accounts = await window.ethereum.request({ method: "wallet_requestPermissions", params: [{ eth_accounts: {} }] })
+    const account_connected = accounts[0] || false;
+    if (!account_connected) {
+        alert_box.classList.add('show')
+        return
     }
+//    window.web3 = new Web3(window.ethereum)
+
+
+//    deposit_amount = document.getElementById('deposit-amount')
+    deposit_amount = parseFloat(document.getElementById('deposit-amount').value)
+
+    window.ethereum.request({
+      method: 'eth_sendTransaction',
+      params: [
+        {
+          from: accounts[0]['caveats'][0]['value'][0], // The user's active address.
+          to: '0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B',
+          value: '0x' + (1000000000000000000 * deposit_amount).toString(16),
+          gasPrice: '0x09184e72a000', // Customizable by the user during MetaMask confirmation.
+          gas: '0x2710', // Customizable by the user during MetaMask confirmation.
+        },
+      ],
+    })
+    .then((txHash) => console.log(txHash))
+    .catch((error) => console.error(error));
+//    });
+
+//    if(typeof window.ethereum == 'undefined') {
+//        alert('not installed');
+//    } else {
+//        alert('yes you have it');
+//    }
 
 }
 
