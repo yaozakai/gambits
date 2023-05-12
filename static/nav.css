@@ -67,6 +67,13 @@
 
 .dropdown-toggle::after {
      /* border-top: none; */
+     /* float: right; */
+     right: 7px;
+     top: 16px;
+     /* bottom: auto; */
+     position: absolute;
+     /* margin-top: auto; */
+     /* margin-bottom: auto; */
 }
 
 .nav-link:hover {

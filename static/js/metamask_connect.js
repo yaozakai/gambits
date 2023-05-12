@@ -6,7 +6,10 @@ var connect_wallet_button = document.getElementById('connect-wallet')
 
 var usernameField = document.getElementById('username-field')
 var addressField = document.getElementById('address-field')
+var addressFieldSub = document.getElementById('address-field-sub')
 var alert_box = document.getElementById('alert-box')
+var alert_title = document.getElementById('alert-title')
+var alert_message = document.getElementById('alert-message')
 
 window.addEventListener("DOMContentLoaded", (event) => {
 
@@ -28,12 +31,8 @@ async function connect() {
 
         }
         window.web3 = new Web3(window.ethereum)
-        usernameField = document.getElementById('username-field')
-//        usernameField.classList.add('text-animated-username')
-
-        addressField = document.getElementById('address-field')
-//        addressField.style.width = usernameField.clientWidth
-//        addressField.classList.add('text-animated-address')
+//        usernameField = document.getElementById('username-field')
+//        addressField = document.getElementById('address-field')
 
         // save address to user
         $.ajax({
@@ -44,22 +43,18 @@ async function connect() {
           data: JSON.stringify({
             "address":accounts[0]['caveats'][0]['value'][0]
           }),
-          success: function(self) {
-            addressField.innerHTML = session['publicAddress']
-            addressField.style.width = user_field.clientWidth - 20
-            addressField.style.height = user_field.clientHeight
-            addressField.innerHTML = "{{ current_user.publicAddress }}"
+          success: function(response) {
+            addressField.style.width = usernameField.clientWidth - 20
+            addressField.style.height = usernameField.clientHeight
+            addressFieldSub.innerHTML = response.address
 
             usernameField.classList.add('text-animated-username')
             addressField.classList.add('text-animated-address')
 
+
+            alert_title.innerHTML = response.address_set_title
+            alert_message.innerHTML = response.address_set_message
             alert_box.classList.add('show')
-
-            alert_title = document.getElementById('alert-title')
-            alert_message = document.getElementById('alert-message')
-
-            alert_title.innerHTML = self.address_set_title
-            alert_message.innerHTML = self.address_set_message
           },
           error: function(e) {
             console.log(e);

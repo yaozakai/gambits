@@ -17,8 +17,8 @@ def user_new_address():
     if 'address' in request.json:
         db_set_public_address(request.json['address'])
         session['publicAddress'] = request.json['address']
-        return jsonify(address=session['publicAddress'], address_set_message=utils.translations['address set'],
-                       address_set_title=utils.translations['crypto wallet'])
+        return jsonify(success=True, address=session['publicAddress'], address_set_message=utils.translations['address set'][session['lang']],
+                       address_set_title=utils.translations['crypto wallet'][session['lang']])
     else:
         return flask.abort(400)
 

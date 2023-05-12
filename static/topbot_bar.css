@@ -23,9 +23,16 @@
 
 #address-field {
     display:none;
+    position: absolute;
+    left: 10px;
 }
 
-.address-field-sub {
+#top-bar-dropdown-button {
+    min-width: 120px;
+    /* padding-left: 0px; */
+}
+
+#address-field-sub {
     word-wrap: break-word;
     font-size: xx-small;
     /* overflow-wrap: break-word; */
