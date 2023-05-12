@@ -16,6 +16,23 @@
     height: 100%;
 }
 
+.symbol-tag {
+    font-size: x-large;
+    color: greenyellow;
+    text-shadow: 2px 4px black;
+}
+
+#money-send {
+    width: 100px;
+    color: #1a1519;
+    background-color: #8ad11b;
+    font-size: x-large;
+}
+
+.money-shortkey {
+    display: flex;
+}
+
 .blockchain-button {
     float:left;
     border: none;
@@ -30,10 +47,6 @@
     margin-bottom:5px;
 }
 
-.crypto-selector {
+.crypto-selector {position: relative;left: 50%;text-align: center;}
 
-}
-
-.blockchain-selector {
-
-}
+.blockchain-selector {right: 15%;position: absolute;text-align: center;}

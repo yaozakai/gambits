@@ -32,23 +32,23 @@
             <div class="modal-body" >
                 <div class="deposit-top-row">
                     <div class="deposit-icon-selector crypto-selector">
-                        <div class='green-text-outline'>{{ translations['choose currency'][session['lang']] }}: </div>
+                        <div class='green-text-outline'>{{ translations['choose currency'][session['lang']] }}</div>
                         <div class="btn-group" role="group" data-bs-toggle="buttons">
                             <button type="button" class="btn btn-outline-success btn-sm crypto-button" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
                             <button type="button" class="btn btn-outline-success btn-sm crypto-button" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>
                         </div>
-                        <div class="green-text mb-5" id="crypto-text"></div>
+                        <div class="symbol-tag mb-3" id="crypto-text">🏝</div>
                     </div>
                     <div class="deposit-icon-selector blockchain-selector">
-                        <div class='green-text-outline'>{{ translations['choose chain'][session['lang']] }}: </div>
+                        <div class='green-text-outline'>{{ translations['choose chain'][session['lang']] }}</div>
                         <div class="btn-group" role="group" data-bs-toggle="buttons">
                             <button type="button" class="btn btn-outline-success btn-sm blockchain-button" id="chain-select-erc20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/erc20.png"></button>
                             <button type="button" class="btn btn-outline-success btn-sm blockchain-button" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>
                         </div>
-                        <div class="green-text mb-5" id="blockchain-text"></div>
+                        <div class="symbol-tag mb-3" id="blockchain-text">⛰</div>
                     </div>
                 </div>
-                <div class="btn-group" role="group">
+                <div class="btn-group money-shortkey mb-3" role="group">
                   <button id="add-10-button" type="button" class="btn btn-outline-success add-to-total">+10</button>
                   <button id="add-20-button" type="button" class="btn btn-outline-success add-to-total">+20</button>
                   <button id="add-50-button" type="button" class="btn btn-outline-success add-to-total">+50</button>
@@ -56,14 +56,15 @@
                   <button id="add-500-button" type="button" class="btn btn-outline-success add-to-total">+500</button>
                   <button id="add-1000-button" type="button" class="btn btn-outline-success add-to-total">+1000</button>
                 </div>
-                <div class="input-group mb-3" style="width:50%;margin-top:5px;">
+                <div class="input-group mb-3" style="margin-top:5px;">
                     <span class="input-group-text whiteFont">{{ translations['amount'][session['lang']] }}</span>
                     <input type="text" class="form-control" id="deposit-amount" style="width: 50%;">
+                    <div class="btn-group" role="group">
+                        <button type="button" id="money-send" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['send money'][session['lang']] }}</button>
+                    </div>
                 </div>
 
-                <div class="btn-group" role="group">
-                    <button type="button" id="money-send" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['send money'][session['lang']] }}</button>
-                </div>
+
 
                 <div class="spinner-border text-success" role="status">
                     <img src="{{ root_path }}static/logos/favicon.png" class="main-logo">
@@ -92,7 +93,7 @@ $('.blockchain-button').on('click', function(){
         } else {
             token.classList.add('active')
             token.style.opacity = "1"
-            blockchain_text.innerHTML = button_clicked.id.split('-')[2]
+            blockchain_text.innerHTML = button_clicked.id.split('-')[2].toUpperCase()
         }
     }
 });
@@ -110,7 +111,7 @@ $('.crypto-button').on('click', function(){
         } else {
             token.style.opacity = "1"
             token.classList.add('active')
-            crypto_text.innerHTML = button_clicked.id.split('-')[2]
+            crypto_text.innerHTML = button_clicked.id.split('-')[2].toUpperCase()
         }
     }
 });
