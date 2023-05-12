@@ -30,19 +30,22 @@
 
             </div>
             <div class="modal-body" >
-
-                <div style="display: flex; margin-bottom:5px;">
-                    <div class='green-text-outline'>{{ translations['choose currency'][session['lang']] }}: </div>
-                    <div class="btn-group" role="group" data-bs-toggle="buttons">
-                        <button type="button" class="btn btn-outline-success btn-sm crypto-button" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
-                        <button type="button" class="btn btn-outline-success btn-sm crypto-button" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>
+                <div class="deposit-top-row">
+                    <div class="deposit-icon-selector crypto-selector">
+                        <div class='green-text-outline'>{{ translations['choose currency'][session['lang']] }}: </div>
+                        <div class="btn-group" role="group" data-bs-toggle="buttons">
+                            <button type="button" class="btn btn-outline-success btn-sm crypto-button" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
+                            <button type="button" class="btn btn-outline-success btn-sm crypto-button" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>
+                        </div>
+                        <div class="green-text mb-5" id="crypto-text"></div>
                     </div>
-                </div>
-                <div style="display: flex; margin-bottom:5px;">
-                    <div class='green-text-outline'>{{ translations['choose chain'][session['lang']] }}: </div>
-                    <div class="btn-group" role="group" aria-label="Blockchain select">
-                        <button type="button" class="btn btn-outline-success btn-sm blockchain-button" id="chain-select-erc20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/erc20.png"></button>
-                        <button type="button" class="btn btn-outline-success btn-sm blockchain-button" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>
+                    <div class="deposit-icon-selector blockchain-selector">
+                        <div class='green-text-outline'>{{ translations['choose chain'][session['lang']] }}: </div>
+                        <div class="btn-group" role="group" data-bs-toggle="buttons">
+                            <button type="button" class="btn btn-outline-success btn-sm blockchain-button" id="chain-select-erc20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/erc20.png"></button>
+                            <button type="button" class="btn btn-outline-success btn-sm blockchain-button" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>
+                        </div>
+                        <div class="green-text mb-5" id="blockchain-text"></div>
                     </div>
                 </div>
                 <div class="btn-group" role="group">
@@ -73,10 +76,13 @@
 <script>
 
 
+var blockchain_text = document.getElementById('blockchain-text')
+var crypto_text = document.getElementById('crypto-text')
+
 
 $('.blockchain-button').on('click', function(){
+
     const button_clicked = document.getElementById($(this).attr("id"))
-    var token = button_clicked.id.split('-')[2]
 
     var cryptos = $(".blockchain-button")
     for (var token of cryptos) {
@@ -86,11 +92,13 @@ $('.blockchain-button').on('click', function(){
         } else {
             token.classList.add('active')
             token.style.opacity = "1"
+            blockchain_text.innerHTML = button_clicked.id.split('-')[2]
         }
     }
 });
 
 $('.crypto-button').on('click', function(){
+
     const button_clicked = document.getElementById($(this).attr("id"))
     var token = button_clicked.id.split('-')[2]
 
@@ -102,6 +110,7 @@ $('.crypto-button').on('click', function(){
         } else {
             token.style.opacity = "1"
             token.classList.add('active')
+            crypto_text.innerHTML = button_clicked.id.split('-')[2]
         }
     }
 });

@@ -5,7 +5,7 @@
 .crypto-button {
     float:left;
     border: none;
-    height: 40px;
+    height: 55px;
 }
 
 .crypto-icon {
@@ -19,12 +19,21 @@
 .blockchain-button {
     float:left;
     border: none;
-    height: 40px;
+    height: 55px;
 }
 
-.blockchain-button:active {
-    float:left;
-    border: none;
-    height: 40px;
+.deposit-top-row {
+    display:inline-flex;
 }
 
+.deposit-icon-selector {
+    margin-bottom:5px;
+}
+
+.crypto-selector {
+
+}
+
+.blockchain-selector {
+
+}
