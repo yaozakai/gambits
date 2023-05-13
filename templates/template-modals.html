@@ -32,22 +32,29 @@
             <div class="modal-body" >
                 <div class="deposit-top-row">
                     <div class="deposit-icon-selector crypto-selector">
-                        <div class='green-text-outline'>{{ translations['choose currency'][session['lang']] }}</div>
-                        <div class="btn-group" role="group" data-bs-toggle="buttons">
-                            <button type="button" class="btn btn-outline-success btn-sm crypto-button" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
-                            <button type="button" class="btn btn-outline-success btn-sm crypto-button" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>
+                        <div style="margin-right: 15px;">
+                            <div class='green-text'>{{ translations['choose currency'][session['lang']] }}</div>
+                            <div class="symbol-tag mb-3" id="crypto-text">💰</div>
                         </div>
-                        <div class="symbol-tag mb-3" id="crypto-text">🏝</div>
+                        <button type="button" class="btn btn-sm crypto-button mb-1 active" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
+                        <button type="button" class="btn btn-sm crypto-button mb-1" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>
                     </div>
-                    <div class="deposit-icon-selector blockchain-selector">
-                        <div class='green-text-outline'>{{ translations['choose chain'][session['lang']] }}</div>
-                        <div class="btn-group" role="group" data-bs-toggle="buttons">
-                            <button type="button" class="btn btn-outline-success btn-sm blockchain-button" id="chain-select-erc20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/erc20.png"></button>
-                            <button type="button" class="btn btn-outline-success btn-sm blockchain-button" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>
+                    <div class="d-flex" style="height: 2px;width: 465px;background-color: #1a8754;position: absolute;">
+                        <div class="vr"></div>
+                    </div>
+                    <div class="deposit-icon-selector blockchain-selector mt-3">
+                        <div style="margin-right: 15px;">
+                            <div class='green-text'>{{ translations['choose chain'][session['lang']] }}</div>
+                            <div class="symbol-tag mb-3" id="blockchain-text">📡</div>
                         </div>
-                        <div class="symbol-tag mb-3" id="blockchain-text">⛰</div>
+                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-erc20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/erc20.png"></button>
+                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>
                     </div>
                 </div>
+                <div class="d-flex" style="height: 2px;width: 465px;background-color: #1a8754;position: absolute;">
+                  <div class="vr"></div>
+                </div>
+                <div class='green-text mt-3 mb-3' style="text-align: center;">{{ translations['choose amount'][session['lang']] }}</div>
                 <div class="btn-group money-shortkey mb-3" role="group">
                   <button id="add-10-button" type="button" class="btn btn-outline-success add-to-total">+10</button>
                   <button id="add-20-button" type="button" class="btn btn-outline-success add-to-total">+20</button>
@@ -56,11 +63,11 @@
                   <button id="add-500-button" type="button" class="btn btn-outline-success add-to-total">+500</button>
                   <button id="add-1000-button" type="button" class="btn btn-outline-success add-to-total">+1000</button>
                 </div>
-                <div class="input-group mb-3" style="margin-top:5px;">
+                <div class="input-group mb-1" style="margin-top:5px;">
                     <span class="input-group-text whiteFont">{{ translations['amount'][session['lang']] }}</span>
-                    <input type="text" class="form-control" id="deposit-amount" style="width: 50%;">
+                    <input type="text" class="form-control" id="deposit-amount">
                     <div class="btn-group" role="group">
-                        <button type="button" id="money-send" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['send money'][session['lang']] }}</button>
+                        <button type="button" id="money-send" class="btn btn-outline-success symbol-text" data-bs-dismiss="modal" aria-label="Close">{{ translations['send money'][session['lang']] }}</button>
                     </div>
                 </div>
 
@@ -101,7 +108,7 @@ $('.blockchain-button').on('click', function(){
 $('.crypto-button').on('click', function(){
 
     const button_clicked = document.getElementById($(this).attr("id"))
-    var token = button_clicked.id.split('-')[2]
+    var token_name = button_clicked.id.split('-')[2]
 
     var cryptos = $(".crypto-button")
     for (var token of cryptos) {
@@ -111,9 +118,29 @@ $('.crypto-button').on('click', function(){
         } else {
             token.style.opacity = "1"
             token.classList.add('active')
-            crypto_text.innerHTML = button_clicked.id.split('-')[2].toUpperCase()
+            crypto_text.innerHTML = token_name.toUpperCase()
         }
     }
+
+    // switch the shortcut keys
+
+    var adds = document.getElementsByClassName("add-to-total");
+    if (token_name == "eth") {
+        adds.item(0).innerHTML = "+0.001"
+        adds.item(1).innerHTML = "+0.005"
+        adds.item(2).innerHTML = "+0.01"
+        adds.item(3).innerHTML = "+0.05"
+        adds.item(4).innerHTML = "+0.1"
+        adds.item(5).innerHTML = "+0.5"
+    } else if (token_name == "usdt") {
+        adds.item(0).innerHTML = "+10"
+        adds.item(1).innerHTML = "+20"
+        adds.item(2).innerHTML = "+50"
+        adds.item(3).innerHTML = "+100"
+        adds.item(4).innerHTML = "+500"
+        adds.item(5).innerHTML = "+1000"
+    }
+
 });
 
 
@@ -121,10 +148,15 @@ $('.add-to-total').on('click', function(){
     const button_clicked = document.getElementById($(this).attr("id"))
     deposit_amount = document.getElementById('deposit-amount')
 
-    amount = parseFloat(button_clicked.id.split('-')[1])
+<!--    alert(button_clicked.value)-->
+
+    amount = parseFloat(button_clicked.innerHTML.split('+')[1])
+    console.log("button clicked: %f", amount);
 
     if (deposit_amount.value.length > 0) {
-        new_balance = amount + parseFloat(deposit_amount.value)
+
+        new_balance = parseFloat((amount + parseFloat(deposit_amount.value)).toFixed(10))
+        console.log("%f + %f = %f", amount, parseFloat(deposit_amount.value), new_balance);
         deposit_amount.value = new_balance
     } else {
         deposit_amount.value = amount

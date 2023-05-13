@@ -28,9 +28,9 @@
 }
 
 .btn-outline-success:hover {
-    background-color: #252027;
+    /* background-color: unset; */
     border-color: #524252;
-    color: #28a745;
+    /* color: #28a745; */
 }
 
 .btn-primary {
