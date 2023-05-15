@@ -1,3 +1,23 @@
+<!-- alert -->
+<div class="alert alert-primary alert-danger fade" id="alert-box">
+    <button id="close-alert-button" type="button" class="btn-close btn-close-alert" aria-label="Close"></button>
+    <div style="margin-left:40px;">
+        <div style="display:inline-flex;">
+            <svg style="margin-top: 3px;margin-right: 3px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill mb-1" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            <strong><div id="alert-title"></div></strong>
+        </div>
+        <div id="alert-message"></div>
+    </div>
+</div>
+
+<script>
+    $('#close-alert-button').on('click', function () {
+        $('#alert-box').removeClass('show')
+    });
+</script>
+
 <!-- loading.... popup -->
 <div class="modal fade" id="loadingscreenModal" tabindex="-1" role="dialog" aria-labelledby="loadingscreenModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="loadingscreenModalWindow">
@@ -39,7 +59,7 @@
                         <button type="button" class="btn btn-sm crypto-button mb-1 active" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
                         <button type="button" class="btn btn-sm crypto-button mb-1" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>
                     </div>
-                    <div class="d-flex" style="height: 2px;width: 465px;background-color: #1a8754;position: absolute;">
+                    <div class="d-flex modal-divider-horz">
                         <div class="vr"></div>
                     </div>
                     <div class="deposit-icon-selector blockchain-selector mt-3">
@@ -51,7 +71,7 @@
                         <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>
                     </div>
                 </div>
-                <div class="d-flex" style="height: 2px;width: 465px;background-color: #1a8754;position: absolute;">
+                <div class="d-flex modal-divider-horz">
                   <div class="vr"></div>
                 </div>
                 <div class='green-text mt-3 mb-3' style="text-align: center;">{{ translations['choose amount'][session['lang']] }}</div>
@@ -65,9 +85,9 @@
                 </div>
                 <div class="input-group mb-1" style="margin-top:5px;">
                     <span class="input-group-text whiteFont">{{ translations['amount'][session['lang']] }}</span>
-                    <input type="text" class="form-control" id="deposit-amount">
+                    <input type="number" class="form-control" id="deposit-amount">
                     <div class="btn-group" role="group">
-                        <button type="button" id="money-send" class="btn btn-outline-success symbol-text" data-bs-dismiss="modal" aria-label="Close">{{ translations['send money'][session['lang']] }}</button>
+                        <button type="button" id="money-send" class="btn btn-outline-success symbol-text">{{ translations['send money'][session['lang']] }}</button>
                     </div>
                 </div>
 
@@ -590,4 +610,4 @@ $('.add-to-total').on('click', function(){
 {% endif %}
 
 
-<script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_login.js"></script>
+<script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_modal.js"></script>

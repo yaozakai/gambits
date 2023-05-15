@@ -26,10 +26,19 @@
     height: 100%;
 }
 
-#money-send {width: 100px;color: #adff2e!important;box-shadow: 0px 0px 7px 3px rgb(173 255 46);}
+#money-send {width: 100px;font-size: larger;font-weight: bold;/* color: #adff2e!important; *//* box-shadow: 0px 0px 7px 3px rgb(173 255 46); */}
 
 #deposit-amount {
     margin-right: 15px;
+}
+
+.modal-divider-horz {
+    height: 2px;
+    width: 80%;
+    background-color: #1a8754;
+    position: absolute;
+    left: 10%;
+    right: auto;
 }
 
 .symbol-tag {
@@ -61,3 +70,13 @@
 .crypto-selector {position: relative;/* left: 25%; */text-align: center;display: flex;}
 
 .blockchain-selector {/* right: 15%; */position: relative;text-align: center;display: flex;}
+
+#alert-message {
+    /* margin-left: 0px; */
+}
+
+@media (max-width: 514px) {
+    .money-shortkey {
+        font-size: small;
+    }
+}

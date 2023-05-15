@@ -1,4 +1,5 @@
 import json
+from numbers import Number
 
 from flask import request, session
 from sqlalchemy import desc, literal, column, text
@@ -190,9 +191,11 @@ def db_bet():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
     balance = user.balance
-    bet = float(request.form['amount'])
+    # bet = float(request.form['amount'])
+    bet = Number.parseFloat(request.form['amount'])
+    new_balance = Number.parseFloat((balance - bet).toFixed(10))
+    # new_balance = f'{new_balance:g}'
 
-    new_balance = balance - bet
     if user.currency == 'USD':
         new_balance = format(new_balance, '.2f')
 
@@ -252,7 +255,9 @@ def db_endround():
 
     data = json.loads(request.form['data'])
     for result in data:
-        user.balance = user.balance + result['amount']
+        # bet = Number.parseFloat(request.form['amount'])
+        # new_balance = Number.parseFloat((balance - bet).toFixed(10))
+        user.balance = Number.parseFloat((user.balance + result['amount']).toFixed(10))
 
     # filter out the optional parameters
     if 'freegame' in request.form:
@@ -310,7 +315,7 @@ def db_endround():
 def db_rollout():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
-    new_balance = user.balance - float(request.form['amount'])
+    new_balance = Number.parseFloat(user.balance - float(request.form['amount']).toFixed(10))
     if new_balance >= 0:
         user.balance = new_balance
         # write to bet db
@@ -335,7 +340,7 @@ def db_rollin():
     # update the user
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
-    user.balance = user.balance + float(request.form['amount'])
+    user.balance = Number.parseFloat(user.balance + float(request.form['amount']).toFixed(10))
     if user.currency == 'USD':
         user.balance = format(user.balance, '.2f')
 

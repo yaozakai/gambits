@@ -1,4 +1,9 @@
 ﻿name,zh-tw,zh-cn,en,ko,th,vi,es,id,pt-br,ja
+alert:checkWallet,Please check if your wallet app is already open,Please check if your wallet app is already open,Your wallet app is already open somewhere,,,,,,,
+alert:wallet,Wallet error,Wallet error,Wallet error,,,,,,,
+alert:amount0,Please select a blockchain,Please select a blockchain,Amount is zero,,,,,,,
+alert:incomplete,Incomplete,Incomplete,Incomplete,,,,,,,
+alert:selectChain,Please select a blockchain,Please select a blockchain,Please select a network,,,,,,,
 hi,您好,您好,Hi,,,,,,,
 playnow,現在玩!,現在玩!,Play Now!,,,,,,,
 or log in with,其他登入方式,其他登入方式,or log in with,,,,,,,
