@@ -54,9 +54,9 @@
                     <div class="deposit-icon-selector crypto-selector">
                         <div style="margin-right: 15px;">
                             <div class='green-text'>{{ translations['choose currency'][session['lang']] }}</div>
-                            <div class="symbol-tag mb-3" id="crypto-text">💰</div>
+                            <div class="symbol-tag mb-3" id="crypto-text">🥦</div>
                         </div>
-                        <button type="button" class="btn btn-sm crypto-button mb-1 active" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
+                        <button type="button" class="btn btn-sm crypto-button mb-1" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
                         <button type="button" class="btn btn-sm crypto-button mb-1" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>
                     </div>
                     <div class="d-flex modal-divider-horz">
@@ -65,10 +65,13 @@
                     <div class="deposit-icon-selector blockchain-selector mt-3">
                         <div style="margin-right: 15px;">
                             <div class='green-text'>{{ translations['choose chain'][session['lang']] }}</div>
-                            <div class="symbol-tag mb-3" id="blockchain-text">📡</div>
+                            <div class="symbol-tag mb-3" id="blockchain-text">🍇</div>
                         </div>
                         <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-erc20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/erc20.png"></button>
                         <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>
+                        {% if current_user.admin %}
+                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-goerli"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/goerli.png"></button>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="d-flex modal-divider-horz">
@@ -133,10 +136,10 @@ $('.crypto-button').on('click', function(){
     var cryptos = $(".crypto-button")
     for (var token of cryptos) {
         if ( token.id != button_clicked.id ) {
-            token.style.opacity = "0.5"
+<!--            token.style.opacity = "0.5"-->
             token.classList.remove('active')
         } else {
-            token.style.opacity = "1"
+<!--            token.style.opacity = "1"-->
             token.classList.add('active')
             crypto_text.innerHTML = token_name.toUpperCase()
         }

@@ -23,29 +23,6 @@ def user_new_address():
         return flask.abort(400)
 
 
-@user.route('/verify', endpoint='verify_email', methods=['GET'])
-def verify():
-    token = request.args['token']
-    session['lang'] = request.args['lang']
-    # get the notification
-    notification_json = activate_account(token, session['lang'])
-    notification = notification_json['notification']
-    notification_title = notification_json['notification_title']
-
-    csrf_token = csrf.generate_csrf()
-    login_form = LoginForm()
-    login_form.csrf_token.data = csrf_token
-    register_form = RegisterForm()
-    register_form.csrf_token.data = csrf_token
-
-    if request.method == 'POST' and 'language-select' in request.form:
-        session['lang'] = request.form['language-select']
-    else:
-        session['lang'] = 'zh-tw'
-
-    return setup_home_template(notification_title, notification, False)
-
-
 @user.route('/login', methods=['POST'])
 def login():
     # captcha_response = login_form.data['recaptcha']

@@ -26,7 +26,8 @@ body {
 }
 
 .btn-check:hover+.btn-outline-success, .btn-outline-success:hover {
-    box-shadow: 0 0 0 0.25rem rgb(26 135 84);
+    /* box-shadow: 0 0 0 0.25rem rgb(26 135 84); */
+    box-shadow: 0px 0px 7px 3px rgb(173 255 46); */;
     color: white!important;
 }
 /*
@@ -90,10 +91,15 @@ body {
 .active {
   /* margin-left: 0%; */
   /* margin-right: 0%; */
-  /* width: 100%; */
-  /* height: 100%; */
+  /* width: 20%; */
+  /* height: 0; */
+  /* padding-bottom: 20%; */
   /* max-width: 100%; */
-  background-color: #574b5f;
+  /* background-color: #574b5f; */
+  /* border-radius: 2rem; */
+  /* background-image: radial-gradient(#36ff36, #36ff3600); */
+  box-shadow: none!important;
+  background-image: radial-gradient(red 5%, green 35%, transparent 75%);
 }
 
 .carousel-item > img {

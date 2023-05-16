@@ -73,18 +73,22 @@ class UserEntry(UserMixin, db.Model):
         self.username = username
 
     def is_active(self):
-        # if self.query.filter_by(email=self.email).first_or_404().active:
-        #     return True
-        # else:
-        #     return False
-        return self.active
+        if self.query.filter_by(email=self.email).first_or_404().active:
+            return True
+        else:
+            return False
+        # return self.active
 
     def get_lang(self):
         # return self.query.filter_by(email=self.email).first_or_404().lang
         return self.lang
 
     def is_admin(self):
-        return self.admin
+        if self.query.filter_by(email=self.email).first_or_404().admin:
+            return True
+        else:
+            return False
+        # return self.admin
 
     def get_id(self):
         if self.user_id is None:

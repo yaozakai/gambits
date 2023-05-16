@@ -14,6 +14,7 @@ from constants import RECAPTCHA_PUBLIC_KEY
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_template import template
 from route_user import user
+from route_wallet import wallet
 from utils import reload_game_titles, reload_icon_placement, setup_home_template
 
 uaform = None
@@ -196,6 +197,29 @@ def set_session_geo_lang(ip_address):
         # session['flag'] = 'gb'
 
 
+@application.route('/verify', endpoint='verify_email', methods=['GET'])
+def verify_email():
+    token = request.args['token']
+    session['lang'] = request.args['lang']
+    # get the notification
+    notification_json = activate_account(token, session['lang'])
+    notification = notification_json['notification']
+    notification_title = notification_json['notification_title']
+
+    csrf_token = csrf.generate_csrf()
+    login_form = LoginForm()
+    login_form.csrf_token.data = csrf_token
+    register_form = RegisterForm()
+    register_form.csrf_token.data = csrf_token
+
+    # if request.method == 'POST' and 'language-select' in request.form:
+    #     session['lang'] = request.form['language-select']
+    # else:
+    #     session['lang'] = 'zh-tw'
+
+    return setup_home_template(notification_title, notification, False)
+
+
 @application.route('/', methods=['GET', 'POST'])
 def home():
     csrf_token = csrf.generate_csrf()
@@ -230,7 +254,7 @@ def forgot_pass():
     if db_getuser_email(email) is not None:
         create_reset_pass_email(email)
 
-    return jsonify(notification_title=translations['forgot password'][session['lang']],
+    return jsonify(notification_title=translations['check email'][session['lang']],
                    notification=translations['email sent to'][session['lang']])
 
 
@@ -268,7 +292,7 @@ def set_password():
 def resend():
     email = json.loads(request.data)['email'][0:-1]
     create_verify_email(email, translations)
-    return jsonify(notification_title=translations['verify account'][session['lang']],
+    return jsonify(notification_title=translations['check email'][session['lang']],
                    notification=translations['email sent to'][session['lang']])
 
 
@@ -299,7 +323,7 @@ def register():
                             # create the user
                             create_verify_email(email, translations)
                             db_new_user(register_form)
-                            return jsonify(notification_title=translations['verify account'][session['lang']],
+                            return jsonify(notification_title=translations['check email'][session['lang']],
                                            notification=translations['email sent to'][session['lang']])
                         else:
                             if user.is_active():
@@ -352,6 +376,7 @@ if __name__ == '__main__':
     application.register_blueprint(cq9_api)
     application.register_blueprint(template)
     application.register_blueprint(user)
+    application.register_blueprint(wallet)
 
     print('Socket: ' + socket.gethostname())
     # print('SQLALCHEMY_DATABASE_URI: ' + socket.gethostname())
