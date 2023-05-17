@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 // make sure you return the amount back to confirm
-function verify_txhash(txHash, chain) {
+function verify_txhash(txHash, chain, currency, amount) {
 
     $.ajax({
       url: "/verify_transaction",
@@ -23,10 +23,14 @@ function verify_txhash(txHash, chain) {
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({
         "txHash":txHash,
-        "chain":chain
+        "chain":chain,
+        "currency": currency,
+        "amount": amount,
+        "blockchain": blockchain,
+        "publicAddress": publicAddress,
       }),
       success: function(self) {
-        return amount_paid
+        send_alert('alert:wallet', self.amount + 'alert:txnSuccess')
       },
       error: function(e) {
         console.log(e);
@@ -100,6 +104,8 @@ async function send_contract(currency, chain, amount) {
     const value = amount_formatted.mul(web3.utils.toBN(10).pow(decimals));
 
     if (native_coin) {
+        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
+
         await window.ethereum.request({
               method: 'eth_sendTransaction',
               params: [
@@ -107,26 +113,30 @@ async function send_contract(currency, chain, amount) {
                   from: accounts[0], // The user's active address.
                   to: toAddress,
                   value: value.toString(16),
-                  gasPrice: '0x09184e72a000', // Customizable by the user during MetaMask confirmation.
-                  gas: '0x2710', // Customizable by the user during MetaMask confirmation.
+//                  gasPrice: '0x09184e72a000', // Customizable by the user during MetaMask confirmation.
+//                  gas: '0x2710', // Customizable by the user during MetaMask confirmation.
+                  maxPriorityFeePerGas: null,
+                  maxFeePerGas: null
                 },
               ],
             })
             .then((response) => {
                 console.log('txHash: ' + response);
 //                txHash = response
-                verify_txhash(response, chain)
+                verify_txhash(response, chain, currency, amount)
             })
             .catch((error) => {
                 metamaskError(error)
             });
     } else {
+//        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
+
         let contract = new web3.eth.Contract(ABI, contractAddress);
         await contract.methods.transfer(toAddress, value).send({from: fromAddress, maxPriorityFeePerGas: null, maxFeePerGas: null })
         .then((response) => {
             console.log('txHash: ' + response);
 //            txHash = response
-            verify_txhash(response, chain)
+            verify_txhash(response, chain, currency)
         })
         .catch((error) => {
             metamaskError(error)
@@ -161,10 +171,6 @@ async function send_transaction_request(fromAddress, amount, currency) {
         console.log('chains: ' + chain);
         break
     }
-
-//    const accounts = await ethereum.request({
-//        method: 'eth_requestAccounts',
-//      });
 
 // Process the payment and get the hash
     var txHash = ''

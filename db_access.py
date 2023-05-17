@@ -6,7 +6,23 @@ from sqlalchemy import desc, literal, column, text
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from db_classes import *
-from utils import get_timestamp
+from utils import get_timestamp, translations
+
+
+def db_verify_deposit_status(txHash):
+    query = DepositEntry().query.filter_by(txHash=txHash).first()
+    query.status = 'complete'
+    db.session.add(query)
+    db.session.commit()
+
+
+def db_create_deposit(email, details):
+    entry = DepositEntry(email, details['amount'], details['currency'], details['blockchain'],
+                         translations['txn:pending'][session['lang']], details['publicAddress'],
+                         details['txHash'])
+    entry.count = str(int(DepositEntry().query.order_by(desc('count')).first().count) + 1).zfill(8)
+    db.session.add(entry)
+    db.session.commit()
 
 
 def db_search_user(search_term):
@@ -29,6 +45,17 @@ def db_getuser_email(email):
 def db_getuser_username(username):
     query = UserEntry().query.filter_by(username=username).first()
     return query
+
+
+def db_add_balance(email, amount, currency):
+    query = UserEntry().query.filter_by(email=email).first()
+    if currency == 'eth':
+        query.balance_eth += amount
+    elif currency == 'usdt':
+        query.balance_usdt += amount
+
+    db.session.add(query)
+    db.session.commit()
 
 
 def db_get_bet(mtcode):
@@ -119,6 +146,12 @@ def db_new_login(login_form):
     dataclass_user.logged_in = True
     # dataclass_login = LoginEntry('{' + str(sid) + '}') # , '{' + dataclass_login + '}', '{' + NFT_ID + '}')
     dataclass_login = LoginEntry('', login_form.email.data)
+
+    if LoginEntry().query.count():
+        dataclass_login.count = str(int(LoginEntry().query.order_by(desc('count')).first().count) + 1).zfill(8)
+    else:
+        dataclass_login.count = '00000001'
+
     db.session.add(dataclass_login)
     db.session.commit()
 

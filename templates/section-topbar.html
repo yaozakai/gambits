@@ -39,7 +39,10 @@
                 <ul class="dropdown-menu multi-level green-text" aria-labelledby="top-bar-dropdown-button">
 
                     <li class="" id="balance" style="margin-left: 7px;">
-                          {{ current_user.balance }} {{ current_user.currency }}
+                          {{ current_user.balance_eth }} {{ current_user.currency }}
+                    </li>
+                    <li class="" id="balance" style="margin-left: 7px;">
+                          {{ current_user.balance_usdt }} {{ current_user.currency }}
                     </li>
                     <div class="dropdown-divider"></div>
 

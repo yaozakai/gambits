@@ -28,8 +28,9 @@ with app.app_context():
 class LoginEntry(db.Model):
     __tablename__ = 'login'
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
-    sid = db.Column(db.String(100), nullable=False, primary_key=True)
-    email = db.Column(db.String(100), primary_key=True)
+    sid = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100))
+    count = db.Column(db.String(10), primary_key=True)
 
     def __init__(self, sid='', email=''):
         if len(sid) == 0:
@@ -52,7 +53,8 @@ class UserEntry(UserMixin, db.Model):
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     password = db.Column(db.String(255))
     publicAddress = db.Column(db.String(255))
-    balance = db.Column(db.Float, default=0)
+    balance_eth = db.Column(db.Float, default=0)
+    balance_usdt = db.Column(db.Float, default=0)
     referral = db.Column(db.String(50))
     active = db.Column(db.Numeric(1), default=0)
     admin = db.Column(db.Numeric(1), default=0)
@@ -274,3 +276,25 @@ class RollinEntry(db.Model):
         self.create_time = create_time
         self.rake = rake
         self.gametype = gametype
+
+
+class DepositEntry(db.Model):
+    __tablename__ = 'deposits'
+    email = db.Column(db.String(100))
+    event_time = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
+    amount = db.Column(db.Numeric(36))
+    currency = db.Column(db.String(10))
+    blockchain = db.Column(db.String(50))
+    status = db.Column(db.String(255))
+    publicAddress = db.Column(db.String(100))
+    count = db.Column(db.String(36), primary_key=True)
+    txHash = db.Column(db.String(100), primary_key=True)
+
+    def __init__(self, email='', amount='', currency='', blockchain='', status='', publicAddress='', txHash=''):
+        self.email = email
+        self.amount = amount
+        self.currency = currency
+        self.blockchain = blockchain
+        self.status = status
+        self.publicAddress = publicAddress
+        self.txHash = txHash
