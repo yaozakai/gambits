@@ -115,7 +115,10 @@ async function send_contract(currency, chain, amount) {
     const value = amount_formatted.mul(web3.utils.toBN(10).pow(decimals));
 
     if (native_coin) {
-        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
+        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" }).catch((error) => {
+            metamaskError(error)
+        });
+
 
         await window.ethereum.request({
               method: 'eth_sendTransaction',
@@ -133,20 +136,27 @@ async function send_contract(currency, chain, amount) {
             })
             .then((response) => {
                 console.log('txHash: ' + response);
-//                txHash = response
+                $('#depositModal').modal('hide');
+                send_alert("success:waiting", "success:txnSent")
+
                 verify_txhash(response, chain, currency, amount, accounts[0])
             })
             .catch((error) => {
                 metamaskError(error)
             });
     } else {
-        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
+        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" }).catch((error) => {
+            metamaskError(error)
+        });
+
 
         let contract = new web3.eth.Contract(ABI, contractAddress);
         await contract.methods.transfer(toAddress, value).send({from: accounts[0], maxPriorityFeePerGas: null, maxFeePerGas: null })
         .then((response) => {
             console.log('txHash: ' + response);
-//            txHash = response
+            $('#depositModal').modal('hide');
+            send_alert("success:waiting", "success:txnSent")
+
             verify_txhash(response, chain, currency, amount, accounts[0])
         })
         .catch((error) => {
@@ -217,6 +227,9 @@ async function send_transaction_request(fromAddress, amount, currency) {
 //}
 
 function send_alert(title, msg, native=false) {
+    alert_box.classList.remove('show')
+
+    $('#deposit-spinner').hide();
     if (native) {
         alert_title.innerHTML = title
         alert_message.innerHTML = msg
@@ -246,6 +259,25 @@ function send_alert(title, msg, native=false) {
 }
 
 async function sendMoney() {
+
+//    if (window.ethereum) {
+//        await window.ethereum.request({ method: "eth_requestAccounts" })
+//        window.web3 = new Web3(window.ethereum)
+//        alert(web3.eth.getBalance)
+//    } else {
+//                send_alert("alert:incomplete", "alert:amount0")
+//
+//    }
+
+    // show the spinner
+//    $('#deposit-spinner').addClass('active');
+//    $('#deposit-spinner').height($('#money-send').height());
+//    $('#deposit-spinner').width($('#money-send').width());
+    $('#deposit-spinner').css({
+        'display': 'inline-block'
+    });
+
+
     // check the network is in their MetaMask
     var blockchain = document.getElementsByClassName("blockchain-button");
     var chain = ''
@@ -261,6 +293,19 @@ async function sendMoney() {
         }
     }
     // VALIDATION //
+    // check currency
+    var cryptos = document.getElementsByClassName("crypto-button");
+    var is_selected = false
+    for (var i = 0; i < cryptos.length; i++) {
+        if (cryptos.item(i).classList.contains('active')) {
+            is_selected = true
+        }
+    }
+    if (!is_selected) {
+        send_alert("alert:incomplete", "alert:selectCrypto")
+        return
+    }
+
     // if no chain then tell user
     if (chain.length == 0){
         send_alert("alert:incomplete", "alert:selectChain")

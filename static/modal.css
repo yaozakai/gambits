@@ -14,13 +14,36 @@
     width: 60px;
     /* align-content: center; */
 }
+.crypto-button.active {
+    background-image: radial-gradient(green 5%, green 35%, transparent 75%);
+}
 .crypto-button:hover {
     /* border: none; */
     /* box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25); */
 }
 
+.blockchain-button {
+    float:left;
+    border: none;
+    height: 60px;
+    width: 60px;
+}
+
+.blockchain-button.active {
+    background-image: radial-gradient(green 5%, green 35%, transparent 75%);
+}
+
 .blockchain-button:hover {
     background-color: none;
+}
+
+#deposit-spinner {
+    right: 0px;
+    position: absolute;
+    width: 100%;
+    background-color: black;
+    height: 100%;
+    display: none;
 }
 
 .crypto-icon {
@@ -31,7 +54,7 @@
     height: 70%;
 }
 
-#money-send {width: 100px;font-size: larger;font-weight: bold;/* color: #adff2e!important; *//* box-shadow: 0px 0px 7px 3px rgb(173 255 46); */}
+#money-send {/* width: 100px; */font-size: larger;font-weight: bold;/* color: #adff2e!important; *//* box-shadow: 0px 0px 7px 3px rgb(173 255 46); */}
 
 #deposit-amount {
     margin-right: 15px;
@@ -55,13 +78,6 @@
 .money-shortkey {
     display: flex;
     height: 3rem;
-}
-
-.blockchain-button {
-    float:left;
-    border: none;
-    height: 60px;
-    width: 60px;
 }
 
 .deposit-top-row {

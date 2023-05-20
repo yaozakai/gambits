@@ -98,8 +98,8 @@ body {
   /* background-color: #574b5f; */
   /* border-radius: 2rem; */
   /* background-image: radial-gradient(#36ff36, #36ff3600); */
-  box-shadow: none!important;
-  background-image: radial-gradient(red 5%, green 35%, transparent 75%);
+  /* box-shadow: none!important; */
+  /* background-image: radial-gradient(red 5%, green 35%, transparent 75%); */
 }
 
 .carousel-item > img {

@@ -350,6 +350,6 @@ if __name__ == '__main__':
     if socket.gethostname() == 'srv.gambits.vip':
         application.run(host='0.0.0.0')
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
-        # application.debug = True
+        application.debug = True
         application.run(host='192.168.1.107')
         # application.run(port=8000)

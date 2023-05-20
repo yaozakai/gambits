@@ -47,7 +47,6 @@
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-
             </div>
             <div class="modal-body" >
                 <div class="deposit-top-row">
@@ -91,14 +90,22 @@
                     <input type="number" class="form-control" id="deposit-amount">
                     <div class="btn-group" role="group">
                         <button type="button" id="money-send" class="btn btn-outline-success symbol-text">{{ translations['send money'][session['lang']] }}</button>
+                        <div class="btn btn-outline-success btn-lg" id="deposit-spinner">
+                            <div class="spinner-border text-success" role="status" style="position: relative;">
+                                <img src="{{ root_path }}static/logos/favicon.png" style="height: 25px;">
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
+<!--                <div class="btn btn-outline-success btn-lg login-reg-spinner" id="login-spinner">-->
+<!--                    <div class="spinner-border text-success" role="status">-->
+<!--                        <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
-                <div class="spinner-border text-success" role="status">
-                    <img src="{{ root_path }}static/logos/favicon.png" class="main-logo">
-                </div>
             </div>
         </div>
     </div>
@@ -106,6 +113,23 @@
 
 <script>
 
+$('#depositModal').on('show.bs.modal', function(){
+    var crypto_buttons = document.getElementsByClassName('crypto-button')
+    for (var crypto_button of crypto_buttons) {
+        crypto_button.classList.remove('active')
+    }
+    var blockchain_buttons = document.getElementsByClassName('blockchain-button')
+    for (var blockchain_button of blockchain_buttons) {
+        blockchain_button.classList.remove('active')
+
+    }
+
+    $("#deposit-amount").val("");
+    $("#crypto-text").html("🥦");
+    $("#blockchain-text").html("🍇");
+    $('#deposit-spinner').hide();
+
+});
 
 var blockchain_text = document.getElementById('blockchain-text')
 var crypto_text = document.getElementById('crypto-text')
@@ -136,17 +160,14 @@ $('.crypto-button').on('click', function(){
     var cryptos = $(".crypto-button")
     for (var token of cryptos) {
         if ( token.id != button_clicked.id ) {
-<!--            token.style.opacity = "0.5"-->
             token.classList.remove('active')
         } else {
-<!--            token.style.opacity = "1"-->
             token.classList.add('active')
             crypto_text.innerHTML = token_name.toUpperCase()
         }
     }
 
     // switch the shortcut keys
-
     var adds = document.getElementsByClassName("add-to-total");
     if (token_name == "eth") {
         adds.item(0).innerHTML = "+0.001"
@@ -171,8 +192,6 @@ $('.add-to-total').on('click', function(){
     const button_clicked = document.getElementById($(this).attr("id"))
     deposit_amount = document.getElementById('deposit-amount')
 
-<!--    alert(button_clicked.value)-->
-
     amount = parseFloat(button_clicked.innerHTML.split('+')[1])
     console.log("button clicked: %f", amount);
 
@@ -189,428 +208,415 @@ $('.add-to-total').on('click', function(){
 
 </script>
 
-
 <!-- forgot password -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="forgotPasswordModalLabel">{{ translations['forgot password'][session['lang']] }}</h3>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="forgotPasswordModalLabel">{{ translations['forgot password'][session['lang']] }}</h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
 
-                </div>
-                <div class="modal-body">
-                    <div class='green-text-outline'>{{ translations['enter your email to update password'][session['lang']] }}</div>
+            </div>
+            <div class="modal-body">
+                <div class='green-text-outline'>{{ translations['enter your email to update password'][session['lang']] }}</div>
 
-                    <input type="text" id="forgotPassEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
-                    <br>
-                    <button type="button" id="forgotEmailSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['send email'][session['lang']] }}</button>
-                </div>
+                <input type="text" id="forgotPassEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                <br>
+                <button type="button" id="forgotEmailSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['send email'][session['lang']] }}</button>
             </div>
         </div>
     </div>
+</div>
 <!-- forgot password script -->
-    <script>
+<script>
 
-        $(document).ready(function(){
-            $('#forgotPasswordModal').on('show.bs.modal', function(){
-                $("#forgotPassEmail").val('');
-            });
+    $(document).ready(function(){
+        $('#forgotPasswordModal').on('show.bs.modal', function(){
+            $("#forgotPassEmail").val('');
+        });
 
-            $('#forgotEmailSend').on('click', function(){
-                $.ajax({
-                      url: "/forgot_pass",
-                      type: "post",
-                      dataType: "json",
-                      contentType: "application/json; charset=UTF-8",
-                      data: JSON.stringify({
-                        "email":document.getElementById("forgotPassEmail").value,
-                      }),
-                      success: function(self) {
-                        if (typeof self.notification != 'undefined'){
-                            $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                            $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+        $('#forgotEmailSend').on('click', function(){
+            $.ajax({
+                  url: "/forgot_pass",
+                  type: "post",
+                  dataType: "json",
+                  contentType: "application/json; charset=UTF-8",
+                  data: JSON.stringify({
+                    "email":document.getElementById("forgotPassEmail").value,
+                  }),
+                  success: function(self) {
+                    if (typeof self.notification != 'undefined'){
+                        $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                        $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
 
-                            $('#notificationModal').modal('show');
-                            $('#forgotPasswordModal').modal('hide');
-                        }
-                      },
-                      error: function(e) {
-                        console.log(e);
-                      }
-                });
+                        $('#notificationModal').modal('show');
+                        $('#forgotPasswordModal').modal('hide');
+                    }
+                  },
+                  error: function(e) {
+                    console.log(e);
+                  }
             });
         });
-    </script>
-
+    });
+</script>
 
 <!-- Login -->
-    {% if not current_user.is_authenticated %}
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <script>
-                $(document).ready(function(){
-                  $('#loginModal').on('show.bs.modal', function(){
-                     $(".error").html('');
-                     $("#login-email").val("");
-                     $("#login-password").val("");
-                     $("#login-rememberme").prop("checked", false);
-                     $('#login-spinner').hide();
-
-                     grecaptcha.reset(widgetId1);
-                     document.getElementById('login-email').placeholder = "";
-                     document.getElementById('login-password').placeholder = "";
-                  });
-                });
-            </script>
-
-            <div class="modal-dialog modal-dialog-centered" role="document" id="loginDialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="loginModalLabel">{{ translations['log in'][lang] }}</h3>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <span class="modal-body">
-
-                        <input type="hidden" name="csrf_token" value="{{ login_form.csrf_token.current_token }}">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
-
-                            {{ login_form.email(id_="login-email", class_="form-control") }}
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
-                            {{ login_form.password(id_="login-password", class_="form-control") }}
-                        </div>
-
-                        <span class="green-text-outline">
-                            {{ login_form.rememberme(id_="login-rememberme") }}
-                            <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>
-                            <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
-                        </span>
-                        <div id="login-recaptcha"></div>
-                        {{ login_form.hidden_tag() }}
-                        <span>
-                            <div>
-                                <div class="btn btn-outline-success btn-lg login-reg-spinner" id="login-spinner">
-                                    <div class="spinner-border text-success" role="status">
-                                        <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
-                                    </div>
-                                </div>
-                                {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
-                                <div class="login-with-text green-text text-sm">...{{ translations['or log in with'][session['lang']] }}:</div>
-                                <button class="btn btn-outline-success btn-lg btn-transparent" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>
-                            </div>
-                            <div class='error'></div>
-
-                        </span>
-                    </span>
-                </div>
-            </div>
-            <script>
-                $(document).ready(function(){
-                    $('#loginbtn').on('click', function(){
-                        $('#login-spinner').height($('#loginbtn').height());
-                        $('#login-spinner').width($('#loginbtn').width());
-                        $('#login-spinner').css({
-                            'display': 'inline-flex'
-                        });
-
-                        event.preventDefault();
-                        var email = $("#login-email").val();
-                        var password = $("#login-password").val();
-                        var csrf_token = $("#csrf_token").val();
-                        var rememberme = document.querySelector('#login-rememberme').checked;
-                        var recaptcha = grecaptcha.getResponse();
-                        $.ajax({
-                            url: "/login",
-                            type: "post",
-                            dataType: "json",
-                            contentType: "application/json; charset=UTF-8",
-                            data: JSON.stringify({
-                                "email":email,
-                                "password":password,
-                                "rememberme":rememberme,
-                                "recaptcha":recaptcha,
-                                "csrf_token":csrf_token
-                            }),
-                            success: function(self) {
-                                if (typeof self.error != 'undefined'){
-                                    $('#login-spinner').hide();
-                                    if (typeof self.resend_email != 'undefined'){
-                                        $(".error").html(self.error.toString() + '<br><button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">' + self.link_text + '</button>');
-                                    } else {
-                                        $(".error").html('<p>'+self.error.toString()+'</p>');
-                                    }
-                                } else {
-                                    location.href = "{{ url_for('home') }}"
-                                }
-
-                            },
-                            error: function(e) {
-                                console.log(e);
-                            }
-                        });
-                    });
-                });
-                $(document).on('click', '#resendEmail', function(self){
-                    event.preventDefault();
-                    $('#registerModal').modal('hide');
-                    $('#loginModal').modal('hide');
-                    $.ajax({
-                      url: "/resend",
-                      type: "post",
-                      dataType: "json",
-                      contentType: "application/json; charset=UTF-8",
-                      data: JSON.stringify({
-                        "email":$('#resendEmail').val()
-                      }),
-                      success: function(self) {
-                        if (typeof self.notification != 'undefined'){
-                            $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                            $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
-
-                            $('#notificationModal').modal('show');
-
-                        }
-                      },
-                      error: function(e) {
-                        console.log(e);
-                      }
-                    });
-                });
-            </script>
-        </div>
-
-
-<!-- Register -->
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-            <script>
-                $(document).ready(function(){
-                  $('#registerModal').on('show.bs.modal', function(){
-                     $(".error").html('');
-                     $("#reg-email").val("");
-                     $("#reg-password").val("");
-                     $("#reg-referral").val("");
-                     $("#reg-username").val("");
-                     $('#reg-spinner').hide();
-
-                     grecaptcha.reset(widgetId2);
-                  });
-                });
-            </script>
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="registerModalLabel">{{ translations['register'][lang] }}</h3>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-
-                    </div>
-<!--                    <div>-->
-<!--                        <button type="button" class="btn btn-link">Re-send verification email</button>-->
-<!--                    </div>-->
-                    <div class="modal-body">
-                        {{ register_form.csrf_token }}
-                        <div class="input-group mb-3">
-                          <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
-                          {{ register_form.email(id_="reg-email", class_="form-control") }}
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text whiteFont">{{ translations['username'][lang] }}</span>
-                            {{ register_form.username(id_="reg-username", class_="form-control") }}
-                        </div>
-                        <div class="input-group mb-3">
-                          <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
-                          {{ register_form.password(id_="reg-password", class_="form-control") }}
-                        </div>
-                        <div class="input-group mb-3">
-                          <span class="input-group-text whiteFont">{{ translations['bonus'][lang] }}</span>
-                          {{ register_form.referral(id_="reg-referral", class_="form-control") }}
-                        </div>
-                        <div id="reg-recaptcha"></div>
-                        {{ register_form.hidden_tag() }}
-                        <span>
-                            <div>
-                                <div class="btn btn-outline-success btn-lg login-reg-spinner" id="reg-spinner">
-                                    <div class="spinner-border text-success" role="status">
-                                        <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
-                                    </div>
-                                </div>
-                                {{ register_form.register(class_="btn btn-outline-success btn-lg", style_="float: left;", id_="registerbtn") }}
-                            </div>
-                            <div class='error'></div>
-                        </span>
-
-                    </div>
-                </div>
-                <script>
+{% if not current_user.is_authenticated %}
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <script>
             $(document).ready(function(){
+              $('#loginModal').on('show.bs.modal', function(){
+                 $(".error").html('');
+                 $("#login-email").val("");
+                 $("#login-password").val("");
+                 $("#login-rememberme").prop("checked", false);
+                 $('#login-spinner').hide();
 
-                $('#registerbtn').on('click', function(self){
+                 grecaptcha.reset(widgetId1);
+                 document.getElementById('login-email').placeholder = "";
+                 document.getElementById('login-password').placeholder = "";
+              });
+            });
+        </script>
 
-                    $('#reg-spinner').height($('#registerbtn').height());
-                    $('#reg-spinner').width($('#registerbtn').width());
-                    $('#reg-spinner').css({
+        <div class="modal-dialog modal-dialog-centered" role="document" id="loginDialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="loginModalLabel">{{ translations['log in'][lang] }}</h3>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <span class="modal-body">
+
+                    <input type="hidden" name="csrf_token" value="{{ login_form.csrf_token.current_token }}">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
+
+                        {{ login_form.email(id_="login-email", class_="form-control") }}
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
+                        {{ login_form.password(id_="login-password", class_="form-control") }}
+                    </div>
+
+                    <span class="green-text-outline">
+                        {{ login_form.rememberme(id_="login-rememberme") }}
+                        <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>
+                        <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
+                    </span>
+                    <div id="login-recaptcha"></div>
+                    {{ login_form.hidden_tag() }}
+                    <span>
+                        <div>
+                            <div class="btn btn-outline-success btn-lg login-reg-spinner" id="login-spinner">
+                                <div class="spinner-border text-success" role="status">
+                                    <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
+                                </div>
+                            </div>
+                            {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
+                            <div class="login-with-text green-text text-sm">...{{ translations['or log in with'][session['lang']] }}:</div>
+                            <button class="btn btn-outline-success btn-lg btn-transparent" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>
+                        </div>
+                        <div class='error'></div>
+
+                    </span>
+                </span>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+                $('#loginbtn').on('click', function(){
+                    $('#login-spinner').height($('#loginbtn').height());
+                    $('#login-spinner').width($('#loginbtn').width());
+                    $('#login-spinner').css({
                         'display': 'inline-flex'
                     });
 
                     event.preventDefault();
-
-                    var email = $("#reg-email").val();
-                    var username = $("#reg-username").val();
-                    var password = $("#reg-password").val();
-                    var referral = $("#reg-referral").val();
-                    var recaptcha = grecaptcha.getResponse(widgetId2);
-
+                    var email = $("#login-email").val();
+                    var password = $("#login-password").val();
+                    var csrf_token = $("#csrf_token").val();
+                    var rememberme = document.querySelector('#login-rememberme').checked;
+                    var recaptcha = grecaptcha.getResponse();
                     $.ajax({
-                      url: "/register",
-                      type: "post",
-                      dataType: "json",
-                      contentType: "application/json; charset=UTF-8",
-                      data: JSON.stringify({
-                        "email":email,
-                        "password":password,
-                        "username":username,
-                        "referral":referral,
-                        "recaptcha":recaptcha
-                      }),
-                      success: function(self) {
-
-                        if (typeof self.resend_email != 'undefined'){
-                            $('#reg-spinner').hide();
-                            if (typeof self.link_text != 'undefined'){
-                                $(".error").html(self.error.toString()+'<br><button id=\"resendEmail\" class=\"modal-error-link\" value=\"' + self.resend_email + '/">' + self.link_text.toString() + '</button>');
-                            } else {
-                                $(".error").html(self.error.toString());
-                            }
-                        } else {
+                        url: "/login",
+                        type: "post",
+                        dataType: "json",
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({
+                            "email":email,
+                            "password":password,
+                            "rememberme":rememberme,
+                            "recaptcha":recaptcha,
+                            "csrf_token":csrf_token
+                        }),
+                        success: function(self) {
                             if (typeof self.error != 'undefined'){
-                                $('#reg-spinner').hide();
-                                $(".error").html('<p>'+self.error.toString()+'</p>');
-                            } else if (typeof self.notification != 'undefined'){
-                                $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                                $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
-                                $('#notificationModal').modal('show');
-                                $('#registerModal').modal('hide');
+                                $('#login-spinner').hide();
+                                if (typeof self.resend_email != 'undefined'){
+                                    $(".error").html(self.error.toString() + '<br><button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">' + self.link_text + '</button>');
+                                } else {
+                                    $(".error").html('<p>'+self.error.toString()+'</p>');
+                                }
+                            } else {
+                                location.href = "{{ url_for('home') }}"
                             }
-                        }
 
-                      },
-                      error: function(e) {
-                        console.log(e);
-                      }
+                        },
+                        error: function(e) {
+                            console.log(e);
+                        }
                     });
                 });
             });
-            grecaptcha.ready(function() {
-                  widgetId1 = grecaptcha.render("login-recaptcha", {
-                          "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
-                          'theme' : 'dark'
-                  });
-                  widgetId2 = grecaptcha.render("reg-recaptcha", {
-                          'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
-                          'theme' : 'dark'
-                  });
-                });
-        </script>
-            </div>
-        </div>
-    {% endif %}
-
-
-<!-- Notification -->
-    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="notificationModalLabel"><div class="notification_title">{{ notification_title }}</div></h3>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class='notification green-text-outline'>{{ notification }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-<!-- Reset Password -->
-    <div class="modal fade" id="resetPassModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="resetPassModalLabel"><div class="resetPass_title">Reset password</div></h3>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class='notification green-text-outline'>Enter a new password</div>
-
-                    <input type="password" id="newPassword" class="form-control" placeholder="Password" aria-label="Email" aria-describedby="basic-addon1">
-                    <br>
-                    <button type="button" id="newPasswordSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">Set password</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% if notification_popup == 'True' %}
-        <script language="JavaScript" type="text/javascript">
-            $(document).ready(function(){
-                $('#notificationModal').modal('show');
-            });
-        </script>
-    {% elif reset_pass == 'True' %}
-        <script language="JavaScript" type="text/javascript">
-            $(document).ready(function(){
-                $('#resetPassModal').modal('show');
-
-            });
-
-            $('#newPasswordSend').on('click', function(){
+            $(document).on('click', '#resendEmail', function(self){
+                event.preventDefault();
+                $('#registerModal').modal('hide');
+                $('#loginModal').modal('hide');
                 $.ajax({
-                      url: "/set_password",
-                      type: "post",
-                      dataType: "json",
-                      contentType: "application/json; charset=UTF-8",
-                      data: JSON.stringify({
-                        "password":document.getElementById("newPassword").value,
-                      }),
-                      success: function(self) {
-
-                        var xhr = new XMLHttpRequest();
-                        xhr.open("POST", "{{ url_for('home') }}", true);
-                        xhr.setRequestHeader('Content-Type', 'application/json');
-                        xhr.send(JSON.stringify({
-                            notification: 'Password has been updated.  You may log in now!',
-                            notification_title: 'Reset password'
-                        }));
-                        $(".notification").html('<p>'+self.notification+'</p>');
-                        $(".notification_title").html('<p>'+self.notification_title+'</p>');
+                  url: "/resend",
+                  type: "post",
+                  dataType: "json",
+                  contentType: "application/json; charset=UTF-8",
+                  data: JSON.stringify({
+                    "email":$('#resendEmail').val()
+                  }),
+                  success: function(self) {
+                    if (typeof self.notification != 'undefined'){
+                        $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                        $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
 
                         $('#notificationModal').modal('show');
-                      },
 
+                    }
+                  },
+                  error: function(e) {
+                    console.log(e);
+                  }
+                });
+            });
+        </script>
+</div>
 
-                      error: function(e) {
-                        console.log(e);
-                      }
+<!-- Register -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <script>
+            $(document).ready(function(){
+              $('#registerModal').on('show.bs.modal', function(){
+                 $(".error").html('');
+                 $("#reg-email").val("");
+                 $("#reg-password").val("");
+                 $("#reg-referral").val("");
+                 $("#reg-username").val("");
+                 $('#reg-spinner').hide();
+
+                 grecaptcha.reset(widgetId2);
+              });
+            });
+        </script>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="registerModalLabel">{{ translations['register'][lang] }}</h3>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+<!--                    <div>-->
+<!--                        <button type="button" class="btn btn-link">Re-send verification email</button>-->
+<!--                    </div>-->
+                <div class="modal-body">
+                    {{ register_form.csrf_token }}
+                    <div class="input-group mb-3">
+                      <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
+                      {{ register_form.email(id_="reg-email", class_="form-control") }}
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text whiteFont">{{ translations['username'][lang] }}</span>
+                        {{ register_form.username(id_="reg-username", class_="form-control") }}
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
+                      {{ register_form.password(id_="reg-password", class_="form-control") }}
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text whiteFont">{{ translations['bonus'][lang] }}</span>
+                      {{ register_form.referral(id_="reg-referral", class_="form-control") }}
+                    </div>
+                    <div id="reg-recaptcha"></div>
+                    {{ register_form.hidden_tag() }}
+                    <span>
+                        <div>
+                            <div class="btn btn-outline-success btn-lg login-reg-spinner" id="reg-spinner">
+                                <div class="spinner-border text-success" role="status">
+                                    <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
+                                </div>
+                            </div>
+                            {{ register_form.register(class_="btn btn-outline-success btn-lg", style_="float: left;", id_="registerbtn") }}
+                        </div>
+                        <div class='error'></div>
+                    </span>
+
+                </div>
+            </div>
+            <script>
+        $(document).ready(function(){
+
+            $('#registerbtn').on('click', function(self){
+
+                $('#reg-spinner').height($('#registerbtn').height());
+                $('#reg-spinner').width($('#registerbtn').width());
+                $('#reg-spinner').css({
+                    'display': 'inline-flex'
                 });
 
+                event.preventDefault();
+
+                var email = $("#reg-email").val();
+                var username = $("#reg-username").val();
+                var password = $("#reg-password").val();
+                var referral = $("#reg-referral").val();
+                var recaptcha = grecaptcha.getResponse(widgetId2);
+
+                $.ajax({
+                  url: "/register",
+                  type: "post",
+                  dataType: "json",
+                  contentType: "application/json; charset=UTF-8",
+                  data: JSON.stringify({
+                    "email":email,
+                    "password":password,
+                    "username":username,
+                    "referral":referral,
+                    "recaptcha":recaptcha
+                  }),
+                  success: function(self) {
+
+                    if (typeof self.resend_email != 'undefined'){
+                        $('#reg-spinner').hide();
+                        if (typeof self.link_text != 'undefined'){
+                            $(".error").html(self.error.toString()+'<br><button id=\"resendEmail\" class=\"modal-error-link\" value=\"' + self.resend_email + '/">' + self.link_text.toString() + '</button>');
+                        } else {
+                            $(".error").html(self.error.toString());
+                        }
+                    } else {
+                        if (typeof self.error != 'undefined'){
+                            $('#reg-spinner').hide();
+                            $(".error").html('<p>'+self.error.toString()+'</p>');
+                        } else if (typeof self.notification != 'undefined'){
+                            $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                            $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+                            $('#notificationModal').modal('show');
+                            $('#registerModal').modal('hide');
+                        }
+                    }
+
+                  },
+                  error: function(e) {
+                    console.log(e);
+                  }
+                });
             });
-
-
-
-        </script>
+        });
+        grecaptcha.ready(function() {
+              widgetId1 = grecaptcha.render("login-recaptcha", {
+                      "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
+                      'theme' : 'dark'
+              });
+              widgetId2 = grecaptcha.render("reg-recaptcha", {
+                      'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
+                      'theme' : 'dark'
+              });
+            });
+    </script>
+        </div>
+    </div>
 {% endif %}
 
+<!-- Notification -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="notificationModalLabel"><div class="notification_title">{{ notification_title }}</div></h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class='notification green-text-outline'>{{ notification }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reset Password -->
+<div class="modal fade" id="resetPassModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="resetPassModalLabel"><div class="resetPass_title">Reset password</div></h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class='notification green-text-outline'>Enter a new password</div>
+
+                <input type="password" id="newPassword" class="form-control" placeholder="Password" aria-label="Email" aria-describedby="basic-addon1">
+                <br>
+                <button type="button" id="newPasswordSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">Set password</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% if notification_popup == 'True' %}
+<script language="JavaScript" type="text/javascript">
+    $(document).ready(function(){
+        $('#notificationModal').modal('show');
+    });
+</script>
+{% elif reset_pass == 'True' %}
+<script language="JavaScript" type="text/javascript">
+    $(document).ready(function(){
+        $('#resetPassModal').modal('show');
+    });
+
+    $('#newPasswordSend').on('click', function(){
+        $.ajax({
+              url: "/set_password",
+              type: "post",
+              dataType: "json",
+              contentType: "application/json; charset=UTF-8",
+              data: JSON.stringify({
+                "password":document.getElementById("newPassword").value,
+              }),
+              success: function(self) {
+
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "{{ url_for('home') }}", true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({
+                    notification: 'Password has been updated.  You may log in now!',
+                    notification_title: 'Reset password'
+                }));
+                $(".notification").html('<p>'+self.notification+'</p>');
+                $(".notification_title").html('<p>'+self.notification_title+'</p>');
+
+                $('#notificationModal').modal('show');
+              },
+              error: function(e) {
+                console.log(e);
+              }
+        });
+    });
+</script>
+{% endif %}
 
 <script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_modal.js"></script>
