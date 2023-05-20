@@ -30,7 +30,7 @@ function verify_txhash(txHash, chain, currency, amount, fromAddress) {
       }),
       success: function(response) {
         alert_title.innerHTML = response.notification_title
-        alert_message.innerHTML = response.amount + ' ' + response.notification
+        alert_message.innerHTML = response.amount + ' <span style="font-size: small;">' + response.currency.toUpperCase() + '</span> ' + response.notification
 
         if (response.alert_type == 'success') {
             alert_box.classList.add('alert-success')
@@ -134,12 +134,24 @@ async function send_contract(currency, chain, amount) {
                 },
               ],
             })
-            .then((response) => {
-                console.log('txHash: ' + response);
+            .then((txHash) => {
+                console.log('txHash: ' + txHash);
                 $('#depositModal').modal('hide');
-                send_alert("success:waiting", "success:txnSent")
+                $.ajax({
+                  url: "/translate",
+                  type: "post",
+                  dataType: "json",
+                  contentType: "application/json; charset=UTF-8",
+                  data: JSON.stringify({
+                    "phrase":'alert:clickHere',
+                  }),
+                  success: function(response) {
+                    let appendix = '<button type="button" class="btn btn-link">' + response.phrase + '</button>'
+                    send_alert("success:waiting", "success:txnSent", false, appendix)
 
-                verify_txhash(response, chain, currency, amount, accounts[0])
+                    verify_txhash(txHash, chain, currency, amount, accounts[0])
+                  }
+                });
             })
             .catch((error) => {
                 metamaskError(error)
@@ -152,12 +164,12 @@ async function send_contract(currency, chain, amount) {
 
         let contract = new web3.eth.Contract(ABI, contractAddress);
         await contract.methods.transfer(toAddress, value).send({from: accounts[0], maxPriorityFeePerGas: null, maxFeePerGas: null })
-        .then((response) => {
-            console.log('txHash: ' + response);
+        .then((txHash) => {
+            console.log('txHash: ' + txHash);
             $('#depositModal').modal('hide');
             send_alert("success:waiting", "success:txnSent")
 
-            verify_txhash(response, chain, currency, amount, accounts[0])
+            verify_txhash(txHash, chain, currency, amount, accounts[0])
         })
         .catch((error) => {
             metamaskError(error)
@@ -226,13 +238,12 @@ async function send_transaction_request(fromAddress, amount, currency) {
 //
 //}
 
-function send_alert(title, msg, native=false) {
+function send_alert(title, msg, native=false, msg_native='') {
     alert_box.classList.remove('show')
-
     $('#deposit-spinner').hide();
     if (native) {
         alert_title.innerHTML = title
-        alert_message.innerHTML = msg
+        alert_message.innerHTML = msg + msg_native
         alert_box.classList.add('show')
         return
     } else {
@@ -246,8 +257,12 @@ function send_alert(title, msg, native=false) {
             "msg":msg
           }),
           success: function(response) {
-            alert_title.innerHTML = response.title
-            alert_message.innerHTML = response.msg
+            if (msg == 'success:txnSent') {
+                alert_title.innerHTML = response.title + '...<div class="spinner-border show" style="height: 15px;width: 15px;"></div>'
+            } else {
+                alert_title.innerHTML = response.title
+            }
+            alert_message.innerHTML = response.msg + msg_native
             alert_box.classList.add('show')
             return
           },
@@ -256,6 +271,8 @@ function send_alert(title, msg, native=false) {
           }
         });
     }
+
+
 }
 
 async function sendMoney() {

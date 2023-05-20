@@ -48,9 +48,10 @@ def verify_transaction():
 
     # db_create_deposit(session['email'], request.json)
     # db_create_deposit(email, request.json)
-    deposit = DepositEntry(email, request.json['amount'], request.json['currency'], request.json['chain'],
+    deposit = DepositEntry(email, float(request.json['amount']), request.json['currency'], request.json['chain'],
                            translations['txn:pending'][session['lang']], request.json['fromAddress'],
                            request.json['txHash'])
+    currency = request.json['currency']
 
     while run:
         if count < 6:
@@ -73,7 +74,7 @@ def verify_transaction():
         notification = translations['alert:timeout'][session['lang']]
         alert_type = 'danger'
 
-    return jsonify(amount=amount, alert_type=alert_type, notification_title=notification_title, notification=notification)
+    return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title, notification=notification)
 
 
 @application.route("/logout", methods=['GET', 'POST'])
@@ -153,7 +154,17 @@ def launch():
         return jsonify(link=link)
 
 
+@application.route('/translate', methods=['POST'])
+@login_required
+def translate():
+    if 'phrase' in request.json:
+        phrase = translations[request.json['phrase']][session['lang']]
+
+    return jsonify(phrase=phrase)
+
+
 @application.route('/translate_alert', methods=['POST'])
+@login_required
 def translate_alert():
     msg = request.json['msg']
     title = request.json['title']
