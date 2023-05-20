@@ -9,20 +9,20 @@ from db_classes import *
 from utils import get_timestamp, translations
 
 
-def db_verify_deposit_status(txHash):
-    query = DepositEntry().query.filter_by(txHash=txHash).first()
-    query.status = 'complete'
-    db.session.add(query)
-    db.session.commit()
-
-
-def db_create_deposit(email, details):
-    entry = DepositEntry(email, details['amount'], details['currency'], details['blockchain'],
-                         translations['txn:pending'][session['lang']], details['publicAddress'],
-                         details['txHash'])
-    entry.count = str(int(DepositEntry().query.order_by(desc('count')).first().count) + 1).zfill(8)
-    db.session.add(entry)
-    db.session.commit()
+# def db_set_deposit_status_complete(deposit_data):
+#     query = DepositEntry().query.filter_by(txHash=deposit_data['txHash']).first()
+#     query.status = 'complete'
+#     db.session.add(query)
+#     db.session.commit()
+#
+#
+# def db_create_deposit(email, details):
+#     entry = DepositEntry(email, details['amount'], details['currency'], details['chain'],
+#                          translations['txn:pending'][session['lang']], details['fromAddress'],
+#                          details['txHash'])
+#     entry.count = str(int(DepositEntry().query.order_by(desc('count')).first().count) + 1).zfill(8)
+#     db.session.add(entry)
+#     db.session.commit()
 
 
 def db_search_user(search_term):
@@ -129,14 +129,14 @@ def db_get_user_from_id(user_id):
     return UserEntry().query.filter_by(user_id=user_id).first()
 
 
-def db_set_public_address(public_address):
-    user = UserEntry().query.filter_by(user_id=session['_user_id']).first()
-    if user is None:
-        return False
-    else:
-        user.publicAddress = public_address
-        db.session.commit()
-        return user
+# def db_set_public_address(public_address):
+#     user = UserEntry().query.filter_by(user_id=session['_user_id']).first()
+#     if user is None:
+#         return False
+#     else:
+#         user.publicAddress = public_address
+#         db.session.commit()
+#         return user
 
 
 def db_new_login(login_form):

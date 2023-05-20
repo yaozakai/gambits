@@ -4,6 +4,7 @@ import pytz
 from flask_login import UserMixin
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import desc
 from sqlalchemy.dialects.postgresql import ARRAY
 from config import app
 
@@ -52,7 +53,7 @@ class UserEntry(UserMixin, db.Model):
     username = db.Column(db.String(50), primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     password = db.Column(db.String(255))
-    publicAddress = db.Column(db.String(255))
+    # publicAddress = db.Column(db.String(255))
     balance_eth = db.Column(db.Float, default=0)
     balance_usdt = db.Column(db.Float, default=0)
     referral = db.Column(db.String(50))
@@ -117,6 +118,15 @@ class UserEntry(UserMixin, db.Model):
                 "active": self.active,
                 "is_anonymous": self.is_anonymous,
                 "logged_in": self.logged_in}
+
+    def add_balance(self, amount, currency):
+        if currency == 'eth':
+            self.balance_eth += amount
+        elif currency == 'usdt':
+            self.balance_usdt += amount
+
+        db.session.add(self)
+        db.session.commit()
 
 
 class BetEntry(db.Model):
@@ -281,20 +291,27 @@ class RollinEntry(db.Model):
 class DepositEntry(db.Model):
     __tablename__ = 'deposits'
     email = db.Column(db.String(100))
-    event_time = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
+    created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     amount = db.Column(db.Numeric(36))
     currency = db.Column(db.String(10))
     blockchain = db.Column(db.String(50))
     status = db.Column(db.String(255))
-    publicAddress = db.Column(db.String(100))
-    count = db.Column(db.String(36), primary_key=True)
+    fromAddress = db.Column(db.String(100))
+    # count = db.Column(db.String(36), primary_key=True)
     txHash = db.Column(db.String(100), primary_key=True)
 
-    def __init__(self, email='', amount='', currency='', blockchain='', status='', publicAddress='', txHash=''):
+    def __init__(self, email='', amount='', currency='', blockchain='', status='', fromAddress='', txHash=''):
         self.email = email
         self.amount = amount
         self.currency = currency
         self.blockchain = blockchain
         self.status = status
-        self.publicAddress = publicAddress
+        self.fromAddress = fromAddress
         self.txHash = txHash
+        db.session.add(self)
+        db.session.commit()
+
+    def mark_complete(self):
+        self.status = 'complete'
+        db.session.add(self)
+        db.session.commit()

@@ -5,8 +5,8 @@ connect_wallet_button.addEventListener('click', connect)
 
 
 var usernameField = document.getElementById('username-field')
-var addressField = document.getElementById('address-field')
-var addressFieldSub = document.getElementById('address-field-sub')
+//var addressField = document.getElementById('address-field')
+//var addressFieldSub = document.getElementById('address-field-sub')
 
 
 //window.addEventListener("DOMContentLoaded", (event) => {
@@ -40,12 +40,12 @@ async function connect() {
             "address":accounts[0]['caveats'][0]['value'][0]
           }),
           success: function(response) {
-            addressField.style.width = usernameField.clientWidth - 20
-            addressField.style.height = usernameField.clientHeight
-            addressFieldSub.innerHTML = response.address
+//            addressField.style.width = usernameField.clientWidth - 20
+//            addressField.style.height = usernameField.clientHeight
+//            addressFieldSub.innerHTML = response.address
 
-            usernameField.classList.add('text-animated-username')
-            addressField.classList.add('text-animated-address')
+//            usernameField.classList.add('text-animated-username')
+//            addressField.classList.add('text-animated-address')
 
           },
           error: function(e) {

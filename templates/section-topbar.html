@@ -16,11 +16,6 @@
         <!-- start RIGHT SIDE BAR -->
         <div class="top-bar-right-side">
             {% if current_user.is_authenticated %}
-                {% if session['admin'] %}
-                    <!-- start SEARCH button -->
-                    <a class="btn btn-outline-success" href="/search"><i class="bi bi-search"></i></a>
-                {% endif %}
-
             <!-- start GREETING -->
             <div class="green-text" style="margin-right: 8px;">
               ♥️🙏 {{ translations['hi'][session['lang']] }}
@@ -32,17 +27,17 @@
                 <!-- start DROPDOWN button -->
                 <button class="btn btn-outline-success dropdown-toggle" id="top-bar-dropdown-button" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="top-dropdown-button" id="username-field">{{ current_user.username }}</div>
-                    <div class="top-dropdown-button" id="address-field"><i class="bi bi-wallet2"></i> <div id="address-field-sub">{{ current_user.publicAddress }}</div></div>
+<!--                    <div class="top-dropdown-button" id="address-field"><i class="bi bi-wallet2"></i> <div id="address-field-sub">{{ current_user.publicAddress }}</div></div>-->
                     <span class="caret"></span>
                 </button>
 
                 <ul class="dropdown-menu multi-level green-text" aria-labelledby="top-bar-dropdown-button">
 
-                    <li class="" id="balance" style="margin-left: 7px;">
-                          {{ current_user.balance_eth }} {{ current_user.currency }}
+                    <li class="" id="balance_eth" style="margin-left: 7px;">
+                        <span class="crypto-symbol">ETH</span> {{ current_user.balance_eth }}
                     </li>
-                    <li class="" id="balance" style="margin-left: 7px;">
-                          {{ current_user.balance_usdt }} {{ current_user.currency }}
+                    <li class="" id="balance_usdt" style="margin-left: 7px;">
+                        <span class="crypto-symbol">USDT</span> {{ current_user.balance_usdt }}
                     </li>
                     <div class="dropdown-divider"></div>
 
@@ -53,13 +48,13 @@
                         </button>
                     </li>
 
-                    <li>
-                        <button class="btn dropdown-item" id="connect-wallet">
-                            <i class="bi bi-wallet2"></i>
-                            {{ translations['connect wallet'][session['lang']] }}
-                        </button>
+<!--                    <li>-->
+<!--                        <button class="btn dropdown-item" id="connect-wallet">-->
+<!--                            <i class="bi bi-wallet2"></i>-->
+<!--                            {{ translations['connect wallet'][session['lang']] }}-->
+<!--                        </button>-->
 
-                    </li>
+<!--                    </li>-->
 
                     <div class="dropdown-divider"></div>
                     <li><a class="btn dropdown-item" href="/gamehistory">{{ translations['gamehistory'][session['lang']] }}</a></li>
@@ -92,6 +87,10 @@
             {% else %}
                     </li>
                     <div class="dropdown-divider"></div>
+                    {% if session['admin'] %}
+                        <!-- start SEARCH button -->
+                        <a class="btn btn-outline-success" href="/search"><i class="bi bi-search">Search</i></a>
+                    {% endif %}
                     <li><a class="btn dropdown-item" href="/logout">{{ translations['log out'][session['lang']] }}</a></li>
                 </ul>
             </div>
@@ -131,18 +130,21 @@
 {% if current_user.is_authenticated %}
     <script language="JavaScript" type="text/javascript">
     $(document).ready(function(){
-        var balance_field = document.getElementById("balance");
-        function updater() {
-            const response = fetch('/getBalance');
-            balance_field.value = response;
-        }
+        var balance_field_eth = document.getElementById("balance_eth");
+        var balance_field_usdt = document.getElementById("balance_usdt");
+<!--        function updater() {-->
+<!--            const response = fetch('/getBalance');-->
+<!--            balance_field_eth.value = response['eth'];-->
+<!--            balance_field_usdt.value = response['usdt'];-->
+<!--        }-->
         $('#top-bar-dropdown-button').on('click', function(){
             event.preventDefault();
             $.ajax({
                 url: "/getBalance",
                 type: "post",
-                success: function(self) {
-                    document.getElementById("balance").innerHTML = self;
+                success: function(balances) {
+                    balance_field_eth.value = balances['eth'];
+                    balance_field_usdt.value = balances['usdt'];
                 },
                 error: function(e) {
                     console.log(e);
@@ -150,26 +152,26 @@
             });
         });
 
-        var publicAddress = "{{ current_user.publicAddress }}"
+<!--        var publicAddress = "{{ current_user.publicAddress }}"-->
 
-        if (publicAddress != 'None'){
-            var user_field = document.getElementById("username-field")
-            var address_field = document.getElementById("address-field")
+<!--        if (publicAddress != 'None'){-->
+<!--            var user_field = document.getElementById("username-field")-->
+<!--            var address_field = document.getElementById("address-field")-->
 
-            address_field.style.display = "flex"
+<!--            address_field.style.display = "flex"-->
 
-            address_field.style.width = user_field.clientWidth - 20
-            address_field.style.height = user_field.clientHeight
+<!--            address_field.style.width = user_field.clientWidth - 20-->
+<!--            address_field.style.height = user_field.clientHeight-->
 
-            user_field.classList.add('text-animated-username')
-            address_field.classList.add('text-animated-address')
+<!--            user_field.classList.add('text-animated-username')-->
+<!--            address_field.classList.add('text-animated-address')-->
 
-        }
+<!--        }-->
 
     });
 
 
     </script>
-    <script language="JavaScript" type="module" src="{{ root_path }}/js/metamask_connect.js"></script>
+<!--    <script language="JavaScript" type="module" src="{{ root_path }}/js/metamask_connect.js"></script>-->
 {% endif %}
 

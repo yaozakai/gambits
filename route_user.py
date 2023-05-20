@@ -1,26 +1,24 @@
 import flask
-from flask import Blueprint, request, render_template, json, session, redirect, url_for
-from flask_login import login_required, logout_user, login_user
-from flask_wtf import csrf
+from flask import Blueprint, json
+from flask_login import login_user
 
-import utils
 from db_access import *
-from forms import LoginForm, RegisterForm, verify_captcha
+from forms import verify_captcha
 from utils import *
 
 user = Blueprint('user', __name__)
 
 
-@user.route('/user_new_address', methods=['POST'])
-# @login_required
-def user_new_address():
-    if 'address' in request.json:
-        db_set_public_address(request.json['address'])
-        session['publicAddress'] = request.json['address']
-        return jsonify(success=True, address=session['publicAddress'], address_set_message=utils.translations['address set'][session['lang']],
-                       address_set_title=utils.translations['crypto wallet'][session['lang']])
-    else:
-        return flask.abort(400)
+# @user.route('/user_new_address', methods=['POST'])
+# # @login_required
+# def user_new_address():
+#     if 'address' in request.json:
+#         db_set_public_address(request.json['address'])
+#         session['publicAddress'] = request.json['address']
+#         return jsonify(success=True, address=session['publicAddress'], address_set_message=utils.translations['address set'][session['lang']],
+#                        address_set_title=utils.translations['crypto wallet'][session['lang']])
+#     else:
+#         return flask.abort(400)
 
 
 @user.route('/login', methods=['POST'])
@@ -92,10 +90,15 @@ def login():
     #     return "the form has been submitted. Success!"
 
 
-@user.route("/logout", methods=['GET', 'POST'])
-@login_required
-def logout():
-    session.pop('logged_in', None)
-    logout_user()
+@user.route('/lang/<lang>', methods=['GET'])
+def language(lang):
+    if request.method == 'GET':
+        if len(lang) > 0:
+            session['lang'] = lang
+            if 'logged_in' in session and session['logged_in'] is True:
+                db_set_language()
+        else:
+            set_session_geo_lang(request.remote_addr)
+        set_flag_from_lang()
 
     return redirect(url_for('home'))

@@ -1,8 +1,4 @@
-import socket
-
-import flask as flask
-
-from flask_login import login_required, logout_user, login_user
+from flask_login import login_required, logout_user
 
 import utils
 from db_access import *
@@ -14,8 +10,9 @@ from constants import RECAPTCHA_PUBLIC_KEY
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_template import template
 from route_user import user
-from route_wallet import wallet
-from utils import reload_game_titles, reload_icon_placement, setup_home_template
+from route_wallet import wallet, verify_transaction_loop
+from utils import reload_game_titles, reload_icon_placement, setup_home_template, set_flag_from_lang, \
+    set_session_geo_lang
 
 uaform = None
 ftform = None
@@ -35,6 +32,57 @@ price_array = []
 @application.login_manager.user_loader
 def load_user(user_id):
     return db_get_user_from_id(user_id)
+
+
+@application.route('/verify_transaction', methods=['POST'])
+@login_required
+def verify_transaction():
+    run = True
+    count = 0
+    amount = 0
+    start_time = time.time()
+    # check if deposit exists
+    user_db = db_get_user()
+    email = user_db.email
+    # email = 'lele@gmeow.com'
+
+    # db_create_deposit(session['email'], request.json)
+    # db_create_deposit(email, request.json)
+    deposit = DepositEntry(email, request.json['amount'], request.json['currency'], request.json['chain'],
+                           translations['txn:pending'][session['lang']], request.json['fromAddress'],
+                           request.json['txHash'])
+
+    while run:
+        if count < 6:
+            count += 1
+            print("count: " + str(count))
+            amount = verify_transaction_loop(deposit)
+            if amount > 0:
+                # update user db
+                user_db.add_balance(amount, request.json['currency'])
+                notification_title = translations['success:wallet'][session['lang']]
+                notification = translations['success:txnSuccess'][session['lang']]
+                alert_type = 'success'
+                # db_add_balance(email, amount, request.json['currency'])
+                break
+            time.sleep(10.0 - ((time.time() - start_time) % 10.0))
+
+    if amount == 0:
+        notification_title = translations['alert:wallet'][session['lang']] + '<button type="button" class="btn btn-link">' \
+                             + translations['alert:clickHere'][session['lang']] + '</button>'
+        notification = translations['alert:timeout'][session['lang']]
+        alert_type = 'danger'
+
+    return jsonify(amount=amount, alert_type=alert_type, notification_title=notification_title, notification=notification)
+
+
+@application.route("/logout", methods=['GET', 'POST'])
+@login_required
+def logout():
+    session.pop('logged_in', None)
+    logout_user()
+
+    return redirect(url_for('home'))
 
 
 @application.route('/search', methods=['GET', 'POST'])
@@ -105,96 +153,12 @@ def launch():
         return jsonify(link=link)
 
 
-@application.route('/lang/<lang>', methods=['GET'])
-def language(lang):
-    if request.method == 'GET':
-        if len(lang) > 0:
-            session['lang'] = lang
-            if 'logged_in' in session and session['logged_in'] is True:
-                db_set_language()
-        else:
-            set_session_geo_lang(request.remote_addr)
-        set_flag_from_lang()
-
-    return redirect(url_for('home'))
-
-
 @application.route('/translate_alert', methods=['POST'])
 def translate_alert():
     msg = request.json['msg']
     title = request.json['title']
 
     return jsonify(msg=translations[msg][session['lang']], title=translations[title][session['lang']])
-
-
-def set_flag_from_lang():
-    if session['lang'] == 'zh-tw':
-        session['flag'] = 'tw'
-    elif session['lang'] == 'zh-cn':
-        session['flag'] = 'cn'
-    elif session['lang'] == 'ja':
-        session['flag'] = 'jp'
-    elif session['lang'] == 'id':
-        session['flag'] = 'id'
-    elif session['lang'] == 'br':
-        session['flag'] = 'br'
-    elif session['lang'] == 'ko':
-        session['flag'] = 'ko'
-    elif session['lang'] == 'vn':
-        session['flag'] = 'vn'
-    elif session['lang'] == 'es':
-        session['flag'] = 'es'
-    elif session['lang'] == 'en':
-        session['flag'] = 'gb'
-
-
-def set_session_geo_lang(ip_address):
-    if socket.gethostname() == 'srv.gambits.vip':
-        address = ip_address
-    else:
-        address = ip_address
-        # address = input('Enter the IP:')
-    request_url = 'https://geolocation-db.com/jsonp/' + address
-    response = requests.get(request_url)
-    result = response.content.decode()
-    result = result.split("(")[1].strip(")")
-    result = json.loads(result)
-
-    if result['country_code'] == 'TW':
-        session['lang'] = 'zh-tw'
-        # session['flag'] = result['country_code'].lower()
-    elif result['country_code'] == 'CN':
-        # session['flag'] = result['country_code'].lower()
-        session['lang'] = 'zh-cn'
-    elif result['country_code'] == 'JP':
-        # session['flag'] = result['country_code'].lower()
-        session['lang'] = 'ja'
-    elif result['country_code'] == 'ID':
-        # session['flag'] = result['country_code'].lower()
-        session['lang'] = 'id'
-    elif result['country_code'] == 'KO':
-        # session['flag'] = result['country_code'].lower()
-        session['lang'] = 'ko'
-    elif result['country_code'] == 'VN':
-        # session['flag'] = result['country_code'].lower()
-        session['lang'] = 'vn'
-    elif result['country_code'] == 'BR' or result['country_code'] == 'PT' or result['country_code'] == 'CV' or \
-            result['country_code'] == 'AO' or result['country_code'] == 'MZ' or result['country_code'] == 'GW' or \
-            result['country_code'] == 'TP':
-        session['lang'] = 'br'
-        # session['flag'] = 'br'
-    elif result['country_code'] == 'ES' or result['country_code'] == 'AR' or result['country_code'] == 'MX' or \
-            result['country_code'] == 'CO' or result['country_code'] == 'PE' or result['country_code'] == 'CL' or \
-            result['country_code'] == 'VE' or result['country_code'] == 'GT' or result['country_code'] == 'EC' or \
-            result['country_code'] == 'BO' or result['country_code'] == 'CU' or result['country_code'] == 'DM' or \
-            result['country_code'] == 'DO' or result['country_code'] == 'PY' or result['country_code'] == 'SV' or \
-            result['country_code'] == 'NI' or result['country_code'] == 'CR' or result['country_code'] == 'PA' or \
-            result['country_code'] == 'UY' or result['country_code'] == 'PR':
-        session['lang'] = 'es'
-        # session['flag'] = 'es'
-    else:
-        session['lang'] = 'en'
-        # session['flag'] = 'gb'
 
 
 @application.route('/verify', endpoint='verify_email', methods=['GET'])
@@ -354,9 +318,12 @@ def register():
 def get_balance():
     # if session['logged_in']:
     user_db = db_get_user()
-    if user_db.currency == 'USD':
-        return f'{user_db.balance:.2f}' + ' ' + user_db.currency
-        # return '{:.2f}'.format(user_db.balance) + ' ' + user_db.currency
+    balances = {'usdt': f'{user_db.balance_usdt:.2f}',
+                'eth': user_db.balance_eth}
+    return jsonify(balances)
+    # if user_db.currency == 'USD':
+    #     return f'{user_db.balance:.2f}'
+    # return '{:.2f}'.format(user_db.balance) + ' ' + user_db.currency
     # else:
     #     return translations['reload website'][session['lang']]
 
@@ -383,6 +350,6 @@ if __name__ == '__main__':
     if socket.gethostname() == 'srv.gambits.vip':
         application.run(host='0.0.0.0')
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
-        application.debug = True
+        # application.debug = True
         application.run(host='192.168.1.107')
         # application.run(port=8000)

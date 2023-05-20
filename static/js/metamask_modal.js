@@ -14,7 +14,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 // make sure you return the amount back to confirm
-function verify_txhash(txHash, chain, currency, amount) {
+function verify_txhash(txHash, chain, currency, amount, fromAddress) {
 
     $.ajax({
       url: "/verify_transaction",
@@ -26,11 +26,22 @@ function verify_txhash(txHash, chain, currency, amount) {
         "chain":chain,
         "currency": currency,
         "amount": amount,
-        "blockchain": blockchain,
-        "publicAddress": publicAddress,
+        "fromAddress": fromAddress,
       }),
-      success: function(self) {
-        send_alert('alert:wallet', self.amount + 'alert:txnSuccess')
+      success: function(response) {
+        alert_title.innerHTML = response.notification_title
+        alert_message.innerHTML = response.amount + ' ' + response.notification
+
+        if (response.alert_type == 'success') {
+            alert_box.classList.add('alert-success')
+            alert_box.classList.remove('alert-danger')
+            alert_box.classList.add('show')
+        } else if (response.alert_type == 'danger') {
+            alert_box.classList.add('alert-danger')
+            alert_box.classList.remove('alert-success')
+            alert_box.classList.add('show')
+        }
+
       },
       error: function(e) {
         console.log(e);
@@ -123,20 +134,20 @@ async function send_contract(currency, chain, amount) {
             .then((response) => {
                 console.log('txHash: ' + response);
 //                txHash = response
-                verify_txhash(response, chain, currency, amount)
+                verify_txhash(response, chain, currency, amount, accounts[0])
             })
             .catch((error) => {
                 metamaskError(error)
             });
     } else {
-//        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
+        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
 
         let contract = new web3.eth.Contract(ABI, contractAddress);
-        await contract.methods.transfer(toAddress, value).send({from: fromAddress, maxPriorityFeePerGas: null, maxFeePerGas: null })
+        await contract.methods.transfer(toAddress, value).send({from: accounts[0], maxPriorityFeePerGas: null, maxFeePerGas: null })
         .then((response) => {
             console.log('txHash: ' + response);
 //            txHash = response
-            verify_txhash(response, chain, currency)
+            verify_txhash(response, chain, currency, amount, accounts[0])
         })
         .catch((error) => {
             metamaskError(error)
@@ -176,7 +187,7 @@ async function send_transaction_request(fromAddress, amount, currency) {
     var txHash = ''
     await send_contract(currency, chain, amount)
 
-    console.log('verify payment for: ' + txHash)
+//    console.log('verify payment for: ' + txHash)
 
 }
 

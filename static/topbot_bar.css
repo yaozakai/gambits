@@ -32,6 +32,10 @@
     /* padding-left: 0px; */
 }
 
+.crypto-symbol {
+    font-size: small;
+}
+
 #address-field-sub {
     word-wrap: break-word;
     /* font-size: xx-small; */

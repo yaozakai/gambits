@@ -1,5 +1,8 @@
 ﻿name,zh-tw,zh-cn,en,ko,th,vi,es,id,pt-br,ja
-alert:txnSuccess,has been added to your account. GLHF!,has been added to your account. GLHF!,has been added to your account. GLHF!,,,,,,,
+success:wallet,Wallet transfer complete!,Wallet transfer complete!,Wallet transfer complete!,,,,,,,
+success:txnSuccess,has been added to your account. GLHF!,has been added to your account. GLHF!,has been added to your account. GLHF!,,,,,,,
+alert:clickHere,,,Click here to retry,,,,,,,
+alert:timeout,,,Transaction may take longer to verify,,,,,,,
 alert:checkWallet,Please check if your wallet app is already open,Please check if your wallet app is already open,Your wallet app is already open somewhere,,,,,,,
 alert:wallet,Wallet error,Wallet error,Wallet error,,,,,,,
 alert:amount0,Please select a blockchain,Please select a blockchain,Amount is zero,,,,,,,
