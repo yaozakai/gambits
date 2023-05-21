@@ -421,7 +421,7 @@ h3 {
     justify-content: center;
 }
 
-.spinner-border-format {
+.icon-spinner {
     border: none;
     width: auto;
     height: auto;
@@ -440,6 +440,7 @@ h3 {
     left: auto;
     right: auto;
     position: relative;
+    border: none;
 }
 
 #language-select {

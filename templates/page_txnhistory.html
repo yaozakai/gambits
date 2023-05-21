@@ -1,0 +1,143 @@
+
+<div class="py-2" style="margin-left: 5%;">
+    <h3 class="green-text-outline">{{ translations['title:Transaction History'][session['lang']] }}</h3>
+    <div class="justify-content-center" style="width: 200px;">
+        <div class="input-group mb-3">
+<!--            <div class="calendar"></div>-->
+            <span class="input-group-text whiteFont">{{ translations['date'][session['lang']] }}</span>
+            <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
+            <h8 class="green-text-outline">*UTC-4</h8>
+        </div>
+
+    </div>
+    <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h5>
+
+</div>
+
+<script>
+
+    $(document).ready(function(){
+        $("td[colspan=12]").find("p").hide();
+        $("table").click(function(event) {
+            event.stopPropagation();
+            var $target = $(event.target);
+            if ( $target.closest("td").attr("colspan") > 1 ) {
+                $target.slideUp();
+                $target.closest("tr").next().find("div").slideToggle();
+
+            } else {
+                $target.closest("tr").next().find("div").slideToggle();
+
+            }
+        });
+
+        const selectElement = document.getElementById('reportDate');
+        selectElement.addEventListener("change", (event) => {
+            $.ajax({
+                url: "/gamehistory",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                    "reportDate":selectElement.value
+                }),
+                success: function(self) {
+                    htmloutput = "";
+                    results = self.rec;
+                    $("#num_results").html(results.length);
+<!--                    generate_table(results);-->
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        });
+        function generate_table(results) {
+            if (typeof results == 'undefined') {
+                htmloutput = "<div class=\"green-text-outline\">No data</div>";
+            } else {
+                for (let i = 0; i < results.length; i++) {
+                    htmloutput = htmloutput + "<tr>";
+                    htmloutput = htmloutput + "<td>" + results[i]["endroundtime"].substring(11, 19) + "</td>";
+                    htmloutput = htmloutput + "<td>" + results[i]["status"] + "</td>";
+                    htmloutput = htmloutput + "<td>" + results[i]["gametype"] + "</td>";
+                    htmloutput = htmloutput + "<td>" + results[i]["gamecode"] + "</td>";
+                    htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
+                    htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
+                    htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
+<!--                    htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";-->
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";-->
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";-->
+                    htmloutput = htmloutput + "<td>" + results[i]["rake"] + "</td>";
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";-->
+                            htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">Detail:" + results[i]["detail"] + "<br>Result:" + results[i]["gameresult"] + "</div></td></tr>";
+                };
+            }
+            document.getElementById("results").innerHTML = htmloutput;
+        }
+    });
+
+</script>
+
+<table id="data" class="table table-hover table-dark profile-container green-text-outline">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Amount</th>
+        <th>Chain</th>
+        <th>txHash</th>
+<!--        <th>Valid Bet</th>-->
+<!--        <th>Jackpot</th>-->
+<!--        <th>JackContribution</th>-->
+<!--        <th>Rake</th>-->
+<!--        <th>Room Fee</th>-->
+      </tr>
+    </thead>
+    <tbody id="results">
+      {% set counter = 0 %}
+      {% for record in rec if counter < 50 %}
+        {% set counter = loop.count %}
+        <tr>
+          <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
+          <td>{{ record.created.strftime('%H:%M%') }}</td>
+          <td style="color:
+          {% if record.status.lower() == 'failed' %}
+            red">
+              {{ record.status }} <button class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}"><i class="bi bi-arrow-clockwise"></i></button>
+          {% elif record.status.lower() == 'pending' %}
+            yellow">{{ record.status }}
+          {% elif record.status.lower() == 'complete' %}
+            green">{{ record.status }}
+          {% endif %}
+            </td>
+            <td>{{ record.amount }} {{ record.currency }}</td>
+            <td>{{ record.blockchain }}</td>
+            <td>
+            {% if record.blockchain == 'goerli' %}
+                <a href="https://goerli.etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
+            {% else %}
+                <a href="https://etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
+            {% endif %}
+            </td>
+<!--            <td>{{ record.validbet }}</td>-->
+<!--          <td>{{ record.jackpot }}</td>-->
+<!--          <td>{{ record.jackpotcontribution }}</td>-->
+<!--            <td>{{ record.rake }}</td>-->
+<!--          <td>{{ record.roomfee }}</td>-->
+        </tr>
+      {% endfor %}
+    </tbody>
+
+
+</table>
+<!--    {% if num_results == 0 %}-->
+<!--        <div class="green-text-outline">-->
+<!--          No Data-->
+<!--        </div>-->
+<!--    {% endif %}-->
+<!--<script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/calendar.js"></script>-->
+
+
+

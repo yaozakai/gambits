@@ -57,6 +57,7 @@
 <!--                    </li>-->
 
                     <div class="dropdown-divider"></div>
+                    <li><button class="btn dropdown-item" id="txnHistory-button" onclick="txnHistory()">{{ translations['txnHistory'][session['lang']] }}</button></li>
                     <li><a class="btn dropdown-item" href="/gamehistory">{{ translations['gamehistory'][session['lang']] }}</a></li>
                     <li class="dropdown-submenu dropdown-item">
 <!--                        <span class="bi bi-caret-left"></span>-->
@@ -89,12 +90,39 @@
                     <div class="dropdown-divider"></div>
                     {% if session['admin'] %}
                         <!-- start SEARCH button -->
-                        <a class="btn dropdown-item" href="/search"><i class="bi bi-search">Seddwddwarch</i></a>
+                        <a class="btn dropdown-item" href="/search"><i class="bi bi-search">Search</i></a>
                     {% endif %}
                     <li><a class="btn dropdown-item" href="/logout">{{ translations['log out'][session['lang']] }}</a></li>
                 </ul>
             </div>
             <script>
+                function txnHistory(){
+                    const selectElement = document.getElementById('reportDate');
+                    let reportDate = ''
+                    if (selectElement) {
+                        reportDate = selectElement.value
+                    }
+                    $.ajax({
+                        url: "/txnHistory",
+                        type: "post",
+                        dataType: "json",
+                        contentType: "application/json; charset=UTF-8",
+                        data: JSON.stringify({
+                            "reportDate":reportDate
+                        }),
+                        success: function(self) {
+<!--                            htmloutput = "";-->
+<!--                            results = self.rec;-->
+<!--                            $("#num_results").html(results.length);-->
+                            $("#main_section").html(self.render);
+
+                        },
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    });
+                }
+
                 $(document).ready(function(){
                     active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
                     active_lang.classList.add("active");

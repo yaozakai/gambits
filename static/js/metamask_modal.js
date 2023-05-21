@@ -146,7 +146,7 @@ async function send_contract(currency, chain, amount) {
                     "phrase":'alert:clickHere',
                   }),
                   success: function(response) {
-                    let appendix = '<button type="button" class="btn btn-link">' + response.phrase + '</button>'
+                    let appendix = '<a href="/gamehistory">' + response.phrase + '</a>'
                     send_alert("success:waiting", "success:txnSent", false, appendix)
 
                     verify_txhash(txHash, chain, currency, amount, accounts[0])

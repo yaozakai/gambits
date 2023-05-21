@@ -46,6 +46,7 @@ def verify_transaction_loop(deposit):
         # db_set_deposit_status_complete(request.json)
         return amount
     else:
+        deposit.mark_failed()
         return 0
 
 

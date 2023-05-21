@@ -37,6 +37,10 @@
     background-color: none;
 }
 
+.icon-spinner {
+    border: none;
+}
+
 #deposit-spinner {
     right: 0px;
     position: absolute;

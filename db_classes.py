@@ -291,27 +291,35 @@ class RollinEntry(db.Model):
 class DepositEntry(db.Model):
     __tablename__ = 'deposits'
     email = db.Column(db.String(100))
+    user_id = db.Column(db.String(10), primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     amount = db.Column(db.Numeric(36))
     currency = db.Column(db.String(10))
     blockchain = db.Column(db.String(50))
     status = db.Column(db.String(255))
     fromAddress = db.Column(db.String(100))
-    # count = db.Column(db.String(36), primary_key=True)
     txHash = db.Column(db.String(100), primary_key=True)
 
-    def __init__(self, email='', amount='', currency='', blockchain='', status='', fromAddress='', txHash=''):
+    def __init__(self, email='', user_id='', amount='', currency='', blockchain='', status='', fromAddress='', txHash=''):
         self.email = email
+        self.user_id = user_id
         self.amount = amount
         self.currency = currency
         self.blockchain = blockchain
         self.status = status
         self.fromAddress = fromAddress
         self.txHash = txHash
+
+    def commit(self):
         db.session.add(self)
         db.session.commit()
 
     def mark_complete(self):
-        self.status = 'complete'
+        self.status = 'Complete'
+        db.session.add(self)
+        db.session.commit()
+
+    def mark_failed(self):
+        self.status = 'Failed'
         db.session.add(self)
         db.session.commit()

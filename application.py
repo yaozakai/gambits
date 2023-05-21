@@ -43,14 +43,15 @@ def verify_transaction():
     start_time = time.time()
     # check if deposit exists
     user_db = db_get_user()
-    email = user_db.email
+    # email = user_db.email
     # email = 'lele@gmeow.com'
 
     # db_create_deposit(session['email'], request.json)
     # db_create_deposit(email, request.json)
-    deposit = DepositEntry(email, float(request.json['amount']), request.json['currency'], request.json['chain'],
+    deposit = DepositEntry(user_db.email, user_db.user_id, (request.json['amount']), request.json['currency'], request.json['chain'],
                            translations['txn:pending'][session['lang']], request.json['fromAddress'],
                            request.json['txHash'])
+    deposit.commit()
     currency = request.json['currency']
 
     while run:
@@ -58,23 +59,23 @@ def verify_transaction():
             count += 1
             print("count: " + str(count))
             amount = verify_transaction_loop(deposit)
-            if amount > 0:
-                # update user db
-                user_db.add_balance(amount, request.json['currency'])
-                notification_title = translations['success:wallet'][session['lang']]
-                notification = translations['success:txnSuccess'][session['lang']]
-                alert_type = 'success'
-                # db_add_balance(email, amount, request.json['currency'])
-                break
+            break
             time.sleep(10.0 - ((time.time() - start_time) % 10.0))
 
-    if amount == 0:
+    if amount > 0:
+        # update user db
+        user_db.add_balance(amount, request.json['currency'])
+        notification_title = translations['success:wallet'][session['lang']]
+        notification = translations['success:txnSuccess'][session['lang']]
+        alert_type = 'success'
+    else:
         notification_title = translations['alert:wallet'][session['lang']] + '<button type="button" class="btn btn-link">' \
                              + translations['alert:clickHere'][session['lang']] + '</button>'
         notification = translations['alert:timeout'][session['lang']]
         alert_type = 'danger'
 
-    return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title, notification=notification)
+    return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title,
+                   notification=notification)
 
 
 @application.route("/logout", methods=['GET', 'POST'])
@@ -117,16 +118,48 @@ def search_user():
     return jsonify(lang=session['lang'], rec=rec, num_results=len(rec))
 
 
+@application.route('/txnHistory', methods=['GET', 'POST'])
+@login_required
+def txnHistory():
+
+    queries = DepositEntry().query.filter_by(user_id=session['_user_id'])
+    if len(json.loads(request.data)['reportDate']) > 0:
+        report_date = json.loads(request.data)['reportDate']
+
+    else:
+        report_date = datetime.datetime.now()
+
+    rec = []
+    for query in queries:
+        if pytz.UTC.localize(query.created) < pytz.UTC.localize(report_date):
+            rec.append(query)
+
+    return jsonify(render=render_template('page_txnhistory.html', rec=rec, report_date=report_date,
+                                          translations=translations))
+
+        # rec = player_report_today(db_get_user().username, report_date)
+        # if rec is None:
+        #     return jsonify(rec=[], report_date=report_date, render=render_template('page_txnhistory.html', rec=[],
+        #                                                                            report_date=report_date))
+        # else:
+        #     return jsonify(rec=[], report_date=report_date, render=render_template('page_txnhistory.html', rec=[],
+        #                                                                            report_date=report_date))
+
+
 @application.route('/gamehistory', methods=['GET', 'POST'])
 @login_required
 def gamehistory():
-    username = session['_user_id']
+    # username = session['_user_id']
     # username = '0000-0001'
     if len(request.data) > 0 and 'reportDate' in json.loads(request.data):
         report_date = json.loads(request.data)['reportDate']
         rec = player_report_today(db_get_user().username, report_date)
+        if rec is None:
+            record = ''
+        else:
+            record = rec['Data']
         # report_date = report_date.strftime('%Y-%m-%d')
-        return jsonify(rec=rec['Data'], report_date=report_date)
+        return jsonify(rec=record, report_date=report_date)
     else:
         report_date = get_timestamp(False, False)
         rec = player_report_today(db_get_user().username, report_date)

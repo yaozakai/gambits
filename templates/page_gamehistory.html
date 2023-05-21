@@ -5,8 +5,9 @@
     <h3 class="green-text-outline">Gaming History</h3>
     <div class="justify-content-center" style="width: 200px;">
         <div class="input-group mb-3">
+            <div class="calendar"></div>
             <span class="input-group-text whiteFont">Date</span>
-            <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
+            <input onClick="{(e) => open_calendar(e)}" id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
             <h8 class="green-text-outline">*Timezone is UTC-4</h8>
         </div>
 
@@ -16,6 +17,11 @@
 </div>
 
 <script>
+    function open_calendar(e){
+        e.preventDefault()
+        alert('hi')
+    }
+
     $(document).ready(function(){
 
 <!--        Do this part on load -->
@@ -191,6 +197,8 @@
 <!--          No Data-->
 <!--        </div>-->
 <!--    {% endif %}-->
+<script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/calendar.js"></script>
+
 
 {% endblock %}
 
