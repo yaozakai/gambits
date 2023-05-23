@@ -1,6 +1,5 @@
-.btn-check:active+.btn-outline-success:focus, .btn-check:checked+.btn-outline-success:focus, .btn-outline-success.active:focus, .btn-outline-success.dropdown-toggle.show:focus, .btn-outline-success:active:focus {
-    box-shadow: unset;
-    color: unset;
+.btn-check:focus+.btn, .btn:focus {
+    box-shadow: none!important;
 }
 
 .modal-error-link {

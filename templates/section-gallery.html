@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block gallery %}
+
+
 <!-- top section -->
 <div id="top-section"></div>
 <script>
@@ -495,7 +497,7 @@ $(function() {
                 window.open(self.link.toString());
               },
               error: function(e) {
-                console.log(e);
+                console.log('launch: ' + e);
               }
             });
         });

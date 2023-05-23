@@ -1,16 +1,16 @@
 
 <div class="py-2" style="margin-left: 5%;">
     <h3 class="green-text-outline">{{ translations['title:Transaction History'][session['lang']] }}</h3>
-    <div class="justify-content-center" style="width: 200px;">
-        <div class="input-group mb-3">
+    <div class="justify-content-center" style="width: 260px;">
+        <div class="input-group mb-3 mt-3">
 <!--            <div class="calendar"></div>-->
             <span class="input-group-text whiteFont">{{ translations['date'][session['lang']] }}</span>
             <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
-            <h8 class="green-text-outline">*UTC-4</h8>
+            <h8 class="green-text-outline" style="margin-left: 10px;">*UTC-4</h8>
         </div>
 
     </div>
-    <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h5>
+    <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>
 
 </div>
 
@@ -48,7 +48,7 @@
 <!--                    generate_table(results);-->
                 },
                 error: function(e) {
-                    console.log(e);
+                    console.log('gamehistory: ' + e);
                 }
             });
         });
@@ -80,7 +80,7 @@
 </script>
 
 <table id="data" class="table table-hover table-dark profile-container green-text-outline">
-    <thead>
+    <thead class="txn-table-header">
       <tr>
         <th>Date</th>
         <th>Time</th>
@@ -95,24 +95,25 @@
 <!--        <th>Room Fee</th>-->
       </tr>
     </thead>
-    <tbody id="results">
+    <tbody class="txn-table-row" id="results">
       {% set counter = 0 %}
       {% for record in rec if counter < 50 %}
         {% set counter = loop.count %}
         <tr>
           <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
-          <td>{{ record.created.strftime('%H:%M%') }}</td>
-          <td style="color:
+          <td>{{ record.created.strftime('%H:%M') }}</td>
+
           {% if record.status.lower() == 'failed' %}
-            red">
-              {{ record.status }} <button class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}"><i class="bi bi-arrow-clockwise"></i></button>
+            <td id="row-{{ record.txHash }}" style="color:red">
+              {{ record.status }} <button onclick='reverify("{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}")'
+                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}"><i class="bi bi-arrow-clockwise"></i></button>
           {% elif record.status.lower() == 'pending' %}
-            yellow">{{ record.status }}
+            <td style="color:yellow">{{ record.status }}
           {% elif record.status.lower() == 'complete' %}
-            green">{{ record.status }}
+            <td style="color:green">{{ record.status }}
           {% endif %}
             </td>
-            <td>{{ record.amount }} {{ record.currency }}</td>
+            <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
             <td>{{ record.blockchain }}</td>
             <td>
             {% if record.blockchain == 'goerli' %}
@@ -132,6 +133,26 @@
 
 
 </table>
+
+<script>
+
+    var reverified_engaged = false
+
+    function reverify(txHash, chain, currency, amount, fromAddress){
+
+        if(!reverified_engaged){
+            reverified_engaged = true
+            send_alert("success:waiting", "success:txnSent")
+            verify_txhash('post', txHash, chain, currency, amount, fromAddress)
+            reverified_engaged = false
+        } else {
+            send_alert("alert:pleaseWait", "alert:txnAlready")
+        }
+    }
+
+
+</script>
+
 <!--    {% if num_results == 0 %}-->
 <!--        <div class="green-text-outline">-->
 <!--          No Data-->

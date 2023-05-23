@@ -7,7 +7,7 @@
         width: max-content;
     }
     #main-footer {
-        width: max-content;
+        width: fit-content;
     }
 }
 

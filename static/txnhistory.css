@@ -1,7 +1,30 @@
 .reverify-button {
     /* position: absolute; */
     /* bottom: 235px; */
-    /* height: 33px; */
-    margin-top: -17px;
-    margin-bottom: -14px;
+    height: 35px;
+    margin-top: -49px;
+    margin-bottom: -47px;
+    font-size: 11px;
+    box-shadow: none!important;
+}
+
+@media (max-width: 514px) {
+    .txn-table-header {
+        font-size: 10px;
+    }
+    .txn-table-row {
+        font-size: 7px!important;
+    }
+    .reverify-button {
+
+    }
+}
+
+@media (min-width: 515px) {
+    .txn-table-header {
+        font-size: unset;
+    }
+    .txn-table-row {
+        font-size: unset;
+    }
 }

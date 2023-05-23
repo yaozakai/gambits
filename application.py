@@ -48,10 +48,15 @@ def verify_transaction():
 
     # db_create_deposit(session['email'], request.json)
     # db_create_deposit(email, request.json)
-    deposit = DepositEntry(user_db.email, user_db.user_id, (request.json['amount']), request.json['currency'], request.json['chain'],
-                           translations['txn:pending'][session['lang']], request.json['fromAddress'],
-                           request.json['txHash'])
-    deposit.commit()
+    if request.json['mode'] == 'pre':
+        deposit = DepositEntry(user_db.email, user_db.user_id, (request.json['amount']), request.json['currency'],
+                               request.json['chain'],
+                               translations['txn:pending'][session['lang']], request.json['fromAddress'],
+                               request.json['txHash'])
+        deposit.commit()
+    elif request.json['mode'] == 'post':
+        deposit = db_get_deposit(request.json['txHash'])
+
     currency = request.json['currency']
 
     while run:
@@ -59,20 +64,23 @@ def verify_transaction():
             count += 1
             print("count: " + str(count))
             amount = verify_transaction_loop(deposit)
-            break
-            time.sleep(10.0 - ((time.time() - start_time) % 10.0))
+            if amount > 0:
+                break
+            else:
+                time.sleep(10.0 - ((time.time() - start_time) % 10.0))
 
     if amount > 0:
         # update user db
         user_db.add_balance(amount, request.json['currency'])
         notification_title = translations['success:wallet'][session['lang']]
         notification = translations['success:txnSuccess'][session['lang']]
-        alert_type = 'success'
+        alert_type = 'success:txnSuccess'
     else:
-        notification_title = translations['alert:wallet'][session['lang']] + '<button type="button" class="btn btn-link">' \
-                             + translations['alert:clickHere'][session['lang']] + '</button>'
-        notification = translations['alert:timeout'][session['lang']]
-        alert_type = 'danger'
+        notification_title = translations['success:waiting'][session['lang']]
+        notification = translations['alert:timeout'][session['lang']] + \
+                       '<button type="button" class="btn btn-link" style="padding-left: 0px;">' + \
+                       translations['alert:clickHere'][session['lang']] + '</button>'
+        alert_type = 'alert:timeout'
 
     return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title,
                    notification=notification)
@@ -121,29 +129,31 @@ def search_user():
 @application.route('/txnHistory', methods=['GET', 'POST'])
 @login_required
 def txnHistory():
+    session['page'] = 'txnHistory'
 
     queries = DepositEntry().query.filter_by(user_id=session['_user_id'])
     if len(json.loads(request.data)['reportDate']) > 0:
         report_date = json.loads(request.data)['reportDate']
 
     else:
-        report_date = datetime.datetime.now()
+        # report_date = datetime.datetime.now()
+        report_date = str(datetime.datetime.now()).split(' ')[0]
 
     rec = []
     for query in queries:
-        if pytz.UTC.localize(query.created) < pytz.UTC.localize(report_date):
-            rec.append(query)
+        if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
+            rec.insert(0, query)
 
     return jsonify(render=render_template('page_txnhistory.html', rec=rec, report_date=report_date,
                                           translations=translations))
 
-        # rec = player_report_today(db_get_user().username, report_date)
-        # if rec is None:
-        #     return jsonify(rec=[], report_date=report_date, render=render_template('page_txnhistory.html', rec=[],
-        #                                                                            report_date=report_date))
-        # else:
-        #     return jsonify(rec=[], report_date=report_date, render=render_template('page_txnhistory.html', rec=[],
-        #                                                                            report_date=report_date))
+    # rec = player_report_today(db_get_user().username, report_date)
+    # if rec is None:
+    #     return jsonify(rec=[], report_date=report_date, render=render_template('page_txnhistory.html', rec=[],
+    #                                                                            report_date=report_date))
+    # else:
+    #     return jsonify(rec=[], report_date=report_date, render=render_template('page_txnhistory.html', rec=[],
+    #                                                                            report_date=report_date))
 
 
 @application.route('/gamehistory', methods=['GET', 'POST'])
@@ -239,13 +249,20 @@ def home():
         # find user's location, defaults to English
         debug_out('looking up geolocation for language setting...')
         set_session_geo_lang(request.remote_addr)
+    if 'page' in session and session['page'] == 'txnHistory':
+        if 'report_date' in session:
+            report_date = session['report_date']
+        else:
+            report_date = str(datetime.datetime.now()).split(' ')[0]
+    else:
+        report_date = ''
     set_flag_from_lang()
     debug_out('done')
-    return render_template('section-main.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+    return render_template('section-gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
                            root_path='', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
                            notification='', notification_title='', reset_pass=False,
-                           lang=session['lang'], translations=utils.translations)
+                           lang=session['lang'], translations=utils.translations, report_date=report_date)
 
 
 @application.route('/gamehistory', methods=['GET', 'POST'])

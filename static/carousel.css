@@ -41,7 +41,7 @@ body {
     width: fit-content;
     min-width: 200px;
     max-width: 500px;
-    position: absolute;
+    position: fixed;
     /* padding-right: 30px; */
     /* padding-left: 3px; */
     transition: 1s;

@@ -256,7 +256,7 @@ $('.add-to-total').on('click', function(){
                     }
                   },
                   error: function(e) {
-                    console.log(e);
+                    console.log('forgot_pass: ' + e);
                   }
             });
         });
@@ -369,7 +369,7 @@ $('.add-to-total').on('click', function(){
 
                         },
                         error: function(e) {
-                            console.log(e);
+                            console.log('login: ' + e);
                         }
                     });
                 });
@@ -396,7 +396,7 @@ $('.add-to-total').on('click', function(){
                     }
                   },
                   error: function(e) {
-                    console.log(e);
+                    console.log('resend: ' + e);
                   }
                 });
             });
@@ -519,7 +519,7 @@ $('.add-to-total').on('click', function(){
 
                   },
                   error: function(e) {
-                    console.log(e);
+                    console.log('register: ' + e);
                   }
                 });
             });
@@ -612,11 +612,11 @@ $('.add-to-total').on('click', function(){
                 $('#notificationModal').modal('show');
               },
               error: function(e) {
-                console.log(e);
+                console.log('set_password: ' + e);
               }
         });
     });
 </script>
 {% endif %}
 
-<script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_modal.js"></script>
+    <script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_modal.js"></script>

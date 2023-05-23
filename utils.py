@@ -296,7 +296,7 @@ def setup_home_template(notification_title, notification, reset_pass_popup):
         notification_popup = True
     else:
         notification_popup = False
-    return render_template('section-main.html', icon_placement=icon_placement, game_titles=game_titles,
+    return render_template('section-gallery.html', icon_placement=icon_placement, game_titles=game_titles,
                            root_path='../', login_form=login_form, register_form=register_form,
                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, translations=translations,
                            notification_popup=notification_popup,

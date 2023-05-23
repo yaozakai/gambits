@@ -16,6 +16,7 @@
 }
 .crypto-button.active {
     background-image: radial-gradient(green 5%, green 35%, transparent 75%);
+    box-shadow: none!important;
 }
 .crypto-button:hover {
     /* border: none; */

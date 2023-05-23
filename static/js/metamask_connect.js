@@ -49,7 +49,7 @@ async function connect() {
 
           },
           error: function(e) {
-            console.log(e);
+            console.log('user_new_address: ' + e);
           }
         });
     } else {

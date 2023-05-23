@@ -12,6 +12,8 @@
         <meta name="twitter:description" content="The best online casino, seriously.">
         <meta name="twitter:image" content="https://gambits.vip/static/logos/gambits_logo.png">
         <meta name="twitter:card" content="summary_large_image">
+        <meta id="meta-translations" data-name='{{ translations|tojson|safe }}' >
+        <meta id="meta-lang" data-name='{{ session["lang"] }}' >
         <title>Gambit's</title>
 
                 <!-- Bootstrap core  -->
@@ -22,6 +24,9 @@
 <!--        <script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>-->
         <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
+
+        <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/main.js"></script>
+
 
 
 <!-- Custom styles for this template -->
@@ -75,23 +80,24 @@
       </script>
       <div id="topbar"></div>
 
-    <main class="main-bg min-vh-100"
-        {% if report_date is defined %}
-            id="main-container"
-        {% endif %}
-        >
+    <main class="main-bg min-vh-100">
+<!--        {% if report_date is defined %}-->
+<!--            id="main-container"-->
+<!--        {% endif %}-->
+<!--        >-->
         <div>
             <!-- main_section -->
             <div id="main_section" >
-                {% if search_page is defined %}
-                    {% block search %}{% endblock %}
-            </div>
-                {% elif report_date is defined %}
-                    {% block profile %}{% endblock %}
-            </div>
-                {% else %}
-                    {% block gallery %}{% endblock %}
-                {% endif %}
+                {% block gallery %}{% endblock %}
+<!--                {% if search_page is defined %}-->
+<!--                    {% block search %}{% endblock %}-->
+<!--            </div>-->
+<!--                {% elif report_date|length > 0 %}-->
+<!--                    {% block profile %}{% endblock %}-->
+<!--            </div>-->
+<!--                {% else %}-->
+<!--                    -->
+<!--                {% endif %}-->
             </div>
 
             <!-- Bottom Nav bar -->
@@ -158,3 +164,5 @@
 
 
 </html>
+
+

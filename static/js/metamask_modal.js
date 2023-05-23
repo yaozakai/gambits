@@ -5,8 +5,8 @@ const accounts = await web3.eth.getAccounts();
 
 document.getElementById('money-send').addEventListener('click', sendMoney)
 var alert_box = document.getElementById('alert-box')
-var alert_title = document.getElementById('alert-title')
-var alert_message = document.getElementById('alert-message')
+//var alert_title = document.getElementById('alert-title')
+//var alert_message = document.getElementById('alert-message')
 var deposit_amount = document.getElementById('deposit-amount')
 
 window.addEventListener("DOMContentLoaded", (event) => {
@@ -14,44 +14,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
 });
 
 // make sure you return the amount back to confirm
-function verify_txhash(txHash, chain, currency, amount, fromAddress) {
 
-    $.ajax({
-      url: "/verify_transaction",
-      type: "post",
-      dataType: "json",
-      contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify({
-        "txHash":txHash,
-        "chain":chain,
-        "currency": currency,
-        "amount": amount,
-        "fromAddress": fromAddress,
-      }),
-      success: function(response) {
-        alert_title.innerHTML = response.notification_title
-        alert_message.innerHTML = response.amount + ' <span style="font-size: small;">' + response.currency.toUpperCase() + '</span> ' + response.notification
-
-        if (response.alert_type == 'success') {
-            alert_box.classList.add('alert-success')
-            alert_box.classList.remove('alert-danger')
-            alert_box.classList.add('show')
-        } else if (response.alert_type == 'danger') {
-            alert_box.classList.add('alert-danger')
-            alert_box.classList.remove('alert-success')
-            alert_box.classList.add('show')
-        }
-
-      },
-      error: function(e) {
-        console.log(e);
-      }
-    });
-
-}
 
 function metamaskError(error) {
-    console.log(error)
+    console.log('metamaskError: ' + error)
     if (error['code'] == -32002) {
         send_alert('alert:wallet', 'alert:checkWallet')
         return
@@ -61,7 +27,7 @@ function metamaskError(error) {
     }
 }
 
-async function send_contract(currency, chain, amount) {
+async function open_wallet_app(currency, chain, amount) {
 
     var native_coin = false
     var dec = 0
@@ -119,7 +85,6 @@ async function send_contract(currency, chain, amount) {
             metamaskError(error)
         });
 
-
         await window.ethereum.request({
               method: 'eth_sendTransaction',
               params: [
@@ -137,21 +102,25 @@ async function send_contract(currency, chain, amount) {
             .then((txHash) => {
                 console.log('txHash: ' + txHash);
                 $('#depositModal').modal('hide');
-                $.ajax({
-                  url: "/translate",
-                  type: "post",
-                  dataType: "json",
-                  contentType: "application/json; charset=UTF-8",
-                  data: JSON.stringify({
-                    "phrase":'alert:clickHere',
-                  }),
-                  success: function(response) {
-                    let appendix = '<a href="/gamehistory">' + response.phrase + '</a>'
-                    send_alert("success:waiting", "success:txnSent", false, appendix)
+                let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
+                send_alert("success:waiting", "success:txnSent", false, appendix)
+                verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
 
-                    verify_txhash(txHash, chain, currency, amount, accounts[0])
-                  }
-                });
+//                $.ajax({
+//                  url: "/translate",
+//                  type: "post",
+//                  dataType: "json",
+//                  contentType: "application/json; charset=UTF-8",
+//                  data: JSON.stringify({
+//                    "phrase":'alert:clickHere',
+//                  }),
+//                  success: function(response) {
+//                    let appendix = '<a href="/gamehistory">' + response.phrase + '</a>'
+//                    send_alert("success:waiting", "success:txnSent", false, appendix)
+//
+//                    verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
+//                  }
+//                });
             })
             .catch((error) => {
                 metamaskError(error)
@@ -161,15 +130,14 @@ async function send_contract(currency, chain, amount) {
             metamaskError(error)
         });
 
-
         let contract = new web3.eth.Contract(ABI, contractAddress);
         await contract.methods.transfer(toAddress, value).send({from: accounts[0], maxPriorityFeePerGas: null, maxFeePerGas: null })
         .then((txHash) => {
             console.log('txHash: ' + txHash);
             $('#depositModal').modal('hide');
-            send_alert("success:waiting", "success:txnSent")
-
-            verify_txhash(txHash, chain, currency, amount, accounts[0])
+            let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
+            send_alert("success:waiting", "success:txnSent", false, appendix)
+            verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
         })
         .catch((error) => {
             metamaskError(error)
@@ -207,7 +175,7 @@ async function send_transaction_request(fromAddress, amount, currency) {
 
 // Process the payment and get the hash
     var txHash = ''
-    await send_contract(currency, chain, amount)
+    await open_wallet_app(currency, chain, amount)
 
 //    console.log('verify payment for: ' + txHash)
 
@@ -238,58 +206,10 @@ async function send_transaction_request(fromAddress, amount, currency) {
 //
 //}
 
-function send_alert(title, msg, native=false, msg_native='') {
-    alert_box.classList.remove('show')
-    $('#deposit-spinner').hide();
-    if (native) {
-        alert_title.innerHTML = title
-        alert_message.innerHTML = msg + msg_native
-        alert_box.classList.add('show')
-        return
-    } else {
-        $.ajax({
-          url: "/translate_alert",
-          type: "post",
-          dataType: "json",
-          contentType: "application/json; charset=UTF-8",
-          data: JSON.stringify({
-            "title":title,
-            "msg":msg
-          }),
-          success: function(response) {
-            if (msg == 'success:txnSent') {
-                alert_title.innerHTML = response.title + '...<div class="spinner-border show" style="height: 15px;width: 15px;"></div>'
-            } else {
-                alert_title.innerHTML = response.title
-            }
-            alert_message.innerHTML = response.msg + msg_native
-            alert_box.classList.add('show')
-            return
-          },
-          error: function(e) {
-            console.log(e);
-          }
-        });
-    }
 
-
-}
 
 async function sendMoney() {
 
-//    if (window.ethereum) {
-//        await window.ethereum.request({ method: "eth_requestAccounts" })
-//        window.web3 = new Web3(window.ethereum)
-//        alert(web3.eth.getBalance)
-//    } else {
-//                send_alert("alert:incomplete", "alert:amount0")
-//
-//    }
-
-    // show the spinner
-//    $('#deposit-spinner').addClass('active');
-//    $('#deposit-spinner').height($('#money-send').height());
-//    $('#deposit-spinner').width($('#money-send').width());
     $('#deposit-spinner').css({
         'display': 'inline-block'
     });

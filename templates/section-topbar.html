@@ -96,32 +96,7 @@
                 </ul>
             </div>
             <script>
-                function txnHistory(){
-                    const selectElement = document.getElementById('reportDate');
-                    let reportDate = ''
-                    if (selectElement) {
-                        reportDate = selectElement.value
-                    }
-                    $.ajax({
-                        url: "/txnHistory",
-                        type: "post",
-                        dataType: "json",
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({
-                            "reportDate":reportDate
-                        }),
-                        success: function(self) {
-<!--                            htmloutput = "";-->
-<!--                            results = self.rec;-->
-<!--                            $("#num_results").html(results.length);-->
-                            $("#main_section").html(self.render);
 
-                        },
-                        error: function(e) {
-                            console.log(e);
-                        }
-                    });
-                }
 
                 $(document).ready(function(){
                     active_lang = document.getElementById("lang-" + "{{ session['lang'] }}");
@@ -171,11 +146,13 @@
                 url: "/getBalance",
                 type: "post",
                 success: function(balances) {
-                    balance_field_eth.value = balances['eth'];
-                    balance_field_usdt.value = balances['usdt'];
+                    balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
+                    balance_field_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']
+<!--                    balance_field_eth.value = balances['eth'];-->
+<!--                    balance_field_usdt.value = balances['usdt'];-->
                 },
                 error: function(e) {
-                    console.log(e);
+                    console.log('getBalance: ' + e);
                 }
             });
         });
