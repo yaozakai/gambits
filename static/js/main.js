@@ -124,13 +124,12 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
             alert_box.classList.add('alert-danger')
             alert_box.classList.remove('alert-success')
             alert_box.classList.add('show')
+            return false
         }
-        return false
 
       },
       error: function(e) {
-        console.log('verify_transaction: ' + e);
-        return false
+        console.log('verify_txhash error: ' + e);
       }
     });
 

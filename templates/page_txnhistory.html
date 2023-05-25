@@ -105,12 +105,12 @@
 
           {% if record.status.lower() == 'failed' %}
             <td id="row-{{ record.txHash }}" style="color:red">
-              {{ record.status }} <button onclick='reverify("{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}")'
+              {{ translations[record.status][session['lang']] }} <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
                                           class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}"><i class="bi bi-arrow-clockwise"></i></button>
           {% elif record.status.lower() == 'pending' %}
-            <td style="color:yellow">{{ record.status }}
+            <td style="color:yellow">{{ translations[record.status][session['lang']] }}
           {% elif record.status.lower() == 'complete' %}
-            <td style="color:green">{{ record.status }}
+            <td style="color:green">{{ translations[record.status][session['lang']] }}
           {% endif %}
             </td>
             <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
@@ -138,15 +138,23 @@
 
     var reverified_engaged = false
 
-    function reverify(txHash, chain, currency, amount, fromAddress){
+    function reverify(td_id, txHash, chain, currency, amount, fromAddress, status){
 
-        if(!reverified_engaged){
-            reverified_engaged = true
+<!--        $('#td_id').html-->
+        var status = document.getElementById(td_id)
+
+        if (status.innerHTML != 'Checking'){
+            var translations = $('#meta-translations').data()['name']
+            var lang = $('#meta-lang').data()['name']
+
+            status.innerHTML = translations['txn:checking'][lang]
+            status.style.color = 'yellow'
+
             send_alert("success:waiting", "success:txnSent")
-            verify_txhash('post', txHash, chain, currency, amount, fromAddress)
-            reverified_engaged = false
-        } else {
-            send_alert("alert:pleaseWait", "alert:txnAlready")
+            if (!verify_txhash('post', txHash, chain, currency, amount, fromAddress)){
+<!--                status.innerHTML = 'Failed <button onclick="reverify("row-"' + txHash + ',' + txHash + ',' + chain + ',' + currency + ',' + amount + ',' + fromAddress + ',' + status)"-->
+<!--                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'-->
+            }
         }
     }
 

@@ -46,41 +46,45 @@ def verify_transaction():
     # email = user_db.email
     # email = 'lele@gmeow.com'
 
-    # db_create_deposit(session['email'], request.json)
-    # db_create_deposit(email, request.json)
-    if request.json['mode'] == 'pre':
-        deposit = DepositEntry(user_db.email, user_db.user_id, (request.json['amount']), request.json['currency'],
-                               request.json['chain'],
-                               translations['txn:pending'][session['lang']], request.json['fromAddress'],
-                               request.json['txHash'])
-        deposit.commit()
-    elif request.json['mode'] == 'post':
-        deposit = db_get_deposit(request.json['txHash'])
+    existing_deposit_entry = DepositEntry().query.filter_by(txHash=request.json['txHash']).first()
 
-    currency = request.json['currency']
+    if existing_deposit_entry.status != 'Complete':
 
-    while run:
-        if count < 6:
-            count += 1
-            print("count: " + str(count))
-            amount = verify_transaction_loop(deposit)
-            if amount > 0:
-                break
-            else:
-                time.sleep(10.0 - ((time.time() - start_time) % 10.0))
+        # db_create_deposit(session['email'], request.json)
+        # db_create_deposit(email, request.json)
+        if request.json['mode'] == 'pre':
+            deposit = DepositEntry(user_db.email, user_db.user_id, (request.json['amount']), request.json['currency'],
+                                   request.json['chain'],
+                                   translations['txn:pending'][session['lang']], request.json['fromAddress'],
+                                   request.json['txHash'])
+            deposit.commit()
+        elif request.json['mode'] == 'post':
+            deposit = db_get_deposit(request.json['txHash'])
 
-    if amount > 0:
-        # update user db
-        user_db.add_balance(amount, request.json['currency'])
-        notification_title = translations['success:wallet'][session['lang']]
-        notification = translations['success:txnSuccess'][session['lang']]
-        alert_type = 'success:txnSuccess'
-    else:
-        notification_title = translations['success:waiting'][session['lang']]
-        notification = translations['alert:timeout'][session['lang']] + \
-                       '<button type="button" class="btn btn-link" style="padding-left: 0px;">' + \
-                       translations['alert:clickHere'][session['lang']] + '</button>'
-        alert_type = 'alert:timeout'
+        currency = request.json['currency']
+
+        while run:
+            if count < 6:
+                count += 1
+                print("count: " + str(count))
+                amount = verify_transaction_loop(deposit)
+                if amount > 0:
+                    break
+                else:
+                    time.sleep(10.0 - ((time.time() - start_time) % 10.0))
+
+        if amount > 0:
+            # update user db
+            user_db.add_balance(amount, request.json['currency'])
+            notification_title = translations['success:wallet'][session['lang']]
+            notification = translations['success:txnSuccess'][session['lang']]
+            alert_type = 'success:txnSuccess'
+        else:
+            notification_title = translations['success:waiting'][session['lang']]
+            notification = translations['alert:timeout'][session['lang']] + \
+                           '<button type="button" class="btn btn-link" style="padding-left: 0px;">' + \
+                           translations['alert:clickHere'][session['lang']] + '</button>'
+            alert_type = 'alert:timeout'
 
     return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title,
                    notification=notification)
