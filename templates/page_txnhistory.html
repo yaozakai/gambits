@@ -105,12 +105,12 @@
 
           {% if record.status.lower() == 'failed' %}
             <td id="row-{{ record.txHash }}" style="color:red">
-              {{ translations[record.status][session['lang']] }} <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
+              {{ translations['txn:' + record.status|lower][session['lang']] }} <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
                                           class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}"><i class="bi bi-arrow-clockwise"></i></button>
           {% elif record.status.lower() == 'pending' %}
-            <td style="color:yellow">{{ translations[record.status][session['lang']] }}
+            <td style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}
           {% elif record.status.lower() == 'complete' %}
-            <td style="color:green">{{ translations[record.status][session['lang']] }}
+            <td style="color:green">{{ translations['txn:' + record.status|lower][session['lang']] }}
           {% endif %}
             </td>
             <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
