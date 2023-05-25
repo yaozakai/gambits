@@ -51,6 +51,15 @@
     display: none;
 }
 
+#withdraw-spinner {
+    right: 0px;
+    position: absolute;
+    width: 100%;
+    background-color: black;
+    height: 100%;
+    display: none;
+}
+
 .crypto-icon {
     height: 85%;
 }
@@ -59,7 +68,22 @@
     height: 70%;
 }
 
-#money-send {/* width: 100px; */font-size: larger;font-weight: bold;/* color: #adff2e!important; *//* box-shadow: 0px 0px 7px 3px rgb(173 255 46); */}
+#money-deposit {/* width: 100px; */font-size: larger;font-weight: bold;/* color: #adff2e!important; *//* box-shadow: 0px 0px 7px 3px rgb(173 255 46); */}
+
+#money-withdraw {
+    font-size: larger;
+    font-weight: bold;
+    float:right;
+}
+
+#withdraw-error {
+    color: #cd5c5c;
+    font-size: 0.8rem;
+}
+
+#withdrawModalWindow {
+    max-width: 390px;
+}
 
 #deposit-amount {
     margin-right: 15px;

@@ -3,7 +3,7 @@ const web3 = new Web3(window.ethereum);
 // get all accounts
 const accounts = await web3.eth.getAccounts();
 
-document.getElementById('money-send').addEventListener('click', sendMoney)
+document.getElementById('money-deposit').addEventListener('click', sendMoney)
 var alert_box = document.getElementById('alert-box')
 //var alert_title = document.getElementById('alert-title')
 //var alert_message = document.getElementById('alert-message')

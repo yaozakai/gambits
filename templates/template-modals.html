@@ -43,7 +43,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document" id="depositModalWindow">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">{{ translations['deposit'][session['lang']] }}</h3>
+                <h3 class="modal-title">{{ translations['withdraw'][session['lang']] }}</h3>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -89,7 +89,7 @@
                     <span class="input-group-text whiteFont">{{ translations['amount'][session['lang']] }}</span>
                     <input type="number" class="form-control" id="deposit-amount">
                     <div class="btn-group" role="group">
-                        <button type="button" id="money-send" class="btn btn-outline-success symbol-text">{{ translations['send money'][session['lang']] }}</button>
+                        <button type="button" id="money-deposit" class="btn btn-outline-success symbol-text">{{ translations['send money'][session['lang']] }}</button>
                         <div class="btn btn-outline-success btn-lg" id="deposit-spinner">
                             <div class="icon-spinner spinner-border text-success" role="status" style="position: relative;">
                                 <img src="{{ root_path }}static/logos/favicon.png" style="height: 25px;">
@@ -111,7 +111,118 @@
     </div>
 </div>
 
+<!-- withdraw popup -->
+<div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalWindow" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" id="withdrawModalWindow">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">{{ translations['withdraw'][session['lang']] }}</h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <div class="deposit-top-row">
+<!--                    <div class="green-text" id="balance_eth" style="margin-left: 7px;">-->
+<!--                        <span style="font-size: larger">{{ translations['withdraw:yourBalance'][session['lang']] }}: </span> {{ current_user.balance_eth }}-->
+<!--                    </div>-->
+                    <div class="green-text" id="balance_usdt" style="margin-left: 7px;">
+                        <span style="font-size: larger">{{ translations['withdraw:yourBalance'][session['lang']] }}: </span> {{ current_user.balance_usdt }} <span class="crypto-symbol">USDT</span> <span id="withdraw-error"></span>
+                    </div>
+<!--                    <label class="form-label" for="customRange1">Example range</label>-->
+                    <div class="input-group mb-1" style="margin-top:5px;">
+                        <span class="input-group-text whiteFont">{{ translations['amount'][session['lang']] }}</span>
+                        <input type="number" class="form-control" id="withdraw-amount" step="0.01" min="1" max="{{ current_user.balance_usdt }}">
+<!--                        <div>-->
+<!--                            <div class="range">-->
+<!--                              <input type="range" id="customRange1" list="steplist" min="0" max="100" step="25"-->
+<!--                                oninput="calcVal(this.value)"-->
+<!--                                onchange="calcVal(this.value)"/>-->
+<!--    &lt;!&ndash;                            <datalist id="steplist">&ndash;&gt;-->
+<!--    &lt;!&ndash;                                <option>0</option>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                <option>25</option>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                <option>50</option>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                <option>75</option>&ndash;&gt;-->
+<!--    &lt;!&ndash;                                <option>100</option>&ndash;&gt;-->
+<!--    &lt;!&ndash;                            </datalist>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                            <div class="green-text" style="margin-top: -10px;">-->
+<!--                                <div style="float:left;">0</div>-->
+<!--                                <div style="float:right;">100</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="btn-group" role="group">
+                            <button type="button" id="money-withdraw" class="btn btn-outline-success symbol-text">Send</button>
+                            <div class="btn btn-outline-success btn-lg" id="withdraw-spinner">
+                                <div class="icon-spinner spinner-border text-success" role="status" style="position: relative;">
+                                    <img src="static/logos/favicon.png" style="height: 25px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+
+<!--var user_balance = ''-->
+var translations = $('#meta-translations').data()['name']
+var lang = $('#meta-lang').data()['name']
+
+function calcVal(value) {
+    console.log(value)
+    $('#withdraw-amount').value = toString(Math.round((parseFloat($('#balance_usdt').value) + Number.EPSILON) * value) / 100)
+}
+
+$('#withdraw-amount').on('input', function(){
+<!--    console.log($('#withdraw-amount').val())-->
+    var balance = {{ current_user.balance_usdt }}
+<!--    console.log(balance)-->
+    if (parseFloat($('#withdraw-amount').val()) > parseFloat(balance)) {
+
+        $('#money-withdraw').prop('disabled', true)
+        $('#withdraw-error').text(translations['withdraw:toomuch'][lang])
+    } else {
+        $('#money-withdraw').prop('disabled', false)
+        $('#withdraw-error').text('')
+    }
+});
+
+$('#money-withdraw').on('click', function(){
+<!--    $('#notificationModal').css({-->
+
+    $('#withdrawModal').modal('hide');
+
+    $('#modalNotificationTitle').html(translations['withdraw:requestSent'][lang]);
+    $('#modalNotificationMsg').html(translations['withdraw:24hours'][lang]);
+    $('#notificationModal').modal('show');
+
+
+<!--    $('#deposit-spinner').css({-->
+<!--            'display': 'inline-block'-->
+<!--    });-->
+});
+
+<!--$('#topbar-withdraw-button').on('click', function(){-->
+<!--    event.preventDefault();-->
+<!--    $.ajax({-->
+<!--        url: "/getBalance",-->
+<!--        type: "post",-->
+<!--        success: function(balances) {-->
+<!--&lt;!&ndash;            balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']&ndash;&gt;-->
+<!--            balance_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']-->
+<!--            user_balance = balances['usdt']-->
+<!--        },-->
+<!--        error: function(e) {-->
+<!--            console.log('getBalance: ' + e);-->
+<!--        },-->
+<!--        async: false-->
+<!--    });-->
+<!--});-->
 
 $('#depositModal').on('show.bs.modal', function(){
     var crypto_buttons = document.getElementsByClassName('crypto-button')
@@ -544,13 +655,13 @@ $('.add-to-total').on('click', function(){
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="notificationModalLabel"><div class="notification_title">{{ notification_title }}</div></h3>
+                <h3 class="modal-title" id="notificationModalLabel"><div class="notification_title" id="modalNotificationTitle">{{ notification_title }}</div></h3>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class='notification green-text-outline'>{{ notification }}</div>
+                <div id="modalNotificationMsg" class='notification green-text-outline'>{{ notification }}</div>
             </div>
         </div>
     </div>

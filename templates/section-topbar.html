@@ -43,8 +43,14 @@
 
                     <li>
                         <button class="btn dropdown-item" id="deposit-button" data-bs-toggle="modal" data-bs-target="#depositModal">
-                            <i class="fa-solid fa-money-bill-transfer"></i>
+                            <i class="fa-solid fa-arrow-right"></i><i class="fa-solid fa-wallet"></i>
                             {{ translations['deposit'][session['lang']] }}
+                        </button>
+                    </li>
+                    <li>
+                        <button class="btn dropdown-item" id="topbar-withdraw-button" data-bs-toggle="modal" data-bs-target="#withdrawModal">
+                            <i class="fa-solid fa-money-bill-transfer"></i><i class="fa-solid fa-arrow-left"></i>
+                            {{ translations['withdraw'][session['lang']] }}
                         </button>
                     </li>
 

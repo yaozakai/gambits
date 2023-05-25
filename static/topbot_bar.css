@@ -36,6 +36,10 @@
     font-size: small;
 }
 
+.topbar-icon {
+    width: 25px;
+}
+
 #address-field-sub {
     word-wrap: break-word;
     /* font-size: xx-small; */
