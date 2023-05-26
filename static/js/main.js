@@ -11,6 +11,43 @@ window.addEventListener("DOMContentLoaded", (event) => {
 //    console.log('lang: ' + lang)
 });
 
+function generate_table_txnHistory(results) {
+    if (typeof results == 'undefined') {
+        htmloutput = "<div class=\"green-text-outline\">No data</div>";
+    } else {
+        for (let i = 0; i < results.length; i++) {
+            htmloutput = htmloutput + "<tr>";
+            htmloutput = htmloutput + "<td>" + results[i]["endroundtime"].substring(11, 19) + "</td>";
+            htmloutput = htmloutput + "<td>" + results[i]["status"] + "</td>";
+            htmloutput = htmloutput + "<td>" + results[i]["gametype"] + "</td>";
+            htmloutput = htmloutput + "<td>" + results[i]["gamecode"] + "</td>";
+            htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
+            htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
+            htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
+<!--                    htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";-->
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";-->
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";-->
+            htmloutput = htmloutput + "<td>" + results[i]["rake"] + "</td>";
+<!--                            htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";-->
+                    htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">Detail:" + results[i]["detail"] + "<br>Result:" + results[i]["gameresult"] + "</div></td></tr>";
+        };
+    }
+    document.getElementById("results").innerHTML = htmloutput;
+}
+
+function notification_popup(title, msg){
+    var translations = $('#meta-translations').data()['name']
+    var lang = $('#meta-lang').data()['name']
+
+    $('#modalNotificationTitle').html(translations[title][lang]);
+    $('#modalNotificationMsg').html(translations[msg][lang]);
+    $('#notificationModal').modal('show');
+}
+
+function notification_popup_hide() {
+    $('#notificationModal').modal('hide');
+}
+
 async function send_alert(title, msg, native=false, appendix='') {
     var alert_box = document.getElementById('alert-box')
     var alert_title = document.getElementById('alert-title')
@@ -57,6 +94,23 @@ async function send_alert(title, msg, native=false, appendix='') {
 //          }
 //        });
     }
+}
+
+function get_balance(){
+    $.ajax({
+        url: "/getBalance",
+        type: "post",
+        success: function(balances) {
+            balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
+            balance_field_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']
+            withdraw_balance.innerHTML = balances['usdt']
+<!--                    balance_field_eth.value = balances['eth'];-->
+<!--                    balance_field_usdt.value = balances['usdt'];-->
+        },
+        error: function(e) {
+            console.log('getBalance: ' + e);
+        }
+    });
 }
 
 function txnHistory(){

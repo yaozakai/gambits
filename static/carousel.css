@@ -426,8 +426,12 @@ h3 {
     width: auto;
     height: auto;
     animation: 1.5s linear infinite spinner-border;
-    bottom: 8px;
+    /* bottom: 8px; */
     position: absolute;
+    left: 0px;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 #loadingscreenModalWindow {

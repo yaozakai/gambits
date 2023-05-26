@@ -8,6 +8,8 @@ from itsdangerous import URLSafeTimedSerializer
 from config import app, mail
 from flask_mail import Message
 
+# from utils import translations
+
 
 # email_text = 'Welcome! Thanks for signing up. Please follow this link to activate your account: '
 
@@ -77,7 +79,7 @@ def create_verify_email(email, translations):
 
 def create_reset_pass_email(email, translations):
     token = generate_confirmation_token(email)
-    confirm_url = url_for('reset_password', lang=session['lang'], token=token, _external=True)
+    confirm_url = url_for('reset_password', lang=session['lang'], email=email, token=token, _external=True)
     html = render_template('email_reset_pass.html', confirm_url=confirm_url, translations=translations, root_path='../')
     subject = "Gambits Casino: " + translations['password reset'][session['lang']]
     send_email(subject=subject, recipient=email, html=html)

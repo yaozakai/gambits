@@ -52,12 +52,15 @@
 }
 
 #withdraw-spinner {
-    right: 0px;
+    right: auto;
+    left: auto;
+    /* margin: 0 auto 0 auto; */
     position: absolute;
     width: 100%;
     background-color: black;
     height: 100%;
     display: none;
+    z-index: 2;
 }
 
 .crypto-icon {

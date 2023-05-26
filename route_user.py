@@ -3,6 +3,7 @@ from flask import Blueprint, json
 from flask_login import login_user
 
 from db_access import *
+from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha
 from utils import *
 
@@ -61,7 +62,7 @@ def login():
                         debug_out('login: done, reloading website, check ajax success output')
 
                         return jsonify(output)
-                        # return render_template('page_gamehistory.html', page_call='profile')
+                        # return render_template('page-gamehistory.html', page_call='profile')
                         # return redirect(next or url_for('profile'))
                     else:
                         return jsonify(error=translations['created not verified'][session['lang']],
@@ -102,3 +103,90 @@ def language(lang):
         set_flag_from_lang()
 
     return redirect(url_for('home'))
+
+
+@user.route('/forgot_pass', methods=['POST'])
+def forgot_pass():
+    # check if the email is a user
+    email = json.loads(request.data)['email']
+    if db_getuser_email(email) is not None:
+        create_reset_pass_email(email, translations)
+
+    return jsonify(notification_title=translations['check email'][session['lang']],
+                   notification=translations['email sent to'][session['lang']])
+        # return redirect(url_for('home', notification='Token expired, please try again',
+        #                         notification_title='Reset Password'), code=307)
+
+
+@user.route("/set_password", methods=['POST'])
+def set_password():
+    email = session.pop("email", None)
+    password = json.loads(request.data)['password']
+    if db_set_password(email, password) is not None:
+        return jsonify(notification=translations['password has been updated'][session['lang']],
+                       notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
+    else:
+        return setup_home_template(notification='Account not found',
+                                   notification_title=translations['reset password'][session['lang']],
+                                   reset_pass_popup=False)
+
+
+@user.route('/resend', methods=['POST'])
+def resend():
+    email = json.loads(request.data)['email'][0:-1]
+    create_verify_email(email, translations)
+    return jsonify(notification_title=translations['check email'][session['lang']],
+                   notification=translations['email sent to'][session['lang']])
+
+
+@user.route('/register', methods=['GET', 'POST'])
+def register():
+    if 'lang' not in session:
+        session['lang'] = 'zh-tw'
+
+    # sharing the same captcha as login
+    captcha_response = json.loads(request.data)['recaptcha']
+
+    # verify captcha
+    if verify_captcha(captcha_response):
+        register_form = RegisterForm()
+        email = register_form.email.data
+        if email_valid(email):
+            password_not_valid = validate_password(register_form.password.data, session['lang'])
+            username = register_form.username.data
+            if len(username) > 2:
+                # CHANGE this to == 0 on production
+                if len(password_not_valid) != 0:
+                    # check email exists
+                    user = db_getuser_email(email)
+                    if user is None:
+                        # check username exists
+                        user = db_getuser_username(username)
+                        if user is None:
+                            # create the user
+                            create_verify_email(email, translations)
+                            db_new_user(register_form)
+                            return jsonify(notification_title=translations['check email'][session['lang']],
+                                           notification=translations['email sent to'][session['lang']])
+                        else:
+                            if user.is_active():
+                                return jsonify(error=translations['account exists'][session['lang']])
+                            else:
+                                return jsonify(error=translations['account exists but not activated'][session['lang']],
+                                               resend_email=email,
+                                               link_text=translations['resend verification'][session['lang']])
+                    else:
+                        if user.is_active():
+                            return jsonify(error=translations['account exists'][session['lang']])
+                        else:
+                            return jsonify(error=translations['account exists but not activated'][session['lang']],
+                                           resend_email=email,
+                                           link_text=translations['resend verification'][session['lang']])
+                else:
+                    return jsonify(error=password_not_valid)
+            else:
+                return jsonify(error=translations['username more than 2'][session['lang']])
+        else:
+            return jsonify(error=translations['invalid email format'][session['lang']])
+    else:
+        return jsonify(error=translations['recaptcha not verified'][session['lang']])

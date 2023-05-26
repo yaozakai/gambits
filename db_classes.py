@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import flask
 import pytz
 from flask_login import UserMixin
 
@@ -121,9 +122,22 @@ class UserEntry(UserMixin, db.Model):
 
     def add_balance(self, amount, currency):
         if currency == 'eth':
-            self.balance_eth += amount
+            self.balance_eth += round(amount, 2)
         elif currency == 'usdt':
-            self.balance_usdt += amount
+            self.balance_usdt += round(amount, 2)
+
+        db.session.add(self)
+        db.session.commit()
+
+    def minus_balance(self, amount, currency):
+        if currency == 'eth':
+            # if amount > self.balance_eth:
+            #     return flask.abort(400)
+            self.balance_eth -= round(amount, 2)
+        elif currency == 'usdt':
+            # if amount > self.balance_usdt:
+            #     return flask.abort(400)
+            self.balance_usdt -= round(amount, 2)
 
         db.session.add(self)
         db.session.commit()
@@ -288,8 +302,9 @@ class RollinEntry(db.Model):
         self.gametype = gametype
 
 
-class DepositEntry(db.Model):
-    __tablename__ = 'deposits'
+class TxnEntry(db.Model):
+    __tablename__ = 'txns'
+    type = db.Column(db.String(20))
     email = db.Column(db.String(100))
     user_id = db.Column(db.String(10), primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
@@ -300,7 +315,8 @@ class DepositEntry(db.Model):
     fromAddress = db.Column(db.String(100))
     txHash = db.Column(db.String(100), primary_key=True)
 
-    def __init__(self, email='', user_id='', amount='', currency='', blockchain='', status='', fromAddress='', txHash=''):
+    def __init__(self, type='', email='', user_id='', amount='', currency='', blockchain='', status='', fromAddress='', txHash=''):
+        self.type = type
         self.email = email
         self.user_id = user_id
         self.amount = amount

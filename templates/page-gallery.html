@@ -497,7 +497,14 @@ $(function() {
                 window.open(self.link.toString());
               },
               error: function(e) {
-                console.log('launch: ' + e);
+<!--                Just check if you look like you're online in the UI -->
+                    var top_bar_online_is_visible = document.getElementById('username-field')
+                    if (top_bar_online_is_visible) {
+                        console.log('launch error: ' + e);
+                        console.log('reloading...');
+                        location.reload();
+                    }
+<!--                notification_popup('alert:serverReset', 'please reload')-->
               }
             });
         });

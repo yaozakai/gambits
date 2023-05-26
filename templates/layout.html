@@ -86,9 +86,15 @@
 <!--        {% endif %}-->
 <!--        >-->
         <div>
+
             <!-- main_section -->
             <div id="main_section" >
+                {% block txnHistory %}{% endblock %}
                 {% block gallery %}{% endblock %}
+
+<!--                {% if session['page'] == 'txnHistory' %}-->
+<!--                {% else %}-->
+<!--                {% endif %}-->
 <!--                {% if search_page is defined %}-->
 <!--                    {% block search %}{% endblock %}-->
 <!--            </div>-->

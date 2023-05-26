@@ -5,10 +5,10 @@
         <!-- start LOGO -->
         <div class="navbar-brand">
             <a href="/">
-                <img src="{{ root_path }}/logos/favicon.png" id="main-icon">
+                <img src="{{ root_path }}/static/logos/favicon.png" id="main-icon">
 
-              <img src="{{ root_path }}/logos/gambits_logo.png" class="main-logo">
-              <img src="{{ root_path }}/logos/gambits_logo long.png" class="main-logo-long">
+              <img src="{{ root_path }}/static/logos/gambits_logo.png" class="main-logo">
+              <img src="{{ root_path }}/static/logos/gambits_logo long.png" class="main-logo-long">
             </a>
         </div>
         <!-- end LOGO -->
@@ -32,7 +32,7 @@
                 </button>
 
                 <ul class="dropdown-menu multi-level green-text" aria-labelledby="top-bar-dropdown-button">
-
+<!--Balances-->
                     <li class="" id="balance_eth" style="margin-left: 7px;">
                         <span class="crypto-symbol">ETH</span> {{ current_user.balance_eth }}
                     </li>
@@ -40,33 +40,27 @@
                         <span class="crypto-symbol">USDT</span> {{ current_user.balance_usdt }}
                     </li>
                     <div class="dropdown-divider"></div>
-
+<!--Deposit button-->
                     <li>
                         <button class="btn dropdown-item" id="deposit-button" data-bs-toggle="modal" data-bs-target="#depositModal">
                             <i class="fa-solid fa-arrow-right"></i><i class="fa-solid fa-wallet"></i>
                             {{ translations['deposit'][session['lang']] }}
                         </button>
                     </li>
+<!--Withdraw button-->
                     <li>
                         <button class="btn dropdown-item" id="topbar-withdraw-button" data-bs-toggle="modal" data-bs-target="#withdrawModal">
                             <i class="fa-solid fa-money-bill-transfer"></i><i class="fa-solid fa-arrow-left"></i>
                             {{ translations['withdraw'][session['lang']] }}
                         </button>
                     </li>
-
-<!--                    <li>-->
-<!--                        <button class="btn dropdown-item" id="connect-wallet">-->
-<!--                            <i class="bi bi-wallet2"></i>-->
-<!--                            {{ translations['connect wallet'][session['lang']] }}-->
-<!--                        </button>-->
-
-<!--                    </li>-->
-
                     <div class="dropdown-divider"></div>
+<!--Transactions button-->
                     <li><button class="btn dropdown-item" id="txnHistory-button" onclick="txnHistory()">{{ translations['txnHistory'][session['lang']] }}</button></li>
+<!--Game History button-->
                     <li><a class="btn dropdown-item" href="/gamehistory">{{ translations['gamehistory'][session['lang']] }}</a></li>
+<!--Language button-->
                     <li class="dropdown-submenu dropdown-item">
-<!--                        <span class="bi bi-caret-left"></span>-->
                         <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>{{ translations['language'][session['lang']] }}
                         <ul class="dropdown-menu">
             {% endif %}
@@ -95,7 +89,7 @@
                     </li>
                     <div class="dropdown-divider"></div>
                     {% if session['admin'] %}
-                        <!-- start SEARCH button -->
+<!-- start SEARCH button -->
                         <a class="btn dropdown-item" href="/search"><i class="bi bi-search">Search</i></a>
                     {% endif %}
                     <li><a class="btn dropdown-item" href="/logout">{{ translations['log out'][session['lang']] }}</a></li>
@@ -138,22 +132,25 @@
 
 {% if current_user.is_authenticated %}
     <script language="JavaScript" type="text/javascript">
+
     $(document).ready(function(){
-        var balance_field_eth = document.getElementById("balance_eth");
-        var balance_field_usdt = document.getElementById("balance_usdt");
+
 <!--        function updater() {-->
 <!--            const response = fetch('/getBalance');-->
 <!--            balance_field_eth.value = response['eth'];-->
 <!--            balance_field_usdt.value = response['usdt'];-->
 <!--        }-->
         $('#top-bar-dropdown-button').on('click', function(){
-            event.preventDefault();
+            var balance_field_eth = document.getElementById("balance_eth");
+            var balance_field_usdt = document.getElementById("balance_usdt");
+            var withdraw_balance = document.getElementById("withdraw-balance");
             $.ajax({
                 url: "/getBalance",
                 type: "post",
                 success: function(balances) {
                     balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
                     balance_field_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']
+                    withdraw_balance.innerHTML = balances['usdt']
 <!--                    balance_field_eth.value = balances['eth'];-->
 <!--                    balance_field_usdt.value = balances['usdt'];-->
                 },
@@ -163,21 +160,12 @@
             });
         });
 
-<!--        var publicAddress = "{{ current_user.publicAddress }}"-->
+        $('#topbar-withdraw-button').on('click', function(){
+            $('#withdraw-spinner').hide();
 
-<!--        if (publicAddress != 'None'){-->
-<!--            var user_field = document.getElementById("username-field")-->
-<!--            var address_field = document.getElementById("address-field")-->
+        });
 
-<!--            address_field.style.display = "flex"-->
 
-<!--            address_field.style.width = user_field.clientWidth - 20-->
-<!--            address_field.style.height = user_field.clientHeight-->
-
-<!--            user_field.classList.add('text-animated-username')-->
-<!--            address_field.classList.add('text-animated-address')-->
-
-<!--        }-->
 
     });
 
@@ -185,4 +173,3 @@
     </script>
 <!--    <script language="JavaScript" type="module" src="{{ root_path }}/js/metamask_connect.js"></script>-->
 {% endif %}
-

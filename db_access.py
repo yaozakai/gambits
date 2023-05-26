@@ -126,7 +126,7 @@ def db_get_user():
 
 
 def db_get_deposit(txHash):
-    return DepositEntry().query.filter_by(txHash=txHash).first()
+    return TxnEntry().query.filter_by(txHash=txHash).first()
 
 
 def db_get_user_from_id(user_id):
