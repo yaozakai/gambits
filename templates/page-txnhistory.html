@@ -33,7 +33,7 @@
         });
 
         const selectElement = document.getElementById('reportDate');
-        selectElement.addEventListener("change", (event) => {
+        selectElement.addEventListener("change", () => {
             $.ajax({
                 url: "/txnHistory",
                 type: "post",
@@ -43,9 +43,10 @@
                     "reportDate":selectElement.value
                 }),
                 success: function(self) {
-                    htmloutput = "";
-                    results = self.rec;
-                    $("#num_results").html(results.length);
+<!--                    htmloutput = "";-->
+<!--                    results = self.rec;-->
+                    $("#main_section").html(self.render);
+<!--                    $("#num_results").html(results.length);-->
 <!--                    generate_table(results);-->
                 },
                 error: function(e) {
@@ -79,8 +80,8 @@
       {% for record in rec if counter < 50 %}
         {% set counter = loop.count %}
         <tr>
-          <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
-          <td>{{ record.created.strftime('%H:%M') }}</td>
+          <td>{{ record.created.split(' ')[0] }}</td>
+          <td>{{ record.created.split(' ')[1] }}</td>
 
           {% if record.status.lower() == 'failed' %}
             <td id="row-{{ record.txHash }}" style="color:red">

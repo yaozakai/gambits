@@ -25,10 +25,6 @@
         <script src="https://c0f4f41c-2f55-4863-921b-sdk-docs.github.io/cdn/metamask-sdk.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
 
-        <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/main.js"></script>
-
-
-
 <!-- Custom styles for this template -->
         <link  type="text/css" href="{{ url_for('static', filename='nav.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='btn.css') }}" rel="stylesheet">
@@ -59,13 +55,15 @@
 <!--        <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>-->
 
         <!--    reCaptcha  -->
-        <script src='https://www.google.com/recaptcha/api.js?hl={{ lang }}' async defer></script>
         <script src="https://js.hcaptcha.com/1/api.js?hl={{ lang }}"async defer></script>
 
           <!-- Jquery -->
-        <script src="https://code.jquery.com/jquery-3.6.4.slim.js" integrity="sha256-dWvV84T6BhzO4vG6gWhsWVKVoa4lVmLnpBOZh/CAHU4=" crossorigin="anonymous"></script>
+<!--        <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>-->
 <!--        <script language="JavaScript" type="text/javascript" src="{{ root_path }}static/bootstrap/jquery-3.6.0.min.js"></script>-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<!--        <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>-->
+
+        <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/main.js"></script>
 
 
     </head>
@@ -92,18 +90,6 @@
                 {% block txnHistory %}{% endblock %}
                 {% block gallery %}{% endblock %}
 
-<!--                {% if session['page'] == 'txnHistory' %}-->
-<!--                {% else %}-->
-<!--                {% endif %}-->
-<!--                {% if search_page is defined %}-->
-<!--                    {% block search %}{% endblock %}-->
-<!--            </div>-->
-<!--                {% elif report_date|length > 0 %}-->
-<!--                    {% block profile %}{% endblock %}-->
-<!--            </div>-->
-<!--                {% else %}-->
-<!--                    -->
-<!--                {% endif %}-->
             </div>
 
             <!-- Bottom Nav bar -->

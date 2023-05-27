@@ -71,6 +71,8 @@
 
 
 </nav>
+
+{% if session['page'] != 'txnHistory' %}
 <script>
 
 
@@ -131,3 +133,4 @@ observer.observe(nav_slots, observerOptions);
 
 
 </script>
+{% endif %}

@@ -243,6 +243,7 @@ $('#money-withdraw').on('click', function(){
         });
     } else {
         $('#withdraw-error').text(translations['withdraw:missingWallet'][lang])
+        $('#withdraw-spinner').hide();
     }
 });
 
@@ -472,8 +473,8 @@ $('.add-to-total').on('click', function(){
 
 
                 $('#loginbtn').on('click', function(){
-                    $('#login-spinner').height($('#loginbtn').height());
-                    $('#login-spinner').width($('#loginbtn').width());
+                    $('#login-spinner').outerHeight($('#loginbtn').outerHeight());
+                    $('#login-spinner').outerWidth($('#loginbtn').outerWidth());
                     $('#login-spinner').css({
                         'display': 'inline-flex'
                     });
@@ -607,75 +608,105 @@ $('.add-to-total').on('click', function(){
                 </div>
             </div>
             <script>
-        $(document).ready(function(){
+                $(document).ready(function(){
 
-            $('#registerbtn').on('click', function(self){
+                    $('#registerbtn').on('click', function(self){
 
-                $('#reg-spinner').height($('#registerbtn').height());
-                $('#reg-spinner').width($('#registerbtn').width());
-                $('#reg-spinner').css({
-                    'display': 'inline-flex'
+                        $('#reg-spinner').height($('#registerbtn').height());
+                        $('#reg-spinner').width($('#registerbtn').width());
+                        $('#reg-spinner').css({
+                            'display': 'inline-flex'
+                        });
+
+                        event.preventDefault();
+
+                        var email = $("#reg-email").val();
+                        var username = $("#reg-username").val();
+                        var password = $("#reg-password").val();
+                        var referral = $("#reg-referral").val();
+                        var recaptcha = grecaptcha.getResponse(widgetId2);
+
+                        $.ajax({
+                          url: "/register",
+                          type: "post",
+                          dataType: "json",
+                          contentType: "application/json; charset=UTF-8",
+                          data: JSON.stringify({
+                            "email":email,
+                            "password":password,
+                            "username":username,
+                            "referral":referral,
+                            "recaptcha":recaptcha
+                          }),
+                          success: function(self) {
+
+                            if (typeof self.resend_email != 'undefined'){
+                                $('#reg-spinner').hide();
+                                if (typeof self.link_text != 'undefined'){
+                                    $(".error").html(self.error.toString()+'<br><button id=\"resendEmail\" class=\"modal-error-link\" value=\"' + self.resend_email + '/">' + self.link_text.toString() + '</button>');
+                                } else {
+                                    $(".error").html(self.error.toString());
+                                }
+                            } else {
+                                if (typeof self.error != 'undefined'){
+                                    $('#reg-spinner').hide();
+                                    $(".error").html('<p>'+self.error.toString()+'</p>');
+                                } else if (typeof self.notification != 'undefined'){
+                                    $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                                    $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+                                    $('#notificationModal').modal('show');
+                                    $('#registerModal').modal('hide');
+                                }
+                            }
+
+                          },
+                          error: function(e) {
+                            console.log('register: ' + e);
+                          }
+                        });
+                    });
                 });
 
-                event.preventDefault();
+<!--                function recaptchaCallback() {-->
+<!--                    grecaptcha.ready(function() {-->
+<!--                      const widgetId1 = grecaptcha.render("login-recaptcha", {-->
+<!--                              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",-->
+<!--                              'theme' : 'dark'-->
+<!--                      });-->
+<!--                      const widgetId2 = grecaptcha.render("reg-recaptcha", {-->
+<!--                              'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',-->
+<!--                              'theme' : 'dark'-->
+<!--                      });-->
+<!--                    });-->
+<!--                }-->
 
-                var email = $("#reg-email").val();
-                var username = $("#reg-username").val();
-                var password = $("#reg-password").val();
-                var referral = $("#reg-referral").val();
-                var recaptcha = grecaptcha.getResponse(widgetId2);
+var onloadCallback = function() {
+<!--    waitForElm('#login-recaptcha')-->
+<!--    waitForElm('#reg-recaptcha')-->
+    widgetId1 = grecaptcha.render("login-recaptcha", {
+              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
+              'theme' : 'dark'
+      });
+    widgetId2 = grecaptcha.render("reg-recaptcha", {
+          'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
+          'theme' : 'dark'
+    });
+};
 
-                $.ajax({
-                  url: "/register",
-                  type: "post",
-                  dataType: "json",
-                  contentType: "application/json; charset=UTF-8",
-                  data: JSON.stringify({
-                    "email":email,
-                    "password":password,
-                    "username":username,
-                    "referral":referral,
-                    "recaptcha":recaptcha
-                  }),
-                  success: function(self) {
+<!--                window.addEventListener("DOMContentLoaded", (event) => {-->
 
-                    if (typeof self.resend_email != 'undefined'){
-                        $('#reg-spinner').hide();
-                        if (typeof self.link_text != 'undefined'){
-                            $(".error").html(self.error.toString()+'<br><button id=\"resendEmail\" class=\"modal-error-link\" value=\"' + self.resend_email + '/">' + self.link_text.toString() + '</button>');
-                        } else {
-                            $(".error").html(self.error.toString());
-                        }
-                    } else {
-                        if (typeof self.error != 'undefined'){
-                            $('#reg-spinner').hide();
-                            $(".error").html('<p>'+self.error.toString()+'</p>');
-                        } else if (typeof self.notification != 'undefined'){
-                            $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                            $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
-                            $('#notificationModal').modal('show');
-                            $('#registerModal').modal('hide');
-                        }
-                    }
-
-                  },
-                  error: function(e) {
-                    console.log('register: ' + e);
-                  }
-                });
-            });
-        });
-        grecaptcha.ready(function() {
-              widgetId1 = grecaptcha.render("login-recaptcha", {
-                      "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
-                      'theme' : 'dark'
-              });
-              widgetId2 = grecaptcha.render("reg-recaptcha", {
-                      'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
-                      'theme' : 'dark'
-              });
-            });
-    </script>
+<!--                    grecaptcha.ready(function() {-->
+<!--                      widgetId1 = grecaptcha.render("login-recaptcha", {-->
+<!--                              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",-->
+<!--                              'theme' : 'dark'-->
+<!--                      });-->
+<!--                      widgetId2 = grecaptcha.render("reg-recaptcha", {-->
+<!--                              'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',-->
+<!--                              'theme' : 'dark'-->
+<!--                      });-->
+<!--                    });-->
+<!--                });-->
+            </script>
         </div>
     </div>
 {% endif %}
@@ -761,3 +792,7 @@ $('.add-to-total').on('click', function(){
 {% endif %}
 
     <script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_modal.js"></script>
+
+{% if not current_user.is_authenticated %}
+        <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&hl={{ lang }}' async defer></script>
+{% endif %}

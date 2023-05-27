@@ -1,3 +1,5 @@
+from operator import itemgetter
+
 from flask_login import login_required, logout_user
 
 import utils
@@ -52,7 +54,7 @@ def home():
     if 'page' in session:
         if session['page'] == 'txnHistory':
             queries = TxnEntry().query.filter_by(user_id=session['_user_id'])
-            if len(json.loads(request.data)['reportDate']) > 0:
+            if len(request.data) > 0:
                 report_date = json.loads(request.data)['reportDate']
 
             else:
@@ -184,18 +186,22 @@ def txnHistory():
 
     queries = TxnEntry().query.filter_by(user_id=session['_user_id'])
     if len(json.loads(request.data)['reportDate']) > 0:
-        report_date = json.loads(request.data)['reportDate']
-
+        report_date = datetime.datetime.strptime(json.loads(request.data)['reportDate'], '%Y-%m-%d')
     else:
         # report_date = datetime.datetime.now()
-        report_date = str(datetime.datetime.now()).split(' ')[0]
+        report_date = datetime.datetime.now()
+
+
 
     rec = []
     for query in queries:
-        if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
-            rec.insert(0, query)
+        if pytz.UTC.localize(query.created) <= (pytz.UTC.localize(report_date) + datetime.timedelta(days=1)):
+            rec.insert(0, query.serialize())
 
-    return jsonify(render=render_template('page-txnhistory.html', rec=rec, report_date=report_date,
+    rec.sort(key=itemgetter('created'), reverse=True)
+    # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
+
+    return jsonify(render=render_template('page-txnhistory.html', rec=rec, report_date=str(report_date).split(' ')[0],
                                           translations=translations))
 
     # rec = player_report_today(db_get_user().username, report_date)

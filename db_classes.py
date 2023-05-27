@@ -339,3 +339,15 @@ class TxnEntry(db.Model):
         self.status = 'Failed'
         db.session.add(self)
         db.session.commit()
+
+    def serialize(self):
+        return {"type": self.type,
+                "email": self.email,
+                "user_id": self.user_id,
+                "created": datetime.strftime(self.created, '%Y-%m-%d %H:%M:%S'),
+                "amount": self.amount,
+                "currency": self.currency,
+                "blockchain": self.blockchain,
+                "status": self.status,
+                "fromAddress": self.fromAddress,
+                "txHash": self.txHash}

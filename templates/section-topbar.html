@@ -5,10 +5,10 @@
         <!-- start LOGO -->
         <div class="navbar-brand">
             <a href="/">
-                <img src="{{ root_path }}/static/logos/favicon.png" id="main-icon">
+                <img src="{{ root_path }}/logos/favicon.png" id="main-icon">
 
-              <img src="{{ root_path }}/static/logos/gambits_logo.png" class="main-logo">
-              <img src="{{ root_path }}/static/logos/gambits_logo long.png" class="main-logo-long">
+              <img src="{{ root_path }}/logos/gambits_logo.png" class="main-logo">
+              <img src="{{ root_path }}/logos/gambits_logo long.png" class="main-logo-long">
             </a>
         </div>
         <!-- end LOGO -->
@@ -143,8 +143,9 @@
         $('#top-bar-dropdown-button').on('click', function(){
             var balance_field_eth = document.getElementById("balance_eth");
             var balance_field_usdt = document.getElementById("balance_usdt");
-            var withdraw_balance = document.getElementById("withdraw-balance");
-            $.ajax({
+            waitForElm('#withdraw-balance').then((withdraw_balance) => {
+
+                $.ajax({
                 url: "/getBalance",
                 type: "post",
                 success: function(balances) {
@@ -158,6 +159,11 @@
                     console.log('getBalance: ' + e);
                 }
             });
+            });
+<!--            const withdraw_balance = await waitForElm('#querySelector');-->
+
+<!--            var withdraw_balance = document.getElementById("withdraw-balance");-->
+
         });
 
         $('#topbar-withdraw-button').on('click', function(){

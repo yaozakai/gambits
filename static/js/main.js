@@ -1,15 +1,29 @@
 //$(document).ready(function(){
 window.addEventListener("DOMContentLoaded", (event) => {
 
-
-
-//    formatted = formatted.replace(/'/g, '"')
-//    formatted = formatted.replace(/#/g, "'")
-
-
-
-//    console.log('lang: ' + lang)
 });
+
+function waitForElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                resolve(document.querySelector(selector));
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+
+
 
 function generate_table_txnHistory(results) {
     if (typeof results == 'undefined') {
@@ -95,6 +109,7 @@ async function send_alert(title, msg, native=false, appendix='') {
 //        });
     }
 }
+
 
 function get_balance(){
     $.ajax({
