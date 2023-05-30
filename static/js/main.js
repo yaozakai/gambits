@@ -136,9 +136,11 @@ function get_balance(){
 //            balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
             balance_field_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']
             withdraw_balance.innerHTML = balances['usdt']
+            $('#deposit-display-amount').html(balances['usdt'] + ' USDT @ ERC20')
+
         },
         error: function(e) {
-            console.log('getBalance: ' + e);
+            console.log('/getBalance: ' + e);
         }
     });
 }
@@ -153,7 +155,7 @@ function searchPlayer(){
             $("#main_section").html(self.render);
         },
         error: function(e) {
-            console.log('txnHistory: ' + e);
+            console.log('/search_page: ' + e);
         }
     });
 }
@@ -181,6 +183,34 @@ function gameHistory(){
             console.log('gameHistory error: ' + e);
         }
     });
+}
+
+function pendingWithdraw(){
+    const selectElement = document.getElementById('reportDate');
+    let reportDate = ''
+    if (selectElement) {
+        reportDate = selectElement.value
+    }
+    $("#back-to-games").show()
+
+    $.ajax({
+        url: "/pendingWithdraw",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "reportDate":reportDate
+        }),
+        success: function(self) {
+            $("#main_section").html(self.render);
+//            return true
+        },
+        error: function(e) {
+            console.log('txnHistory: ' + e);
+//            return false
+        }
+    });
+    return true
 }
 
 function txnHistory(){

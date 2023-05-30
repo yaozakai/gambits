@@ -18,7 +18,7 @@ def main_section():
     #     session['lang'] = 'zh-tw'
     # if 'page' in session:
     #     if session['page'] == 'txnHistory':
-    #         return jsonify(render=render_template('page-txnhistory.html', rec=rec, report_date=report_date,
+    #         return jsonify(render=render_template('page-txnHistory.html', rec=rec, report_date=report_date,
     #                                               translations=translations))
 
     csrf_token = csrf.generate_csrf()

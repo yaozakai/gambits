@@ -4,7 +4,7 @@
 <div class="container shadow py-2">
     <h3 class="green-text-outline">Search Player</h3><br>
     <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> result(s)</h5>
-    <div class="col-5">
+    <div class="col-8">
         <div class="input-group mb-3">
             <span class="input-group-text whiteFont">Email/Username</span>
             <input id="search_input" class="form-control" value="{{ report_date }}"/>
@@ -65,7 +65,7 @@
                             htmloutput = htmloutput + "<td>" + results[i]["active"] + "</td>";
                             htmloutput = htmloutput + "<td>" + results[i]["admin"] + "</td>";
                             htmloutput = htmloutput + "<td>" + results[i]["logged_in"] + "</td>";
-                            htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">Detail:" + results[i]["detail"] + "<br>Result:" + results[i]["gameresult"] + "</div></td></tr>";
+                            htmloutput = htmloutput + '</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\"><a class="btn btn-primary" href="/userDetails?' + results[i]["user_id"] + '" role="button" target="_blank">Check details</a></div></td></tr>';
                         };
                     }
 

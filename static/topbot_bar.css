@@ -19,6 +19,8 @@
 
 .top-dropdown-button {
     float:left;
+    width: 100%;
+    height: 100%;
 }
 
 #address-field {
@@ -29,7 +31,7 @@
 
 #top-bar-dropdown-button {
     min-width: 120px;
-    /* padding-left: 0px; */
+    padding-left: 0px;
 }
 
 .crypto-symbol {

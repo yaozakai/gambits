@@ -79,7 +79,7 @@
     float:right;
 }
 
-#withdraw-error {
+.error-message {
     color: #cd5c5c;
     font-size: 0.8rem;
 }

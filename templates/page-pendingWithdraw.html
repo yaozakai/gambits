@@ -1,0 +1,161 @@
+{% extends "layout.html" %}
+{% block pendingWithdraw %}
+<div class="py-2" style="margin-left: 5%;">
+    <h3 class="green-text-outline">Pending Withdraws</h3>
+
+    <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>
+
+</div>
+
+<script>
+
+    $(document).ready(function(){
+        $("td[colspan=12]").find("p").hide();
+        $("table").click(function(event) {
+            event.stopPropagation();
+            var $target = $(event.target);
+            if ( $target.closest("td").attr("colspan") > 1 ) {
+                $target.slideUp();
+                $target.closest("tr").next().find("div").slideToggle();
+
+            } else {
+                $target.closest("tr").next().find("div").slideToggle();
+
+            }
+        });
+
+        const selectElement = document.getElementById('reportDate');
+        selectElement.addEventListener("change", () => {
+            $.ajax({
+                url: "/txnHistory",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                    "reportDate":selectElement.value
+                }),
+                success: function(self) {
+<!--                    htmloutput = "";-->
+<!--                    results = self.rec;-->
+                    $("#main_section").html(self.render);
+<!--                    $("#num_results").html(results.length);-->
+<!--                    generate_table(results);-->
+                },
+                error: function(e) {
+                    console.log('gamehistory: ' + e);
+                }
+            });
+        });
+
+    });
+
+</script>
+
+<table id="data" class="table table-hover table-dark profile-container green-text-outline">
+    <thead class="txn-table-header">
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Amount</th>
+        <th>Chain</th>
+        <th>txHash</th>
+        <th>Payout</th>
+<!--        <th>Valid Bet</th>-->
+<!--        <th>Jackpot</th>-->
+<!--        <th>JackContribution</th>-->
+<!--        <th>Rake</th>-->
+<!--        <th>Room Fee</th>-->
+      </tr>
+    </thead>
+    <tbody class="txn-table-row" id="results">
+<!--      {% set counter = 0 %}-->
+      {% for record in rec %}
+<!--        {% set counter = loop.count %}-->
+        <tr>
+            {% if record.created is string %}
+          <td>{{ record.created.split(' ')[0] }}</td>
+          <td>{{ record.created.split(' ')[1] }}</td>
+            {% else %}
+          <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
+          <td>{{ record.created.strftime('%H:%M:%S') }}</td>
+            {% endif %}
+          <td>{{ record.type }}</td>
+
+          {% if record.status.lower() == 'failed' %}
+            <td id="row-{{ record.txHash }}" style="color:red">
+              {{ translations['txn:' + record.status|lower][session['lang']] }} <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
+                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}"><i class="bi bi-arrow-clockwise"></i></button>
+          {% elif record.status.lower() == 'pending' %}
+            <td style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}
+          {% elif record.status.lower() == 'complete' %}
+            <td style="color:green">{{ translations['txn:' + record.status|lower][session['lang']] }}
+          {% endif %}
+            </td>
+            <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
+            <td>{{ record.blockchain }}</td>
+            <td>
+            {% if "0x" in record.txHash  %}
+                {% if record.blockchain == 'goerli' %}
+                    <a href="https://goerli.etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
+                {% else %}
+                    <a href="https://etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
+                {% endif %}
+            {% else %}
+                {{  translations['na'][session['lang']]  }}
+            {% endif %}
+            </td>
+            <td>
+                <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
+                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}">Go</button>
+            </td>
+<!--            <td>{{ record.validbet }}</td>-->
+<!--          <td>{{ record.jackpot }}</td>-->
+<!--          <td>{{ record.jackpotcontribution }}</td>-->
+<!--            <td>{{ record.rake }}</td>-->
+<!--          <td>{{ record.roomfee }}</td>-->
+        </tr>
+      {% endfor %}
+    </tbody>
+
+
+</table>
+
+<script>
+
+    var reverified_engaged = false
+
+    function reverify(td_id, txHash, chain, currency, amount, fromAddress, status){
+
+<!--        $('#td_id').html-->
+        var status = document.getElementById(td_id)
+
+        if (status.innerHTML != 'Checking'){
+            var translations = $('#meta-translations').data()['name']
+            var lang = $('#meta-lang').data()['name']
+
+            status.innerHTML = translations['txn:checking'][lang]
+            status.style.color = 'yellow'
+
+            send_alert("success:waiting", "success:txnSent")
+            if (!verify_txhash('post', txHash, chain, currency, amount, fromAddress)){
+<!--                status.innerHTML = 'Failed <button onclick="reverify("row-"' + txHash + ',' + txHash + ',' + chain + ',' + currency + ',' + amount + ',' + fromAddress + ',' + status)"-->
+<!--                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'-->
+            }
+        }
+    }
+
+
+</script>
+
+<!--    {% if num_results == 0 %}-->
+<!--        <div class="green-text-outline">-->
+<!--          No Data-->
+<!--        </div>-->
+<!--    {% endif %}-->
+<!--<script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/calendar.js"></script>-->
+
+{% endblock pendingWithdraw %}
+
+

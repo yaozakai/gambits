@@ -43,40 +43,49 @@
     <div class="modal-dialog modal-dialog-centered" role="document" id="depositModalWindow">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">{{ translations['withdraw'][session['lang']] }}</h3>
+                <h3 class="modal-title">{{ translations['deposit'][session['lang']] }}</h3>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" >
-                <div class="deposit-top-row">
-                    <div class="deposit-icon-selector crypto-selector">
-                        <div style="margin-right: 15px;">
-                            <div class='green-text'>{{ translations['choose currency'][session['lang']] }}</div>
-                            <div class="symbol-tag mb-3" id="crypto-text">🥦</div>
-                        </div>
-                        <button type="button" class="btn btn-sm crypto-button mb-1" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>
-                        <button type="button" class="btn btn-sm crypto-button mb-1" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>
-                    </div>
-                    <div class="d-flex modal-divider-horz">
-                        <div class="vr"></div>
-                    </div>
-                    <div class="deposit-icon-selector blockchain-selector mt-3">
-                        <div style="margin-right: 15px;">
-                            <div class='green-text'>{{ translations['choose chain'][session['lang']] }}</div>
-                            <div class="symbol-tag mb-3" id="blockchain-text">🍇</div>
-                        </div>
-                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-erc20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/erc20.png"></button>
-                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>
-                        {% if current_user.admin %}
-                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-goerli"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/goerli.png"></button>
-                        {% endif %}
-                    </div>
+<!--                <div class="deposit-top-row">-->
+<!--                    <div class="deposit-icon-selector crypto-selector">-->
+<!--                        <div style="margin-right: 15px;">-->
+<!--                            <div class='green-text'>{{ translations['choose currency'][session['lang']] }}</div>-->
+<!--                            <div class="symbol-tag mb-3" id="crypto-text">🥦</div>-->
+<!--                        </div>-->
+<!--                        <button type="button" class="btn btn-sm crypto-button mb-1" id="currency-select-usdt"><img class="crypto-icon" src="{{ root_path }}static/logos/usdt.png"></button>-->
+<!--                        <button type="button" class="btn btn-sm crypto-button mb-1" id="currency-select-eth"><img class="crypto-icon" src="{{ root_path }}static/logos/eth.png"></button>-->
+<!--                    </div>-->
+<!--                    <div class="d-flex modal-divider-horz">-->
+<!--                        <div class="vr"></div>-->
+<!--                    </div>-->
+<!--                    <div class="deposit-icon-selector blockchain-selector mt-3">-->
+<!--                        <div style="margin-right: 15px;">-->
+<!--                            <div class='green-text'>{{ translations['choose chain'][session['lang']] }}</div>-->
+<!--                            <div class="symbol-tag mb-3" id="blockchain-text">🍇</div>-->
+<!--                        </div>-->
+<!--                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-erc20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/erc20.png"></button>-->
+<!--                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-bep20"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/bep20.png"></button>-->
+<!--                        {% if current_user.admin %}-->
+<!--                        <button type="button" class="btn btn-sm blockchain-button mb-1" id="chain-select-goerli"><img class="crypto-chain-icon" src="{{ root_path }}static/logos/goerli.png"></button>-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="d-flex modal-divider-horz">-->
+<!--                  <div class="vr"></div>-->
+<!--                </div>-->
+                <div class="green-text mb-3" style="text-align: left;">{{ translations['deposit:onlyUSDT'][session['lang']] }}</div>
+                <div class="d-flex modal-divider-horz"><div class="vr"></div></div>
+
+                <div class='green-text mt-4 mb-1' style="text-align: center;">{{ translations['totalBalanceAfter'][session['lang']] }}</div>
+
+                <div id="deposit-display-amount" class="green-text mt-2 mb-3" style="text-align: center;font-size: x-large;">
+                    {{ current_user.balance_USDT }} USDT on ERC20
                 </div>
-                <div class="d-flex modal-divider-horz">
-                  <div class="vr"></div>
-                </div>
-                <div class='green-text mt-3 mb-3' style="text-align: center;">{{ translations['choose amount'][session['lang']] }}</div>
+                <div class="d-flex modal-divider-horz"><div class="vr"></div></div>
+                <div class='green-text mt-4 mb-3' style="text-align: center;">{{ translations['choose amount'][session['lang']] }}</div>
                 <div class="btn-group money-shortkey mb-3" role="group">
                   <button id="add-10-button" type="button" class="btn btn-outline-success add-to-total">+10</button>
                   <button id="add-20-button" type="button" class="btn btn-outline-success add-to-total">+20</button>
@@ -104,13 +113,49 @@
 <!--                        <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">-->
 <!--                    </div>-->
 <!--                </div>-->
-
+                <div>
+                    <span class="error-message" id="deposit-error"></span>
+                </div>
 
             </div>
         </div>
     </div>
 </div>
 
+{% if current_user.is_authenticated %}
+<script>
+    $('#deposit-amount').on('input', function(){
+        var balance = {{ current_user.balance_usdt }};
+        var decimals = $('#deposit-amount').val().split('.')[1]
+        var error = false
+
+        if (typeof decimals !== 'undefined') {
+            if (decimals.length > 2) {
+                $('#money-deposit').prop('disabled', true)
+                $('#deposit-error').text(translations['only2decimals'][lang])
+                error = true
+            } else {
+                $('#money-deposit').prop('disabled', false)
+                $('#deposit-error').text('')
+                error = false
+            }
+        }
+        let added_amount = 0
+        if ($('#deposit-amount').val()) {
+            added_amount = $('#deposit-amount').val()
+        }
+
+        if (!error) {
+            let displayed_amount = balance + parseFloat(added_amount)
+<!--            console.log(displayed_amount + "=" + balance + "+" + parseFloat(added_amount))-->
+            $('#deposit-display-amount').html(displayed_amount.toFixed(2) + ' USDT @ ERC20')
+        }
+
+
+
+    });
+</script>
+{% endif %}
 <!-- withdraw popup -->
 <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="withdrawModalWindow">
@@ -124,14 +169,12 @@
             <div class="modal-body" >
                 <div class="deposit-top-row">
 <!--                    <div class="green-text" id="balance_eth" style="margin-left: 7px;">-->
-<!--                        <span style="font-size: larger">{{ translations['withdraw:yourBalance'][session['lang']] }}: </span> {{ current_user.balance_eth }}-->
+<!--                        <span style="font-size: larger">{{ translations['yourBalance'][session['lang']] }}: </span> {{ current_user.balance_eth }}-->
 <!--                    </div>-->
                     <div class="green-text" id="balance_usdt" style="margin-left: 7px;">
-                        <span style="font-size: larger">{{ translations['withdraw:yourBalance'][session['lang']] }}: </span> <span id="withdraw-balance"></span> <span class="crypto-symbol">USDT</span>
+                        <span style="font-size: larger">{{ translations['yourBalance'][session['lang']] }}: </span> <span id="withdraw-balance"></span> <span class="crypto-symbol">USDT</span>
                     </div>
-                    <div>
-                        <span id="withdraw-error"></span>
-                    </div>
+
                     <div class="input-group mb-1" style="margin-top:5px;">
                         <span class="input-group-text whiteFont">{{ translations['withdraw:walletID'][session['lang']] }}</span>
                         <input id="withdraw-walletID">
@@ -160,6 +203,10 @@
 <!--                            </div>-->
                         </div>
                     </div>
+
+                    <div>
+                        <span class="error-message" id="withdraw-error"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,7 +230,7 @@ $('#withdraw-amount').on('input', function(){
     if (typeof decimals !== 'undefined') {
         if (decimals.length > 2) {
             $('#money-withdraw').prop('disabled', true)
-            $('#withdraw-error').text(translations['withdraw:2decimals'][lang])
+            $('#withdraw-error').text(translations['only2decimals'][lang])
         } else {
             $('#money-withdraw').prop('disabled', false)
             $('#withdraw-error').text('')
@@ -327,16 +374,20 @@ $('.add-to-total').on('click', function(){
     deposit_amount = document.getElementById('deposit-amount')
 
     amount = parseFloat(button_clicked.innerHTML.split('+')[1])
-    console.log("button clicked: %f", amount);
+<!--    console.log("button clicked: %f", amount);-->
 
     if (deposit_amount.value.length > 0) {
 
         new_balance = parseFloat((amount + parseFloat(deposit_amount.value)).toFixed(10))
-        console.log("%f + %f = %f", amount, parseFloat(deposit_amount.value), new_balance);
+<!--        console.log("%f + %f = %f", amount, parseFloat(deposit_amount.value), new_balance);-->
         deposit_amount.value = new_balance
     } else {
         deposit_amount.value = amount
     }
+    let current_balance = {{ current_user.balance_usdt }} + parseFloat(deposit_amount.value);
+
+    $('#deposit-display-amount').html(current_balance.toFixed(2) + ' USDT @ ERC20')
+
 
 });
 

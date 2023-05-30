@@ -72,7 +72,7 @@ def home():
                 for query in queries:
                     if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
                         rec.insert(0, query)
-                return render_template('page-txnhistory.html', rec=rec, report_date=report_date,
+                return render_template('page-txnHistory.html', rec=rec, report_date=report_date,
                                        translations=translations)
             elif session['page'] == 'gameHistory':
                 rec = player_report_today(db_get_user().username, report_date)
@@ -83,6 +83,9 @@ def home():
                 else:
                     return render_template('page-gamehistory.html', rec=rec['Data'], translations=utils.translations,
                                            report_date=report_date, lang=session['lang'])
+            elif session['page'] == 'pendingWithdraw':
+                return pendingWithdraw()
+
 
     else:
         return render_template('page-gallery.html', icon_placement=utils.icon_placement,
@@ -160,32 +163,44 @@ def logout():
 @application.route('/search_page', methods=['GET', 'POST'])
 @login_required
 def search():
-    return render_template('page-search.html', search_page=True, lang=session['lang'])
+    return jsonify(render=render_template('page-search.html', rec=[], translations=translations) )
+
+
+@application.route('/userDetails', methods=['GET'])
+@login_required
+def userDetails():
+    if session['admin']:
+        pass
 
 
 @application.route('/search_user', methods=['GET', 'POST'])
 @login_required
 def search_user():
-    search_input = json.loads(request.data)['search_input']
 
-    result = db_search_user(search_input)
-    rec = []
-    for row in result:
-        entry = {'user_id': row.user_id,
-                 'created': row.created.strftime('%m/%d/%y - %H:%M'),
-                 'username': row.username,
-                 'email': row.email,
-                 'referral': row.referral,
-                 'balance': row.balance,
-                 'currency': row.currency,
-                 'active': row.active,
-                 'admin': row.admin,
-                 'logged_in': row.logged_in
-                 }
+    if request.data and 'search_input' in json.loads(request.data):
+        search_input = json.loads(request.data)['search_input']
 
-        rec.append(entry)
+        result = db_search_user(search_input)
+        rec = []
+        for row in result:
+            entry = {'user_id': row.user_id,
+                     'created': row.created.strftime('%m/%d/%y - %H:%M'),
+                     'username': row.username,
+                     'email': row.email,
+                     'referral': row.referral,
+                     'balance': row.balance_usdt,
+                     'currency': row.currency,
+                     'active': row.active,
+                     'admin': row.admin,
+                     'logged_in': row.logged_in
+                     }
 
-    return jsonify(lang=session['lang'], rec=rec, num_results=len(rec))
+            rec.append(entry)
+
+        return jsonify(lang=session['lang'], rec=rec)
+    else:
+        return jsonify(lang=session['lang'], rec=[])
+
 
 
 @application.route('/gallery', methods=['POST'])
@@ -214,15 +229,42 @@ def txnHistory():
     rec.sort(key=itemgetter('created'), reverse=True)
     # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
 
-    return jsonify(render=render_template('page-txnhistory.html', rec=rec, report_date=str(report_date).split(' ')[0],
+    return jsonify(render=render_template('page-txnHistory.html', rec=rec, report_date=str(report_date).split(' ')[0],
                                           translations=translations))
+
+
+@application.route('/pendingWithdraw', methods=['GET', 'POST'])
+@login_required
+def pendingWithdraw():
+    session['page'] = 'pendingWithdraw'
+    rec = []
+
+    queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
+    for query in queries:
+        rec.insert(0, query.serialize())
+    # queries = queries.query.filter_by(status='Pending')
+    # if len(json.loads(request.data)['reportDate']) > 0:
+    #     report_date = datetime.datetime.strptime(json.loads(request.data)['reportDate'], '%Y-%m-%d')
+    # else:
+    #     # report_date = datetime.datetime.now()
+    #     report_date = datetime.datetime.now()
+    #
+    # rec = []
+    # for query in queries:
+    #     if pytz.UTC.localize(query.created) <= (pytz.UTC.localize(report_date) + datetime.timedelta(days=1)):
+    #         rec.insert(0, query.serialize())
+    #
+    # rec.sort(key=itemgetter('created'), reverse=True)
+    # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
+
+    return jsonify(render=render_template('page-pendingWithdraw.html', rec=rec, translations=translations))
 
     # rec = player_report_today(db_get_user().username, report_date)
     # if rec is None:
-    #     return jsonify(rec=[], report_date=report_date, render=render_template('page-txnhistory.html', rec=[],
+    #     return jsonify(rec=[], report_date=report_date, render=render_template('page-txnHistory.html', rec=[],
     #                                                                            report_date=report_date))
     # else:
-    #     return jsonify(rec=[], report_date=report_date, render=render_template('page-txnhistory.html', rec=[],
+    #     return jsonify(rec=[], report_date=report_date, render=render_template('page-txnHistory.html', rec=[],
     #                                                                            report_date=report_date))
 
 
@@ -238,7 +280,7 @@ def gameHistory():
         records = rec['Data']
     else:
         report_date = get_timestamp(False, False)
-        rec = player_report_today(db_get_user().username, report_date)
+        # rec = player_report_today(db_get_user().username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
     return jsonify(render=render_template('page-gamehistory.html', rec=records, translations=utils.translations,
                                           report_date=report_date, lang=session['lang']))
@@ -332,7 +374,7 @@ def verify_email():
 @application.route("/logout", methods=['GET', 'POST'])
 @application.route("/launch", methods=['GET', 'POST'])
 def redirect_home():
-    redirect(url_for('home'))
+    return redirect(url_for('home'))
 
 
 # @application.route('/forgot_pass', methods=['POST'])
