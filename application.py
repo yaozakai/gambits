@@ -52,29 +52,38 @@ def home():
     debug_out('done')
 
     if 'page' in session:
-        if session['page'] == 'txnHistory':
-            queries = TxnEntry().query.filter_by(user_id=session['_user_id'])
-            if len(request.data) > 0:
-                report_date = json.loads(request.data)['reportDate']
-
-            else:
-                # report_date = datetime.datetime.now()
-                report_date = str(datetime.datetime.now()).split(' ')[0]
-
-            rec = []
-            for query in queries:
-                if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
-                    rec.insert(0, query)
-
-            return render_template('page-txnhistory.html', rec=rec, report_date=report_date,
-                                   translations=translations)
-        else:
+        if session['page'] == 'gallery':
             return render_template('page-gallery.html', icon_placement=utils.icon_placement,
                                    game_titles=utils.game_titles,
                                    root_path='', login_form=login_form, register_form=register_form,
                                    RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
                                    notification='', notification_title='', reset_pass=False,
                                    lang=session['lang'], translations=utils.translations)
+        else:
+            if len(request.data) > 0:
+                report_date = json.loads(request.data)['reportDate']
+
+            else:
+                report_date = str(datetime.datetime.now()).split(' ')[0]
+
+            if session['page'] == 'txnHistory':
+                queries = TxnEntry().query.filter_by(user_id=session['_user_id'])
+                rec = []
+                for query in queries:
+                    if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
+                        rec.insert(0, query)
+                return render_template('page-txnhistory.html', rec=rec, report_date=report_date,
+                                       translations=translations)
+            elif session['page'] == 'gameHistory':
+                rec = player_report_today(db_get_user().username, report_date)
+                # report_date = report_date.strftime('%Y-%m-%d')
+                if rec is None:
+                    return render_template('page-gamehistory.html', rec=[], translations=utils.translations,
+                                           report_date=report_date, lang=session['lang'])
+                else:
+                    return render_template('page-gamehistory.html', rec=rec['Data'], translations=utils.translations,
+                                           report_date=report_date, lang=session['lang'])
+
     else:
         return render_template('page-gallery.html', icon_placement=utils.icon_placement,
                                game_titles=utils.game_titles,
@@ -148,7 +157,7 @@ def logout():
     return redirect(url_for('home'))
 
 
-@application.route('/search', methods=['GET', 'POST'])
+@application.route('/search_page', methods=['GET', 'POST'])
 @login_required
 def search():
     return render_template('page-search.html', search_page=True, lang=session['lang'])
@@ -179,6 +188,12 @@ def search_user():
     return jsonify(lang=session['lang'], rec=rec, num_results=len(rec))
 
 
+@application.route('/gallery', methods=['POST'])
+def gallery():
+    session['page'] = 'gallery'
+    return redirect(url_for('home'))
+
+
 @application.route('/txnHistory', methods=['GET', 'POST'])
 @login_required
 def txnHistory():
@@ -190,8 +205,6 @@ def txnHistory():
     else:
         # report_date = datetime.datetime.now()
         report_date = datetime.datetime.now()
-
-
 
     rec = []
     for query in queries:
@@ -213,30 +226,22 @@ def txnHistory():
     #                                                                            report_date=report_date))
 
 
-@application.route('/gamehistory', methods=['GET', 'POST'])
+@application.route('/gameHistory', methods=['GET', 'POST'])
 @login_required
-def gamehistory():
-    # username = session['_user_id']
-    # username = '0000-0001'
-    if len(request.data) > 0 and 'reportDate' in json.loads(request.data):
+def gameHistory():
+    session['page'] = 'gameHistory'
+    records = []
+    if len(request.data) > 0 and 'reportDate' in json.loads(request.data) and len(
+            json.loads(request.data)['reportDate']) > 0:
         report_date = json.loads(request.data)['reportDate']
         rec = player_report_today(db_get_user().username, report_date)
-        if rec is None:
-            record = ''
-        else:
-            record = rec['Data']
-        # report_date = report_date.strftime('%Y-%m-%d')
-        return jsonify(rec=record, report_date=report_date)
+        records = rec['Data']
     else:
         report_date = get_timestamp(False, False)
         rec = player_report_today(db_get_user().username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
-        if rec is None:
-            return render_template('page-gamehistory.html', rec=[],
-                                   report_date=report_date, lang=session['lang'])
-        else:
-            return render_template('page-gamehistory.html', rec=rec['Data'],
-                                   report_date=report_date, lang=session['lang'])
+    return jsonify(render=render_template('page-gamehistory.html', rec=records, translations=utils.translations,
+                                          report_date=report_date, lang=session['lang']))
 
 
 @application.route("/launch", methods=['GET', 'POST'])
@@ -323,7 +328,7 @@ def verify_email():
 #                            lang=session['lang'], translations=utils.translations)
 
 
-@application.route('/gamehistory', methods=['GET', 'POST'])
+@application.route('/gameHistory', methods=['GET', 'POST'])
 @application.route("/logout", methods=['GET', 'POST'])
 @application.route("/launch", methods=['GET', 'POST'])
 def redirect_home():

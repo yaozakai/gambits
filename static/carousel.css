@@ -451,6 +451,12 @@ h3 {
     /* vertical-align: middle; */
 }
 
+#back-to-games {
+    right: 0px;
+    padding: 0.5rem;
+    z-index: 1000;
+}
+
 #language-select {
     /* height: 35px; */
     /* top: 3px; */

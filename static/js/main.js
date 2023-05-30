@@ -3,6 +3,20 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 });
 
+function go_to_gallery() {
+//    $("#back-to-games").hide()
+    $.ajax({
+        url: "/gallery",
+        type: "post",
+        success: function(self) {
+            $("#main_section").html(self);
+        },
+        error: function(e) {
+            console.log('getBalance: ' + e);
+        }
+    });
+}
+
 function waitForElm(selector) {
     return new Promise(resolve => {
         if (document.querySelector(selector)) {
@@ -112,18 +126,59 @@ async function send_alert(title, msg, native=false, appendix='') {
 
 
 function get_balance(){
+    var balance_field_usdt = document.getElementById("balance_usdt");
+    var withdraw_balance = document.getElementById("withdraw-balance");
+
     $.ajax({
         url: "/getBalance",
         type: "post",
         success: function(balances) {
-            balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
+//            balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
             balance_field_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']
             withdraw_balance.innerHTML = balances['usdt']
-<!--                    balance_field_eth.value = balances['eth'];-->
-<!--                    balance_field_usdt.value = balances['usdt'];-->
         },
         error: function(e) {
             console.log('getBalance: ' + e);
+        }
+    });
+}
+
+function searchPlayer(){
+    $("#back-to-games").show()
+
+    $.ajax({
+        url: "/search_page",
+        type: "post",
+        success: function(self) {
+            $("#main_section").html(self.render);
+        },
+        error: function(e) {
+            console.log('txnHistory: ' + e);
+        }
+    });
+}
+
+function gameHistory(){
+    const selectElement = document.getElementById('reportDateGameHistory');
+    let reportDate = ''
+    if (selectElement) {
+        reportDate = selectElement.value
+    }
+    $("#back-to-games").show()
+
+    $.ajax({
+        url: "/gameHistory",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "reportDate":reportDate
+        }),
+        success: function(self) {
+            $("#main_section").html(self.render);
+        },
+        error: function(e) {
+            console.log('gameHistory error: ' + e);
         }
     });
 }
@@ -134,6 +189,8 @@ function txnHistory(){
     if (selectElement) {
         reportDate = selectElement.value
     }
+    $("#back-to-games").show()
+
     $.ajax({
         url: "/txnHistory",
         type: "post",

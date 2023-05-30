@@ -68,68 +68,66 @@
             </a>
         </nav>
     </nav>
-
-
 </nav>
 
-{% if session['page'] != 'txnHistory' %}
+{% if session['page'] == 'gallery' %}
 <script>
+<!--    $('#navigation-bar').scrollspy();-->
 
 
+    // select the target node
 
-// select the target node
+    <!--const observerOptions = { attributes: true, childList: true, subtree: true };-->
+    var dropdown = document.getElementById('slots-dropdown');
+    var nav_slots = document.getElementById('nav-slots');
+    var nav_slots_treasure = document.getElementById('nav-slots-treasure');
+    var nav_slots_jump = document.getElementById('nav-slots-jump');
+    var nav_slots_fantasy = document.getElementById('nav-slots-fantasy');
+    var nav_slots_cute = document.getElementById('nav-slots-cute');
+    var nav_slots_animals = document.getElementById('nav-slots-animals');
+    var nav_slots_action = document.getElementById('nav-slots-action');
 
-const observerOptions = { attributes: true, childList: true, subtree: true };
-var dropdown = document.getElementById('slots-dropdown');
-var nav_slots = document.getElementById('nav-slots');
-var nav_slots_treasure = document.getElementById('nav-slots-treasure');
-var nav_slots_jump = document.getElementById('nav-slots-jump');
-var nav_slots_fantasy = document.getElementById('nav-slots-fantasy');
-var nav_slots_cute = document.getElementById('nav-slots-cute');
-var nav_slots_animals = document.getElementById('nav-slots-animals');
-var nav_slots_action = document.getElementById('nav-slots-action');
+    dropdown.style.display = "none";
 
-dropdown.style.display = "none";
+    function navbar_selected (id) {
 
-<!--    $(document).ready(function(){-->
+    }
 
+    $(document).ready(function(){
         $('#nav-slots').on('click', function(){
             dropdown.style.display = "flex";
             var header = document.getElementById('header-slots').scrollIntoView();
-<!--            if (header) {-->
-<!--                header.scrollIntoView();-->
-<!--            }-->
         });
-<!--    });-->
+    });
 
-function callback (mutations) {
-    if (nav_slots.classList.contains('active')) {
-        dropdown.style.display = "flex";
-    } else if (nav_slots_treasure.classList.contains('active')) {
-        nav_slots.classList.add('active');
-        dropdown.style.display = "flex";
-    } else if (nav_slots_jump.classList.contains('active')) {
-        nav_slots.classList.add('active');
-        dropdown.style.display = "flex";
-    } else if (nav_slots_fantasy.classList.contains('active')) {
-        nav_slots.classList.add('active');
-        dropdown.style.display = "flex";
-    } else if (nav_slots_cute.classList.contains('active')) {
-        nav_slots.classList.add('active');
-        dropdown.style.display = "flex";
-    } else if (nav_slots_animals.classList.contains('active')) {
-        nav_slots.classList.add('active');
-        dropdown.style.display = "flex";
-    } else if (nav_slots_action.classList.contains('active')) {
-        nav_slots.classList.add('active');
+    function callback (mutations) {
+        if (nav_slots.classList.contains('active')) {
             dropdown.style.display = "flex";
-    } else {
-        dropdown.style.display = "none";
+        } else if (nav_slots_treasure.classList.contains('active')) {
+            nav_slots.classList.add('active');
+            dropdown.style.display = "flex";
+        } else if (nav_slots_jump.classList.contains('active')) {
+            nav_slots.classList.add('active');
+            dropdown.style.display = "flex";
+        } else if (nav_slots_fantasy.classList.contains('active')) {
+            nav_slots.classList.add('active');
+            dropdown.style.display = "flex";
+        } else if (nav_slots_cute.classList.contains('active')) {
+            nav_slots.classList.add('active');
+            dropdown.style.display = "flex";
+        } else if (nav_slots_animals.classList.contains('active')) {
+            nav_slots.classList.add('active');
+            dropdown.style.display = "flex";
+        } else if (nav_slots_action.classList.contains('active')) {
+            nav_slots.classList.add('active');
+                dropdown.style.display = "flex";
+        } else {
+            dropdown.style.display = "none";
+        }
     }
-}
-let observer = new MutationObserver(callback);
+    <!--let observer = new MutationObserver(callback);-->
 
-observer.observe(nav_slots, observerOptions);
+    <!--observer.observe(nav_slots, observerOptions);-->
 
 
 </script>

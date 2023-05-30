@@ -25,19 +25,19 @@
             <!-- start DROPDOWN -->
             <div class="dropdown open">
                 <!-- start DROPDOWN button -->
-                <button class="btn btn-outline-success dropdown-toggle" id="top-bar-dropdown-button" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-outline-success dropdown-toggle" id="top-bar-dropdown-button" type="button">
                     <div class="top-dropdown-button" id="username-field">{{ current_user.username }}</div>
 <!--                    <div class="top-dropdown-button" id="address-field"><i class="bi bi-wallet2"></i> <div id="address-field-sub">{{ current_user.publicAddress }}</div></div>-->
                     <span class="caret"></span>
                 </button>
 
-                <ul class="dropdown-menu multi-level green-text" aria-labelledby="top-bar-dropdown-button">
+                <ul class="dropdown-menu multi-level green-text" id="topbar-dropdown-menu">
 <!--Balances-->
-                    <li class="" id="balance_eth" style="margin-left: 7px;">
-                        <span class="crypto-symbol">ETH</span> {{ current_user.balance_eth }}
-                    </li>
+<!--                    <li class="" id="balance_eth" style="margin-left: 7px;">-->
+<!--                        <span class="crypto-symbol">ETH</span> {{ current_user.balance_eth }}-->
+<!--                    </li>-->
                     <li class="" id="balance_usdt" style="margin-left: 7px;">
-                        <span class="crypto-symbol">USDT</span> {{ current_user.balance_usdt }}
+                        <span class="crypto-symbol">USDT</span> {{ translations['loading'][session['lang']] }}...
                     </li>
                     <div class="dropdown-divider"></div>
 <!--Deposit button-->
@@ -58,7 +58,7 @@
 <!--Transactions button-->
                     <li><button class="btn dropdown-item" id="txnHistory-button" onclick="txnHistory()">{{ translations['txnHistory'][session['lang']] }}</button></li>
 <!--Game History button-->
-                    <li><a class="btn dropdown-item" href="/gamehistory">{{ translations['gamehistory'][session['lang']] }}</a></li>
+                    <li><a class="btn dropdown-item" onclick="gameHistory()">{{ translations['gamehistory'][session['lang']] }}</a></li>
 <!--Language button-->
                     <li class="dropdown-submenu dropdown-item">
                         <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>{{ translations['language'][session['lang']] }}
@@ -90,7 +90,9 @@
                     <div class="dropdown-divider"></div>
                     {% if session['admin'] %}
 <!-- start SEARCH button -->
-                        <a class="btn dropdown-item" href="/search"><i class="bi bi-search">Search</i></a>
+                    <li><a class="btn dropdown-item" onclick="searchPlayer()">Search</a></li>
+
+<!--                        <a class="btn dropdown-item" href="/search"><i class="bi bi-search">Search</i></a>-->
                     {% endif %}
                     <li><a class="btn dropdown-item" href="/logout">{{ translations['log out'][session['lang']] }}</a></li>
                 </ul>
@@ -121,61 +123,48 @@
     </div>
 </nav>
 
-<!--<script language="JavaScript" type="text/javascript">-->
-<!--    $(document).ready(function(){-->
-<!--        function set_lang() {-->
-<!--            var balance_field = document.getElementById("balance");-->
+<!--    <script language="JavaScript" type="module" src="{{ root_path }}/js/metamask_connect.js"></script>-->
+<script language="JavaScript" type="text/javascript">
 
-<!--        }-->
-<!--    });-->
-<!--</script>-->
 
-{% if current_user.is_authenticated %}
-    <script language="JavaScript" type="text/javascript">
 
     $(document).ready(function(){
+        $('#top-bar-dropdown-button,#username-field').on('click', function(){
+            $('#topbar-dropdown-menu').toggle()
 
-<!--        function updater() {-->
-<!--            const response = fetch('/getBalance');-->
-<!--            balance_field_eth.value = response['eth'];-->
-<!--            balance_field_usdt.value = response['usdt'];-->
-<!--        }-->
-        $('#top-bar-dropdown-button').on('click', function(){
-            var balance_field_eth = document.getElementById("balance_eth");
-            var balance_field_usdt = document.getElementById("balance_usdt");
+{% if current_user.is_authenticated %}
+<!--            var balance_field_eth = document.getElementById("balance_eth");-->
+<!--            var balance_field_usdt = document.getElementById("balance_usdt");-->
             waitForElm('#withdraw-balance').then((withdraw_balance) => {
-
-                $.ajax({
-                url: "/getBalance",
-                type: "post",
-                success: function(balances) {
-                    balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
-                    balance_field_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']
-                    withdraw_balance.innerHTML = balances['usdt']
-<!--                    balance_field_eth.value = balances['eth'];-->
-<!--                    balance_field_usdt.value = balances['usdt'];-->
-                },
-                error: function(e) {
-                    console.log('getBalance: ' + e);
-                }
+                get_balance()
             });
-            });
-<!--            const withdraw_balance = await waitForElm('#querySelector');-->
-
-<!--            var withdraw_balance = document.getElementById("withdraw-balance");-->
+{% endif %}
 
         });
+
+{% if current_user.is_authenticated %}
 
         $('#topbar-withdraw-button').on('click', function(){
             $('#withdraw-spinner').hide();
 
         });
 
+        window.onclick = function(event) {
+          if (event.target.id == 'username-field' || event.target.id == 'top-bar-dropdown-button' ) {
+<!--        console.log('no' + event.target.id)-->
+
+            $('#topbar-dropdown-menu').toggle()
+          } else {
+<!--        console.log('yes' + event.target.id)-->
+
+            $('#topbar-dropdown-menu').hide()
+          }
+        }
+
+{% endif %}
 
 
     });
 
 
     </script>
-<!--    <script language="JavaScript" type="module" src="{{ root_path }}/js/metamask_connect.js"></script>-->
-{% endif %}

@@ -87,16 +87,25 @@
 
             <!-- main_section -->
             <div id="main_section" >
+                {% block gamehistory %}{% endblock %}
                 {% block txnHistory %}{% endblock %}
                 {% block gallery %}{% endblock %}
 
             </div>
-
+        {% if session['page'] != 'txnHistory' %}
             <!-- Bottom Nav bar -->
             <div id="navigationbar"></div>
             <script>
-            $(function() { $("#navigationbar").load("/navigationbar"); });
+                $(function() { $("#navigationbar").load("/navigationbar"); });
             </script>
+        {% else %}
+            <button class="alert alert-dark btn btn-primary" id="back-to-games" onclick="go_to_gallery()">
+                <div>
+                    <img src="{{ root_path }}/static/icons/navbar/slots.png" style="width:70px">
+                        <strong>Back to games</strong>
+                </div>
+            </button>
+        {% endif %}
 
             <!-- MODALS -->
             <script>
@@ -107,11 +116,8 @@
             </script>
         </div>
               <!-- FOOTER -->
-    <footer class="green-text-outline container-fluid footer-bg"
-        {% if report_date is defined %}
-            id="main-footer"
-        {% endif %}
-        >
+    <footer class="green-text-outline container-fluid footer-bg">
+<!--            id="main-footer">-->
         <span class="float-end"><a class="green-text-outline" href="#">Back to top</a></span>
         <span>***THIS IS JUST A TEST SITE*** &copy; 2021-2023 Gambits Inc. &middot; <a class="green-text-outline" href="#">Privacy</a> &middot; <a class="green-text-outline" href="#">Terms</a></span>
         <!--        <font style="font-size:.5rem;">-->

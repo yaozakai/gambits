@@ -1,13 +1,12 @@
 {% extends "layout.html" %}
-{% block profile %}
+{% block gamehistory %}
 
 <div class="py-2" style="margin-left: 5%;">
     <h3 class="green-text-outline">Gaming History</h3>
     <div class="justify-content-center" style="width: 200px;">
         <div class="input-group mb-3">
-            <div class="calendar"></div>
             <span class="input-group-text whiteFont">Date</span>
-            <input onClick="{(e) => open_calendar(e)}" id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
+            <input id="reportDateGameHistory" class="form-control" type="date" value="{{ report_date }}"/>
             <h8 class="green-text-outline">*Timezone is UTC-4</h8>
         </div>
 
@@ -41,10 +40,10 @@
             }
         });
 
-        const selectElement = document.getElementById('reportDate');
+        const selectElement = document.getElementById('reportDateGameHistory');
         selectElement.addEventListener("change", (event) => {
             $.ajax({
-                url: "/gamehistory",
+                url: "/gameHistory",
                 type: "post",
                 dataType: "json",
                 contentType: "application/json; charset=UTF-8",
@@ -52,10 +51,8 @@
                     "reportDate":selectElement.value
                 }),
                 success: function(self) {
-                    htmloutput = "";
-                    results = self.rec;
-                    $("#num_results").html(results.length);
-                    generate_table(results);
+                    $("#main_section").html(self.render);
+
                 },
                 error: function(e) {
                     console.log('gamehistory: '+ e);
