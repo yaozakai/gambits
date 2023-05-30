@@ -56,11 +56,10 @@
       <tr>
         <th>Date</th>
         <th>Time</th>
-        <th>Type</th>
-        <th>Status</th>
+        <th>Email</th>
         <th>Amount</th>
-        <th>Chain</th>
-        <th>txHash</th>
+<!--        <th>Chain</th>-->
+<!--        <th>txHash</th>-->
         <th>Payout</th>
 <!--        <th>Valid Bet</th>-->
 <!--        <th>Jackpot</th>-->
@@ -81,31 +80,11 @@
           <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
           <td>{{ record.created.strftime('%H:%M:%S') }}</td>
             {% endif %}
-          <td>{{ record.type }}</td>
+          <td>{{ record.email }}</td>
 
-          {% if record.status.lower() == 'failed' %}
-            <td id="row-{{ record.txHash }}" style="color:red">
-              {{ translations['txn:' + record.status|lower][session['lang']] }} <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
-                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}"><i class="bi bi-arrow-clockwise"></i></button>
-          {% elif record.status.lower() == 'pending' %}
-            <td style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}
-          {% elif record.status.lower() == 'complete' %}
-            <td style="color:green">{{ translations['txn:' + record.status|lower][session['lang']] }}
-          {% endif %}
-            </td>
             <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
-            <td>{{ record.blockchain }}</td>
-            <td>
-            {% if "0x" in record.txHash  %}
-                {% if record.blockchain == 'goerli' %}
-                    <a href="https://goerli.etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
-                {% else %}
-                    <a href="https://etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
-                {% endif %}
-            {% else %}
-                {{  translations['na'][session['lang']]  }}
-            {% endif %}
-            </td>
+<!--            <td>{{ record.blockchain }}</td>-->
+
             <td>
                 <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
                                           class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}">Go</button>

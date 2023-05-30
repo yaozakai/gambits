@@ -84,7 +84,7 @@ def home():
                     return render_template('page-gamehistory.html', rec=rec['Data'], translations=utils.translations,
                                            report_date=report_date, lang=session['lang'])
             elif session['page'] == 'pendingWithdraw':
-                return pendingWithdraw()
+                return pendingWithdraw(True)
 
 
     else:
@@ -235,29 +235,33 @@ def txnHistory():
 
 @application.route('/pendingWithdraw', methods=['GET', 'POST'])
 @login_required
-def pendingWithdraw():
-    session['page'] = 'pendingWithdraw'
+def pendingWithdraw(reload=False):
     rec = []
 
     queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
     for query in queries:
         rec.insert(0, query.serialize())
-    # queries = queries.query.filter_by(status='Pending')
-    # if len(json.loads(request.data)['reportDate']) > 0:
-    #     report_date = datetime.datetime.strptime(json.loads(request.data)['reportDate'], '%Y-%m-%d')
-    # else:
-    #     # report_date = datetime.datetime.now()
-    #     report_date = datetime.datetime.now()
-    #
-    # rec = []
-    # for query in queries:
-    #     if pytz.UTC.localize(query.created) <= (pytz.UTC.localize(report_date) + datetime.timedelta(days=1)):
-    #         rec.insert(0, query.serialize())
-    #
-    # rec.sort(key=itemgetter('created'), reverse=True)
-    # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
+    if reload:
+        return render_template('page-pendingWithdraw.html', rec=rec, translations=translations)
+    else:
+        session['page'] = 'pendingWithdraw'
 
-    return jsonify(render=render_template('page-pendingWithdraw.html', rec=rec, translations=translations))
+        # queries = queries.query.filter_by(status='Pending')
+        # if len(json.loads(request.data)['reportDate']) > 0:
+        #     report_date = datetime.datetime.strptime(json.loads(request.data)['reportDate'], '%Y-%m-%d')
+        # else:
+        #     # report_date = datetime.datetime.now()
+        #     report_date = datetime.datetime.now()
+        #
+        # rec = []
+        # for query in queries:
+        #     if pytz.UTC.localize(query.created) <= (pytz.UTC.localize(report_date) + datetime.timedelta(days=1)):
+        #         rec.insert(0, query.serialize())
+        #
+        # rec.sort(key=itemgetter('created'), reverse=True)
+        # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
+
+        return jsonify(render=render_template('page-pendingWithdraw.html', rec=rec, translations=translations))
 
     # rec = player_report_today(db_get_user().username, report_date)
     # if rec is None:
