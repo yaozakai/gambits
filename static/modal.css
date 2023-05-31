@@ -73,7 +73,7 @@
 
 #money-deposit {/* width: 100px; */font-size: larger;font-weight: bold;/* color: #adff2e!important; *//* box-shadow: 0px 0px 7px 3px rgb(173 255 46); */}
 
-#money-withdraw {
+#send-money-withdraw {
     font-size: larger;
     font-weight: bold;
     float:right;

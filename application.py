@@ -1,13 +1,14 @@
 from operator import itemgetter
+from threading import Lock
 
 from flask_login import login_required, logout_user
 
-import utils
+# import utils
 from db_access import *
 # from email_confirmation import create_verify_email, create_reset_pass_email
 # from forms import verify_captcha
 from utils import *
-from config import app as application
+from config import app as application, socketio
 from constants import RECAPTCHA_PUBLIC_KEY
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_template import template
@@ -23,6 +24,9 @@ iframe_game_toggle = False
 stream = ''
 datastream = {}
 price_array = []
+
+thread = None
+thread_lock = Lock()
 
 
 # CAPTCHA_CONFIG = {'SECRET_CAPTCHA_KEY': 'sshhhhhhh secret cphaata key'}
@@ -53,12 +57,12 @@ def home():
 
     if 'page' in session:
         if session['page'] == 'gallery':
-            return render_template('page-gallery.html', icon_placement=utils.icon_placement,
-                                   game_titles=utils.game_titles,
+            return render_template('page-gallery.html', icon_placement=icon_placement,
+                                   game_titles=game_titles,
                                    root_path='', login_form=login_form, register_form=register_form,
                                    RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
                                    notification='', notification_title='', reset_pass=False,
-                                   lang=session['lang'], translations=utils.translations)
+                                   lang=session['lang'], translations=translations)
         else:
             if len(request.data) > 0:
                 report_date = json.loads(request.data)['reportDate']
@@ -78,22 +82,22 @@ def home():
                 rec = player_report_today(db_get_user().username, report_date)
                 # report_date = report_date.strftime('%Y-%m-%d')
                 if rec is None:
-                    return render_template('page-gamehistory.html', rec=[], translations=utils.translations,
+                    return render_template('page-gamehistory.html', rec=[], translations=translations,
                                            report_date=report_date, lang=session['lang'])
                 else:
-                    return render_template('page-gamehistory.html', rec=rec['Data'], translations=utils.translations,
+                    return render_template('page-gamehistory.html', rec=rec['Data'], translations=translations,
                                            report_date=report_date, lang=session['lang'])
             elif session['page'] == 'pendingWithdraw':
                 return pendingWithdraw(True)
 
 
     else:
-        return render_template('page-gallery.html', icon_placement=utils.icon_placement,
-                               game_titles=utils.game_titles,
+        return render_template('page-gallery.html', icon_placement=icon_placement,
+                               game_titles=game_titles,
                                root_path='', login_form=login_form, register_form=register_form,
                                RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
                                notification='', notification_title='', reset_pass=False,
-                               lang=session['lang'], translations=utils.translations)
+                               lang=session['lang'], translations=translations)
 
 
 @application.route('/verify_transaction', methods=['POST'])
@@ -163,7 +167,7 @@ def logout():
 @application.route('/search_page', methods=['GET', 'POST'])
 @login_required
 def search():
-    return jsonify(render=render_template('page-search.html', rec=[], translations=translations) )
+    return jsonify(render=render_template('page-search.html', rec=[], translations=translations))
 
 
 @application.route('/userDetails', methods=['GET'])
@@ -176,7 +180,6 @@ def userDetails():
 @application.route('/search_user', methods=['GET', 'POST'])
 @login_required
 def search_user():
-
     if request.data and 'search_input' in json.loads(request.data):
         search_input = json.loads(request.data)['search_input']
 
@@ -200,7 +203,6 @@ def search_user():
         return jsonify(lang=session['lang'], rec=rec)
     else:
         return jsonify(lang=session['lang'], rec=[])
-
 
 
 @application.route('/gallery', methods=['POST'])
@@ -286,7 +288,7 @@ def gameHistory():
         report_date = get_timestamp(False, False)
         # rec = player_report_today(db_get_user().username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
-    return jsonify(render=render_template('page-gamehistory.html', rec=records, translations=utils.translations,
+    return jsonify(render=render_template('page-gamehistory.html', rec=records, translations=translations,
                                           report_date=report_date, lang=session['lang']))
 
 
@@ -367,11 +369,11 @@ def verify_email():
 #     #     report_date = ''
 #     set_flag_from_lang()
 #     debug_out('done')
-#     return render_template('page-gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
+#     return render_template('page-gallery.html', icon_placement=icon_placement, game_titles=game_titles,
 #                            root_path='', login_form=login_form, register_form=register_form,
 #                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
 #                            notification='', notification_title='', reset_pass=False,
-#                            lang=session['lang'], translations=utils.translations)
+#                            lang=session['lang'], translations=translations)
 
 
 @application.route('/gameHistory', methods=['GET', 'POST'])
@@ -541,6 +543,29 @@ def update_games():
     reload_icon_placement()
     reload_game_titles()
     return 'Done'
+
+
+def background_thread():
+    print("Initiating balance updater for user:" + session['_user_id'])
+    while True:
+        socketio.emit('balance', {'value': db_get_balance()})
+        socketio.sleep(1)
+
+
+@socketio.on('connect')
+def connect():
+    global thread
+    print('Client connected')
+
+    global thread
+    with thread_lock:
+        if thread is None:
+            thread = socketio.start_background_task(background_thread)
+
+
+@socketio.on('disconnect')
+def disconnect():
+    print('Client disconnected', request.sid)
 
 
 if __name__ == '__main__':

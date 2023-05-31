@@ -1,7 +1,6 @@
-//$(document).ready(function(){
-window.addEventListener("DOMContentLoaded", (event) => {
+//window.addEventListener("DOMContentLoaded", (event) => {
 
-});
+
 
 function go_to_gallery() {
 //    $("#back-to-games").hide()

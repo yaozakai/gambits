@@ -190,7 +190,7 @@
                         <input type="number" class="form-control" id="withdraw-amount" step="0.01" min="1" max="{{ current_user.balance_usdt }}">
 
                         <div class="btn-group" role="group">
-                            <button type="button" id="money-withdraw" class="btn btn-outline-success symbol-text">Send</button>
+                            <button type="button" id="send-money-withdraw" class="btn btn-outline-success symbol-text">Send</button>
                             <div class="btn btn-outline-success btn-lg login-reg-spinner" id="withdraw-spinner">
                                 <div class="icon-spinner spinner-border text-success" role="status">
                                     <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
@@ -229,21 +229,21 @@ $('#withdraw-amount').on('input', function(){
 
     if (typeof decimals !== 'undefined') {
         if (decimals.length > 2) {
-            $('#money-withdraw').prop('disabled', true)
+            $('#send-money-withdraw').prop('disabled', true)
             $('#withdraw-error').text(translations['only2decimals'][lang])
         } else {
-            $('#money-withdraw').prop('disabled', false)
+            $('#send-money-withdraw').prop('disabled', false)
             $('#withdraw-error').text('')
         }
     } else {
         if (parseFloat($('#withdraw-amount').val()) > parseFloat(balance)) {
-            $('#money-withdraw').prop('disabled', true)
+            $('#send-money-withdraw').prop('disabled', true)
             $('#withdraw-error').text(translations['withdraw:toomuch'][lang])
         } else if (parseFloat($('#withdraw-amount').val()) < 20){
-            $('#money-withdraw').prop('disabled', true)
+            $('#send-money-withdraw').prop('disabled', true)
             $('#withdraw-error').text(translations['withdraw:toolittle'][lang])
         } else {
-            $('#money-withdraw').prop('disabled', false)
+            $('#send-money-withdraw').prop('disabled', false)
             $('#withdraw-error').text('')
         }
     }
@@ -251,7 +251,7 @@ $('#withdraw-amount').on('input', function(){
 
 });
 
-$('#money-withdraw').on('click', function(){
+$('#send-money-withdraw').on('click', function(){
 
 
     $('#withdraw-spinner').show();

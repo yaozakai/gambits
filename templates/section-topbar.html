@@ -1,4 +1,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet" />
+<script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.2/socket.io.js"></script>
+
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
     <div class="top-bar-desktop">
@@ -134,8 +136,6 @@
             $('#topbar-dropdown-menu').toggle()
 
 {% if current_user.is_authenticated %}
-<!--            var balance_field_eth = document.getElementById("balance_eth");-->
-<!--            var balance_field_usdt = document.getElementById("balance_usdt");-->
             waitForElm('#withdraw-balance').then((withdraw_balance) => {
                 get_balance()
             });
@@ -144,6 +144,25 @@
         });
 
 {% if current_user.is_authenticated %}
+
+<!--        $(document).ready(function(){-->
+<!--        //connect to the socket server.-->
+<!--          //   var socket = io.connect("http://" + document.domain + ":" + location.port);-->
+<!--            var socket = io.connect();-->
+<!--            var balance_field_usdt = document.getElementById("balance_usdt");-->
+<!--            var withdraw_balance = document.getElementById("withdraw-balance");-->
+
+
+
+<!--          //receive details from server-->
+<!--          socket.on("balance", function (msg) {-->
+<!--            console.log("Received sensorData :: " + msg.date + " :: " + msg.value);-->
+
+<!--            $('#balance_usdt').html('<span class="crypto-symbol">USDT</span> ' + balances['usdt'])-->
+<!--            $('#withdraw-balance').html(balances['usdt'])-->
+<!--            $('#deposit-display-amount').html(balances['usdt'] + ' USDT @ ERC20')-->
+<!--          });-->
+<!--        });-->
 
         $('#topbar-withdraw-button').on('click', function(){
             $('#withdraw-spinner').hide();

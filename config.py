@@ -1,10 +1,14 @@
+
 from flask import Flask
 # from flask_session import Session
 import secrets
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_socketio import SocketIO
 
 from constants import *
+
+
 
 app = Flask(__name__)
 
@@ -32,6 +36,8 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = RECAPTCHA_PUBLIC_KEY
 app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE_KEY
 app.config['RECAPTCHA_DATA_ATTRS'] = {'theme': 'dark'}
 # recaptcha = ReCaptcha(app=app) # Create a ReCaptcha object by passing in 'app' as parameter
+
+socketio = SocketIO(app, cors_allowed_origins='*')
 
 login_manager = LoginManager()
 # login_manager.login_view = 'profile'

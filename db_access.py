@@ -125,6 +125,10 @@ def db_get_user():
     return UserEntry().query.filter_by(user_id=session['_user_id']).first()
 
 
+def db_get_balance():
+    return UserEntry().query.filter_by(user_id=session['_user_id']).first().balance_usdt
+
+
 def db_get_deposit(txHash):
     return TxnEntry().query.filter_by(txHash=txHash).first()
 
