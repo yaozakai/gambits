@@ -85,7 +85,7 @@ async function send_alert(title, msg, native=false, appendix='') {
 
     alert_box.classList.remove('show')
 
-    $('#deposit-spinner').hide();
+//    $('#deposit-spinner').hide();
     if (native) {
         alert_title.innerHTML = title
         alert_message.innerHTML = msg + appendix
@@ -268,6 +268,8 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
                 alert_box.classList.add('alert-warning')
                 $("#row-" + txHash).html('Complete')
                 $("#row-" + txHash).css('color', 'green')
+            } else if (mode == "reconcile") {
+                $("#" + amount + "-" + fromAddress).parent().remove()
             } else {
                 alert_box.classList.add('alert-success')
             }

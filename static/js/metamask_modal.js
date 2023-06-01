@@ -3,7 +3,17 @@ const web3 = new Web3(window.ethereum);
 // get all accounts
 const accounts = await web3.eth.getAccounts();
 
-document.getElementById('money-deposit').addEventListener('click', sendMoney)
+document.getElementById('money-deposit').addEventListener('click', sendMoneyClick)
+//document.getElementById('reconcile-button').addEventListener('click', sendMoneyClick)
+
+$('.reconcile-button').on('click', function(event){
+    console.log(event.target.id)
+    let amount = event.target.id.split('-') [0]
+    let address = event.target.id.split('-') [1]
+    open_wallet_app('usdt', 'goerli', amount, address)
+});
+
+
 var alert_box = document.getElementById('alert-box')
 //var alert_title = document.getElementById('alert-title')
 //var alert_message = document.getElementById('alert-message')
@@ -27,7 +37,7 @@ function metamaskError(error) {
     }
 }
 
-async function open_wallet_app(currency, chain, amount) {
+async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B') {
 
     var native_coin = false
     var dec = 0
@@ -35,7 +45,7 @@ async function open_wallet_app(currency, chain, amount) {
     var contractAddress = ''
     var ABI = []
     var txHash = ''
-    const toAddress = '0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B'
+//    const toAddress = '0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B'
 
     if (currency == 'usdt') {
         if (chain == 'erc20') {
@@ -51,8 +61,8 @@ async function open_wallet_app(currency, chain, amount) {
         } else if (chain == 'goerli'){
             dec = 4
             multiplier = 100
-            value = amount.mul(web3.utils.toBN(10).pow(decimals));
-            contractAddress = '0x509Ee0d083DdF8AC028f2a56731412edD63223B9'
+//            value = amount.mul(web3.utils.toBN(10).pow(decimals));
+            contractAddress = '0x6BABFBA7200f683c267ce892C94e1e110Df390c7'
             ABI = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_upgradedAddress","type":"address"}],"name":"deprecate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"deprecated","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_evilUser","type":"address"}],"name":"addBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"upgradedAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maximumFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_maker","type":"address"}],"name":"getBlackListStatus","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowed","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"who","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newBasisPoints","type":"uint256"},{"name":"newMaxFee","type":"uint256"}],"name":"setParams","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"issue","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"redeem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"basisPointsRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"isBlackListed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_clearedUser","type":"address"}],"name":"removeBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"MAX_UINT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_blackListedUser","type":"address"}],"name":"destroyBlackFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Issue","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Redeem","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newAddress","type":"address"}],"name":"Deprecate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"feeBasisPoints","type":"uint256"},{"indexed":false,"name":"maxFee","type":"uint256"}],"name":"Params","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_blackListedUser","type":"address"},{"indexed":false,"name":"_balance","type":"uint256"}],"name":"DestroyedBlackFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"AddedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"RemovedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"}]
         }
     } else if (currency == 'eth') {
@@ -70,7 +80,7 @@ async function open_wallet_app(currency, chain, amount) {
         } else if (chain == 'goerli'){
             dec = 4
             multiplier = 100
-            value = amount.mul(web3.utils.toBN(10).pow(decimals));
+//            value = amount.mul(web3.utils.toBN(10).pow(decimals));
             contractAddress = '0x509Ee0d083DdF8AC028f2a56731412edD63223B9'
             ABI = [{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_upgradedAddress","type":"address"}],"name":"deprecate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"deprecated","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_evilUser","type":"address"}],"name":"addBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"upgradedAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"balances","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"maximumFee","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"_totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_maker","type":"address"}],"name":"getBlackListStatus","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"allowed","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"who","type":"address"}],"name":"balanceOf","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newBasisPoints","type":"uint256"},{"name":"newMaxFee","type":"uint256"}],"name":"setParams","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"issue","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"amount","type":"uint256"}],"name":"redeem","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"basisPointsRate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"isBlackListed","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_clearedUser","type":"address"}],"name":"removeBlackList","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"MAX_UINT","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_blackListedUser","type":"address"}],"name":"destroyBlackFunds","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"_initialSupply","type":"uint256"},{"name":"_name","type":"string"},{"name":"_symbol","type":"string"},{"name":"_decimals","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Issue","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"amount","type":"uint256"}],"name":"Redeem","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"newAddress","type":"address"}],"name":"Deprecate","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"feeBasisPoints","type":"uint256"},{"indexed":false,"name":"maxFee","type":"uint256"}],"name":"Params","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_blackListedUser","type":"address"},{"indexed":false,"name":"_balance","type":"uint256"}],"name":"DestroyedBlackFunds","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"AddedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_user","type":"address"}],"name":"RemovedBlackList","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"}]
         }
@@ -131,13 +141,14 @@ async function open_wallet_app(currency, chain, amount) {
         });
 
         let contract = new web3.eth.Contract(ABI, contractAddress);
-        await contract.methods.transfer(toAddress, value).send({from: accounts[0], maxPriorityFeePerGas: null, maxFeePerGas: null })
+        await contract.methods.transfer(toAddress, value)
+        .send({from: accounts[0], gas:80000, maxPriorityFeePerGas: null, maxFeePerGas: null })
         .then((txHash) => {
             console.log('txHash: ' + txHash);
-            $('#depositModal').modal('hide');
+//            $('#depositModal').modal('hide');
             let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
             send_alert("success:waiting", "success:txnSent", false, appendix)
-            verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
+            verify_txhash('reconcile', txHash, chain, currency, amount, accounts[0])
         })
         .catch((error) => {
             metamaskError(error)
@@ -148,7 +159,7 @@ async function open_wallet_app(currency, chain, amount) {
 async function send_transaction_request(fromAddress, amount, currency) {
 
 //    let fromAddress = "0x7d5eb381B479a663aC09CcDCbd38b298CE304608";
-    let toAddress = "0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B";
+//    let toAddress = "0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B";
 
     let decimals = 0;
 //    let amount = '234.551';
@@ -156,26 +167,26 @@ async function send_transaction_request(fromAddress, amount, currency) {
     let ABI = []
 
 // Find currency
-    var currency = ''
-    const cryptos = $(".crypto-button")
-    for (var crypto of cryptos) if (crypto.classList.contains('active')) {
-        currency = crypto.id.split('-')[2]
-        console.log('currency: ' + currency);
-        break
-    }
-
-// Find blockchain network
-    var chain = ''
-    const chains = $(".blockchain-button")
-    for (var chain of chains) if (chain.classList.contains('active')) {
-        chain = chain.id.split('-')[2]
-        console.log('chains: ' + chain);
-        break
-    }
+//    var currency = ''
+//    const cryptos = $(".crypto-button")
+//    for (var crypto of cryptos) if (crypto.classList.contains('active')) {
+//        currency = crypto.id.split('-')[2]
+//        console.log('currency: ' + currency);
+//        break
+//    }
+//
+//// Find blockchain network
+//    var chain = ''
+//    const chains = $(".blockchain-button")
+//    for (var chain of chains) if (chain.classList.contains('active')) {
+//        chain = chain.id.split('-')[2]
+//        console.log('chains: ' + chain);
+//        break
+//    }
 
 // Process the payment and get the hash
     var txHash = ''
-    await open_wallet_app(currency, chain, amount)
+    await open_wallet_app('usdt', 'goerli', amount)
 
 //    console.log('verify payment for: ' + txHash)
 
@@ -208,46 +219,49 @@ async function send_transaction_request(fromAddress, amount, currency) {
 
 
 
-async function sendMoney() {
+async function sendMoneyClick() {
+    // show spinner
+//    $('#deposit-spinner').css({
+//        'display': 'inline-block'
+//    });
 
-    $('#deposit-spinner').css({
-        'display': 'inline-block'
-    });
 
+    // Preset to USDT Goerli
+    const chain = '0x5'
 
     // check the network is in their MetaMask
-    var blockchain = document.getElementsByClassName("blockchain-button");
-    var chain = ''
-    for (var i = 0; i < blockchain.length; i++) {
-        if (blockchain.item(i).classList.contains('active')) {
-            if (blockchain.item(i).id == 'chain-select-erc20') {
-                chain = '0x1'
-            } else if (blockchain.item(i).id == 'chain-select-bep20') {
-                chain = '0x38'
-            } else if (blockchain.item(i).id == 'chain-select-goerli') {
-                chain = '0x5'
-            }
-        }
-    }
-    // VALIDATION //
-    // check currency
-    var cryptos = document.getElementsByClassName("crypto-button");
-    var is_selected = false
-    for (var i = 0; i < cryptos.length; i++) {
-        if (cryptos.item(i).classList.contains('active')) {
-            is_selected = true
-        }
-    }
-    if (!is_selected) {
-        send_alert("alert:incomplete", "alert:selectCrypto")
-        return
-    }
-
-    // if no chain then tell user
-    if (chain.length == 0){
-        send_alert("alert:incomplete", "alert:selectChain")
-        return
-    }
+//    var blockchain = document.getElementsByClassName("blockchain-button");
+//    var chain = ''
+//    for (var i = 0; i < blockchain.length; i++) {
+//        if (blockchain.item(i).classList.contains('active')) {
+//            if (blockchain.item(i).id == 'chain-select-erc20') {
+//                chain = '0x1'
+//            } else if (blockchain.item(i).id == 'chain-select-bep20') {
+//                chain = '0x38'
+//            } else if (blockchain.item(i).id == 'chain-select-goerli') {
+//                chain = '0x5'
+//            }
+//        }
+//    }
+//    // VALIDATION //
+//    // check currency
+//    var cryptos = document.getElementsByClassName("crypto-button");
+//    var is_selected = false
+//    for (var i = 0; i < cryptos.length; i++) {
+//        if (cryptos.item(i).classList.contains('active')) {
+//            is_selected = true
+//        }
+//    }
+//    if (!is_selected) {
+//        send_alert("alert:incomplete", "alert:selectCrypto")
+//        return
+//    }
+//
+//    // if no chain then tell user
+//    if (chain.length == 0){
+//        send_alert("alert:incomplete", "alert:selectChain")
+//        return
+//    }
     // if no amount then tell user
     if (deposit_amount.value.length == 0) {
         send_alert("alert:incomplete", "alert:amount0")

@@ -99,11 +99,11 @@
                     <input type="number" class="form-control" id="deposit-amount">
                     <div class="btn-group" role="group">
                         <button type="button" id="money-deposit" class="btn btn-outline-success symbol-text">{{ translations['send money'][session['lang']] }}</button>
-                        <div class="btn btn-outline-success btn-lg" id="deposit-spinner">
-                            <div class="icon-spinner spinner-border text-success" role="status" style="position: relative;">
-                                <img src="{{ root_path }}static/logos/favicon.png" style="height: 25px;">
-                            </div>
-                        </div>
+<!--                        <div class="btn btn-outline-success btn-lg" id="deposit-spinner">-->
+<!--                            <div class="icon-spinner spinner-border text-success" role="status" style="position: relative;">-->
+<!--                                <img src="{{ root_path }}static/logos/favicon.png" style="height: 25px;">-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
 
                 </div>
@@ -308,7 +308,7 @@ $('#depositModal').on('show.bs.modal', function(){
     $("#deposit-amount").val("");
     $("#crypto-text").html("🥦");
     $("#blockchain-text").html("🍇");
-    $('#deposit-spinner').hide();
+<!--    $('#deposit-spinner').hide();-->
 
 });
 

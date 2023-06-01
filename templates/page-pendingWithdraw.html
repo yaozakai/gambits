@@ -23,30 +23,6 @@
 
             }
         });
-
-        const selectElement = document.getElementById('reportDate');
-        selectElement.addEventListener("change", () => {
-            $.ajax({
-                url: "/txnHistory",
-                type: "post",
-                dataType: "json",
-                contentType: "application/json; charset=UTF-8",
-                data: JSON.stringify({
-                    "reportDate":selectElement.value
-                }),
-                success: function(self) {
-<!--                    htmloutput = "";-->
-<!--                    results = self.rec;-->
-                    $("#main_section").html(self.render);
-<!--                    $("#num_results").html(results.length);-->
-<!--                    generate_table(results);-->
-                },
-                error: function(e) {
-                    console.log('gamehistory: ' + e);
-                }
-            });
-        });
-
     });
 
 </script>
@@ -59,8 +35,8 @@
         <th>Email</th>
         <th>Amount</th>
 <!--        <th>Chain</th>-->
-<!--        <th>txHash</th>-->
-        <th>Payout</th>
+        <th>Etherscan</th>
+        <th>Reconcile</th>
 <!--        <th>Valid Bet</th>-->
 <!--        <th>Jackpot</th>-->
 <!--        <th>JackContribution</th>-->
@@ -83,11 +59,11 @@
           <td>{{ record.email }}</td>
 
             <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
-<!--            <td>{{ record.blockchain }}</td>-->
+            <td><a href='https://api.etherscan.io/address={{ record.fromAddress }}' target="_blank">Go</a></td>
 
             <td>
-                <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
-                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}">Go</button>
+                <button id="{{ record.amount }}-{{ record.fromAddress }}"
+                                          class="btn btn-link reconcile-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}">Go</button>
             </td>
 <!--            <td>{{ record.validbet }}</td>-->
 <!--          <td>{{ record.jackpot }}</td>-->
@@ -105,7 +81,7 @@
 
     var reverified_engaged = false
 
-    function reverify(td_id, txHash, chain, currency, amount, fromAddress, status){
+    function reconcile_withdraw(td_id, txHash, chain, currency, amount, fromAddress, status){
 
 <!--        $('#td_id').html-->
         var status = document.getElementById(td_id)
