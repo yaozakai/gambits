@@ -3,7 +3,7 @@ from threading import Lock
 
 from flask_login import login_required, logout_user
 
-# import utils
+import utils
 from db_access import *
 # from email_confirmation import create_verify_email, create_reset_pass_email
 # from forms import verify_captcha
@@ -57,12 +57,12 @@ def home():
 
     if 'page' in session:
         if session['page'] == 'gallery':
-            return render_template('page-gallery.html', icon_placement=icon_placement,
-                                   game_titles=game_titles,
+            return render_template('page-gallery.html', icon_placement=utils.icon_placement,
+                                   game_titles=utils.game_titles,
                                    root_path='', login_form=login_form, register_form=register_form,
                                    RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
                                    notification='', notification_title='', reset_pass=False,
-                                   lang=session['lang'], translations=translations)
+                                   lang=session['lang'], translations=utils.translations)
         else:
             if len(request.data) > 0:
                 report_date = json.loads(request.data)['reportDate']
@@ -77,27 +77,27 @@ def home():
                     if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
                         rec.insert(0, query)
                 return render_template('page-txnHistory.html', rec=rec, report_date=report_date,
-                                       translations=translations)
+                                       translations=utils.translations)
             elif session['page'] == 'gameHistory':
                 rec = player_report_today(db_get_user().username, report_date)
                 # report_date = report_date.strftime('%Y-%m-%d')
                 if rec is None:
-                    return render_template('page-gamehistory.html', rec=[], translations=translations,
+                    return render_template('page-gamehistory.html', rec=[], translations=utils.translations,
                                            report_date=report_date, lang=session['lang'])
                 else:
-                    return render_template('page-gamehistory.html', rec=rec['Data'], translations=translations,
+                    return render_template('page-gamehistory.html', rec=rec['Data'], translations=utils.translations,
                                            report_date=report_date, lang=session['lang'])
             elif session['page'] == 'pendingWithdraw':
                 return pendingWithdraw(True)
 
-
     else:
-        return render_template('page-gallery.html', icon_placement=icon_placement,
-                               game_titles=game_titles,
+        session['page'] = 'gallery'
+        return render_template('page-gallery.html', icon_placement=utils.icon_placement,
+                               game_titles=utils.game_titles,
                                root_path='', login_form=login_form, register_form=register_form,
                                RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
                                notification='', notification_title='', reset_pass=False,
-                               lang=session['lang'], translations=translations)
+                               lang=session['lang'], translations=utils.translations)
 
 
 @application.route('/verify_transaction', methods=['POST'])
@@ -167,7 +167,7 @@ def logout():
 @application.route('/search_page', methods=['GET', 'POST'])
 @login_required
 def search():
-    return jsonify(render=render_template('page-search.html', rec=[], translations=translations))
+    return jsonify(render=render_template('page-search.html', rec=[], translations=utils.translations))
 
 
 @application.route('/userDetails', methods=['GET'])
@@ -232,7 +232,7 @@ def txnHistory():
     # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
 
     return jsonify(render=render_template('page-txnHistory.html', rec=rec, report_date=str(report_date).split(' ')[0],
-                                          translations=translations))
+                                          translations=utils.translations))
 
 
 @application.route('/pendingWithdraw', methods=['GET', 'POST'])
@@ -244,7 +244,7 @@ def pendingWithdraw(reload=False):
     for query in queries:
         rec.insert(0, query.serialize())
     if reload:
-        return render_template('page-pendingWithdraw.html', rec=rec, translations=translations)
+        return render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations)
     else:
         session['page'] = 'pendingWithdraw'
 
@@ -263,7 +263,7 @@ def pendingWithdraw(reload=False):
         # rec.sort(key=itemgetter('created'), reverse=True)
         # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
 
-        return jsonify(render=render_template('page-pendingWithdraw.html', rec=rec, translations=translations))
+        return jsonify(render=render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations))
 
     # rec = player_report_today(db_get_user().username, report_date)
     # if rec is None:
@@ -288,7 +288,7 @@ def gameHistory():
         report_date = get_timestamp(False, False)
         # rec = player_report_today(db_get_user().username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
-    return jsonify(render=render_template('page-gamehistory.html', rec=records, translations=translations,
+    return jsonify(render=render_template('page-gamehistory.html', rec=records, translations=utils.translations,
                                           report_date=report_date, lang=session['lang']))
 
 
@@ -369,11 +369,11 @@ def verify_email():
 #     #     report_date = ''
 #     set_flag_from_lang()
 #     debug_out('done')
-#     return render_template('page-gallery.html', icon_placement=icon_placement, game_titles=game_titles,
+#     return render_template('page-gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
 #                            root_path='', login_form=login_form, register_form=register_form,
 #                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
 #                            notification='', notification_title='', reset_pass=False,
-#                            lang=session['lang'], translations=translations)
+#                            lang=session['lang'], translations=utils.translations)
 
 
 @application.route('/gameHistory', methods=['GET', 'POST'])
