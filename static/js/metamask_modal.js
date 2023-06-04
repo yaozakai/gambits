@@ -4,14 +4,12 @@ const web3 = new Web3(window.ethereum);
 const accounts = await web3.eth.getAccounts();
 
 document.getElementById('money-deposit').addEventListener('click', sendMoneyClick)
-//document.getElementById('reconcile-button').addEventListener('click', sendMoneyClick)
 
-$('.reconcile-button').on('click', function(event){
-    console.log(event.target.id)
-    let amount = event.target.id.split('-') [0]
-    let address = event.target.id.split('-') [1]
-    open_wallet_app('usdt', 'goerli', amount, address)
-});
+//window.addEventListener("DOMContentLoaded", (event) => {
+//
+//
+//
+//});
 
 
 var alert_box = document.getElementById('alert-box')
@@ -26,18 +24,20 @@ window.addEventListener("DOMContentLoaded", (event) => {
 // make sure you return the amount back to confirm
 
 
-function metamaskError(error) {
-    console.log('metamaskError: ' + error)
-    if (error['code'] == -32002) {
-        send_alert('alert:wallet', 'alert:checkWallet')
-        return
-    } else {
-        send_alert(error['message'].split(':')[0], error['message'].split(':')[1], true)
-        return
-    }
-}
 
-async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B') {
+
+$(document).ready(function(){
+    $('.reconcile-button').click(function(event){
+        console.log(event.target.id)
+        console.log(this.id)
+        let amount = event.target.id.split('-') [0]
+        let address = event.target.id.split('-') [1]
+        let reconcile_id = event.target.id.split('-') [2]
+        open_wallet_app('usdt', 'goerli', amount, address, reconcile_id)
+    });
+});
+
+async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B', reconcile_id='') {
 
     var native_coin = false
     var dec = 0
@@ -146,13 +146,30 @@ async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc988
         .then((txHash) => {
             console.log('txHash: ' + txHash);
 //            $('#depositModal').modal('hide');
-            let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
-            send_alert("success:waiting", "success:txnSent", false, appendix)
-            verify_txhash('reconcile', txHash, chain, currency, amount, accounts[0])
+//            let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
+            let appendix = ' ' + value + ' USDT to ' + toAddress
+            send_alert("txn:complete", "amount", false, appendix)
+
+            if (reconcile_id.length > 0){
+                verify_txhash('reconcile', txHash['transactionHash'], chain, currency, amount, toAddress, reconcile_id)
+            } else {
+                verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
+            }
         })
         .catch((error) => {
             metamaskError(error)
         });
+    }
+}
+
+function metamaskError(error) {
+    console.log('metamaskError: ' + error)
+    if (error['code'] == -32002) {
+        send_alert('alert:wallet', 'alert:checkWallet')
+        return
+    } else {
+        send_alert(error['message'].split(':')[0], error['message'].split(':')[1], true)
+        return
     }
 }
 

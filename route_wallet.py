@@ -16,28 +16,37 @@ wallet = Blueprint('wallet', __name__)
 
 
 def verify_transaction_loop(deposit):
+    if deposit.type == 'Withdraw':
+        lookup_address = deposit.fromAddress
+    else:
+        lookup_address = BANK_ADDRESS
     if request.json['chain'] == 'erc20':
-        request_url = 'https://api.etherscan.io/api?module=account&action=txlist&address=' + BANK_ADDRESS + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + ETHERSCAN_API_KEY
+        request_url = 'https://api.etherscan.io/api?module=proxy&action=eth_getTransactionReceipt&txHash=' + request.json['txHash'] + '&apikey=' + ETHERSCAN_API_KEY
+        # request_url = 'https://api.etherscan.io/api?module=transaction&action=getstatus&txhash=' + request.json['txHash'] + '&apikey=' + ETHERSCAN_API_KEY
     elif request.json['chain'] == 'goerli':
-        request_url = 'https://api-goerli.etherscan.io/api?module=account&action=txlist&address=' + BANK_ADDRESS + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + ETHERSCAN_API_KEY
+        request_url = 'https://api-goerli.etherscan.io/api?module=proxy&action=eth_getTransactionReceipt&txHash=' + request.json['txHash'] + '&apikey=' + ETHERSCAN_API_KEY
+            # 'https://api-goerli.etherscan.io/api?module=account&action=getstatus&address=' + lookup_address + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + ETHERSCAN_API_KEY
     elif request.json['chain'] == 'bep20test':
-        request_url = 'https://api-testnet.bscscan.com/api?module=account&action=txlist&address=' + BANK_ADDRESS + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + BSNSCAN_API_KEY
+        request_url = 'https://api-testnet.bscscan.com/api?module=account&action=getstatus&address=' + lookup_address + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + BSNSCAN_API_KEY
     elif request.json['chain'] == 'bep20':
-        request_url = 'https://api.bscscan.com/api?module=account&action=txlist&address=' + BANK_ADDRESS + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + BSNSCAN_API_KEY
+        request_url = 'https://api.bscscan.com/api?module=account&action=getstatus&address=' + lookup_address + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + BSNSCAN_API_KEY
 
     response = requests.get(request_url)
     data = json.loads(response.text)
     amount = 0
     # check response for the txHash
-    for transaction in data['result']:
-        if transaction['hash'] == request.json['txHash']:
-            if request.json['chain'] == 'erc20' or request.json['chain'] == 'goerli':
-                if deposit.currency == 'eth':
-                    amount = float(transaction['value']) / (10 ** 18)
-            # elif request.json['chain'] == 'bep20test':
-            # elif request.json['chain'] == 'bep20':
-            # amount = deposit.amount
-            # amount = transaction['value']
+    # for transaction in data['result']:
+    #     if transaction['hash'] == request.json['txHash']:
+    #         if request.json['chain'] == 'erc20' or request.json['chain'] == 'goerli':
+    #             if deposit.currency == 'eth':
+    #                 amount = float(transaction['value']) / (10 ** 18)
+
+    if data['result']['status'] == '0x1':
+        amount = round(int(data['result']['logs'][0]['data'].split('x')[1], 16) / 10 ** 6, 2)
+
+    # check message is ok
+    # if data['message'] == 'OK':
+    #     amount = deposit.amount
 
     # amount only non-blank if txHash found
     if amount > 0:

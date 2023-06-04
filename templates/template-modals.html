@@ -281,8 +281,8 @@ $('#send-money-withdraw').on('click', function(){
                     '<button type="button" class="btn btn-link" style="padding-left: 0px;" onclick="txnHistory()" data-bs-dismiss="modal" aria-label="Close">' + translations['alert:clickHere'][lang] + '</button>');
                 $('#notificationModal').modal('show');
 
-                balance_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']
-                user_balance = balances['usdt']
+                balance_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + response.usdt
+                user_balance = response.usdt
             },
             error: function(e) {
                 console.log('getBalance: ' + e);

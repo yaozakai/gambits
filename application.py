@@ -9,7 +9,7 @@ from db_access import *
 # from forms import verify_captcha
 from utils import *
 from config import app as application, socketio
-from constants import RECAPTCHA_PUBLIC_KEY
+from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_template import template
 from route_user import user
@@ -111,8 +111,12 @@ def verify_transaction():
     user_db = db_get_user()
     # email = user_db.email
     # email = 'lele@gmeow.com'
+    if request.json['mode'] == 'reconcile':
+        txHash = request.json['reconcile_id']
+    else:
+        txHash = request.json['txHash']
 
-    existing_deposit_entry = TxnEntry().query.filter_by(txHash=request.json['txHash']).first()
+    existing_deposit_entry = TxnEntry().query.filter_by(txHash=txHash).first()
 
     if existing_deposit_entry.status != 'Complete':
 
@@ -123,8 +127,18 @@ def verify_transaction():
                                request.json['currency'],
                                request.json['chain'], 'Pending', request.json['fromAddress'], request.json['txHash'])
             deposit.commit()
+            lookup_address = BANK_ADDRESS
         elif request.json['mode'] == 'post':
-            deposit = db_get_deposit(request.json['txHash'])
+            deposit = db_get_deposit(txHash)
+            lookup_address = BANK_ADDRESS
+            reconciled_txHash = request.json['txHash']
+        elif request.json['mode'] == 'reconcile':
+            deposit = db_get_deposit(txHash)
+            lookup_address = request.json['fromAddress']
+            # mark deposit complete
+            deposit.mark_complete(request.json['txHash'])
+            # deposit.commit()
+            reconciled_txHash = request.json['txHash']
 
         currency = request.json['currency']
 
@@ -139,8 +153,12 @@ def verify_transaction():
                     time.sleep(10.0 - ((time.time() - start_time) % 10.0))
 
         if amount > 0:
+
+
             # update user db
             user_db.add_balance(amount, request.json['currency'])
+
+            # pop up notification
             notification_title = translations['success:wallet'][session['lang']]
             notification = translations['success:txnSuccess'][session['lang']]
             alert_type = 'success:txnSuccess'
@@ -152,7 +170,7 @@ def verify_transaction():
             alert_type = 'alert:timeout'
 
     return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title,
-                   notification=notification)
+                   notification=notification, reconciled_txHash=reconciled_txHash)
 
 
 @application.route("/logout", methods=['GET', 'POST'])

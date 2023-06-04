@@ -240,7 +240,7 @@ function txnHistory(){
     return true
 }
 
-function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
+function verify_txhash(mode, txHash, chain, currency, amount, fromAddress, reconcile_id='') {
     var alert_box = document.getElementById('alert-box')
     var alert_title = document.getElementById('alert-title')
     var alert_message = document.getElementById('alert-message')
@@ -257,6 +257,7 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
         "amount": amount,
         "fromAddress": fromAddress,
         "mode": mode,
+        "reconcile_id": reconcile_id
       }),
       success: function(response) {
         alert_title.innerHTML = response.notification_title
@@ -268,10 +269,11 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
                 alert_box.classList.add('alert-warning')
                 $("#row-" + txHash).html('Complete')
                 $("#row-" + txHash).css('color', 'green')
-            } else if (mode == "reconcile") {
-                $("#" + amount + "-" + fromAddress).parent().remove()
-            } else {
+            } else if (mode == "pre"){
                 alert_box.classList.add('alert-success')
+            } else {  // it's a reconcile id then
+                $("#" + amount + "-" + fromAddress).prop('disabled', true)
+                $("#reconcile:" + reconcile_id).html(response.reconciled_txHash)
             }
             alert_box.classList.add('show')
 

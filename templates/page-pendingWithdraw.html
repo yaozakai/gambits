@@ -34,8 +34,9 @@
         <th>Time</th>
         <th>Email</th>
         <th>Amount</th>
+        <th>txHash</th>
 <!--        <th>Chain</th>-->
-        <th>Etherscan</th>
+        <th>Wallet</th>
         <th>Reconcile</th>
 <!--        <th>Valid Bet</th>-->
 <!--        <th>Jackpot</th>-->
@@ -50,20 +51,22 @@
 <!--        {% set counter = loop.count %}-->
         <tr>
             {% if record.created is string %}
-          <td>{{ record.created.split(' ')[0] }}</td>
-          <td>{{ record.created.split(' ')[1] }}</td>
+            <td>{{ record.created.split(' ')[0] }}</td>
+            <td>{{ record.created.split(' ')[1] }}</td>
             {% else %}
-          <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
-          <td>{{ record.created.strftime('%H:%M:%S') }}</td>
+            <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
+            <td>{{ record.created.strftime('%H:%M:%S') }}</td>
             {% endif %}
-          <td>{{ record.email }}</td>
+            <td>{{ record.email|truncate(9, true, '') }}</td>
 
             <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
-            <td><a href='https://api.etherscan.io/address={{ record.fromAddress }}' target="_blank">Go</a></td>
+            <td id="reconcile:{{ record.txHash }}">{{ record.txHash }}</td>
+
+            <td><a href='https://api.etherscan.io/address={{ record.fromAddress }}' target="_blank">{{ record.fromAddress|truncate(6, true, '') }}</a></td>
 
             <td>
-                <button id="{{ record.amount }}-{{ record.fromAddress }}"
-                                          class="btn btn-link reconcile-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}">Go</button>
+                <button id="{{ record.amount }}-{{ record.fromAddress }}-{{ record.txHash }}"
+                                          class="btn btn-link reconcile-button" data-bs-toggle="tooltip" data-bs-placement="right">Go</button>
             </td>
 <!--            <td>{{ record.validbet }}</td>-->
 <!--          <td>{{ record.jackpot }}</td>-->
@@ -77,32 +80,8 @@
 
 </table>
 
-<script>
-
-    var reverified_engaged = false
-
-    function reconcile_withdraw(td_id, txHash, chain, currency, amount, fromAddress, status){
-
-<!--        $('#td_id').html-->
-        var status = document.getElementById(td_id)
-
-        if (status.innerHTML != 'Checking'){
-            var translations = $('#meta-translations').data()['name']
-            var lang = $('#meta-lang').data()['name']
-
-            status.innerHTML = translations['txn:checking'][lang]
-            status.style.color = 'yellow'
-
-            send_alert("success:waiting", "success:txnSent")
-            if (!verify_txhash('post', txHash, chain, currency, amount, fromAddress)){
-<!--                status.innerHTML = 'Failed <button onclick="reverify("row-"' + txHash + ',' + txHash + ',' + chain + ',' + currency + ',' + amount + ',' + fromAddress + ',' + status)"-->
-<!--                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'-->
-            }
-        }
-    }
 
 
-</script>
 
 <!--    {% if num_results == 0 %}-->
 <!--        <div class="green-text-outline">-->

@@ -315,8 +315,8 @@ class TxnEntry(db.Model):
     fromAddress = db.Column(db.String(100))
     txHash = db.Column(db.String(100), primary_key=True)
 
-    def __init__(self, type='', email='', user_id='', amount='', currency='', blockchain='', status='', fromAddress='', txHash=''):
-        self.type = type
+    def __init__(self, txn_type='', email='', user_id='', amount='', currency='', blockchain='', status='', fromAddress='', txHash=''):
+        self.type = txn_type
         self.email = email
         self.user_id = user_id
         self.amount = amount
@@ -330,7 +330,9 @@ class TxnEntry(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def mark_complete(self):
+    def mark_complete(self, txn_hash=''):
+        if len(txn_hash) > 0:
+            self.txHash = txn_hash
         self.status = 'Complete'
         db.session.add(self)
         db.session.commit()
