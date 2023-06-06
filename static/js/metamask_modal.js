@@ -5,11 +5,13 @@ const accounts = await web3.eth.getAccounts();
 
 document.getElementById('money-deposit').addEventListener('click', sendMoneyClick)
 
-//window.addEventListener("DOMContentLoaded", (event) => {
-//
-//
-//
-//});
+
+
+window.addEventListener("DOMContentLoaded", (event) => {
+//    waitForElm('#withdraw-balance').then((withdraw_balance) => {
+//        get_balance()
+//    });
+});
 
 
 var alert_box = document.getElementById('alert-box')
@@ -113,7 +115,7 @@ async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc988
                 console.log('txHash: ' + txHash);
                 $('#depositModal').modal('hide');
                 let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
-                send_alert("success:waiting", "success:txnSent", false, appendix)
+                send_alert("success:waiting", "success:txnSent", false, appendix, 'blue')
                 verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
 
 //                $.ajax({
@@ -142,13 +144,14 @@ async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc988
 
         let contract = new web3.eth.Contract(ABI, contractAddress);
         await contract.methods.transfer(toAddress, value)
-        .send({from: accounts[0], gas:80000, maxPriorityFeePerGas: null, maxFeePerGas: null })
+        .send({from: accounts[0], gas:80000, maxPriorityFeePerGas: null, maxFeePerGas: null}, function(error, transactionHash){
+            send_alert('alert:pleaseWait', 'deposit:processing', false, '', 'yellow')
+        })
         .then((txHash) => {
-            console.log('txHash: ' + txHash);
-//            $('#depositModal').modal('hide');
-//            let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
-            let appendix = ' ' + value + ' USDT to ' + toAddress
-            send_alert("txn:complete", "amount", false, appendix)
+            console.log('txHash: ' + txHash['transactionHash']);
+            $('#depositModal').modal('hide');
+                let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
+                send_alert("success:waiting", "success:txnSent", false, appendix, 'blue')
 
             if (reconcile_id.length > 0){
                 verify_txhash('reconcile', txHash['transactionHash'], chain, currency, amount, toAddress, reconcile_id)
@@ -281,7 +284,7 @@ async function sendMoneyClick() {
 //    }
     // if no amount then tell user
     if (deposit_amount.value.length == 0) {
-        send_alert("alert:incomplete", "alert:amount0")
+        send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
         return
     } else {
 
@@ -298,7 +301,7 @@ async function sendMoneyClick() {
             const account_connected = accounts[0] || false;
 
             if (!account_connected) {
-                send_alert("alert:incomplete", "hi")
+//                send_alert("alert:incomplete", "hi")
                 return
             } else {
                 console.log('send txn wallet id: ' + accounts[0])
@@ -306,10 +309,11 @@ async function sendMoneyClick() {
                 console.log('send txn chain: ' + chain)
             }
             // select contract address and ABI
-            send_transaction_request(accounts[0], deposit_amount.value, chain)
+//            send_transaction_request(accounts[0], deposit_amount.value, chain)
+            await open_wallet_app('usdt', 'goerli', amount)
 
         } else {
-            send_alert("alert:incomplete", "alert:amount0")
+            send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
             new bootstrap.Alert(alert_box.id)
             return
         }

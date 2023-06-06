@@ -75,7 +75,7 @@ function notification_popup_hide() {
     $('#notificationModal').modal('hide');
 }
 
-async function send_alert(title, msg, native=false, appendix='') {
+async function send_alert(title, msg, native=false, appendix='', color='red', symbol='') {
     var alert_box = document.getElementById('alert-box')
     var alert_title = document.getElementById('alert-title')
     var alert_message = document.getElementById('alert-message')
@@ -83,43 +83,52 @@ async function send_alert(title, msg, native=false, appendix='') {
     var translations = $('#meta-translations').data()['name']
     var lang = $('#meta-lang').data()['name']
 
-    alert_box.classList.remove('show')
+    if (color == 'red'){
+        alert_box.classList.remove('alert-info') // blue
+        alert_box.classList.remove('alert-warning') // yellow
+        alert_box.classList.add('alert-danger') // red
+        alert_box.classList.remove('alert-success') // green
+    } else if (color == 'blue'){
+        alert_box.classList.add('alert-info') // blue
+        alert_box.classList.remove('alert-warning') // yellow
+        alert_box.classList.remove('alert-danger') // red
+        alert_box.classList.remove('alert-success') // green
+    } else if (color == 'yellow'){
+        alert_box.classList.remove('alert-info') // blue
+        alert_box.classList.add('alert-warning') // yellow
+        alert_box.classList.remove('alert-danger') // red
+        alert_box.classList.remove('alert-success') // green
+    } else if (color == 'green'){
+        alert_box.classList.remove('alert-info') // blue
+        alert_box.classList.remove('alert-warning') // yellow
+        alert_box.classList.remove('alert-danger') // red
+        alert_box.classList.add('alert-success') // green
+    }
 
-//    $('#deposit-spinner').hide();
     if (native) {
         alert_title.innerHTML = title
         alert_message.innerHTML = msg + appendix
-        alert_box.classList.add('show')
         return
     } else {
-        alert_title.innerHTML = translations[title][lang]
-        alert_message.innerHTML = translations[msg][lang] + appendix
+        if (title.length > 0){
+            alert_title.innerHTML = translations[title][lang]
+        } else {
+            alert_title.innerHTML = ''
+        }
+        if (msg.length > 0){
+            alert_message.innerHTML = translations[msg][lang] + appendix
+        } else {
+            alert_message.innerHTML = appendix
+        }
+    }
+
+    if (alert_box.classList.contains('show')) {
+        alert_box.classList.remove('show')
+        setTimeout(function(){
+            alert_box.classList.add('show')
+        }, 1000);
+    } else {
         alert_box.classList.add('show')
-
-
-//        $.ajax({
-//          url: "/translate_alert",
-//          type: "post",
-//          dataType: "json",
-//          contentType: "application/json; charset=UTF-8",
-//          data: JSON.stringify({
-//            "title":title,
-//            "msg":msg
-//          }),
-//          success: function(response) {
-//            if (msg == 'success:txnSent') {
-//                alert_title.innerHTML = response.title + '...<div class="spinner-border show" style="height: 15px;width: 15px;"></div>'
-//            } else {
-//                alert_title.innerHTML = response.title
-//            }
-//            alert_message.innerHTML = response.msg + msg_native
-//            alert_box.classList.add('show')
-//            return
-//          },
-//          error: function(e) {
-//            console.log('translate_alert: ' + e);
-//          }
-//        });
     }
 }
 
@@ -260,36 +269,29 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress, recon
         "reconcile_id": reconcile_id
       }),
       success: function(response) {
-        alert_title.innerHTML = response.notification_title
+        let appendix = ' ' + amount + ' USDT'
 
         if (response.alert_type == 'success:txnSuccess') {
-            alert_message.innerHTML = response.amount + ' <span style="font-size: small;">' + response.currency.toUpperCase() + '</span> ' + response.notification
-            alert_box.classList.remove('alert-danger')
             if (mode == "post"){
-                alert_box.classList.add('alert-warning')
-                $("#row-" + txHash).html('Complete')
-                $("#row-" + txHash).css('color', 'green')
-            } else if (mode == "pre"){
-                alert_box.classList.add('alert-success')
-            } else {  // it's a reconcile id then
+//                $("#row-" + txHash).html('Complete')
+//                $("#row-" + txHash).css('color', 'green')
+            } else if (mode == "reconcile"){
                 $("#" + amount + "-" + fromAddress).prop('disabled', true)
                 $("#reconcile:" + reconcile_id).html(response.reconciled_txHash)
             }
-            alert_box.classList.add('show')
 
+            let msg = response.amount + ' <span style="font-size: small;">' + response.currency.toUpperCase() + '</span> ' + translations['success:txnSuccess'][lang]
+            send_alert('txn:complete', '', false, msg, 'blue')
             return true
+
         } else if (response.alert_type == 'alert:timeout') {
-            alert_message.innerHTML = response.notification
-            alert_box.classList.add('alert-danger')
-            alert_box.classList.remove('alert-success')
-            alert_box.classList.add('show')
+            send_alert('success:waiting', 'success:txnSuccess', false, '', 'red')
             return false
         }
-
       },
       error: function(e) {
         console.log('verify_txhash error: ' + e);
+        return false
       }
     });
-
 }

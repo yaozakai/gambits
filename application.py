@@ -114,26 +114,26 @@ def verify_transaction():
     if request.json['mode'] == 'reconcile':
         txHash = request.json['reconcile_id']
     else:
-        txHash = request.json['txHash']
+        txHash = request.json['txHash']['transactionHash']
 
-    existing_deposit_entry = TxnEntry().query.filter_by(txHash=txHash).first()
+    if request.json['mode'] == 'pre':
+        deposit = TxnEntry('Deposit', user_db.email, user_db.user_id, (request.json['amount']),
+                           request.json['currency'],
+                           request.json['chain'], 'Pending', request.json['fromAddress'], txHash)
+        deposit.commit()
+        lookup_address = BANK_ADDRESS
+    else:
+        deposit = db_get_deposit(txHash)
+        # deposit = TxnEntry().query.filter_by(txHash=txHash).first()
 
-    if existing_deposit_entry.status != 'Complete':
+    if deposit.status != 'Complete':
 
-        # db_create_deposit(session['email'], request.json)
-        # db_create_deposit(email, request.json)
-        if request.json['mode'] == 'pre':
-            deposit = TxnEntry('Deposit', user_db.email, user_db.user_id, (request.json['amount']),
-                               request.json['currency'],
-                               request.json['chain'], 'Pending', request.json['fromAddress'], request.json['txHash'])
-            deposit.commit()
-            lookup_address = BANK_ADDRESS
-        elif request.json['mode'] == 'post':
-            deposit = db_get_deposit(txHash)
+        if request.json['mode'] == 'post':
+            # deposit = db_get_deposit(txHash)
             lookup_address = BANK_ADDRESS
             reconciled_txHash = request.json['txHash']
         elif request.json['mode'] == 'reconcile':
-            deposit = db_get_deposit(txHash)
+            # deposit = db_get_deposit(txHash)
             lookup_address = request.json['fromAddress']
             # mark deposit complete
             deposit.mark_complete(request.json['txHash'])
@@ -153,8 +153,6 @@ def verify_transaction():
                     time.sleep(10.0 - ((time.time() - start_time) % 10.0))
 
         if amount > 0:
-
-
             # update user db
             user_db.add_balance(amount, request.json['currency'])
 
@@ -170,7 +168,7 @@ def verify_transaction():
             alert_type = 'alert:timeout'
 
     return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title,
-                   notification=notification, reconciled_txHash=reconciled_txHash)
+                   notification=notification, reconciled_txHash=deposit.txHash)
 
 
 @application.route("/logout", methods=['GET', 'POST'])

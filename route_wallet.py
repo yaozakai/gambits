@@ -21,10 +21,10 @@ def verify_transaction_loop(deposit):
     else:
         lookup_address = BANK_ADDRESS
     if request.json['chain'] == 'erc20':
-        request_url = 'https://api.etherscan.io/api?module=proxy&action=eth_getTransactionReceipt&txHash=' + request.json['txHash'] + '&apikey=' + ETHERSCAN_API_KEY
+        request_url = 'https://api.etherscan.io/api?module=proxy&action=eth_getTransactionReceipt&txHash=' + deposit.txHash + '&apikey=' + ETHERSCAN_API_KEY
         # request_url = 'https://api.etherscan.io/api?module=transaction&action=getstatus&txhash=' + request.json['txHash'] + '&apikey=' + ETHERSCAN_API_KEY
     elif request.json['chain'] == 'goerli':
-        request_url = 'https://api-goerli.etherscan.io/api?module=proxy&action=eth_getTransactionReceipt&txHash=' + request.json['txHash'] + '&apikey=' + ETHERSCAN_API_KEY
+        request_url = 'https://api-goerli.etherscan.io/api?module=proxy&action=eth_getTransactionReceipt&txHash=' + deposit.txHash + '&apikey=' + ETHERSCAN_API_KEY
             # 'https://api-goerli.etherscan.io/api?module=account&action=getstatus&address=' + lookup_address + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + ETHERSCAN_API_KEY
     elif request.json['chain'] == 'bep20test':
         request_url = 'https://api-testnet.bscscan.com/api?module=account&action=getstatus&address=' + lookup_address + '&startblock=0&endblock=99999999&page=1&offset=200&sort=desc&apikey=' + BSNSCAN_API_KEY

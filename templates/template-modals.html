@@ -253,7 +253,6 @@ $('#withdraw-amount').on('input', function(){
 
 $('#send-money-withdraw').on('click', function(){
 
-
     $('#withdraw-spinner').show();
 
     if ($('#withdraw-walletID').val().length > 0){
@@ -271,10 +270,6 @@ $('#send-money-withdraw').on('click', function(){
             success: function(response) {
 
                 $('#withdrawModal').modal('hide');
-
-<!--                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
 
                 $('#modalNotificationTitle').html(translations['withdraw:requestSent'][lang]);
                 $('#modalNotificationMsg').html(translations['withdraw:walletID'][lang] + ": " + $('#withdraw-walletID').val().substring(0,6) + "..." + $('#withdraw-walletID').val().slice(-4) + "<br>" + translations['withdraw:24hours'][lang] + " " +
@@ -308,7 +303,7 @@ $('#depositModal').on('show.bs.modal', function(){
     $("#deposit-amount").val("");
     $("#crypto-text").html("🥦");
     $("#blockchain-text").html("🍇");
-<!--    $('#deposit-spinner').hide();-->
+    $("#deposit-amount").html("");
 
 });
 
@@ -718,45 +713,16 @@ $('.add-to-total').on('click', function(){
                     });
                 });
 
-<!--                function recaptchaCallback() {-->
-<!--                    grecaptcha.ready(function() {-->
-<!--                      const widgetId1 = grecaptcha.render("login-recaptcha", {-->
-<!--                              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",-->
-<!--                              'theme' : 'dark'-->
-<!--                      });-->
-<!--                      const widgetId2 = grecaptcha.render("reg-recaptcha", {-->
-<!--                              'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',-->
-<!--                              'theme' : 'dark'-->
-<!--                      });-->
-<!--                    });-->
-<!--                }-->
-
-var onloadCallback = function() {
-<!--    waitForElm('#login-recaptcha')-->
-<!--    waitForElm('#reg-recaptcha')-->
-    widgetId1 = grecaptcha.render("login-recaptcha", {
-              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
-              'theme' : 'dark'
-      });
-    widgetId2 = grecaptcha.render("reg-recaptcha", {
-          'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
-          'theme' : 'dark'
-    });
-};
-
-<!--                window.addEventListener("DOMContentLoaded", (event) => {-->
-
-<!--                    grecaptcha.ready(function() {-->
-<!--                      widgetId1 = grecaptcha.render("login-recaptcha", {-->
-<!--                              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",-->
-<!--                              'theme' : 'dark'-->
-<!--                      });-->
-<!--                      widgetId2 = grecaptcha.render("reg-recaptcha", {-->
-<!--                              'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',-->
-<!--                              'theme' : 'dark'-->
-<!--                      });-->
-<!--                    });-->
-<!--                });-->
+                var onloadCallback = function() {
+                    widgetId1 = grecaptcha.render("login-recaptcha", {
+                              "sitekey" : "{{ RECAPTCHA_PUBLIC_KEY }}",
+                              'theme' : 'dark'
+                      });
+                    widgetId2 = grecaptcha.render("reg-recaptcha", {
+                          'sitekey' : '{{ RECAPTCHA_PUBLIC_KEY }}',
+                          'theme' : 'dark'
+                    });
+                };
             </script>
         </div>
     </div>

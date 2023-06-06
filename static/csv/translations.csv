@@ -1,6 +1,7 @@
 ﻿name,zh-tw,zh-cn,en,ko,th,vi,es,id,pt-br,ja
 success:wallet,Wallet transfer complete!,Wallet transfer complete!,Wallet transfer complete!,,,,,,,
 success:txnSuccess,has been added to your account. GLHF!,has been added to your account. GLHF!,has been added to your account. GLHF!,,,,,,,
+deposit:processing,,,Your deposit request is processing,,,,,,,
 success:txnSent,,,Transaction has been sent. Please standby while we verify,,,,,,,
 success:waiting,,,Waiting for verification,,,,,,,
 alert:txnAlready,,,We are busy verifying your first request,,,,,,,

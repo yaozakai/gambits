@@ -127,11 +127,8 @@
 
 <script>
 
-    var reverified_engaged = false
-
     function reverify(td_id, txHash, chain, currency, amount, fromAddress, status){
 
-<!--        $('#td_id').html-->
         var status = document.getElementById(td_id)
 
         if (status.innerHTML != 'Checking'){
@@ -141,10 +138,13 @@
             status.innerHTML = translations['txn:checking'][lang]
             status.style.color = 'yellow'
 
-            send_alert("success:waiting", "success:txnSent")
+            send_alert("success:waiting", "success:txnSent", false, '','blue')
             if (!verify_txhash('post', txHash, chain, currency, amount, fromAddress)){
-<!--                status.innerHTML = 'Failed <button onclick="reverify("row-"' + txHash + ',' + txHash + ',' + chain + ',' + currency + ',' + amount + ',' + fromAddress + ',' + status)"-->
-<!--                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'-->
+                status.innerHTML = 'Failed <button onclick="reverify("row-"' + txHash + ',' + txHash + ',' + chain + ',' + currency + ',' + amount + ',' + fromAddress + ',' + status)"
+                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'
+            } else {
+                status.innerHTML = 'Complete'
+                status.css('color', 'green')
             }
         }
     }
