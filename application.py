@@ -114,7 +114,7 @@ def verify_transaction():
     if request.json['mode'] == 'reconcile':
         txHash = request.json['reconcile_id']
     else:
-        txHash = request.json['txHash']['transactionHash']
+        txHash = request.json['txHash']
 
     if request.json['mode'] == 'pre':
         deposit = TxnEntry('Deposit', user_db.email, user_db.user_id, (request.json['amount']),
@@ -323,13 +323,13 @@ def launch():
         return jsonify(link=link)
 
 
-@application.route('/translate', methods=['POST'])
-@login_required
-def translate():
-    if 'phrase' in request.json:
-        phrase = translations[request.json['phrase']][session['lang']]
-
-    return jsonify(phrase=phrase)
+# @application.route('/translate', methods=['POST'])
+# @login_required
+# def translate():
+#     if 'phrase' in request.json:
+#         phrase = translations[request.json['phrase']][session['lang']]
+#
+#     return jsonify(phrase=phrase)
 
 
 @application.route('/translate_alert', methods=['POST'])

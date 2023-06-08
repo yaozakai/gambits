@@ -1,12 +1,7 @@
-// web3 lib instance
-const web3 = new Web3(window.ethereum);
-// get all accounts
-const accounts = await web3.eth.getAccounts();
-
-document.getElementById('money-deposit').addEventListener('click', sendMoneyClick)
 
 
 
+document.getElementById('money-deposit').addEventListener('click', setup_deposit)
 window.addEventListener("DOMContentLoaded", (event) => {
 //    waitForElm('#withdraw-balance').then((withdraw_balance) => {
 //        get_balance()
@@ -35,7 +30,11 @@ $(document).ready(function(){
         let amount = event.target.id.split('-') [0]
         let address = event.target.id.split('-') [1]
         let reconcile_id = event.target.id.split('-') [2]
-        open_wallet_app('usdt', 'goerli', amount, address, reconcile_id)
+
+        if (open_wallet_app('usdt', 'goerli', amount, address, reconcile_id)){
+            send_alert("txn:complete", "success:wallet", false, appendix, 'blue')
+            verify_txhash('reconcile', txHash['transactionHash'], chain, currency, amount, toAddress, reconcile_id)
+        }
     });
 });
 
@@ -92,77 +91,81 @@ async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc988
     const amount_formatted = web3.utils.toBN(Math.round(parseFloat(amount) * multiplier));
     const value = amount_formatted.mul(web3.utils.toBN(10).pow(decimals));
 
-    if (native_coin) {
-        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" }).catch((error) => {
-            metamaskError(error)
-        });
+    var accounts = await window.ethereum.request({ method: "eth_requestAccounts" }).catch((error) => {
+        metamaskError(error)
+    });
 
-        await window.ethereum.request({
-              method: 'eth_sendTransaction',
-              params: [
-                {
-                  from: accounts[0], // The user's active address.
-                  to: toAddress,
-                  value: value.toString(16),
-//                  gasPrice: '0x09184e72a000', // Customizable by the user during MetaMask confirmation.
-//                  gas: '0x2710', // Customizable by the user during MetaMask confirmation.
-                  maxPriorityFeePerGas: null,
-                  maxFeePerGas: null
-                },
-              ],
-            })
-            .then((txHash) => {
-                console.log('txHash: ' + txHash);
-                $('#depositModal').modal('hide');
-                let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
-                send_alert("success:waiting", "success:txnSent", false, appendix, 'blue')
-                verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
+    let contract = new web3.eth.Contract(ABI, contractAddress);
+    let txHash_object = null
+    await contract.methods.transfer(toAddress, value)
+    .send({from: accounts[0], gas:80000, maxPriorityFeePerGas: null, maxFeePerGas: null}, function(error, transactionHash){
+        send_alert('alert:pleaseWait', 'deposit:processing', false, '', 'yellow')
+    })
+    .then(txHash => {
+        console.log('transfer.send complete, txHash: ' + txHash['transactionHash']);
+        txHash_object = txHash
+//        return txHash_object
+//            if (reconcile_id.length > 0){
 
-//                $.ajax({
-//                  url: "/translate",
-//                  type: "post",
-//                  dataType: "json",
-//                  contentType: "application/json; charset=UTF-8",
-//                  data: JSON.stringify({
-//                    "phrase":'alert:clickHere',
-//                  }),
-//                  success: function(response) {
-//                    let appendix = '<a href="/gamehistory">' + response.phrase + '</a>'
-//                    send_alert("success:waiting", "success:txnSent", false, appendix)
 //
-//                    verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
-//                  }
-//                });
-            })
-            .catch((error) => {
-                metamaskError(error)
-            });
-    } else {
-        var accounts = await window.ethereum.request({ method: "eth_requestAccounts" }).catch((error) => {
-            metamaskError(error)
-        });
+//            } else {
+//                return true
+//            }
+    })
+    .catch((error) => {
+        throw error
+    });
+    return txHash_object
 
-        let contract = new web3.eth.Contract(ABI, contractAddress);
-        await contract.methods.transfer(toAddress, value)
-        .send({from: accounts[0], gas:80000, maxPriorityFeePerGas: null, maxFeePerGas: null}, function(error, transactionHash){
-            send_alert('alert:pleaseWait', 'deposit:processing', false, '', 'yellow')
-        })
-        .then((txHash) => {
-            console.log('txHash: ' + txHash['transactionHash']);
-            $('#depositModal').modal('hide');
-                let appendix = '<a href="/txnHistory">' + response.phrase + '</a>'
-                send_alert("success:waiting", "success:txnSent", false, appendix, 'blue')
-
-            if (reconcile_id.length > 0){
-                verify_txhash('reconcile', txHash['transactionHash'], chain, currency, amount, toAddress, reconcile_id)
-            } else {
-                verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
-            }
-        })
-        .catch((error) => {
-            metamaskError(error)
-        });
-    }
+//    if (native_coin) {
+//        await window.ethereum.request({
+//              method: 'eth_sendTransaction',
+//              params: [
+//                {
+//                  from: accounts[0], // The user's active address.
+//                  to: toAddress,
+//                  value: value.toString(16),
+////                  gasPrice: '0x09184e72a000', // Customizable by the user during MetaMask confirmation.
+////                  gas: '0x2710', // Customizable by the user during MetaMask confirmation.
+//                  maxPriorityFeePerGas: null,
+//                  maxFeePerGas: null
+//                },
+//              ],
+//            })
+//            .then((txHash) => {
+//                console.log('txHash: ' + txHash);
+//                $('#depositModal').modal('hide');
+//                let appendix = '<a href="/txnHistory">' + translations['alert:clickHere'][lang] + '</a>'
+//                send_alert("success:waiting", "success:txnSent", false, appendix, 'blue')
+//                verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
+//                return true
+//            })
+//            .catch((error) => {
+//                metamaskError(error)
+//                return false
+//            });
+//        return false
+//    } else {
+//        let contract = new web3.eth.Contract(ABI, contractAddress);
+//        await contract.methods.transfer(toAddress, value)
+//        .send({from: accounts[0], gas:80000, maxPriorityFeePerGas: null, maxFeePerGas: null}, function(error, transactionHash){
+//            send_alert('alert:pleaseWait', 'deposit:processing', false, '', 'yellow')
+//        })
+//        .then(txHash => {
+//            console.log('transfer.send complete, txHash: ' + txHash['transactionHash']);
+//            const txHash_object = txHash
+//            return txHash_object
+////            if (reconcile_id.length > 0){
+////
+////            } else {
+////                return true
+////            }
+//        })
+//        .catch((error) => {
+//            throw error
+//        });
+//        return txHash_object
+//    }
 }
 
 function metamaskError(error) {
@@ -175,43 +178,6 @@ function metamaskError(error) {
         return
     }
 }
-
-async function send_transaction_request(fromAddress, amount, currency) {
-
-//    let fromAddress = "0x7d5eb381B479a663aC09CcDCbd38b298CE304608";
-//    let toAddress = "0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B";
-
-    let decimals = 0;
-//    let amount = '234.551';
-    let contractAddress = ''
-    let ABI = []
-
-// Find currency
-//    var currency = ''
-//    const cryptos = $(".crypto-button")
-//    for (var crypto of cryptos) if (crypto.classList.contains('active')) {
-//        currency = crypto.id.split('-')[2]
-//        console.log('currency: ' + currency);
-//        break
-//    }
-//
-//// Find blockchain network
-//    var chain = ''
-//    const chains = $(".blockchain-button")
-//    for (var chain of chains) if (chain.classList.contains('active')) {
-//        chain = chain.id.split('-')[2]
-//        console.log('chains: ' + chain);
-//        break
-//    }
-
-// Process the payment and get the hash
-    var txHash = ''
-    await open_wallet_app('usdt', 'goerli', amount)
-
-//    console.log('verify payment for: ' + txHash)
-
-}
-
 
 ///////////////////////
 
@@ -239,7 +205,7 @@ async function send_transaction_request(fromAddress, amount, currency) {
 
 
 
-async function sendMoneyClick() {
+async function setup_deposit() {
     // show spinner
 //    $('#deposit-spinner').css({
 //        'display': 'inline-block'
@@ -285,7 +251,7 @@ async function sendMoneyClick() {
     // if no amount then tell user
     if (deposit_amount.value.length == 0) {
         send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
-        return
+//        return false
     } else {
 
     // SWITCH CHAIN
@@ -302,7 +268,7 @@ async function sendMoneyClick() {
 
             if (!account_connected) {
 //                send_alert("alert:incomplete", "hi")
-                return
+//                return true
             } else {
                 console.log('send txn wallet id: ' + accounts[0])
                 console.log('send txn amount: ' + deposit_amount.value)
@@ -310,12 +276,33 @@ async function sendMoneyClick() {
             }
             // select contract address and ABI
 //            send_transaction_request(accounts[0], deposit_amount.value, chain)
-            await open_wallet_app('usdt', 'goerli', amount)
+
+            const txHash = await open_wallet_app('usdt', 'goerli', amount)
+            .then(function(txHash) {
+//                console.log(`SUCCES: ${result}`);
+//                return true;
+                $('#depositModal').modal('hide');
+                let appendix = '<a href="/txnHistory">' + translations['alert:clickHere'][lang] + '</a>'
+                send_alert("success:waiting", "success:txnSent", false, appendix, 'green')
+                verify_txhash('pre', txHash['transactionHash'], 'goerli', 'usdt', amount, accounts[0])
+            })
+            .catch(error => {
+                metamaskError(error)
+//                console.error(`ERROR: ${error}`);
+//                return false
+            });
+
+//            if (await open_wallet_app('usdt', 'goerli', amount)){
+//                $('#depositModal').modal('hide');
+//                let appendix = '<a href="/txnHistory">' + translations['alert:clickHere'][lang] + '</a>'
+//                send_alert("success:waiting", "success:txnSent", false, appendix, 'blue')
+//                verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
+//            }
 
         } else {
             send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
             new bootstrap.Alert(alert_box.id)
-            return
         }
+        return true
     }
 }

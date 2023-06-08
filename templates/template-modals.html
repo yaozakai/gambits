@@ -38,6 +38,8 @@
     </div>
 </div>
 
+{% if current_user.is_authenticated %}
+
 <!-- deposit popup -->
 <div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="depositModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="depositModalWindow">
@@ -49,7 +51,7 @@
                 </button>
             </div>
             <div class="modal-body" >
-<!--                <div class="deposit-top-row">-->
+<!--                <div class="modal-top-row">-->
 <!--                    <div class="deposit-icon-selector crypto-selector">-->
 <!--                        <div style="margin-right: 15px;">-->
 <!--                            <div class='green-text'>{{ translations['choose currency'][session['lang']] }}</div>-->
@@ -79,12 +81,12 @@
                 <div class="green-text mb-3" style="text-align: left;">{{ translations['deposit:onlyUSDT'][session['lang']] }}</div>
                 <div class="d-flex modal-divider-horz"><div class="vr"></div></div>
 
-                <div class='green-text mt-4 mb-1' style="text-align: center;">{{ translations['totalBalanceAfter'][session['lang']] }}</div>
+<!--                <div class='green-text mt-4 mb-1' style="text-align: center;">{{ translations['totalBalanceAfter'][session['lang']] }}</div>-->
 
-                <div id="deposit-display-amount" class="green-text mt-2 mb-3" style="text-align: center;font-size: x-large;">
-                    {{ current_user.balance_USDT }} USDT on ERC20
-                </div>
-                <div class="d-flex modal-divider-horz"><div class="vr"></div></div>
+<!--                <div id="deposit-display-amount" class="green-text mt-2 mb-3" style="text-align: center;font-size: x-large;">-->
+<!--                    {{ '%0.2f' % current_user.balance_usdt }} USDT on ERC20-->
+<!--                </div>-->
+<!--                <div class="d-flex modal-divider-horz"><div class="vr"></div></div>-->
                 <div class='green-text mt-4 mb-3' style="text-align: center;">{{ translations['choose amount'][session['lang']] }}</div>
                 <div class="btn-group money-shortkey mb-3" role="group">
                   <button id="add-10-button" type="button" class="btn btn-outline-success add-to-total">+10</button>
@@ -122,7 +124,6 @@
     </div>
 </div>
 
-{% if current_user.is_authenticated %}
 <script>
     $('#deposit-amount').on('input', function(){
         var balance = {{ current_user.balance_usdt }};
@@ -155,7 +156,6 @@
 
     });
 </script>
-{% endif %}
 <!-- withdraw popup -->
 <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="withdrawModalWindow">
@@ -167,12 +167,12 @@
                 </button>
             </div>
             <div class="modal-body" >
-                <div class="deposit-top-row">
+                <div class="modal-top-row">
 <!--                    <div class="green-text" id="balance_eth" style="margin-left: 7px;">-->
 <!--                        <span style="font-size: larger">{{ translations['yourBalance'][session['lang']] }}: </span> {{ current_user.balance_eth }}-->
 <!--                    </div>-->
                     <div class="green-text" id="balance_usdt" style="margin-left: 7px;">
-                        <span style="font-size: larger">{{ translations['yourBalance'][session['lang']] }}: </span> <span id="withdraw-balance"></span> <span class="crypto-symbol">USDT</span>
+                        <span style="font-size: larger">{{ translations['yourBalance'][session['lang']] }}: </span> <span id="withdraw-balance">{{ '%0.2f' % current_user.balance_usdt }}</span> <span class="crypto-symbol">USDT</span>
                     </div>
 
                     <div class="input-group mb-1" style="margin-top:5px;">
@@ -212,8 +212,6 @@
         </div>
     </div>
 </div>
-
-{% if current_user.is_authenticated %}
 
 <script>
 

@@ -83,6 +83,10 @@ async function send_alert(title, msg, native=false, appendix='', color='red', sy
     var translations = $('#meta-translations').data()['name']
     var lang = $('#meta-lang').data()['name']
 
+    if (alert_box.classList.contains('show')) {
+        alert_box.classList.remove('show')
+    }
+
     if (color == 'red'){
         alert_box.classList.remove('alert-info') // blue
         alert_box.classList.remove('alert-warning') // yellow
@@ -107,8 +111,7 @@ async function send_alert(title, msg, native=false, appendix='', color='red', sy
 
     if (native) {
         alert_title.innerHTML = title
-        alert_message.innerHTML = msg + appendix
-        return
+        alert_message.innerHTML = msg + ' ' + appendix
     } else {
         if (title.length > 0){
             alert_title.innerHTML = translations[title][lang]
@@ -116,14 +119,13 @@ async function send_alert(title, msg, native=false, appendix='', color='red', sy
             alert_title.innerHTML = ''
         }
         if (msg.length > 0){
-            alert_message.innerHTML = translations[msg][lang] + appendix
+            alert_message.innerHTML = translations[msg][lang] + ' ' + appendix
         } else {
             alert_message.innerHTML = appendix
         }
     }
 
     if (alert_box.classList.contains('show')) {
-        alert_box.classList.remove('show')
         setTimeout(function(){
             alert_box.classList.add('show')
         }, 1000);
@@ -142,7 +144,7 @@ function get_balance(){
         type: "post",
         success: function(balances) {
 //            balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
-            balance_field_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + balances['usdt']
+            balance_field_usdt.innerHTML = balances['usdt'] + ' <span class="crypto-symbol">USDT</span>'
             withdraw_balance.innerHTML = balances['usdt']
             $('#deposit-display-amount').html(balances['usdt'] + ' USDT @ ERC20')
 
