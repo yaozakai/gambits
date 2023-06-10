@@ -60,13 +60,50 @@
 
 </script>
 
-<table id="data" class="table table-hover table-dark profile-container green-text-outline">
+<table id="txn-data" class="table table-hover table-dark profile-container green-text-outline">
     <thead class="txn-table-header">
       <tr>
-        <th>Status</th>
+        <th style="display: flex;">Status
+            <div class="dropdown">
+                <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
+              <ul class="dropdown-menu green-text">
+                <li class="dropdown-submenu dropdown-item">
+                    <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-complete" name="txn-filter-complete" type="checkbox" checked>
+                    <label for="txn-filter-complete"> {{ translations['txn:complete'][session['lang']] }}</label>
+                </li>
+                <li class="dropdown-submenu dropdown-item">
+                    <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-pending" name="txn-filter-pending" type="checkbox" checked>
+                    <label for="txn-filter-pending"> {{ translations['txn:pending'][session['lang']] }}</label>
+                </li>
+                <li class="dropdown-submenu dropdown-item">
+                    <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-unverified" name="txn-filter-unverified" type="checkbox" checked>
+                    <label for="txn-filter-unverified"> {{ translations['txn:unverified'][session['lang']] }}</label>
+                </li>
+              </ul>
+            </div>
+        </th>
+<!--        <th style="display: flex;">Status <button class="btn btn-link reverify-button"><i class="bi bi-filter" style="color: #48ff48;"></i></button></th>-->
         <th>Date</th>
         <th>Time</th>
-        <th>Type</th>
+        <th style="display: flex;">Type
+            <div class="dropdown">
+                <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
+
+              <ul class="dropdown-menu green-text">
+
+<!--                  <label for="txn-filter-deposit"> {{ translations['deposit'][session['lang']] }}</label>-->
+                <li class="dropdown-submenu dropdown-item">
+                    <input onclick="txn_filter();" class="txn-filter-type" id="txn-filter-withdraw" name="txn-filter-withdraw" type="checkbox" checked>
+                    <label for="txn-filter-withdraw"> {{ translations['withdraw'][session['lang']] }}</label>
+                </li>
+                <li class="dropdown-submenu dropdown-item">
+                    <input onclick="txn_filter();" class="txn-filter-type" id="txn-filter-deposit" name="txn-filter-deposit" type="checkbox" checked>
+                    <label for="txn-filter-deposit"> {{ translations['deposit'][session['lang']] }}</label>
+                </li>
+<!--                <li class="green-text btn"><input id="txn-filter-deposit" name="txn-filter-deposit" type="checkbox"></li>-->
+              </ul>
+            </div>
+        </th>
         <th>Amount</th>
 <!--        <th>Chain</th>-->
         <th>txHash</th>
@@ -75,6 +112,77 @@
 <!--        <th>JackContribution</th>-->
 <!--        <th>Rake</th>-->
 <!--        <th>Room Fee</th>-->
+        <script>
+
+<!--        function txn_filter(source_id, recs){-->
+<!--            event.stopPropagation();-->
+<!--            event.stopImmediatePropagation();-->
+
+<!--            $('#txn-data').children('.txn-filter').each(function () {-->
+<!--                alert(this.value); // "this" is the current element in the loop-->
+<!--            });-->
+
+<!--            //(... rest of your JS code)-->
+<!--        }-->
+
+            function txn_filter(){
+                let filter_status = []
+                const collection_status = document.getElementsByClassName("txn-filter-status");
+                for (let i = 0; i < collection_status.length; i++) {
+                    if (collection_status[i].checked){
+                        filter_status.push(collection_status[i].id.split('-')[2])
+                    }
+                }
+                let filter_type = []
+                const collection_type = document.getElementsByClassName("txn-filter-type");
+                for (let i = 0; i < collection_type.length; i++) {
+                    if (collection_type[i].checked){
+                        filter_type.push(collection_type[i].id.split('-')[2])
+                    }
+                }
+                console.log("filter_type: " + filter_type)
+                console.log("filter_status: " + filter_status)
+
+                let txn_type = ''
+
+                var table = $("#results")
+                table.find('tr').each(function (i, el) {
+                    var row = $(this)
+                    var $tds = $(this).find('td'),
+                        txn_type = $tds.eq(3).text(),
+                        txn_status = $tds.eq(0).text();
+                        let filter_match = false
+
+<!--                        console.log("txn_type: " + txn_type)-->
+                        for (let i = 0; i < filter_type.length; i++) {
+                            if (txn_type.toLowerCase() == filter_type[i]){
+                                console.log("show txn_type: " + txn_type)
+                                row.show()
+                                filter_match = true
+                                break
+                            }
+                        }
+                        if (!filter_match){
+                            row.hide()
+                        } else {
+                        // second chance to show
+                            filter_match = false
+                            for (let i = 0; i < filter_status.length; i++) {
+                                if (txn_status.toLowerCase() == filter_status[i]){
+                                    console.log("show txn_status: " + txn_status)
+                                    row.show()
+                                    filter_match = true
+                                    break
+                                }
+                            }
+                            if (!filter_match){
+                                row.hide()
+                            }
+                        }
+                });
+            }
+        </script>
+
       </tr>
     </thead>
     <tbody class="txn-table-row" id="results">

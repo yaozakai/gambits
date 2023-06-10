@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block pendingWithdraw %}
+
 <div class="py-2" style="margin-left: 5%;">
     <h3 class="green-text-outline">Pending Withdraws</h3>
 
@@ -9,21 +10,21 @@
 
 <script>
 
-    $(document).ready(function(){
-        $("td[colspan=12]").find("p").hide();
-        $("table").click(function(event) {
-            event.stopPropagation();
-            var $target = $(event.target);
-            if ( $target.closest("td").attr("colspan") > 1 ) {
-                $target.slideUp();
-                $target.closest("tr").next().find("div").slideToggle();
+<!--    $(document).ready(function(){-->
+<!--        $("td[colspan=12]").find("p").hide();-->
+<!--        $("table").click(function(event) {-->
+<!--            event.stopPropagation();-->
+<!--            var $target = $(event.target);-->
+<!--            if ( $target.closest("td").attr("colspan") > 1 ) {-->
+<!--                $target.slideUp();-->
+<!--                $target.closest("tr").next().find("div").slideToggle();-->
 
-            } else {
-                $target.closest("tr").next().find("div").slideToggle();
+<!--            } else {-->
+<!--                $target.closest("tr").next().find("div").slideToggle();-->
 
-            }
-        });
-    });
+<!--            }-->
+<!--        });-->
+<!--    });-->
 
 </script>
 
@@ -62,7 +63,7 @@
             <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
             <td id="reconcile:{{ record.txHash }}">{{ record.txHash }}</td>
 
-            <td><a href='https://api.etherscan.io/address={{ record.fromAddress }}' target="_blank">{{ record.fromAddress|truncate(6, true, '') }}</a></td>
+            <td><a href='https://etherscan.io/address/{{ record.fromAddress }}' target="_blank">{{ record.fromAddress|truncate(6, true, '') }}</a></td>
 
             <td>
                 <button id="{{ record.amount }}-{{ record.fromAddress }}-{{ record.txHash }}"
