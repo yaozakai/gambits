@@ -1,10 +1,14 @@
 .reverify-button {
-    /* position: absolute; */
-    /* bottom: 235px; */
-    height: 35px;
-    margin-top: -49px;
+    position: relative;
+    /* right: -85px; */
+    bottom: 22px;
+    height: 40px;
+    margin-left: -5px;
+    margin-right: -45px;
+    margin-top: -8px;
     margin-bottom: -47px;
-    font-size: 11px;
+    font-size: 18px;
+    /* float: right; */
     box-shadow: none!important;
 }
 

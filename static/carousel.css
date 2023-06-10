@@ -484,7 +484,7 @@ h3 {
 
 .dropdown-item.active, .dropdown-item:active {
     background-color: #28a745 !important;
-    background-image: radial-gradient(#4CAF50 5%, green 35%, transparent 75%);
+    /* background-image: radial-gradient(#4CAF50 5%, green 35%, transparent 75%); */
 }
 
 .dropdown-divider {

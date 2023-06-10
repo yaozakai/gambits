@@ -144,15 +144,23 @@ function get_balance(){
         type: "post",
         success: function(balances) {
 //            balance_field_eth.innerHTML = '<span class="crypto-symbol">ETH</span> ' + balances['eth']
-            balance_field_usdt.innerHTML = balances['usdt'] + ' <span class="crypto-symbol">USDT</span>'
-            withdraw_balance.innerHTML = balances['usdt']
-            $('#deposit-display-amount').html(balances['usdt'] + ' USDT @ ERC20')
+//            balance_field_usdt.innerHTML = balances['usdt'] + ' <span class="crypto-symbol">USDT</span>'
+//            withdraw_balance.innerHTML = balances['usdt']
+//            $('#deposit-display-amount').html(balances['usdt'] + ' USDT @ ERC20')
+            set_balance_UI(balances['usdt'])
 
         },
         error: function(e) {
-            console.log('/getBalance: ' + e);
+            send_alert('reload website', '')
+            console.log('getBalance error: ' + e);
         }
     });
+}
+
+function set_balance_UI(balance){
+    $('#balance_usdt').html(balance + ' <span class="crypto-symbol">USDT</span>')
+    $('#withdraw-balance').html(balance)
+
 }
 
 function searchPlayer(){
@@ -223,11 +231,16 @@ function pendingWithdraw(){
     return true
 }
 
-function txnHistory(){
+function txnHistory(reportDate=''){
+
+    $('#alert-box').removeClass('show')
+
     const selectElement = document.getElementById('reportDate');
-    let reportDate = ''
-    if (selectElement) {
+//    let reportDate = ''
+    if (selectElement && reportDate.length == 0) {
         reportDate = selectElement.value
+    } else if (reportDate == 'today'){
+        reportDate = ''
     }
     $("#back-to-games").show()
 
@@ -274,9 +287,9 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress, recon
         let appendix = ' ' + amount + ' USDT'
 
         if (response.alert_type == 'success:txnSuccess') {
-            if (mode == "post"){
-//                $("#row-" + txHash).html('Complete')
-//                $("#row-" + txHash).css('color', 'green')
+            if (mode == "reverify"){
+                $("#row-" + txHash).html('Complete')
+                $("#row-" + txHash).css('color', 'green')
             } else if (mode == "reconcile"){
                 $("#" + amount + "-" + fromAddress).prop('disabled', true)
                 $("#reconcile:" + reconcile_id).html(response.reconciled_txHash)
@@ -284,15 +297,29 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress, recon
 
             let msg = response.amount + ' <span style="font-size: small;">' + response.currency.toUpperCase() + '</span> ' + translations['success:txnSuccess'][lang]
             send_alert('txn:complete', '', false, msg, 'blue')
+
+            // update balance across UI
+            set_balance_UI(response.balance)
+
+//            balance_field_usdt.innerHTML = response.balance + ' <span class="crypto-symbol">USDT</span>'
+//            withdraw_balance.innerHTML = response.balance
+//            $('#deposit-display-amount').html(response.balance + ' USDT @ ERC20')
+
             return true
 
         } else if (response.alert_type == 'alert:timeout') {
-            send_alert('success:waiting', 'success:txnSuccess', false, '', 'red')
+            if (mode == "reverify"){
+                $("#row-" + txHash).html('Failed <button onclick="reverify("row-" + txHash + "," + txHash + "," + chain + "," + currency + "," + amount + "," + fromAddress + "," + status)" class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>')
+                $("#row-" + txHash).css('color', 'green')
+            }
+            send_alert('failed:verify', 'alert:timeout', false, '', 'red')
             return false
         }
       },
       error: function(e) {
         console.log('verify_txhash error: ' + e);
+//        send_alert('failed:verify', e, false, '', 'red')
+
         return false
       }
     });

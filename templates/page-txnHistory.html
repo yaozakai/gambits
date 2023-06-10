@@ -7,7 +7,7 @@
 <!--            <div class="calendar"></div>-->
             <span class="input-group-text whiteFont">{{ translations['date'][session['lang']] }}</span>
             <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
-            <h8 class="green-text-outline" style="margin-left: 10px;">*UTC-4</h8>
+            <h8 class="green-text-outline" style="margin-left: 10px;">*UTC-8</h8>
         </div>
 
     </div>
@@ -34,25 +34,26 @@
 
         const selectElement = document.getElementById('reportDate');
         selectElement.addEventListener("change", () => {
-            $.ajax({
-                url: "/txnHistory",
-                type: "post",
-                dataType: "json",
-                contentType: "application/json; charset=UTF-8",
-                data: JSON.stringify({
-                    "reportDate":selectElement.value
-                }),
-                success: function(self) {
-<!--                    htmloutput = "";-->
-<!--                    results = self.rec;-->
-                    $("#main_section").html(self.render);
-<!--                    $("#num_results").html(results.length);-->
-<!--                    generate_table(results);-->
-                },
-                error: function(e) {
-                    console.log('gamehistory: ' + e);
-                }
-            });
+            txnHistory(selectElement.value)
+<!--            $.ajax({-->
+<!--                url: "/txnHistory",-->
+<!--                type: "post",-->
+<!--                dataType: "json",-->
+<!--                contentType: "application/json; charset=UTF-8",-->
+<!--                data: JSON.stringify({-->
+<!--                    "reportDate":selectElement.value-->
+<!--                }),-->
+<!--                success: function(self) {-->
+<!--&lt;!&ndash;                    htmloutput = "";&ndash;&gt;-->
+<!--&lt;!&ndash;                    results = self.rec;&ndash;&gt;-->
+<!--                    $("#main_section").html(self.render);-->
+<!--&lt;!&ndash;                    $("#num_results").html(results.length);&ndash;&gt;-->
+<!--&lt;!&ndash;                    generate_table(results);&ndash;&gt;-->
+<!--                },-->
+<!--                error: function(e) {-->
+<!--                    console.log('gamehistory: ' + e);-->
+<!--                }-->
+<!--            });-->
         });
 
     });
@@ -62,12 +63,12 @@
 <table id="data" class="table table-hover table-dark profile-container green-text-outline">
     <thead class="txn-table-header">
       <tr>
+        <th>Status</th>
         <th>Date</th>
         <th>Time</th>
         <th>Type</th>
-        <th>Status</th>
         <th>Amount</th>
-        <th>Chain</th>
+<!--        <th>Chain</th>-->
         <th>txHash</th>
 <!--        <th>Valid Bet</th>-->
 <!--        <th>Jackpot</th>-->
@@ -81,6 +82,21 @@
       {% for record in rec if counter < 50 %}
         {% set counter = loop.count %}
         <tr>
+            {% if record.status.lower() == 'failed' %} <!--aka unverified-->
+            <td id="row-{{ record.txHash }}" style="color:red">
+                {{ translations['txn:' + record.status|lower][session['lang']] }}
+                <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
+                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}">
+                  <i class="bi bi-arrow-clockwise"></i>
+                </button>
+            </td>
+          {% elif record.status.lower() == 'pending' %}
+            <td style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
+          {% elif record.status.lower() == 'complete' %}
+            <td style="color:green">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
+          {% endif %}
+
+
             {% if record.created is string %}
           <td>{{ record.created.split(' ')[0] }}</td>
           <td>{{ record.created.split(' ')[1] }}</td>
@@ -90,18 +106,9 @@
             {% endif %}
           <td>{{ record.type }}</td>
 
-          {% if record.status.lower() == 'failed' %}
-            <td id="row-{{ record.txHash }}" style="color:red">
-              {{ translations['txn:' + record.status|lower][session['lang']] }} <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
-                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}"><i class="bi bi-arrow-clockwise"></i></button>
-          {% elif record.status.lower() == 'pending' %}
-            <td style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}
-          {% elif record.status.lower() == 'complete' %}
-            <td style="color:green">{{ translations['txn:' + record.status|lower][session['lang']] }}
-          {% endif %}
-            </td>
+
             <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
-            <td>{{ record.blockchain }}</td>
+<!--            <td>{{ record.blockchain }}</td>-->
             <td>
             {% if "0x" in record.txHash  %}
                 {% if record.blockchain == 'goerli' %}
@@ -139,9 +146,8 @@
             status.style.color = 'yellow'
 
             send_alert("success:waiting", "success:txnSent", false, '','blue')
-            if (!verify_txhash('post', txHash, chain, currency, amount, fromAddress)){
-                status.innerHTML = 'Failed <button onclick="reverify("row-"' + txHash + ',' + txHash + ',' + chain + ',' + currency + ',' + amount + ',' + fromAddress + ',' + status)"
-                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'
+            if (!verify_txhash('reverify', txHash, chain, currency, amount, fromAddress)){
+<!--                status.innerHTML = 'Failed <button onclick="reverify("row-" + txHash + "," + txHash + "," + chain + "," + currency + "," + amount + "," + fromAddress + "," + status)" class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'-->
             } else {
                 status.innerHTML = 'Complete'
                 status.css('color', 'green')

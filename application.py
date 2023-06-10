@@ -75,7 +75,8 @@ def home():
                 rec = []
                 for query in queries:
                     if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
-                        rec.insert(0, query)
+                        rec.insert(0, query.serialize())
+                rec.sort(key=itemgetter('created'), reverse=True)
                 return render_template('page-txnHistory.html', rec=rec, report_date=report_date,
                                        translations=utils.translations)
             elif session['page'] == 'gameHistory':
@@ -128,7 +129,7 @@ def verify_transaction():
 
     if deposit.status != 'Complete':
 
-        if request.json['mode'] == 'post':
+        if request.json['mode'] == 'reverify':
             # deposit = db_get_deposit(txHash)
             lookup_address = BANK_ADDRESS
             reconciled_txHash = request.json['txHash']
@@ -168,7 +169,7 @@ def verify_transaction():
             alert_type = 'alert:timeout'
 
     return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title,
-                   notification=notification, reconciled_txHash=deposit.txHash)
+                   notification=notification, reconciled_txHash=deposit.txHash, balance=user_db.balance_usdt)
 
 
 @application.route("/logout", methods=['GET', 'POST'])
@@ -233,7 +234,7 @@ def txnHistory():
     session['page'] = 'txnHistory'
 
     queries = TxnEntry().query.filter_by(user_id=session['_user_id'])
-    if len(json.loads(request.data)['reportDate']) > 0:
+    if len(request.data) > 0 and len(json.loads(request.data)['reportDate']) > 0:
         report_date = datetime.datetime.strptime(json.loads(request.data)['reportDate'], '%Y-%m-%d')
     else:
         # report_date = datetime.datetime.now()

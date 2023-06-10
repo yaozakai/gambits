@@ -41,8 +41,9 @@ def verify_transaction_loop(deposit):
     #             if deposit.currency == 'eth':
     #                 amount = float(transaction['value']) / (10 ** 18)
 
-    if data['result']['status'] == '0x1':
-        amount = round(int(data['result']['logs'][0]['data'].split('x')[1], 16) / 10 ** 6, 2)
+    if 'result' in data and 'status' in data['result']:
+        if data['result']['status'] == '0x1':
+            amount = round(int(data['result']['logs'][0]['data'].split('x')[1], 16) / 10 ** 6, 2)
 
     # check message is ok
     # if data['message'] == 'OK':

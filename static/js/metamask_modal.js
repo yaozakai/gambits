@@ -32,7 +32,7 @@ $(document).ready(function(){
         let reconcile_id = event.target.id.split('-') [2]
 
         if (open_wallet_app('usdt', 'goerli', amount, address, reconcile_id)){
-            send_alert("txn:complete", "success:wallet", false, appendix, 'blue')
+            send_alert("Reconciling withdraw request", "Verifying...", true, '', 'yellow')
             verify_txhash('reconcile', txHash['transactionHash'], chain, currency, amount, toAddress, reconcile_id)
         }
     });
@@ -277,19 +277,19 @@ async function setup_deposit() {
             // select contract address and ABI
 //            send_transaction_request(accounts[0], deposit_amount.value, chain)
 
-            const txHash = await open_wallet_app('usdt', 'goerli', amount)
+            await open_wallet_app('usdt', 'goerli', amount)
             .then(function(txHash) {
 //                console.log(`SUCCES: ${result}`);
 //                return true;
                 $('#depositModal').modal('hide');
-                let appendix = '<a href="/txnHistory">' + translations['alert:clickHere'][lang] + '</a>'
+                let appendix = '<button onclick="txnHistory();" class="btn btn-link close-alert">' + translations['alert:clickHere'][lang] + '</button>'
                 send_alert("success:waiting", "success:txnSent", false, appendix, 'green')
+                txnHistory('today')
                 verify_txhash('pre', txHash['transactionHash'], 'goerli', 'usdt', amount, accounts[0])
             })
             .catch(error => {
                 metamaskError(error)
-//                console.error(`ERROR: ${error}`);
-//                return false
+//                send_alert('alert:wallet', 'alert:checkBalance')
             });
 
 //            if (await open_wallet_app('usdt', 'goerli', amount)){
@@ -301,7 +301,7 @@ async function setup_deposit() {
 
         } else {
             send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
-            new bootstrap.Alert(alert_box.id)
+//            new bootstrap.Alert(alert_box.id)
         }
         return true
     }

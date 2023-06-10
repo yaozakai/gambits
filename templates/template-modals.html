@@ -124,38 +124,38 @@
     </div>
 </div>
 
-<script>
-    $('#deposit-amount').on('input', function(){
-        var balance = {{ current_user.balance_usdt }};
-        var decimals = $('#deposit-amount').val().split('.')[1]
-        var error = false
+<!--<script>-->
+<!--    $('#deposit-amount').on('input', function(){-->
+<!--        var balance = {{ current_user.balance_usdt }};-->
+<!--        var decimals = $('#deposit-amount').val().split('.')[1]-->
+<!--        var error = false-->
 
-        if (typeof decimals !== 'undefined') {
-            if (decimals.length > 2) {
-                $('#money-deposit').prop('disabled', true)
-                $('#deposit-error').text(translations['only2decimals'][lang])
-                error = true
-            } else {
-                $('#money-deposit').prop('disabled', false)
-                $('#deposit-error').text('')
-                error = false
-            }
-        }
-        let added_amount = 0
-        if ($('#deposit-amount').val()) {
-            added_amount = $('#deposit-amount').val()
-        }
+<!--        if (typeof decimals !== 'undefined') {-->
+<!--            if (decimals.length > 2) {-->
+<!--                $('#money-deposit').prop('disabled', true)-->
+<!--                $('#deposit-error').text(translations['only2decimals'][lang])-->
+<!--                error = true-->
+<!--            } else {-->
+<!--                $('#money-deposit').prop('disabled', false)-->
+<!--                $('#deposit-error').text('')-->
+<!--                error = false-->
+<!--            }-->
+<!--        }-->
+<!--        let added_amount = 0-->
+<!--        if ($('#deposit-amount').val()) {-->
+<!--            added_amount = $('#deposit-amount').val()-->
+<!--        }-->
 
-        if (!error) {
-            let displayed_amount = balance + parseFloat(added_amount)
-<!--            console.log(displayed_amount + "=" + balance + "+" + parseFloat(added_amount))-->
-            $('#deposit-display-amount').html(displayed_amount.toFixed(2) + ' USDT @ ERC20')
-        }
+<!--        if (!error) {-->
+<!--            let displayed_amount = balance + parseFloat(added_amount)-->
+<!--&lt;!&ndash;            console.log(displayed_amount + "=" + balance + "+" + parseFloat(added_amount))&ndash;&gt;-->
+<!--&lt;!&ndash;            $('#deposit-display-amount').html(displayed_amount.toFixed(2) + ' USDT @ ERC20')&ndash;&gt;-->
+<!--        }-->
 
 
 
-    });
-</script>
+<!--    });-->
+<!--</script>-->
 <!-- withdraw popup -->
 <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="withdrawModalWindow">
@@ -295,7 +295,6 @@ $('#depositModal').on('show.bs.modal', function(){
     var blockchain_buttons = document.getElementsByClassName('blockchain-button')
     for (var blockchain_button of blockchain_buttons) {
         blockchain_button.classList.remove('active')
-
     }
 
     $("#deposit-amount").val("");
@@ -379,7 +378,7 @@ $('.add-to-total').on('click', function(){
     }
     let current_balance = {{ current_user.balance_usdt }} + parseFloat(deposit_amount.value);
 
-    $('#deposit-display-amount').html(current_balance.toFixed(2) + ' USDT @ ERC20')
+<!--    $('#deposit-display-amount').html(current_balance.toFixed(2) + ' USDT @ ERC20')-->
 
 
 });

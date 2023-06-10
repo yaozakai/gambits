@@ -325,6 +325,7 @@ class TxnEntry(db.Model):
         self.status = status
         self.fromAddress = fromAddress
         self.txHash = txHash
+        self.created = datetime.now(tz=pytz.timezone('Asia/Shanghai'))
 
     def commit(self):
         db.session.add(self)
