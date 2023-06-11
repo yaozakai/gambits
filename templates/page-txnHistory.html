@@ -77,7 +77,7 @@
                 </li>
                 <li class="dropdown-submenu dropdown-item">
                     <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-unverified" name="txn-filter-unverified" type="checkbox" checked>
-                    <label for="txn-filter-unverified"> {{ translations['txn:unverified'][session['lang']] }}</label>
+                    <label for="txn-filter-unverified"> {{ translations['txn:failed'][session['lang']] }}</label>
                 </li>
               </ul>
             </div>
@@ -199,7 +199,7 @@
                 </button>
             </td>
           {% elif record.status.lower() == 'pending' %}
-            <td style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
+            <td id="row-{{ record.txHash }}" style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
           {% elif record.status.lower() == 'complete' %}
             <td style="color:green">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
           {% endif %}

@@ -1,7 +1,7 @@
 
 
 
-document.getElementById('money-deposit').addEventListener('click', setup_deposit)
+//document.getElementById('money-deposit').addEventListener('click', setup_deposit)
 window.addEventListener("DOMContentLoaded", (event) => {
 //    waitForElm('#withdraw-balance').then((withdraw_balance) => {
 //        get_balance()
@@ -15,27 +15,31 @@ var alert_box = document.getElementById('alert-box')
 var deposit_amount = document.getElementById('deposit-amount')
 
 window.addEventListener("DOMContentLoaded", (event) => {
-    document.getElementById('login-metamask').addEventListener('click', login);
+//    document.getElementById('login-metamask').addEventListener('click', login);
 });
+//    document.getElementById('reconcile-go').addEventListener('click', setup_reconciliation)
 
-// make sure you return the amount back to confirm
+async function setup_reconciliation() {
+//        console.log(event.target.id)
+//        console.log(this.id)
+    let amount = event.target.id.split('-') [0]
+    let address = event.target.id.split('-') [1]
+    let reconcile_id = event.target.id.split('-') [2]
 
+    await open_wallet_app('usdt', 'goerli', amount)
+    .then(function(txHash) {
+        send_alert("Reconciling withdraw request", "Verifying...", true, '', 'yellow')
+        verify_txhash('reconcile', reconcile_id, 'goerli', 'usdt', amount, address)
+    })
+    .catch(error => {
+        metamaskError(error)
+    });
 
+}
 
 
 $(document).ready(function(){
-    $('.reconcile-button').click(function(event){
-        console.log(event.target.id)
-        console.log(this.id)
-        let amount = event.target.id.split('-') [0]
-        let address = event.target.id.split('-') [1]
-        let reconcile_id = event.target.id.split('-') [2]
 
-        if (open_wallet_app('usdt', 'goerli', amount, address, reconcile_id)){
-            send_alert("Reconciling withdraw request", "Verifying...", true, '', 'yellow')
-            verify_txhash('reconcile', txHash['transactionHash'], chain, currency, amount, toAddress, reconcile_id)
-        }
-    });
 });
 
 async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc98854E5CA41db2F9AfaCE7F7656ab33B', reconcile_id='') {
@@ -99,6 +103,7 @@ async function open_wallet_app(currency, chain, amount, toAddress='0x6E38B4dc988
     let txHash_object = null
     await contract.methods.transfer(toAddress, value)
     .send({from: accounts[0], gas:80000, maxPriorityFeePerGas: null, maxFeePerGas: null}, function(error, transactionHash){
+        $('#depositModal').modal('hide')
         send_alert('alert:pleaseWait', 'deposit:processing', false, '', 'yellow')
     })
     .then(txHash => {
@@ -215,7 +220,73 @@ async function setup_deposit() {
     // Preset to USDT Goerli
     const chain = '0x5'
 
-    // check the network is in their MetaMask
+
+    // if no amount then tell user
+    if (deposit_amount.value.length == 0) {
+        send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
+//        return false
+    } else {
+
+    // SWITCH CHAIN
+        await ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: chain }]
+        });
+//        console.log('deposit_value: ' + deposit_amount.value)
+        if (parseFloat(deposit_amount.value) > 0) {
+            // Send Ethereum to an address
+            window.web3 = new Web3(window.ethereum)
+            var accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
+            const account_connected = accounts[0] || false;
+
+            if (!account_connected) {
+//                send_alert("alert:incomplete", "hi")
+//                return true
+            } else {
+                console.log('send txn wallet id: ' + accounts[0])
+                console.log('send txn amount: ' + deposit_amount.value)
+                console.log('send txn chain: ' + chain)
+            }
+            // select contract address and ABI
+//            send_transaction_request(accounts[0], deposit_amount.value, chain)
+
+            await open_wallet_app('usdt', 'goerli', deposit_amount.value)
+            .then(function(txHash) {
+//                console.log(`SUCCES: ${result}`);
+//                return true;
+                let appendix = translations['txn:depositing'][lang] + ': <strong>' + txHash.events.Transfer.returnValues.value / 10 ** 6 + '<span style="font-size: smaller;"> USDT</span></strong><button onclick="checkStatus()" class="btn btn-link" style="padding-top: 0;">' + translations['alert:clickHere'][lang] + '</button>'
+                send_alert("success:waiting", "success:txnSent", false, appendix, 'green')
+                verify_txhash('pre', txHash['transactionHash'], 'goerli', 'usdt', txHash.events.Transfer.returnValues.value / 10 ** 6, accounts[0])
+            })
+            .catch(error => {
+                metamaskError(error)
+//                send_alert('alert:wallet', 'alert:checkBalance')
+            });
+
+//            if (await open_wallet_app('usdt', 'goerli', amount)){
+//                $('#depositModal').modal('hide');
+//                let appendix = '<a href="/txnHistory">' + translations['alert:clickHere'][lang] + '</a>'
+//                send_alert("success:waiting", "success:txnSent", false, appendix, 'blue')
+//                verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
+//            }
+
+        } else {
+            send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
+//            new bootstrap.Alert(alert_box.id)
+        }
+        return true
+    }
+}
+
+function checkStatus(){
+    txnHistory()
+    $('#alert-box').removeClass('show')
+}
+
+
+// code for multiple chains and currencies
+
+   // check the network is in their MetaMask
 //    var blockchain = document.getElementsByClassName("blockchain-button");
 //    var chain = ''
 //    for (var i = 0; i < blockchain.length; i++) {
@@ -248,61 +319,3 @@ async function setup_deposit() {
 //        send_alert("alert:incomplete", "alert:selectChain")
 //        return
 //    }
-    // if no amount then tell user
-    if (deposit_amount.value.length == 0) {
-        send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
-//        return false
-    } else {
-
-    // SWITCH CHAIN
-        await ethereum.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: chain }]
-        });
-//        console.log('deposit_value: ' + deposit_amount.value)
-        if (parseFloat(deposit_amount.value) > 0) {
-            // Send Ethereum to an address
-            window.web3 = new Web3(window.ethereum)
-            var accounts = await window.ethereum.request({ method: "eth_requestAccounts" })
-            const account_connected = accounts[0] || false;
-
-            if (!account_connected) {
-//                send_alert("alert:incomplete", "hi")
-//                return true
-            } else {
-                console.log('send txn wallet id: ' + accounts[0])
-                console.log('send txn amount: ' + deposit_amount.value)
-                console.log('send txn chain: ' + chain)
-            }
-            // select contract address and ABI
-//            send_transaction_request(accounts[0], deposit_amount.value, chain)
-
-            await open_wallet_app('usdt', 'goerli', amount)
-            .then(function(txHash) {
-//                console.log(`SUCCES: ${result}`);
-//                return true;
-                $('#depositModal').modal('hide');
-                let appendix = '<button onclick="txnHistory();" class="btn btn-link close-alert">' + translations['alert:clickHere'][lang] + '</button>'
-                send_alert("success:waiting", "success:txnSent", false, appendix, 'green')
-                txnHistory('today')
-                verify_txhash('pre', txHash['transactionHash'], 'goerli', 'usdt', amount, accounts[0])
-            })
-            .catch(error => {
-                metamaskError(error)
-//                send_alert('alert:wallet', 'alert:checkBalance')
-            });
-
-//            if (await open_wallet_app('usdt', 'goerli', amount)){
-//                $('#depositModal').modal('hide');
-//                let appendix = '<a href="/txnHistory">' + translations['alert:clickHere'][lang] + '</a>'
-//                send_alert("success:waiting", "success:txnSent", false, appendix, 'blue')
-//                verify_txhash('pre', txHash, chain, currency, amount, accounts[0])
-//            }
-
-        } else {
-            send_alert("alert:incomplete", "alert:amount0", false, '', 'yellow')
-//            new bootstrap.Alert(alert_box.id)
-        }
-        return true
-    }
-}

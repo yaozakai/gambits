@@ -52,6 +52,7 @@ def verify_transaction_loop(deposit):
     # amount only non-blank if txHash found
     if amount > 0:
         # save to deposits db
+        deposit.amount = amount
         deposit.mark_complete()
         # db_set_deposit_status_complete(request.json)
         return amount

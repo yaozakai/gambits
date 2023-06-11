@@ -100,7 +100,7 @@
                     <span class="input-group-text whiteFont">{{ translations['amount'][session['lang']] }}</span>
                     <input type="number" class="form-control" id="deposit-amount">
                     <div class="btn-group" role="group">
-                        <button type="button" id="money-deposit" class="btn btn-outline-success symbol-text">{{ translations['send money'][session['lang']] }}</button>
+                        <button onclick="setup_deposit();" type="button" id="money-deposit" class="btn btn-outline-success symbol-text">{{ translations['send money'][session['lang']] }}</button>
 <!--                        <div class="btn btn-outline-success btn-lg" id="deposit-spinner">-->
 <!--                            <div class="icon-spinner spinner-border text-success" role="status" style="position: relative;">-->
 <!--                                <img src="{{ root_path }}static/logos/favicon.png" style="height: 25px;">-->
@@ -300,7 +300,7 @@ $('#depositModal').on('show.bs.modal', function(){
     $("#deposit-amount").val("");
     $("#crypto-text").html("🥦");
     $("#blockchain-text").html("🍇");
-    $("#deposit-amount").html("");
+<!--    $("#deposit-amount").html("");-->
 
 });
 
@@ -499,7 +499,7 @@ $('.add-to-total').on('click', function(){
                             </div>
                             {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
                             <div class="login-with-text green-text text-sm">...{{ translations['or log in with'][session['lang']] }}:</div>
-                            <button class="btn btn-outline-success btn-lg btn-transparent" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>
+                            <button onclick="login()" class="btn btn-outline-success btn-lg btn-transparent" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>
                         </div>
                         <div class='error'></div>
 
@@ -805,7 +805,6 @@ $('.add-to-total').on('click', function(){
 </script>
 {% endif %}
 
-    <script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_modal.js"></script>
 
 {% if not current_user.is_authenticated %}
         <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&hl={{ lang }}' async defer></script>

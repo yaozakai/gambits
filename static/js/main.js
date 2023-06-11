@@ -233,15 +233,15 @@ function pendingWithdraw(){
 
 function txnHistory(reportDate=''){
 
-    $('#alert-box').removeClass('show')
+//    $('#alert-box').removeClass('show')
 
-    const selectElement = document.getElementById('reportDate');
+//    const selectElement = document.getElementById('reportDate');
 //    let reportDate = ''
-    if (selectElement && reportDate.length == 0) {
-        reportDate = selectElement.value
-    } else if (reportDate == 'today'){
-        reportDate = ''
-    }
+//    if (selectElement && reportDate.length == 0) {
+//        reportDate = selectElement.value
+//    } else if (reportDate == 'today'){
+//        reportDate = ''
+//    }
     $("#back-to-games").show()
 
     $.ajax({
@@ -264,7 +264,7 @@ function txnHistory(reportDate=''){
     return true
 }
 
-function verify_txhash(mode, txHash, chain, currency, amount, fromAddress, reconcile_id='') {
+function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
     var alert_box = document.getElementById('alert-box')
     var alert_title = document.getElementById('alert-title')
     var alert_message = document.getElementById('alert-message')
@@ -281,16 +281,17 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress, recon
         "amount": amount,
         "fromAddress": fromAddress,
         "mode": mode,
-        "reconcile_id": reconcile_id
+        "reconcile_id": txHash
       }),
       success: function(response) {
         let appendix = ' ' + amount + ' USDT'
 
         if (response.alert_type == 'success:txnSuccess') {
-            if (mode == "reverify"){
-                $("#row-" + txHash).html('Complete')
-                $("#row-" + txHash).css('color', 'green')
-            } else if (mode == "reconcile"){
+            // update table regardless if shown
+            $("#row-" + txHash).html('Complete')
+            $("#row-" + txHash).css('color', 'green')
+
+            if (mode == "reconcile"){
                 $("#" + amount + "-" + fromAddress).prop('disabled', true)
                 $("#reconcile:" + reconcile_id).html(response.reconciled_txHash)
             }
@@ -300,6 +301,8 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress, recon
 
             // update balance across UI
             set_balance_UI(response.balance)
+
+
 
 //            balance_field_usdt.innerHTML = response.balance + ' <span class="crypto-symbol">USDT</span>'
 //            withdraw_balance.innerHTML = response.balance
