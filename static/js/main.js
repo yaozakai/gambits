@@ -1,9 +1,10 @@
-//window.addEventListener("DOMContentLoaded", (event) => {
-
 
 
 function go_to_gallery() {
-//    $("#back-to-games").hide()
+
+    current_page = 'gallery'
+    console.log('page:: ' + current_page)
+    $("#back-to-games").hide()
     $.ajax({
         url: "/gallery",
         type: "post",
@@ -14,6 +15,116 @@ function go_to_gallery() {
             console.log('getBalance: ' + e);
         }
     });
+}
+
+function go_to_searchPlayer(){
+
+    current_page = 'searchPlayer'
+    console.log('page:: ' + current_page)
+    $("#back-to-games").show()
+
+    $.ajax({
+        url: "/search_page",
+        type: "post",
+        success: function(self) {
+            $("#main_section").html(self.render);
+        },
+        error: function(e) {
+            console.log('/search_page: ' + e);
+        }
+    });
+}
+
+function go_to_gameHistory(){
+    current_page = 'gameHistory'
+    console.log('page:: ' + current_page)
+    const selectElement = document.getElementById('reportDateGameHistory');
+    let reportDate = ''
+    if (selectElement) {
+        reportDate = selectElement.value
+    }
+    $("#back-to-games").show()
+
+    $.ajax({
+        url: "/gameHistory",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "reportDate":reportDate
+        }),
+        success: function(self) {
+            $("#main_section").html(self.render);
+        },
+        error: function(e) {
+            console.log('gameHistory error: ' + e);
+        }
+    });
+}
+
+function go_to_pendingWithdraw(){
+    current_page = 'pendingWithdraw'
+    console.log('page:: ' + current_page)
+    const selectElement = document.getElementById('reportDate');
+    let reportDate = ''
+    if (selectElement) {
+        reportDate = selectElement.value
+    }
+    $("#back-to-games").show()
+
+    $.ajax({
+        url: "/pendingWithdraw",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "reportDate":reportDate
+        }),
+        success: function(self) {
+            $("#main_section").html(self.render);
+//            return true
+        },
+        error: function(e) {
+            console.log('txnHistory: ' + e);
+//            return false
+        }
+    });
+    return true
+}
+
+function go_to_txnHistory(reportDate=''){
+    current_page = 'txnHistory'
+    console.log('page:: ' + current_page)
+
+//    $('#alert-box').removeClass('show')
+
+//    const selectElement = document.getElementById('reportDate');
+//    let reportDate = ''
+//    if (selectElement && reportDate.length == 0) {
+//        reportDate = selectElement.value
+//    } else if (reportDate == 'today'){
+//        reportDate = ''
+//    }
+    $("#back-to-games").show()
+
+    $.ajax({
+        url: "/txnHistory",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "reportDate":reportDate
+        }),
+        success: function(self) {
+            $("#main_section").html(self.render);
+//            return true
+        },
+        error: function(e) {
+            console.log('txnHistory: ' + e);
+//            return false
+        }
+    });
+    return true
 }
 
 function waitForElm(selector) {
@@ -163,106 +274,7 @@ function set_balance_UI(balance){
 
 }
 
-function searchPlayer(){
-    $("#back-to-games").show()
 
-    $.ajax({
-        url: "/search_page",
-        type: "post",
-        success: function(self) {
-            $("#main_section").html(self.render);
-        },
-        error: function(e) {
-            console.log('/search_page: ' + e);
-        }
-    });
-}
-
-function gameHistory(){
-    const selectElement = document.getElementById('reportDateGameHistory');
-    let reportDate = ''
-    if (selectElement) {
-        reportDate = selectElement.value
-    }
-    $("#back-to-games").show()
-
-    $.ajax({
-        url: "/gameHistory",
-        type: "post",
-        dataType: "json",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify({
-            "reportDate":reportDate
-        }),
-        success: function(self) {
-            $("#main_section").html(self.render);
-        },
-        error: function(e) {
-            console.log('gameHistory error: ' + e);
-        }
-    });
-}
-
-function pendingWithdraw(){
-    const selectElement = document.getElementById('reportDate');
-    let reportDate = ''
-    if (selectElement) {
-        reportDate = selectElement.value
-    }
-    $("#back-to-games").show()
-
-    $.ajax({
-        url: "/pendingWithdraw",
-        type: "post",
-        dataType: "json",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify({
-            "reportDate":reportDate
-        }),
-        success: function(self) {
-            $("#main_section").html(self.render);
-//            return true
-        },
-        error: function(e) {
-            console.log('txnHistory: ' + e);
-//            return false
-        }
-    });
-    return true
-}
-
-function txnHistory(reportDate=''){
-
-//    $('#alert-box').removeClass('show')
-
-//    const selectElement = document.getElementById('reportDate');
-//    let reportDate = ''
-//    if (selectElement && reportDate.length == 0) {
-//        reportDate = selectElement.value
-//    } else if (reportDate == 'today'){
-//        reportDate = ''
-//    }
-    $("#back-to-games").show()
-
-    $.ajax({
-        url: "/txnHistory",
-        type: "post",
-        dataType: "json",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify({
-            "reportDate":reportDate
-        }),
-        success: function(self) {
-            $("#main_section").html(self.render);
-//            return true
-        },
-        error: function(e) {
-            console.log('txnHistory: ' + e);
-//            return false
-        }
-    });
-    return true
-}
 
 function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
     var alert_box = document.getElementById('alert-box')
@@ -294,6 +306,8 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
             if (mode == "reconcile"){
                 $("#" + amount + "-" + fromAddress).prop('disabled', true)
                 $("#reconcile:" + reconcile_id).html(response.reconciled_txHash)
+            } else if (mode == "pre"){
+
             }
 
             let msg = response.amount + ' <span style="font-size: small;">' + response.currency.toUpperCase() + '</span> ' + translations['success:txnSuccess'][lang]

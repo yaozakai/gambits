@@ -34,7 +34,7 @@
 
         const selectElement = document.getElementById('reportDate');
         selectElement.addEventListener("change", () => {
-            txnHistory(selectElement.value)
+            go_to_txnHistory(selectElement.value)
 <!--            $.ajax({-->
 <!--                url: "/txnHistory",-->
 <!--                type: "post",-->
@@ -76,8 +76,8 @@
                     <label for="txn-filter-pending"> {{ translations['txn:pending'][session['lang']] }}</label>
                 </li>
                 <li class=" dropdown-item">
-                    <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-unverified" name="txn-filter-unverified" type="checkbox" checked>
-                    <label for="txn-filter-unverified"> {{ translations['txn:failed'][session['lang']] }}</label>
+                    <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-failed" name="txn-filter-failed" type="checkbox" checked>
+                    <label for="txn-filter-failed"> {{ translations['txn:failed'][session['lang']] }}</label>
                 </li>
               </ul>
             </div>
@@ -86,7 +86,7 @@
         <th>Date</th>
         <th>Time</th>
         <th style="display: flex;">Type
-<div class="dropdown">
+<!--<div class="dropdown">-->
             <div class="dropdown">
                 <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
 
@@ -114,17 +114,6 @@
 <!--        <th>Rake</th>-->
 <!--        <th>Room Fee</th>-->
         <script>
-
-<!--        function txn_filter(source_id, recs){-->
-<!--            event.stopPropagation();-->
-<!--            event.stopImmediatePropagation();-->
-
-<!--            $('#txn-data').children('.txn-filter').each(function () {-->
-<!--                alert(this.value); // "this" is the current element in the loop-->
-<!--            });-->
-
-<!--            //(... rest of your JS code)-->
-<!--        }-->
 
             function txn_filter(){
                 let filter_status = []
@@ -154,10 +143,11 @@
                         txn_status = $tds.eq(0).text();
                         let filter_match = false
 
+                        console.log("txn_status: " + txn_status)
 <!--                        console.log("txn_type: " + txn_type)-->
                         for (let i = 0; i < filter_type.length; i++) {
-                            if (txn_type.toLowerCase() == filter_type[i]){
-                                console.log("show txn_type: " + txn_type)
+                            if (txn_type.toLowerCase().trim() == filter_type[i]){
+<!--                                console.log("show txn_type: " + txn_type)-->
                                 row.show()
                                 filter_match = true
                                 break
@@ -169,8 +159,11 @@
                         // second chance to show
                             filter_match = false
                             for (let i = 0; i < filter_status.length; i++) {
-                                if (txn_status.toLowerCase() == filter_status[i]){
-                                    console.log("show txn_status: " + txn_status)
+                                if (txn_status.includes(translations['txn:failed'][lang])){
+                                    txn_status = 'failed'
+                                }
+                                if (txn_status.toLowerCase().trim() == filter_status[i]){
+<!--                                    console.log("show txn_status: " + txn_status)-->
                                     row.show()
                                     filter_match = true
                                     break

@@ -1,38 +1,38 @@
 ﻿gamehall,gametype,gamecode,gamename,gametech,gameplat,lang,status,maintain,en,zh-tw,zh-cn,ko,ja,th,vn,id,pt-br,es
-cq9,slot,2,GodOfChess,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,God Of Chess,棋聖,棋圣,갓 오브 체스,เทพหมากรุก,Chúa cờ vua,Dewa Catur,Deus do Xadrez
-cq9,slot,10,LuckyBats,html5,web,"['vn', 'ko', 'pt-br', 'th', 'id', 'es', 'ja', 'en', 'zh-cn']",True,False,Lucky Bats,五福臨門,五福临门,럭키 뱃,五福臨門,ลัคกี้ แบท,Chú dơi may mắn,Kelelawar Mujur,Morcegos de Sorte,Bates de la suerte
-cq9,slot,35,Crazy NuoZha,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Crazy Nuozha,瘋狂哪吒,疯狂哪吒,나타,นาจาคลั่ง,CRAZY NUOZHA,CRAZY NUOZHA,Nuozha Louca
-cq9,slot,39,Apsaras,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Apsaras,飛天,飞天,압사라스,นางอัปสร,Apsaras,Apsaras,Apsaras
-cq9,slot,57,The Beast War,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,The Beast War,神獸爭霸,神兽争霸,더 비스트 워,สงครามสัตว์ในตำนาน,Cuộc chiến quái thú,Mythical Beings Melee,A Guerra das Feras
-cq9,slot,54,Funny Alpaca,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Funny Alpaca,火草泥馬,火草泥马,퍼니 알파카,อัลปากาสุขสันต์,LẠC ĐÀ NGỘ NGHĨNH,FUNNY ALPACA,Alpaca Engraçada
+cq9,slot,2,GodOfChess,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,God Of Chess,棋聖,棋圣,갓 오브 체스,เทพหมากรุก,Chúa cờ vua,Dewa Catur,Deus do Xadrez
+cq9,slot,10,LuckyBats,html5,web,"['id', 'vn', 'ja', 'en', 'zh-cn', 'th', 'ko', 'pt-br', 'es']",True,False,Lucky Bats,五福臨門,五福临门,럭키 뱃,五福臨門,ลัคกี้ แบท,Chú dơi may mắn,Kelelawar Mujur,Morcegos de Sorte,Bates de la suerte
+cq9,slot,35,Crazy NuoZha,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Crazy Nuozha,瘋狂哪吒,疯狂哪吒,나타,นาจาคลั่ง,CRAZY NUOZHA,CRAZY NUOZHA,Nuozha Louca
+cq9,slot,39,Apsaras,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Apsaras,飛天,飞天,압사라스,นางอัปสร,Apsaras,Apsaras,Apsaras
+cq9,slot,57,The Beast War,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,The Beast War,神獸爭霸,神兽争霸,더 비스트 워,สงครามสัตว์ในตำนาน,Cuộc chiến quái thú,Mythical Beings Melee,A Guerra das Feras
+cq9,slot,54,Funny Alpaca,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Funny Alpaca,火草泥馬,火草泥马,퍼니 알파카,อัลปากาสุขสันต์,LẠC ĐÀ NGỘ NGHĨNH,FUNNY ALPACA,Alpaca Engraçada
 cq9,slot,66,Fire777,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id', 'pt-br']",True,False,Fire 777,火爆777,火爆777,파이어 777,กงล้อเพลิง 777,Hỏa hoạn 777,Fire 777,Fogo 777
-cq9,slot,69,FaCaiShen,html5,web,"['ko', 'es', 'th', 'zh-cn', 'id', 'vn', 'ja', 'pt-br', 'en']",True,False,Fa Cai Shen,發財神,发财神,재물신,福の神,ฟาชัยเซ็น,Trò chơi Fa Cai Shen,Fa Cai Shen,Fa Cai Shen,Fa Cai Shen
-cq9,slot,70,WanBaoDino,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Wanbao Dino,萬飽龍,万饱龙,완바오 다이너소어,ไดโนหวั่นเบ๋า,Wanbao Dino,Wanbao Dino,Wanbao Dino
-cq9,arcade,60,JungleParty,html5,web,"['vn', 'id', 'zh-cn', 'en', 'ko', 'th']",True,False,Jungle Party,叢林舞會,丛林舞会,정글 파티,เกมจังเกิล ปาร์ตี้,BỮA TIỆC RỪNG XANH,JUNGLE PARTY
-cq9,slot,72,HappyRichYear,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Happy Rich Year,好運年年,好运年年,해피 리치 이어,เกมเศรษฐี,Năm Mới Phát Tài,Happy Rich Year,Feliz ano rico
-cq9,slot,74,Treasure Bowl,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Treasure Bowl,聚寶盆,聚宝盆,트레저 보울,กระถางมหาสมบัติ,Chum vàng,Treasure Bowl,Tigela do Tesouro
-cq9,slot,76,WonWonWon,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,WonWonWon,旺旺旺,旺旺旺,운수대통,เฮงเฮงเฮง,Hoan hô,WonWonWon,WonWonWon
-cq9,slot,77,RedPhoenix,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Red Phoenix,火鳳凰,火凤凰,레드 포닉스,โฟนิกซ์สีแดง,Phượng Hoàng Đỏ,Red Phoenix,Fênix Vermelha
-cq9,slot,78,Apollo,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'es', 'id', 'pt-br']",True,False,Apollo,阿波羅,阿波罗,아폴로,อพอลโล,Apollo,Apollo,Apollo,Apolo
-cq9,slot,80,Poseidon,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id', 'pt-br']",True,False,Poseidon,傳奇海神,传奇海神,포세이돈,โพไซดอน,VUA THỦY TỀ,Poseidon,Poseidon
-cq9,arcade,61,Mr. Bean,html5,web,"['vn', 'zh-cn', 'en', 'id', 'ko', 'th']",True,False,Mr. Bean,天天吃豆,天天吃豆,미스터 빈,มิสเตอร์บีน,Mr. Bean,Mr. Bean
-cq9,slot,55,Dragon Heart,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'es']",True,False,Dragon Heart,魔龍傳奇,魔龙传奇,드래곤 하트,หัวใจมังกร,Tim rồng,Dragonheart,Coração de Dragão,Corazón de dragón
-cq9,slot,68,WuKong & Peaches,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Wukong & Peaches,悟空偷桃,悟空偷桃,우공과 피치,หงอคงและลูกท้อ,Ngộ Không & Quả Đào Tiên,Wukong & Peaches,Wukong e Pêssegos
+cq9,slot,69,FaCaiShen,html5,web,"['ja', 'pt-br', 'en', 'ko', 'es', 'th', 'vn', 'zh-cn', 'id']",True,False,Fa Cai Shen,發財神,发财神,재물신,福の神,ฟาชัยเซ็น,Trò chơi Fa Cai Shen,Fa Cai Shen,Fa Cai Shen,Fa Cai Shen
+cq9,slot,70,WanBaoDino,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Wanbao Dino,萬飽龍,万饱龙,완바오 다이너소어,ไดโนหวั่นเบ๋า,Wanbao Dino,Wanbao Dino,Wanbao Dino
+cq9,arcade,60,JungleParty,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Jungle Party,叢林舞會,丛林舞会,정글 파티,เกมจังเกิล ปาร์ตี้,BỮA TIỆC RỪNG XANH,JUNGLE PARTY
+cq9,slot,72,HappyRichYear,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Happy Rich Year,好運年年,好运年年,해피 리치 이어,เกมเศรษฐี,Năm Mới Phát Tài,Happy Rich Year,Feliz ano rico
+cq9,slot,74,Treasure Bowl,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Treasure Bowl,聚寶盆,聚宝盆,트레저 보울,กระถางมหาสมบัติ,Chum vàng,Treasure Bowl,Tigela do Tesouro
+cq9,slot,76,WonWonWon,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,WonWonWon,旺旺旺,旺旺旺,운수대통,เฮงเฮงเฮง,Hoan hô,WonWonWon,WonWonWon
+cq9,slot,77,RedPhoenix,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Red Phoenix,火鳳凰,火凤凰,레드 포닉스,โฟนิกซ์สีแดง,Phượng Hoàng Đỏ,Red Phoenix,Fênix Vermelha
+cq9,slot,78,Apollo,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'es']",True,False,Apollo,阿波羅,阿波罗,아폴로,อพอลโล,Apollo,Apollo,Apollo,Apolo
+cq9,slot,80,Poseidon,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Poseidon,傳奇海神,传奇海神,포세이돈,โพไซดอน,VUA THỦY TỀ,Poseidon,Poseidon
+cq9,arcade,61,Mr. Bean,html5,web,"['id', 'ko', 'th', 'vn', 'zh-cn', 'en']",True,False,Mr. Bean,天天吃豆,天天吃豆,미스터 빈,มิสเตอร์บีน,Mr. Bean,Mr. Bean
+cq9,slot,55,Dragon Heart,html5,web,"['vn', 'es', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Dragon Heart,魔龍傳奇,魔龙传奇,드래곤 하트,หัวใจมังกร,Tim rồng,Dragonheart,Coração de Dragão,Corazón de dragón
+cq9,slot,68,WuKong & Peaches,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Wukong & Peaches,悟空偷桃,悟空偷桃,우공과 피치,หงอคงและลูกท้อ,Ngộ Không & Quả Đào Tiên,Wukong & Peaches,Wukong e Pêssegos
 cq9,slot,204,LuckyBoxes,html5,web,"['en', 'ko', 'zh-cn']",True,False,LuckyBoxes,百寶箱,百宝箱,럭키 박스
-cq9,slot,83,FireQueen,html5,web,"['es', 'pt-br', 'th', 'zh-cn', 'id', 'ko', 'vn', 'ja', 'en']",True,False,Fire Queen,火之女王,火之女王,파이어 퀸,ファイアクイーン,ราชินีเพลิง,NỮ HOÀNG LỬA,RATU API,Rainha do Fogo,Reina del fuego
-cq9,slot,1074,TreasureBowlJP,html5,web,"['vn', 'zh-cn', 'en', 'id', 'ko', 'th']",True,False,Treasure Bowl JP,聚寶盆JP,聚宝盆JP,트레저 보울 잭팟,กระถางมหาสมบัติ แจ็คพ็อต,Chum vàng Giải độc đắc,Treasure Bowl Jackpot
-cq9,slot,1010,LuckyBatsJP,html5,web,"['th', 'vn', 'zh-cn', 'en', 'id', 'ko']",True,False,Lucky Bats JP,五福臨門JP,五福临门JP,럭키 뱃 잭팟,ลัคกี้ แบท แจ็คพ็อต,Chú dơi may mắn Giải độc đắc,Kelelawar Mujur Jackpot
-cq9,slot,1067,GoldenEggsJP,html5,web,"['ko', 'th', 'vn', 'zh-cn', 'en', 'id']",True,False,Golden Eggs JP,賺金蛋JP,赚金蛋JP,골든 에그 잭팟,ไข่ทองคำ แจ็คพ็อต,TRỨNG VÀNG Giải độc đắc,GOLDEN EGGS Jackpot
+cq9,slot,83,FireQueen,html5,web,"['en', 'id', 'pt-br', 'ko', 'vn', 'zh-cn', 'es', 'th', 'ja']",True,False,Fire Queen,火之女王,火之女王,파이어 퀸,ファイアクイーン,ราชินีเพลิง,NỮ HOÀNG LỬA,RATU API,Rainha do Fogo,Reina del fuego
+cq9,slot,1074,TreasureBowlJP,html5,web,"['id', 'ko', 'th', 'vn', 'zh-cn', 'en']",True,False,Treasure Bowl JP,聚寶盆JP,聚宝盆JP,트레저 보울 잭팟,กระถางมหาสมบัติ แจ็คพ็อต,Chum vàng Giải độc đắc,Treasure Bowl Jackpot
+cq9,slot,1010,LuckyBatsJP,html5,web,"['zh-cn', 'en', 'id', 'ko', 'th', 'vn']",True,False,Lucky Bats JP,五福臨門JP,五福临门JP,럭키 뱃 잭팟,ลัคกี้ แบท แจ็คพ็อต,Chú dơi may mắn Giải độc đắc,Kelelawar Mujur Jackpot
+cq9,slot,1067,GoldenEggsJP,html5,web,"['zh-cn', 'en', 'id', 'ko', 'th', 'vn']",True,False,Golden Eggs JP,賺金蛋JP,赚金蛋JP,골든 에그 잭팟,ไข่ทองคำ แจ็คพ็อต,TRỨNG VÀNG Giải độc đắc,GOLDEN EGGS Jackpot
 cq9,slot,92,WorldCupRussia2018,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,World Cup Russia2018,2018世界杯,2018世界杯,2018 러시아 월드컵,ฟุตบอลโลก2018,World Cup tại Nga 2018,Piala dunia 2018,Copa do Mundo Rússia 2018
 cq9,slot,86,RunningToro,html5,web,"['en', 'es', 'th', 'zh-cn']",True,False,RunningToro,牛逼快跑,牛逼快跑,เกมส์ราชากระทิงนําโชค,Toro corriendo
-cq9,slot,95,FootballBoots,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Football Boots,世界杯球鞋,世界杯球鞋,풋볼 부츠,ฟุตบอล รองเท้าบูท,Giày bóng đá,Sepak bola Sepatu,Chuteiras de Futebol
+cq9,slot,95,FootballBoots,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id', 'pt-br']",True,False,Football Boots,世界杯球鞋,世界杯球鞋,풋볼 부츠,ฟุตบอล รองเท้าบูท,Giày bóng đá,Sepak bola Sepatu,Chuteiras de Futebol
 cq9,slot,96,Football Baby,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Football Baby,足球寶貝,足球宝贝,풋볼 베이비,ฟุตบอล ทารก,Trẻ nhỏ chơi bóng,Sepak bola bayi,Bebê de Futebol
-cq9,slot,98,All Star Team,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,All Star Team,世界杯全明星,世界杯全明星,모든 스타 팀,ฟุตบอลโลกทีมสตาร์,Đội bóng toàn ngôi sao,Piala Dunia All-Star,Equipe All Star
-cq9,slot,105,JumpingMobile,html5,"web,mobile","['ja', 'en', 'pt-br', 'vn', 'th', 'zh-cn', 'ko', 'es', 'id']",True,False,Jumping Mobile,單手跳高高,单手跳高高,점핑 모바일,ジャンピング モバイル,กระโดดสูง M,Jumping Mobile,Lompat Tinggi Bergerak,Pulo Mobile,Salto Móvil
+cq9,slot,98,All Star Team,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,All Star Team,世界杯全明星,世界杯全明星,모든 스타 팀,ฟุตบอลโลกทีมสตาร์,Đội bóng toàn ngôi sao,Piala Dunia All-Star,Equipe All Star
+cq9,slot,105,JumpingMobile,html5,"web,mobile","['ja', 'es', 'th', 'pt-br', 'id', 'vn', 'zh-cn', 'en', 'ko']",True,False,Jumping Mobile,單手跳高高,单手跳高高,점핑 모바일,ジャンピング モバイル,กระโดดสูง M,Jumping Mobile,Lompat Tinggi Bergerak,Pulo Mobile,Salto Móvil
 cq9,slot,104,ChickyParmParm,html5,web,"['en', 'zh-cn']",True,False,ChickyParmParm,海濱消消樂,海滨消消乐
 cq9,slot,122,Zuma Wild,html5,web,"['zh-cn', 'en', 'ko', 'es', 'pt-br']",True,False,Zuma Wild,印加祖瑪,印加祖玛,캔디 주마,Zuma Louco,Comodín Zuma
 cq9,slot,131,Fa Cai Shen M,html5,web,"['zh-cn', 'en', 'ko', 'th', 'pt-br']",True,False,Fa Cai Shen M,直式發財神,直式发财神,재물신 M,ฟาชัยเซ็น M,Fa Cai Shen M
-cq9,slot,113,Flying Cai Shen,html5,web,"['en', 'ko', 'th', 'pt-br', 'zh-cn']",True,False,Flying Cai Shen,飛天財神,飞天财神,플라잉 재물신,เทพแห่งโชคลาภลอยฟ้า,Cai Shen Voador
+cq9,slot,113,Flying Cai Shen,html5,web,"['ko', 'th', 'pt-br', 'zh-cn', 'en']",True,False,Flying Cai Shen,飛天財神,飞天财神,플라잉 재물신,เทพแห่งโชคลาภลอยฟ้า,Cai Shen Voador
 cq9,slot,146,Sky Lanterns,html5,web,"['en', 'ko', 'zh-cn']",True,False,Sky Lanterns,九連寶燈,九连宝灯,스카이 랜턴
 cq9,slot,147,Flower Fortunes,html5,web,"['zh-cn', 'en', 'th']",True,False,Flower Fortunes,花開富貴,花开富贵,ดอกไม้นำโชค
 cq9,slot,148,Fortune Totem,html5,web,"['zh-cn', 'en', 'es', 'th']",True,False,Fortune Totem,有如神柱,有如神柱,โทเทมนำโชค,Tótem de la fortuna
@@ -40,182 +40,182 @@ cq9,slot,157,5 Boxing,html5,web,"['zh-cn', 'en', 'th']",True,False,5 Boxing,五�
 cq9,slot,150,Shou-Xin,html5,web,"['ko', 'zh-cn', 'en', 'th']",True,False,Shou-Xin,壽星大發,寿星大发,Shou-Xin,โชล-ซิน
 cq9,slot,182,Thor 2,html5,web,"['ko', 'zh-cn', 'en', 'th']",True,False,Thor 2,雷神2,雷神2,토르 2,ธอร์ 2
 cq9,slot,qatestemma0714,emma0714,html5,mobile,"['zh-cn', 'zh-tw', 'en']",True,True,emma0714,emma0714,emma0714,emma0714
-cq9,slot,197,Dragon's Treasure,html5,web,"['en', 'th', 'ko', 'zh-cn']",True,False,Dragon's Treasure,盤龍祕寶,盘龙秘宝,용의 보물,สมบัติของมังกร
+cq9,slot,197,Dragon's Treasure,html5,web,"['th', 'ko', 'zh-cn', 'en']",True,False,Dragon's Treasure,盤龍祕寶,盘龙秘宝,용의 보물,สมบัติของมังกร
 cq9,slot,199,Songkran Festival,html5,web,"['zh-cn', 'en', 'th', 'ko']",True,False,Songkran Festival,歡樂潑水節,欢乐泼水节,송크란 축제,เทศกาล สงกรานต์
 cq9,sport,qatesttest11250337,test11250337,html5,mobile,['zh-cn'],True,True,test11250337,test11250337
 cq9,slot,208,Money Tree,html5,web,"['en', 'th', 'zh-cn']",True,False,Money Tree,金錢樹,金钱树,ต้นไม้ เงิน
 cq9,arcade,207,Thai HILO,html5,web,"['zh-cn', 'en', 'th']",True,False,Thai HILO,泰式骰寶,泰式骰宝,ไทย HILO
 cq9,slot,209,The Cupids,html5,web,"['en', 'th', 'zh-cn']",True,False,The Cupids,小愛神,小爱神,คิวปิด
 cq9,slot,1,FruitKing,html5,web,"['pt-br', 'th', 'vn', 'zh-cn', 'en', 'id', 'ko']",True,False,Fruit King,鑽石水果王,钻石水果王,후르츠 킹,ราชาผลไม้,Vua trái cây,Raja Buah,Fruta Rei
-cq9,slot,5,Mr.Rich,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id', 'pt-br']",True,False,Mr. Rich,金大款,金大款,미스터 리치,ท่านเศรษฐี,Ông Rich,Tn. Kaya,Mr. Rico
-cq9,slot,8,SoSweet,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,So Sweet,甜蜜蜜,甜蜜蜜,소 스위트,เถี่ยนมี่มี่,Thật ngọt ngào,Manis Sekali,Tão Doce
-cq9,slot,12,TreasureHouse,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Treasure House,金玉滿堂,金玉满堂,트래져 하우스,บ้านขุมทรัพย์,Kho báu,Rumah Harta Karun,Tesouraria
-cq9,slot,16,Super5,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Super5,五行,五行,오행,ซุปเปอร์ 5,Super5,Super5,Super5
-cq9,slot,36,Pub Tycoon,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'zh-cn']",True,False,Pub Tycoon,夜店大亨,夜店大亨,펍 타이쿤,เสี่ยเจ้าของผับ,PubTycoon,PubTycoon
-cq9,slot,58,GuGuGu2,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'es']",True,False,Gu Gu Gu 2,金雞報囍2,金鸡报囍2,Gu Gu Gu 2,ปีใหม่ ไก่กุ๊กกุ๊ก 2,Năm Đinh Dậu 2,New Year Rooster 2,Gu Gu Gu 2,Gu Gu Gu 2
-cq9,slot,64,Zeus,html5,web,"['zh-cn', 'ko', 'vn', 'es', 'id', 'en', 'ja', 'pt-br', 'th']",True,False,Zeus,宙斯,宙斯,제우스,ゼウス,เทพซีอุส,Thần sấm,Zeus,Zeus,Zeus
+cq9,slot,5,Mr.Rich,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Mr. Rich,金大款,金大款,미스터 리치,ท่านเศรษฐี,Ông Rich,Tn. Kaya,Mr. Rico
+cq9,slot,8,SoSweet,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,So Sweet,甜蜜蜜,甜蜜蜜,소 스위트,เถี่ยนมี่มี่,Thật ngọt ngào,Manis Sekali,Tão Doce
+cq9,slot,12,TreasureHouse,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Treasure House,金玉滿堂,金玉满堂,트래져 하우스,บ้านขุมทรัพย์,Kho báu,Rumah Harta Karun,Tesouraria
+cq9,slot,16,Super5,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id', 'pt-br']",True,False,Super5,五行,五行,오행,ซุปเปอร์ 5,Super5,Super5,Super5
+cq9,slot,36,Pub Tycoon,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Pub Tycoon,夜店大亨,夜店大亨,펍 타이쿤,เสี่ยเจ้าของผับ,PubTycoon,PubTycoon
+cq9,slot,58,GuGuGu2,html5,web,"['vn', 'es', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Gu Gu Gu 2,金雞報囍2,金鸡报囍2,Gu Gu Gu 2,ปีใหม่ ไก่กุ๊กกุ๊ก 2,Năm Đinh Dậu 2,New Year Rooster 2,Gu Gu Gu 2,Gu Gu Gu 2
+cq9,slot,64,Zeus,html5,web,"['id', 'zh-cn', 'th', 'vn', 'es', 'ko', 'en', 'ja', 'pt-br']",True,False,Zeus,宙斯,宙斯,제우스,ゼウス,เทพซีอุส,Thần sấm,Zeus,Zeus,Zeus
 cq9,slot,205,DiscoNight,html5,web,"['zh-cn', 'en', 'th', 'es', 'ja', 'ko']",True,False,DiscoNight,蹦迪,蹦迪,디스코 나이트,ディスコナイト,เกมส์ดิสโก้ไนท์,Noche de discoteca
-cq9,slot,81,TreasureIsland,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Treasure Island,金銀島,金银岛,보물섬,เทรเชอร์ ไอส์แลนด์,Đảo Kho Báu,Pulau Harta,Ilha do Tesouro
+cq9,slot,81,TreasureIsland,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id', 'pt-br']",True,False,Treasure Island,金銀島,金银岛,보물섬,เทรเชอร์ ไอส์แลนด์,Đảo Kho Báu,Pulau Harta,Ilha do Tesouro
 cq9,slot,AS08,Golden Mayan,html5,"web,mobile","['zh-cn', 'en']",True,False,Golden Mayan,黃金瑪雅,黄金玛雅
 cq9,slot,AS09,Hollywood Pets,html5,"web,mobile","['en', 'zh-cn']",True,False,Hollywood Pets,好萊塢寵物,好莱坞宠物
-cq9,slot,AS10,Lucky 3,html5,"web,mobile","['zh-cn', 'en']",True,False,Lucky 3,幸運3,幸运3
+cq9,slot,AS10,Lucky 3,html5,"web,mobile","['en', 'zh-cn']",True,False,Lucky 3,幸運3,幸运3
 cq9,slot,AS17,Treasure of Seti,html5,"web,mobile","['en', 'zh-cn']",True,False,Treasure of Seti,塞特的寶藏,塞特的宝藏
 cq9,slot,AS18,Wild Fudge,html5,"web,mobile","['zh-cn', 'en']",True,False,Wild Fudge,瘋狂軟糖,疯狂软糖
 cq9,slot,AS19,Xmas Tales,html5,"web,mobile","['en', 'zh-cn']",True,False,Xmas Tales,聖誕故事,圣诞故事
 cq9,slot,AS20,Queen Of Dead,html5,"web,mobile","['zh-cn', 'en']",True,False,Queen Of Dead,死亡女王,死亡女王
-cq9,slot,99,Jump Higher,html5,web,"['vn', 'id', 'ja', 'zh-cn', 'ko', 'pt-br', 'en', 'th', 'es']",True,False,Jump Higher,跳更高,跳更高,점프 하이어,もっとジャンプハイ,เกมส์กระโดดสูง,Jump Higher,Melompat lebih tinggi,Pule mais alto,Salta más alto
+cq9,slot,99,Jump Higher,html5,web,"['en', 'th', 'vn', 'es', 'zh-cn', 'pt-br', 'ko', 'id', 'ja']",True,False,Jump Higher,跳更高,跳更高,점프 하이어,もっとジャンプハイ,เกมส์กระโดดสูง,Jump Higher,Melompat lebih tinggi,Pule mais alto,Salta más alto
 cq9,slot,103,JewelLuxury,html5,web,"['zh-cn', 'en']",True,False,JewelLuxury,寶石配對,宝石配对
 cq9,slot,102,FruityCarnival,html5,web,"['zh-cn', 'en']",True,False,FruityCarnival,水果派對,水果派对
-cq9,slot,118,SkrSkr,html5,web,"['en', 'ko', 'pt-br', 'zh-cn']",True,False,SkrSkr,老司機,老司机,SkrSkr,SkrSkr
-cq9,slot,130,Gold Stealer,html5,web,"['pt-br', 'zh-cn', 'en', 'ko']",True,False,Gold Stealer,偷金妹子,偷金妹子,황금 도둑,Ladrão de Ouro
+cq9,slot,118,SkrSkr,html5,web,"['zh-cn', 'en', 'ko', 'pt-br']",True,False,SkrSkr,老司機,老司机,SkrSkr,SkrSkr
+cq9,slot,130,Gold Stealer,html5,web,"['zh-cn', 'en', 'ko', 'pt-br']",True,False,Gold Stealer,偷金妹子,偷金妹子,황금 도둑,Ladrão de Ouro
 cq9,slot,135,Gu Gu Gu M,html5,web,"['pt-br', 'zh-cn', 'en', 'ko']",True,False,Gu Gu Gu M,直式金雞報喜,直式金鸡报喜,Gu Gu Gu M,Gu Gu Gu M
 cq9,slot,136,Running Animals,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'es']",True,False,Running Animals,奔跑吧猛獸,奔跑吧猛兽,러닝 애니몰,Animais em execução,Animales corriendo
-cq9,slot,137,Disco Night M,html5,web,"['ko', 'th', 'ja', 'pt-br', 'zh-cn', 'en']",True,False,Disco Night M,直式蹦迪,直式蹦迪,디스코 나이트 M,ディスコナイト M,ดิสโก้ไนท์ M,Noite de Discoteca M
-cq9,slot,138,Move n' Jump,html5,web,"['ko', 'th', 'es', 'ja', 'pt-br', 'zh-cn', 'en']",True,False,Move n' Jump,跳過來,跳过来,움직이고 점프하기,ムーブ＆ジャンプ,มูฟแอนด์จัมป์,Mover e pular,Salta pa'ca
+cq9,slot,137,Disco Night M,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'ja']",True,False,Disco Night M,直式蹦迪,直式蹦迪,디스코 나이트 M,ディスコナイト M,ดิสโก้ไนท์ M,Noite de Discoteca M
+cq9,slot,138,Move n' Jump,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'es', 'ja']",True,False,Move n' Jump,跳過來,跳过来,움직이고 점프하기,ムーブ＆ジャンプ,มูฟแอนด์จัมป์,Mover e pular,Salta pa'ca
 cq9,slot,139,Fire Chibi M,html5,web,"['en', 'ko', 'pt-br', 'zh-cn']",True,False,Fire Chibi M,直式火燒連環船,直式火烧连环船,파이어 치비 M,Chibi de Fogo M
-cq9,slot,140,Fire Chibi 2,html5,web,"['zh-cn', 'en', 'ko', 'th', 'pt-br']",True,False,Fire Chibi 2,火燒連環船2,火烧连环船2,파이어 치비 2,เปลวไฟแห่งความร่ำรวย 2,Chibi de Fogo 2
-cq9,slot,141,Xmas,html5,web,"['en', 'zh-cn']",True,False,Xmas,聖誕來啦,圣诞来啦
+cq9,slot,140,Fire Chibi 2,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Fire Chibi 2,火燒連環船2,火烧连环船2,파이어 치비 2,เปลวไฟแห่งความร่ำรวย 2,Chibi de Fogo 2
+cq9,slot,141,Xmas,html5,web,"['zh-cn', 'en']",True,False,Xmas,聖誕來啦,圣诞来啦
 cq9,slot,142,Hephaestus,html5,web,"['ko', 'zh-cn', 'en']",True,False,Hephaestus,火神,火神,헤파이토스
 cq9,slot,143,Fa Cai Fu Wa,html5,web,"['zh-cn', 'en', 'th']",True,False,Fa Cai Fu Wa,發財福娃,发财福娃,ฟา ไฉ ฟู วา
 cq9,slot,144,Diamond Treasure,html5,web,"['en', 'ko', 'zh-cn']",True,False,Diamond Treasure,鑽更多,钻更多,다이아몬드 트레져
-cq9,fish,AT01,Oneshot Fishing,html5,"web,mobile","['en', 'ko', 'ru', 'th', 'vn', 'zh-cn']",True,False,Oneshot Fishing,一炮捕魚,一炮捕鱼,원 슛 피싱,จับปลานัดเดียว,Bắn Cá One Shot
-cq9,slot,112,Pyramid Raider,html5,web,"['vn', 'th', 'zh-cn', 'pt-br', 'es', 'ko', 'id', 'ja', 'en']",True,False,Pyramid Raider,盜法老墓,盗法老墓,피라미드 라이더,ピラミッドの侵入者,ผู้บุกรุก ปิรามิด,Đột Kích Kim Tự Tháp,Penjarah Piramida,Incursor da pirâmide,Asaltante de Pirámide
-cq9,slot,152,Double Fly,html5,web,"['th', 'zh-cn', 'en']",True,False,Double Fly,雙飛,双飞,ดับเบิลฟลาย
-cq9,slot,153,Six Candy,html5,web,"['zh-cn', 'en', 'ko', 'th', 'es', 'ja']",True,False,Six Candy,六顆糖,六颗糖,식스 캔디,シックスキャンディ,ซิกแคนดี้,Seis carameros
+cq9,fish,AT01,Oneshot Fishing,html5,"web,mobile","['ko', 'ru', 'th', 'vn', 'zh-cn', 'en']",True,False,Oneshot Fishing,一炮捕魚,一炮捕鱼,원 슛 피싱,จับปลานัดเดียว,Bắn Cá One Shot
+cq9,slot,112,Pyramid Raider,html5,web,"['th', 'id', 'zh-cn', 'ko', 'vn', 'es', 'ja', 'en', 'pt-br']",True,False,Pyramid Raider,盜法老墓,盗法老墓,피라미드 라이더,ピラミッドの侵入者,ผู้บุกรุก ปิรามิด,Đột Kích Kim Tự Tháp,Penjarah Piramida,Incursor da pirâmide,Asaltante de Pirámide
+cq9,slot,152,Double Fly,html5,web,"['zh-cn', 'en', 'th']",True,False,Double Fly,雙飛,双飞,ดับเบิลฟลาย
+cq9,slot,153,Six Candy,html5,web,"['ja', 'zh-cn', 'en', 'ko', 'th', 'es']",True,False,Six Candy,六顆糖,六颗糖,식스 캔디,シックスキャンディ,ซิกแคนดี้,Seis carameros
 cq9,slot,154,Kronos,html5,web,"['zh-cn', 'en', 'th']",True,False,Kronos,宙斯他爹,宙斯他爹,โครนอส
 cq9,slot,160,Fa Cai Shen2,html5,web,"['th', 'zh-cn', 'en']",True,False,Fa Cai Shen2,發財神2,发财神2,ฟาชัยเซ็น 2
 cq9,slot,163,Ne Zha Advent,html5,web,"['en', 'zh-cn']",True,False,Ne Zha Advent,哪吒再臨,哪吒再临
 cq9,slot,161,Heracles,html5,web,"['en', 'th', 'es', 'ko', 'zh-cn']",True,False,Hercules,大力神,大力神,Hercules,เฮอร์คิวลิส,Hércules
-cq9,slot,171,Greek Gods,html5,web,"['ko', 'th', 'zh-cn', 'en']",True,False,Greek Gods,希臘眾神,希腊众神,그리스 신들,เทพเจ้ากรีก
+cq9,slot,171,Greek Gods,html5,web,"['en', 'ko', 'th', 'zh-cn']",True,False,Greek Gods,希臘眾神,希腊众神,그리스 신들,เทพเจ้ากรีก
 cq9,slot,173,6 Toros,html5,web,"['en', 'th', 'zh-cn']",True,False,6 Toros,666,666,6 โทรอส
-cq9,slot,183,Wolf Disco,html5,web,"['zh-cn', 'en', 'th', 'ko']",True,False,Wolf Disco,野狼Disco,野狼Disco,늑대 디스코,วูฟดิสโก้
+cq9,slot,183,Wolf Disco,html5,web,"['th', 'ko', 'zh-cn', 'en']",True,False,Wolf Disco,野狼Disco,野狼Disco,늑대 디스코,วูฟดิสโก้
 cq9,lotto,qatest1124,1124,html5,mobile,['zh-tw'],True,False,111
 cq9,table,qatesttest11250332,test11250332,html5,mobile,['zh-cn'],True,False,test11250332,test11250332
 cq9,live,CA01,Yaxing Live,html5,"mobile,web","['en', 'zh-cn']",True,False,Yaxing Live,亞星真人,亚星真人
 cq9,slot,4,WildTarzan,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Wild Tarzan,森林泰後,森林泰后,와일드 타잔,ทาร์ซานป่า,Tarzan hoang dã,Tarzan Liar,Tarzan Selvagem
-cq9,slot,9,ZhongKui,html5,web,"['vn', 'es', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Zhong Kui,鍾馗運財,钟馗运财,종규,จงขุ่ย,Zhong Kui,Zhong Kui,Zhong Kui,Zhong Kui
-cq9,slot,13,SakuraLegend,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Sakura Legend,櫻花妹子,樱花妹子,사쿠라 레전드,ตำนานซากุระ,Truyền thuyết Sakura,Legenda Sakura,Lenda Sakura
-cq9,slot,17,GreatLion,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Great Lion,祥獅獻瑞,祥狮献瑞,그레이트 라이언,สิงโตให้มงคล,Sư tử lớn,Singa Besar,Grande Leão
+cq9,slot,9,ZhongKui,html5,web,"['ko', 'th', 'vn', 'es', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Zhong Kui,鍾馗運財,钟馗运财,종규,จงขุ่ย,Zhong Kui,Zhong Kui,Zhong Kui,Zhong Kui
+cq9,slot,13,SakuraLegend,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Sakura Legend,櫻花妹子,樱花妹子,사쿠라 레전드,ตำนานซากุระ,Truyền thuyết Sakura,Legenda Sakura,Lenda Sakura
+cq9,slot,17,GreatLion,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Great Lion,祥獅獻瑞,祥狮献瑞,그레이트 라이언,สิงโตให้มงคล,Sư tử lớn,Singa Besar,Grande Leão
 cq9,slot,201,MuayThai,html5,web,"['en', 'th', 'es', 'ko', 'zh-cn']",True,False,MuayThai,拳霸,拳霸,무에타이,มวยไทย,Muay Thai
-cq9,slot,203,RaveHigh,html5,web,"['th', 'zh-cn', 'en', 'es', 'ko']",True,False,RaveHigh,嗨起來,嗨起来,레이브 하이,มันส์ๆหน่อยเซ่,Rave High
-cq9,slot,79,chameleon,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'es', 'id']",True,False,Chameleon,變色龍,变色龙,카멜레온,กิ้งก่า,Chameleon,Bunglon,Camaleão,Camaleón
-cq9,slot,89,Thor,html5,web,"['th', 'pt-br', 'vn', 'id', 'ko', 'zh-cn', 'en', 'es', 'ja']",True,False,Thor,雷神,雷神,토르,ソー,ธอร์,Thor,Thor,Thor,Thor
+cq9,slot,203,RaveHigh,html5,web,"['zh-cn', 'en', 'es', 'ko', 'th']",True,False,RaveHigh,嗨起來,嗨起来,레이브 하이,มันส์ๆหน่อยเซ่,Rave High
+cq9,slot,79,chameleon,html5,web,"['vn', 'es', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Chameleon,變色龍,变色龙,카멜레온,กิ้งก่า,Chameleon,Bunglon,Camaleão,Camaleón
+cq9,slot,89,Thor,html5,web,"['ko', 'zh-cn', 'en', 'th', 'id', 'es', 'ja', 'vn', 'pt-br']",True,False,Thor,雷神,雷神,토르,ソー,ธอร์,Thor,Thor,Thor,Thor
 cq9,slot,AS01,Boots of Luck,html5,"web,mobile","['en', 'zh-cn']",True,False,Boots of Luck,運氣靴,运气靴
 cq9,slot,AS02,Cirque de fous,html5,"web,mobile","['en', 'zh-cn']",True,False,Cirque de fous,瘋狂馬戲團,疯狂马戏团
 cq9,slot,AS03,Dragon Hunters,html5,"web,mobile","['en', 'zh-cn']",True,False,Dragon Hunters,馴龍高手,驯龙高手
-cq9,slot,121,Rave Jump 2 M,html5,web,"['zh-cn', 'en', 'ko', 'pt-br']",True,False,Rave Jump 2 M,直式跳起來2,直式跳起来2,레이브 점프 2 M,Rave Jump 2 M
+cq9,slot,121,Rave Jump 2 M,html5,web,"['pt-br', 'zh-cn', 'en', 'ko']",True,False,Rave Jump 2 M,直式跳起來2,直式跳起来2,레이브 점프 2 M,Rave Jump 2 M
 cq9,slot,124,Invincible Elephant,html5,web,"['es', 'th', 'zh-cn', 'en']",True,False,Invincible Elephant,鎖象無敵,锁象无敌,ช้างคงกระพัน,Elefante invencible
 cq9,slot,125,Zeus M,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Zeus M,直式宙斯,直式宙斯,제우스 M,เทพซีอุส M,Zeus M
 cq9,slot,127,God of War M,html5,web,"['ja', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,God of War M,直式武聖,直式武圣,갓 오브 워 M,ゴッドオブウォー M,สงครามเทพ M,Deus da Guerra M
-cq9,slot,128,WheelMoney,html5,web,"['en', 'ko', 'th', 'pt-br', 'zh-cn']",True,False,WheelMoney,轉大錢,转大钱,휠 머니,วีลมันนี่,Dinheiro da Roda
-cq9,slot,129,Gu Gu Gu 2 M,html5,web,"['es', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Gu Gu Gu 2 M,直式金雞報喜2,直式金鸡报喜2,Gu Gu Gu 2 M ,Gu Gu Gu 2 M,Gu Gu Gu 2 M
-cq9,slot,133,Good Fortune M,html5,web,"['th', 'pt-br', 'zh-cn', 'en']",True,False,Good Fortune M,直式鴻福齊天,直式鸿福齐天,ความโชคดี M,Boa Sorte M
+cq9,slot,128,WheelMoney,html5,web,"['zh-cn', 'en', 'ko', 'th', 'pt-br']",True,False,WheelMoney,轉大錢,转大钱,휠 머니,วีลมันนี่,Dinheiro da Roda
+cq9,slot,129,Gu Gu Gu 2 M,html5,web,"['zh-cn', 'en', 'ko', 'es', 'pt-br']",True,False,Gu Gu Gu 2 M,直式金雞報喜2,直式金鸡报喜2,Gu Gu Gu 2 M ,Gu Gu Gu 2 M,Gu Gu Gu 2 M
+cq9,slot,133,Good Fortune M,html5,web,"['pt-br', 'zh-cn', 'en', 'th']",True,False,Good Fortune M,直式鴻福齊天,直式鸿福齐天,ความโชคดี M,Boa Sorte M
 cq9,slot,AS33,Pig Of Luck,html5,"mobile,web","['en', 'zh-cn']",True,False,Pig Of Luck,豬的運氣,猪的运气
-cq9,slot,3,VampireKiss,html5,web,"['ja', 'pt-br', 'th', 'zh-cn', 'ko', 'id', 'en', 'es', 'vn']",True,False,Vampire Kiss,血之吻,血之吻,뱀파이어 키스,血の接吻,รอยจูบผี,Nụ hôn ma cà rồng,Ciuman Vampir,Beijo do Vampiro,Beso de vampiro
-cq9,slot,7,RaveJump,html5,web,"['pt-br', 'ja', 'vn', 'en', 'ko', 'id', 'zh-cn', 'es', 'th']",True,False,Rave Jump,跳起來,跳起来,레이브 점프,レイヴ・ジャンプ,เรพจั๊ม,Rave Jump,Rave Jump,Salto Rave,Salto rave
+cq9,slot,3,VampireKiss,html5,web,"['ja', 'en', 'ko', 'vn', 'pt-br', 'th', 'id', 'zh-cn', 'es']",True,False,Vampire Kiss,血之吻,血之吻,뱀파이어 키스,血の接吻,รอยจูบผี,Nụ hôn ma cà rồng,Ciuman Vampir,Beijo do Vampiro,Beso de vampiro
+cq9,slot,7,RaveJump,html5,web,"['zh-cn', 'vn', 'es', 'en', 'ko', 'ja', 'th', 'pt-br', 'id']",True,False,Rave Jump,跳起來,跳起来,레이브 점프,レイヴ・ジャンプ,เรพจั๊ม,Rave Jump,Rave Jump,Salto Rave,Salto rave
 cq9,slot,15,GuGuGu,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'es', 'id', 'pt-br']",True,False,GuGuGu,金雞報喜,金鸡报喜,GuGuGu,ไก่ทองประกาศข่างดี,GuGuGu,GuGuGu,GuGuGu,Quiquiriqui
-cq9,slot,19,HotSpin,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Hot Spin,風火輪,风火轮,핫 스핀,ล้อไฟลม,Quay nóng,Putaran Seru,Giro Quente
-cq9,slot,20,888,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,888,發發發,发发发,888,888,888,888,888
-cq9,slot,21,BigWolf,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Big Wolf,野狼傳說,野狼传说,빅 울프,ตำนานหมาป่า,Truyền thuyết chó sói,Legenda Serigala,Lobo Grande
-cq9,slot,22,MonkeyOfficeLegend,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Monkey Office Legend,庶務西遊二課,庶务西游二课,몽키 오피스 레전드,ไซอิ๋ว,Truyền thuyết ngôi nhà khỉ,Legenda Pejabat Kera,Lenda do Macaco
+cq9,slot,19,HotSpin,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Hot Spin,風火輪,风火轮,핫 스핀,ล้อไฟลม,Quay nóng,Putaran Seru,Giro Quente
+cq9,slot,20,888,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,888,發發發,发发发,888,888,888,888,888
+cq9,slot,21,BigWolf,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Big Wolf,野狼傳說,野狼传说,빅 울프,ตำนานหมาป่า,Truyền thuyết chó sói,Legenda Serigala,Lobo Grande
+cq9,slot,22,MonkeyOfficeLegend,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Monkey Office Legend,庶務西遊二課,庶务西游二课,몽키 오피스 레전드,ไซอิ๋ว,Truyền thuyết ngôi nhà khỉ,Legenda Pejabat Kera,Lenda do Macaco
 cq9,slot,23,YuanBao,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Yuan Bao,金元寶,金元宝,금원보,หยวนเบา,Yuan Bao,Yuan Bao,Yuan Bao
-cq9,slot,24,RaveJump2,html5,web,"['pt-br', 'ja', 'vn', 'id', 'ko', 'zh-cn', 'th', 'es', 'en']",True,False,Rave Jump2,跳起來2,跳起来2,레이브 점프 2,レイヴジャンプ2,เรพจั๊ม 2,Rave Jump2,Rave Jump2,Rave Jump2,Rave Jump 2
-cq9,slot,26,777,html5,web,"['ko', 'th', 'vn', 'es', 'id', 'pt-br', 'zh-cn', 'en']",True,False,777,777,777,777,777,777,777,777,777
-cq9,slot,27,Magic World,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Magic World,魔法世界,魔法世界,매직 월드,เมจิกเวิลด์,Thế giới phép thuật,Dunia Sihir,Mundo Mágico
-cq9,slot,29,WaterWorld,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,WaterWorld,水世界,水世界,워터월드,โลกใต้น้ำ,Thế giới nước,dunia air,Mundo Aquático
-cq9,slot,31,God of War,html5,web,"['en', 'ko', 'th', 'vn', 'es', 'id', 'ja', 'pt-br']",True,False,God of War,갓 오브 워,ゴッド・オブ・ウォー,สงครามเทพ,Thần chiến tranh,Dewa Perang,Deus da Guerra,Dios de la Guerra
-cq9,slot,32,Detective Dee,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Detective Dee,通天神探狄仁傑,通天神探狄仁杰,명탐정 디,นักสืบคดี,Thám tử Dee,Dee Detektif,Detetive Dee
+cq9,slot,24,RaveJump2,html5,web,"['en', 'th', 'id', 'ko', 'zh-cn', 'pt-br', 'ja', 'vn', 'es']",True,False,Rave Jump2,跳起來2,跳起来2,레이브 점프 2,レイヴジャンプ2,เรพจั๊ม 2,Rave Jump2,Rave Jump2,Rave Jump2,Rave Jump 2
+cq9,slot,26,777,html5,web,"['th', 'vn', 'es', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,777,777,777,777,777,777,777,777,777
+cq9,slot,27,Magic World,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Magic World,魔法世界,魔法世界,매직 월드,เมจิกเวิลด์,Thế giới phép thuật,Dunia Sihir,Mundo Mágico
+cq9,slot,29,WaterWorld,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id', 'pt-br']",True,False,WaterWorld,水世界,水世界,워터월드,โลกใต้น้ำ,Thế giới nước,dunia air,Mundo Aquático
+cq9,slot,31,God of War,html5,web,"['vn', 'es', 'id', 'ja', 'pt-br', 'en', 'ko', 'th']",True,False,God of War,갓 오브 워,ゴッド・オブ・ウォー,สงครามเทพ,Thần chiến tranh,Dewa Perang,Deus da Guerra,Dios de la Guerra
+cq9,slot,32,Detective Dee,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Detective Dee,通天神探狄仁傑,通天神探狄仁杰,명탐정 디,นักสืบคดี,Thám tử Dee,Dee Detektif,Detetive Dee
 cq9,slot,33,Fire Chibi,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Fire Chibi,火燒連環船,火烧连环船,파이어 치비,เปลวไฟแห่งความร่ำรวย,Ngọn lửa Chibi,Chibi Api,Chibi de Fogo
-cq9,slot,34,Gophers War,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Gophers War,地鼠戰役,地鼠战役,고퍼 워,สงครามหนู,Chiến tranh chuột túi,Perang Tikus,Pregueado de Guerra
-cq9,slot,38,All Wilds,html5,web,"['th', 'vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,All Wilds,舞力全開,舞力全开,올 와일드,ป่าทั้งหมด,Tất cả vùng hoang dã,Semua Binatang Liar,Todos os loucos
-cq9,slot,42,Sherlock Holmes,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Sherlock Holmes,福爾摩斯,福尔摩斯,셜록 홈즈,เชอร์ล็อค โฮล์มส์,Sherlock Holmes,Sherlock Holmes,Sherlock Holmes
-cq9,slot,44,FruitKingII,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Fruit King II,豪華水果王,豪华水果王,후르츠 킹 II,คิงผลไม้อัพเกร็ท,Vua trái cây Deluxe,Raja Buah Mewah,Fruta Rei II
+cq9,slot,34,Gophers War,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Gophers War,地鼠戰役,地鼠战役,고퍼 워,สงครามหนู,Chiến tranh chuột túi,Perang Tikus,Pregueado de Guerra
+cq9,slot,38,All Wilds,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,All Wilds,舞力全開,舞力全开,올 와일드,ป่าทั้งหมด,Tất cả vùng hoang dã,Semua Binatang Liar,Todos os loucos
+cq9,slot,42,Sherlock Holmes,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn', 'id', 'pt-br']",True,False,Sherlock Holmes,福爾摩斯,福尔摩斯,셜록 홈즈,เชอร์ล็อค โฮล์มส์,Sherlock Holmes,Sherlock Holmes,Sherlock Holmes
+cq9,slot,44,FruitKingII,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Fruit King II,豪華水果王,豪华水果王,후르츠 킹 II,คิงผลไม้อัพเกร็ท,Vua trái cây Deluxe,Raja Buah Mewah,Fruta Rei II
 cq9,slot,46,Wolf Moon,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Wolf Moon,狼月,狼月,울프 문,ดวงจันทร์หมาป่า,Trăng sói,Bulan Serigala,Lobo da Lua
 cq9,slot,47,Pharaoh's Gold,html5,web,"['vn', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Pharaoh's Gold,法老寶藏,法老宝藏,파라오 골드,ทองของฟาโรห์,Vàng Pharaoh,Emas Firaun,Ouro do Faraó
-cq9,slot,49,Lonely Planet,html5,web,"['en', 'ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn']",True,False,Lonely Planet,寂寞星球,寂寞星球,론리 플래닛,ดาวเคราะห์เหงา,Hành tinh cô đơn,Planet Kesepian,Planeta Solitário
-cq9,slot,50,Good Fortune,html5,web,"['id', 'th', 'ko', 'en', 'zh-cn', 'es', 'ja', 'vn', 'pt-br']",True,False,Good Fortune,鴻福齊天,鸿福齐天,굿 포춘,グッドフォーチュン,โชคดีมีชัย,Vận mệnh tốt,Nasib Baik,Boa Sorte,Buena fortuna
-cq9,slot,51,Ecstatic Circus,html5,web,"['vn', 'es', 'id', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Ecstatic Circus,嗨爆大馬戲,嗨爆大马戏,엑스타틱 서커스,สุขสันต์ละครสัตว์,Xiếc xuất thần,Sirkus Ekstatik,Circo em êxtase,Circo frenético
-cq9,slot,52,Jump High,html5,web,"['ko', 'ja', 'pt-br', 'es', 'zh-cn', 'th', 'vn', 'id', 'en']",True,False,Jump High,跳高高,跳高高,점프 하이,ジャンプハイ,กระโดดสูง,Jump High,Lompat Tinggi,Saltar Alto,Salto alto
-cq9,slot,202,OrientalBeauty,html5,web,"['en', 'ko', 'zh-cn']",True,False,OrientalBeauty,舞媚孃,舞媚娘,오리엔탈 뷰티
-cq9,slot,67,GoldenEggs,html5,web,"['ko', 'th', 'vn', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Golden Eggs,賺金蛋,赚金蛋,골든 에그,ไข่ทองคำ,TRỨNG VÀNG,GOLDEN EGGS,Ovos de Ouro
-cq9,fish,AB3,Paradise,html5,web,"['en', 'ja', 'ko', 'th', 'vn', 'zh-cn']",True,False,Paradise,皇金漁場,皇金渔场,고래 여행,ホエールジャーニー,การเดินทางของปลาวาฬ,Trại Cá Hoàng Kim
+cq9,slot,49,Lonely Planet,html5,web,"['id', 'pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Lonely Planet,寂寞星球,寂寞星球,론리 플래닛,ดาวเคราะห์เหงา,Hành tinh cô đơn,Planet Kesepian,Planeta Solitário
+cq9,slot,50,Good Fortune,html5,web,"['pt-br', 'zh-cn', 'en', 'es', 'vn', 'ko', 'id', 'th', 'ja']",True,False,Good Fortune,鴻福齊天,鸿福齐天,굿 포춘,グッドフォーチュン,โชคดีมีชัย,Vận mệnh tốt,Nasib Baik,Boa Sorte,Buena fortuna
+cq9,slot,51,Ecstatic Circus,html5,web,"['ko', 'th', 'vn', 'es', 'id', 'pt-br', 'zh-cn', 'en']",True,False,Ecstatic Circus,嗨爆大馬戲,嗨爆大马戏,엑스타틱 서커스,สุขสันต์ละครสัตว์,Xiếc xuất thần,Sirkus Ekstatik,Circo em êxtase,Circo frenético
+cq9,slot,52,Jump High,html5,web,"['zh-cn', 'th', 'id', 'pt-br', 'vn', 'ko', 'en', 'es', 'ja']",True,False,Jump High,跳高高,跳高高,점프 하이,ジャンプハイ,กระโดดสูง,Jump High,Lompat Tinggi,Saltar Alto,Salto alto
+cq9,slot,202,OrientalBeauty,html5,web,"['zh-cn', 'en', 'ko']",True,False,OrientalBeauty,舞媚孃,舞媚娘,오리엔탈 뷰티
+cq9,slot,67,GoldenEggs,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Golden Eggs,賺金蛋,赚金蛋,골든 에그,ไข่ทองคำ,TRỨNG VÀNG,GOLDEN EGGS,Ovos de Ouro
+cq9,fish,AB3,Paradise,html5,web,"['vn', 'zh-cn', 'en', 'ja', 'ko', 'th']",True,False,Paradise,皇金漁場,皇金渔场,고래 여행,ホエールジャーニー,การเดินทางของปลาวาฬ,Trại Cá Hoàng Kim
 cq9,slot,59,SummerMood,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th', 'vn', 'id']",True,False,Summer Mood,夏日猩情,夏日猩情,섬머 무드,กอริลลาซัมเมอร์,Gorilla Summer,Gorilla Summer,Humor de Verão
-cq9,slot,180,Gu Gu Gu 3,html5,web,"['ko', 'zh-cn', 'en', 'th']",True,False,Gu Gu Gu 3,金雞報囍3,金鸡报囍3,Gu Gu Gu 3,ปีใหม่ ไก่กุ๊กกุ๊ก 3
-cq9,slot,179,Jump High 2,html5,web,"['zh-cn', 'en', 'th', 'es', 'ja', 'ko']",True,False,Jump High 2,跳高高2,跳高高2,점프 하이 2,ジャンプハイ 2,กระโดดสูง 2,Saltar alto 2
+cq9,slot,180,Gu Gu Gu 3,html5,web,"['en', 'th', 'ko', 'zh-cn']",True,False,Gu Gu Gu 3,金雞報囍3,金鸡报囍3,Gu Gu Gu 3,ปีใหม่ ไก่กุ๊กกุ๊ก 3
+cq9,slot,179,Jump High 2,html5,web,"['en', 'th', 'es', 'ja', 'ko', 'zh-cn']",True,False,Jump High 2,跳高高2,跳高高2,점프 하이 2,ジャンプハイ 2,กระโดดสูง 2,Saltar alto 2
 cq9,arcade,GO169,Dragon Pachinko,html5,web,"['th', 'vn', 'zh-cn', 'en']",True,False,Dragon Pachinko,招財龍小鋼珠,招财龙小钢珠,มังกร ปาจิงโกะ,Rồng ChiêuＴài Bi Thép
-cq9,lotto,AA01,CQ9 彩票,html5,"mobile,web","['en', 'vn', 'zh-cn', 'zh-tw']",True,True,CQ9 lottery,CQ9 彩票,CQ9 彩票,CQ9 彩票,Xổ số CQ9
-cq9,slot,185,Dragon Ball,html5,web,"['zh-cn', 'en', 'th', 'ja', 'ko']",True,False,Dragon Ball,龍珠,龙珠,드래곤 볼,竜火の玉,ดรากอนส์ บอล
-cq9,slot,186,Fire Queen 2,html5,web,"['zh-cn', 'en', 'th', 'ko']",True,False,Fire Queen 2,火之女王2,火之女王2,파이어 퀸 2,ราชินีเพลิง 2
+cq9,lotto,AA01,CQ9 彩票,html5,"mobile,web","['vn', 'zh-cn', 'zh-tw', 'en']",True,True,CQ9 lottery,CQ9 彩票,CQ9 彩票,CQ9 彩票,Xổ số CQ9
+cq9,slot,185,Dragon Ball,html5,web,"['en', 'th', 'ja', 'ko', 'zh-cn']",True,False,Dragon Ball,龍珠,龙珠,드래곤 볼,竜火の玉,ดรากอนส์ บอล
+cq9,slot,186,Fire Queen 2,html5,web,"['th', 'ko', 'zh-cn', 'en']",True,False,Fire Queen 2,火之女王2,火之女王2,파이어 퀸 2,ราชินีเพลิง 2
 cq9,slot,195,Lord Ganesha,html5,web,"['zh-cn', 'en', 'th', 'ko']",True,False,Lord Ganesha,富貴象,富贵象,가네샤,พระพิฆเนศ
-cq9,arcade,196,Tenfold Eggs,html5,web,"['ja', 'zh-cn', 'en', 'th']",True,False,Tenfold Eggs,十倍金喜,十倍金喜,テンフォールド・エッグス,ไข่เต็นฟอลด์
+cq9,arcade,196,Tenfold Eggs,html5,web,"['zh-cn', 'en', 'th', 'ja']",True,False,Tenfold Eggs,十倍金喜,十倍金喜,テンフォールド・エッグス,ไข่เต็นฟอลด์
 cq9,arcade,200,Alice Run,html5,web,"['th', 'zh-cn', 'en']",True,False,Alice Run,跑跑愛麗絲,跑跑爱丽丝,อลิซรัน
 cq9,slot,AS04,Fortune Spirits,html5,"web,mobile","['en', 'zh-cn']",True,False,Fortune Spirits,財富幽靈,财富幽灵
-cq9,slot,108,Jump Higher mobile,html5,web,"['en', 'id', 'ja', 'es', 'pt-br', 'zh-cn', 'ko', 'th', 'vn']",True,False,Jump Higher Mobile,直式跳更高,直式跳更高,점프 하이어 모바일,もっとジャンプハイ モバイル,เกมส์กระโดดสูง M,Jump Higher Mobile,Melompat lebih tinggi Bergerak,Pulo Alto Mobile,Salto más alto Móvil
-cq9,slot,109,Rave Jump mobile,html5,web,"['ja', 'zh-cn', 'vn', 'en', 'ko', 'id', 'es', 'th', 'pt-br']",True,False,Rave Jump Mobile,單手跳起來,单手跳起来,레이브 점프 모바일,レイヴ・ジャンプ モバイル,เรพจั๊ม M,Rave Jump Mobile,Rave Jump Bergerak,Pulo Delírio Mobile,Salto rave Móvil
-cq9,slot,111,Fly Out,html5,web,"['id', 'ja', 'en', 'th', 'vn', 'ko', 'pt-br', 'es', 'zh-cn']",True,False,Fly Out,飛起來,飞起来,플라이 아웃,飛翔,ทะยานขึ้นฟ้า,Fly Out,Terbang,Voar para fora,Volar
-cq9,slot,115,Snow Queen,html5,web,"['en', 'ko', 'th', 'es', 'pt-br', 'zh-cn']",True,False,Snow Queen,冰雪女王,冰雪女王,스노우 퀸,ราชินีหิมะ,Rainha do Gelo,Reina de la nieve
-cq9,slot,116,Wonderland,html5,web,"['ko', 'th', 'pt-br', 'zh-cn', 'en']",True,False,Wonderland,咪遊仙境,梦游仙境,이상한 나라,แดนมหัศจรรย์,País das Maravilhas
-cq9,slot,117,5 God beasts,html5,web,"['es', 'pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,5 God beasts,東方神起,东方神起,5 갓 비스트,5 เทพอสูร,5 Bestas de Deus,5 bestias de dios
-cq9,slot,221,Detective Dee 2,html5,web,"['en', 'zh-cn']",True,False,Detective Dee 2,狄仁傑四大天王,狄仁杰四大天王
-cq9,slot,123,Lucky Bats M,html5,web,"['pt-br', 'zh-cn', 'en', 'ko', 'th']",True,False,Lucky Bats M,直式五福臨門,直式五福临门,럭키 뱃 M,ลัคกี้ แบท M,Morcegos de Sorte M
+cq9,slot,108,Jump Higher mobile,html5,web,"['th', 'vn', 'es', 'pt-br', 'zh-cn', 'id', 'en', 'ko', 'ja']",True,False,Jump Higher Mobile,直式跳更高,直式跳更高,점프 하이어 모바일,もっとジャンプハイ モバイル,เกมส์กระโดดสูง M,Jump Higher Mobile,Melompat lebih tinggi Bergerak,Pulo Alto Mobile,Salto más alto Móvil
+cq9,slot,109,Rave Jump mobile,html5,web,"['th', 'ja', 'zh-cn', 'vn', 'ko', 'id', 'pt-br', 'en', 'es']",True,False,Rave Jump Mobile,單手跳起來,单手跳起来,레이브 점프 모바일,レイヴ・ジャンプ モバイル,เรพจั๊ม M,Rave Jump Mobile,Rave Jump Bergerak,Pulo Delírio Mobile,Salto rave Móvil
+cq9,slot,111,Fly Out,html5,web,"['id', 'pt-br', 'zh-cn', 'ja', 'es', 'en', 'th', 'vn', 'ko']",True,False,Fly Out,飛起來,飞起来,플라이 아웃,飛翔,ทะยานขึ้นฟ้า,Fly Out,Terbang,Voar para fora,Volar
+cq9,slot,115,Snow Queen,html5,web,"['th', 'es', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Snow Queen,冰雪女王,冰雪女王,스노우 퀸,ราชินีหิมะ,Rainha do Gelo,Reina de la nieve
+cq9,slot,116,Wonderland,html5,web,"['th', 'pt-br', 'zh-cn', 'en', 'ko']",True,False,Wonderland,咪遊仙境,梦游仙境,이상한 나라,แดนมหัศจรรย์,País das Maravilhas
+cq9,slot,117,5 God beasts,html5,web,"['en', 'ko', 'th', 'es', 'pt-br', 'zh-cn']",True,False,5 God beasts,東方神起,东方神起,5 갓 비스트,5 เทพอสูร,5 Bestas de Deus,5 bestias de dios
+cq9,slot,221,Detective Dee 2,html5,web,"['zh-cn', 'en']",True,False,Detective Dee 2,狄仁傑四大天王,狄仁杰四大天王
+cq9,slot,123,Lucky Bats M,html5,web,"['zh-cn', 'en', 'ko', 'th', 'pt-br']",True,False,Lucky Bats M,直式五福臨門,直式五福临门,럭키 뱃 M,ลัคกี้ แบท M,Morcegos de Sorte M
 cq9,slot,132,Meow,html5,web,"['pt-br', 'zh-cn', 'en', 'ko']",True,False,Meow,再喵一個,再喵一个,야옹,Miau
-cq9,fish,AT05,LuckyFishing,html5,web,"['en', 'es', 'ko', 'ru', 'th', 'vn', 'zh-cn']",True,False,LuckyFishing,歡樂捕魚,欢乐捕鱼,럭키 피싱,ตกปลานำโชค,Bắn Cá Vui Vẻ,Pesca con suerte
-cq9,slot,184,Six Gacha,html5,web,"['zh-cn', 'en', 'ko']",True,False,Six Gacha,六顆扭蛋,六颗扭蛋,식스 가차
+cq9,fish,AT05,LuckyFishing,html5,web,"['zh-cn', 'en', 'es', 'ko', 'ru', 'th', 'vn']",True,False,LuckyFishing,歡樂捕魚,欢乐捕鱼,럭키 피싱,ตกปลานำโชค,Bắn Cá Vui Vẻ,Pesca con suerte
+cq9,slot,184,Six Gacha,html5,web,"['ko', 'zh-cn', 'en']",True,False,Six Gacha,六顆扭蛋,六颗扭蛋,식스 가차
 cq9,table,BT02,Banker Dice Bull-Bull,html5,web,"['en', 'th', 'vn', 'zh-cn']",True,False,Banker Dice Bull-Bull,搶莊骰子牛牛,抢庄骰子牛牛,ลูกเต๋าเจ้ามือ กระทิง-กระทิง,Ngầu Hầm Lắc
-cq9,slot,187,Wing Chun,html5,web,"['zh-cn', 'en', 'th', 'ko']",True,False,Wing Chun,詠春,咏春,윙춘,หย่งชุน
-cq9,slot,188,Cricket Fever,html5,web,"['en', 'ko', 'th', 'zh-cn']",True,False,Cricket Fever,板球狂熱,板球狂热,크리켓 열병,คริกเก็ตบ้าคลั่ง
-cq9,slot,194,Fortune Dragon,html5,web,"['th', 'ko', 'zh-cn', 'en']",True,False,Fortune Dragon,飛龍在天,飞龙在天,포춘 드래곤,มังกรแห่งโชคลาภ
-cq9,table,BT03,Peeking Banker Bull-Bull,html5,web,"['en', 'th', 'vn', 'zh-cn']",True,False,Peeking Banker Bull-Bull,搶莊瞇牌牛牛,抢庄眯牌牛牛,ชิงเจ้า ไพ่ Bull-Bull,Giành nhà cái xem bài
+cq9,slot,187,Wing Chun,html5,web,"['th', 'ko', 'zh-cn', 'en']",True,False,Wing Chun,詠春,咏春,윙춘,หย่งชุน
+cq9,slot,188,Cricket Fever,html5,web,"['zh-cn', 'en', 'ko', 'th']",True,False,Cricket Fever,板球狂熱,板球狂热,크리켓 열병,คริกเก็ตบ้าคลั่ง
+cq9,slot,194,Fortune Dragon,html5,web,"['ko', 'zh-cn', 'en', 'th']",True,False,Fortune Dragon,飛龍在天,飞龙在天,포춘 드래곤,มังกรแห่งโชคลาภ
+cq9,table,BT03,Peeking Banker Bull-Bull,html5,web,"['vn', 'zh-cn', 'en', 'th']",True,False,Peeking Banker Bull-Bull,搶莊瞇牌牛牛,抢庄眯牌牛牛,ชิงเจ้า ไพ่ Bull-Bull,Giành nhà cái xem bài
 cq9,arcade,AT101,奔驰宝马,html5,web,"['en', 'zh-cn']",True,False,Supercars,奔馳寶馬,奔驰宝马
 cq9,slot,5007,Da Fa Cai,html5,web,"['zh-cn', 'en', 'th']",True,False,Da Fa Cai,大發財,大发财,ดา ฟ้า ใช้
-cq9,slot,5008,Da Hong Zhong,html5,web,"['th', 'zh-cn', 'en']",True,False,Da Hong Zhong,大紅中,大红中,ดา หงส์ จง
+cq9,slot,5008,Da Hong Zhong,html5,web,"['zh-cn', 'en', 'th']",True,False,Da Hong Zhong,大紅中,大红中,ดา หงส์ จง
 cq9,slot,5009,Uproar in Heaven,html5,web,"['ko', 'zh-cn', 'en', 'th', 'vn']",True,False,Uproar in Heaven,大鬧天宮,大闹天宫,천국의 소란,ความโกลาหลในสวรรค์,Đại Náo Thiên Cung
 cq9,slot,206,Sweet POP,html5,web,"['zh-cn', 'en', 'th']",True,False,Sweet POP,甜蜜暴擊,甜蜜暴击,ป๊อป หวาน
-cq9,slot,210,Oo Ga Cha Ka,html5,web,"['en', 'th', 'zh-cn']",True,False,Oo Ga Cha Ka,嗚嘎嚇嘎,呜嘎吓嘎,อู กา ชา ก้า
-cq9,slot,212,Burning Xi-You,html5,web,"['zh-cn', 'en', 'th']",True,False,Burning Xi-You,火爆西遊,火爆西游,ไซอิ๋วลุกเป็นไฟ
-cq9,arcade,213,Mini Roulette,html5,web,"['en', 'th', 'zh-cn']",True,False,Mini Roulette,迷你輪盤,迷你轮盘,มินิรูเล็ต
-cq9,slot,214,Ninja Raccoon,html5,web,"['th', 'zh-cn', 'en']",True,False,Ninja Raccoon,忍者浣熊,忍者浣熊,นินจา แรคคูน
+cq9,slot,210,Oo Ga Cha Ka,html5,web,"['th', 'zh-cn', 'en']",True,False,Oo Ga Cha Ka,嗚嘎嚇嘎,呜嘎吓嘎,อู กา ชา ก้า
+cq9,slot,212,Burning Xi-You,html5,web,"['th', 'zh-cn', 'en']",True,False,Burning Xi-You,火爆西遊,火爆西游,ไซอิ๋วลุกเป็นไฟ
+cq9,arcade,213,Mini Roulette,html5,web,"['th', 'zh-cn', 'en']",True,False,Mini Roulette,迷你輪盤,迷你轮盘,มินิรูเล็ต
+cq9,slot,214,Ninja Raccoon,html5,web,"['en', 'th', 'zh-cn']",True,False,Ninja Raccoon,忍者浣熊,忍者浣熊,นินจา แรคคูน
 cq9,arcade,GO01,Dragon Ball Dozer,html5,"web,mobile","['en', 'th', 'vn', 'zh-cn']",True,False,Dragon Ball Dozer,龍珠推幣機,龙珠推币机,ดราก้อนบอล Dozer,Ngọc Rồng Đẩy Xu
 cq9,slot,qatest0428,qatest0428,html5,"mobile,web",['zh-cn'],True,False,qatest0428,qatest0428
 cq9,arcade,GB1,３２１发射,html5,"web,mobile","['th', 'zh-tw', 'zh-cn', 'en', 'ko']",True,False,3 2 1 Go!,３２１發射,３２１發射,３２１发射,3 2 1 발사,3 2 1 พุ่งจ๊วดดด
 cq9,arcade,GB198,Hanuman Bingo,html5,"web,mobile","['th', 'zh-cn', 'en']",True,False,Hanuman Bingo,彩猴賓果,彩猴宾果,หนุมานบิงโก
-cq9,slot,215,Hot Pinatas,html5,web,"['th', 'zh-cn', 'en']",True,False,Hot Pinatas,辣爆了,辣爆了,เผ็ชซี้ด
+cq9,slot,215,Hot Pinatas,html5,web,"['zh-cn', 'en', 'th']",True,False,Hot Pinatas,辣爆了,辣爆了,เผ็ชซี้ด
 cq9,slot,211,King of Atlantis,html5,web,"['en', 'th', 'zh-cn']",True,False,King of Atlantis,海王,海王,คิงออฟแอตแลนติส
 cq9,slot,GB2,怪兽猎人,html5,web,"['th', 'ko', 'zh-cn', 'en']",True,False,Monster Hunter,怪獸獵人,怪兽猎人,몬스터 헌터,มอนสเตอร์ ฮันเตอร์
-cq9,arcade,216,Xoc Dia,html5,web,"['th', 'zh-cn', 'en']",True,False,Xoc Dia,色碟,色碟,เหรียญสีนำโชค
-cq9,arcade,217,Mahjong Fruit,html5,web,"['en', 'th', 'zh-cn']",True,False,Mahjong Fruit,麻將水果盤,麻将水果盘,มาจองฟรุ้ต
+cq9,arcade,216,Xoc Dia,html5,web,"['zh-cn', 'en', 'th']",True,False,Xoc Dia,色碟,色碟,เหรียญสีนำโชค
+cq9,arcade,217,Mahjong Fruit,html5,web,"['th', 'zh-cn', 'en']",True,False,Mahjong Fruit,麻將水果盤,麻将水果盘,มาจองฟรุ้ต
 cq9,slot,177,Aladdin's lamp,html5,web,"['en', 'th', 'zh-cn']",True,False,Aladdin's lamp,小夥與神燈,小伙与神灯,จินนี่จ๋า
-cq9,slot,GB6,富贵小象神,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Ganesha Jr.,富貴小象神,富贵小象神,작은 코끼리신,พระพิฆเนศน้อย  ผู้มั่งคั่ง,Thần Voi Phú Quý
-cq9,slot,218,Dollar Bomb,html5,web,"['en', 'th', 'zh-cn']",True,False,Dollar Bomb,達拉崩吧,达拉崩吧,ดอลล่าร์ บอม
+cq9,slot,GB6,富贵小象神,html5,web,"['en', 'ko', 'th', 'vn', 'zh-cn']",True,False,Ganesha Jr.,富貴小象神,富贵小象神,작은 코끼리신,พระพิฆเนศน้อย  ผู้มั่งคั่ง,Thần Voi Phú Quý
+cq9,slot,218,Dollar Bomb,html5,web,"['th', 'zh-cn', 'en']",True,False,Dollar Bomb,達拉崩吧,达拉崩吧,ดอลล่าร์ บอม
 cq9,slot,219,King Kong Shake,html5,web,"['zh-cn', 'th', 'en']",True,False,King Kong Shake,金猩特調,金猩特调,คิงคอง เชค
-cq9,slot,220,Floating Market,html5,web,"['th', 'zh-cn', 'en']",True,False,Floating Market,這市集絕了,这市集绝了,ตลาดน้ำดำเนินโชค
-cq9,slot,222,Loy Krathong,html5,web,"['zh-cn', 'en', 'th']",True,False,Loy Krathong,水上泰神祈,水上泰神祈,ลอย ลอย กระทง
-cq9,slot,GB3,转转金币,html5,"mobile,web","['en', 'th', 'ko', 'zh-cn']",True,False,Coin Spinner,轉轉金幣,转转金币,코인 스피너,Coin Spinner
-cq9,fish,GO02,Hero Fishing,html5,web,"['th', 'vn', 'zh-cn', 'en']",True,False,Hero Fishing,英雄捕魚,英雄捕鱼,ฮีโร่  นักยิงปลา,ANH HÙNG BẮN CÁ
+cq9,slot,220,Floating Market,html5,web,"['en', 'th', 'zh-cn']",True,False,Floating Market,這市集絕了,这市集绝了,ตลาดน้ำดำเนินโชค
+cq9,slot,222,Loy Krathong,html5,web,"['th', 'zh-cn', 'en']",True,False,Loy Krathong,水上泰神祈,水上泰神祈,ลอย ลอย กระทง
+cq9,slot,GB3,转转金币,html5,"mobile,web","['ko', 'zh-cn', 'en', 'th']",True,False,Coin Spinner,轉轉金幣,转转金币,코인 스피너,Coin Spinner
+cq9,fish,GO02,Hero Fishing,html5,web,"['vn', 'zh-cn', 'en', 'th']",True,False,Hero Fishing,英雄捕魚,英雄捕鱼,ฮีโร่  นักยิงปลา,ANH HÙNG BẮN CÁ
 cq9,arcade,1200,Alice Run JP,html5,web,"['th', 'zh-cn', 'en']",True,False,Alice Run JP,跑跑愛麗絲JP,跑跑爱丽丝JP,อลิซรัน แจ็คพ็อต
 cq9,slot,GB5,热音DJ,html5,"mobile,web","['ko', 'zh-cn', 'en', 'th']",True,False,Hot DJ,熱音DJ,热音DJ,핫 DJ,ดีเจสุดฮอต
 cq9,slot,GB8,金鲤敲钟,html5,"mobile,web","['en', 'th', 'ko', 'zh-cn']",True,False,Dragon Koi,金鯉敲鐘,金鲤敲钟,드래곤 코이,ปลาคราฟ มังกร
 cq9,sport,CF01,CF體育投注,html5,"mobile,web","['en', 'zh-cn', 'zh-tw']",True,True,sportsbook,CF體育投注,CF體育投注,CF体育投注
-cq9,slot,223,Acrobatics,html5,web,"['zh-cn', 'en', 'th', 'ko']",True,False,Acrobatics,百戲,百戏,곡예,นักกายกรรม
-cq9,arcade,GB11,泰式鱼虾蟹,html5,"mobile,web","['vn', 'zh-cn', 'en', 'ko', 'th']",True,False,Thai Fish Prawn Crab,泰式魚蝦蟹,泰式鱼虾蟹,타이 생선 새우 게,น้ำเต้าปูปลา,Bầu Cua Tôm Cá Thái
+cq9,slot,223,Acrobatics,html5,web,"['th', 'ko', 'zh-cn', 'en']",True,False,Acrobatics,百戲,百戏,곡예,นักกายกรรม
+cq9,arcade,GB11,泰式鱼虾蟹,html5,"mobile,web","['ko', 'th', 'vn', 'zh-cn', 'en']",True,False,Thai Fish Prawn Crab,泰式魚蝦蟹,泰式鱼虾蟹,타이 생선 새우 게,น้ำเต้าปูปลา,Bầu Cua Tôm Cá Thái
 cq9,slot,226,Lucky Tigers,html5,web,"['zh-cn', 'en', 'th', 'ko']",True,False,Lucky Tigers,多虎多財,多虎多财,럭키 타이거,เสือน้อยสุดเฮง
 cq9,live,GINKGO01,motivation,html5,web,"['ja', 'zh-cn', 'zh-tw', 'en']",True,False,motivation,motivation,motivation,motivation,motivation
-cq9,slot,225,Mr. Miser,html5,web,"['ko', 'th', 'zh-cn', 'en']",True,False,Mr. Miser,財迷小妖,财迷小妖,재물광 요정,ภูติจิ๋วเฝ้าทรัพย์
+cq9,slot,225,Mr. Miser,html5,web,"['en', 'ko', 'th', 'zh-cn']",True,False,Mr. Miser,財迷小妖,财迷小妖,재물광 요정,ภูติจิ๋วเฝ้าทรัพย์
 cq9,arcade,224,K.O. Island,html5,web,"['th', 'zh-cn', 'en', 'ko']",True,False,K.O. Island,冒險島,冒险岛,모험섬,เกาะผจญภัย
 cq9,sport,qatest05,qatest05,html5,"mobile,web",['zh-cn'],True,False,qatest05,qatest05
 cq9,table,GO03,Thai Pok Deng,html5,web,"['en', 'th', 'zh-cn']",True,False,Thai Pok Deng,泰式博丁,泰式博丁,ป๊อกเด้งไทย
-cq9,slot,227,888 Cai Shen,html5,web,"['zh-cn', 'en', 'ko', 'th']",True,False,888 Cai Shen,發發發財神,发发发财神,대박 재물신,ฟาชัยเซ็น แจกไม่อั้น
-cq9,slot,GB9,足球狂熱,html5,web,"['es', 'pt-br', 'th', 'id', 'en', 'vn', 'zh-cn', 'ja', 'ko']",True,False,Football Fever,足球狂熱,足球狂热,축구 열풍,フットボール フィーバー,ฟุตบอลฟีเวอร์,Bóng Đá Cuồng Nhiệt,Demam Sepak Bola,Febre de  Futebol,Fiebre fútbol
-cq9,slot,228,Mirror Mirror,html5,web,"['en', 'ko', 'th', 'zh-cn']",True,False,Mirror Mirror,魔鏡魔鏡,魔镜魔镜,미러미러,กระจกวิเศษ
-cq9,slot,229,Night City,html5,web,"['zh-cn', 'en', 'ko', 'th']",True,False,Night City,不夜城,不夜城,불야성,ตะลุยราตรี
-cq9,slot,GB12,鸣梁,html5,"web,mobile","['vn', 'zh-cn', 'en', 'ko', 'th']",True,False,Myeong-ryang,鳴梁,鸣梁,명량,ขุนพลคลื่นคำราม,Đại thủy chiến
-cq9,arcade,GB10,通比花鬪牌,html5,"mobile,web","['en', 'ko', 'zh-cn']",True,False,Seotda,通比花鬪牌,通比花鬪牌,섯다
+cq9,slot,227,888 Cai Shen,html5,web,"['ko', 'th', 'zh-cn', 'en']",True,False,888 Cai Shen,發發發財神,发发发财神,대박 재물신,ฟาชัยเซ็น แจกไม่อั้น
+cq9,slot,GB9,足球狂熱,html5,web,"['en', 'zh-cn', 'pt-br', 'id', 'ko', 'ja', 'es', 'th', 'vn']",True,False,Football Fever,足球狂熱,足球狂热,축구 열풍,フットボール フィーバー,ฟุตบอลฟีเวอร์,Bóng Đá Cuồng Nhiệt,Demam Sepak Bola,Febre de  Futebol,Fiebre fútbol
+cq9,slot,228,Mirror Mirror,html5,web,"['zh-cn', 'en', 'ko', 'th']",True,False,Mirror Mirror,魔鏡魔鏡,魔镜魔镜,미러미러,กระจกวิเศษ
+cq9,slot,229,Night City,html5,web,"['ko', 'th', 'zh-cn', 'en']",True,False,Night City,不夜城,不夜城,불야성,ตะลุยราตรี
+cq9,slot,GB12,鸣梁,html5,"web,mobile","['zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Myeong-ryang,鳴梁,鸣梁,명량,ขุนพลคลื่นคำราม,Đại thủy chiến
+cq9,arcade,GB10,通比花鬪牌,html5,"mobile,web","['zh-cn', 'en', 'ko']",True,False,Seotda,通比花鬪牌,通比花鬪牌,섯다
 cq9,slot,230,Baseball Fever,html5,web,"['ko', 'th', 'zh-cn', 'en']",True,False,Baseball Fever,棒球狂熱,棒球狂热,열혈야구,เบสบอส นักหวดมือฉมัง
-cq9,slot,GB13,直式足球狂热,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Football Fever M,直式足球狂熱,直式足球狂热,축구 열풍 M,ฟุตบอลฟีเวอร์ M,Bóng Đá Cuồng Nhiệt M
-cq9,slot,231,Striker WILD,html5,web,"['en', 'ko', 'th', 'zh-cn']",True,False,Striker WILD,狂野前鋒,狂野前锋,태극전사,กองหน้าเพชฌฆาต
+cq9,slot,GB13,直式足球狂热,html5,web,"['ko', 'th', 'vn', 'zh-cn', 'en']",True,False,Football Fever M,直式足球狂熱,直式足球狂热,축구 열풍 M,ฟุตบอลฟีเวอร์ M,Bóng Đá Cuồng Nhiệt M
+cq9,slot,231,Striker WILD,html5,web,"['zh-cn', 'en', 'ko', 'th']",True,False,Striker WILD,狂野前鋒,狂野前锋,태극전사,กองหน้าเพชฌฆาต
 cq9,slot,241,The Chicken House,html5,web,"['en', 'ko', 'th', 'zh-cn']",True,False,The Chicken House,咕咕雞,咕咕鸡,치킨 하우스 ,กุ๊กกุ๊กไก่
-cq9,arcade,GB7,神鬼秘宝,html5,web,"['zh-cn', 'en', 'ko', 'th']",True,False,Mummy's Treasure,神鬼祕寶,神鬼秘宝,미라의 보물,คลังสมบัติมัมมี่
-cq9,slot,GB15,三国英雄-曹操,html5,web,"['zh-cn', 'en', 'ko', 'th', 'vn']",True,False,Hero of the 3 Kingdoms - Cao Cao,三國英雄-曹操,三国英雄-曹操,삼국지 영웅 - 조조,วีรบุรุษแห่ง 3 ก๊ก - โจโฉ,Anh Hùng Tam Quốc - Tào Tháo
-cq9,arcade,GB14,放客宾果,html5,web,"['ko', 'th', 'vn', 'zh-cn', 'en']",True,False,Funky Bingo,放客賓果,放客宾果,펑키 빙고,ฟังกี้บิงโก,Funky Bingo
-cq9,slot,242,Treasure Pirate,html5,web,"['zh-cn', 'en', 'ko', 'th']",True,False,Treasure Pirate,海盜尋寶,海盗寻宝,해적 보물,ขุมทรัพย์โจรสลัด
+cq9,arcade,GB7,神鬼秘宝,html5,web,"['th', 'zh-cn', 'en', 'ko']",True,False,Mummy's Treasure,神鬼祕寶,神鬼秘宝,미라의 보물,คลังสมบัติมัมมี่
+cq9,slot,GB15,三国英雄-曹操,html5,web,"['ko', 'th', 'vn', 'zh-cn', 'en']",True,False,Hero of the 3 Kingdoms - Cao Cao,三國英雄-曹操,三国英雄-曹操,삼국지 영웅 - 조조,วีรบุรุษแห่ง 3 ก๊ก - โจโฉ,Anh Hùng Tam Quốc - Tào Tháo
+cq9,arcade,GB14,放客宾果,html5,web,"['th', 'vn', 'zh-cn', 'en', 'ko']",True,False,Funky Bingo,放客賓果,放客宾果,펑키 빙고,ฟังกี้บิงโก,Funky Bingo
+cq9,slot,242,Treasure Pirate,html5,web,"['th', 'zh-cn', 'en', 'ko']",True,False,Treasure Pirate,海盜尋寶,海盗寻宝,해적 보물,ขุมทรัพย์โจรสลัด
 cq9,slot,243,Mafia,html5,web,"['th', 'zh-cn', 'en', 'ko']",True,False,Mafia,黑手黨,黑手党,마피아,มาเฟีย

@@ -59,9 +59,9 @@
                     </li>
                     <div class="dropdown-divider"></div>
 <!--Transactions button-->
-                    <li><button class="btn dropdown-item" id="txnHistory-button" onclick="txnHistory()">{{ translations['txnHistory'][session['lang']] }}</button></li>
+                    <li><button class="btn dropdown-item" id="txnHistory-button" onclick="go_to_txnHistory()">{{ translations['txnHistory'][session['lang']] }}</button></li>
 <!--Game History button-->
-                    <li><a class="btn dropdown-item" onclick="gameHistory()">{{ translations['gamehistory'][session['lang']] }}</a></li>
+                    <li><a class="btn dropdown-item" onclick="go_to_gameHistory()">{{ translations['gamehistory'][session['lang']] }}</a></li>
 <!--Language button-->
                     <li class="dropdown-submenu dropdown-item">
                         <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>{{ translations['language'][session['lang']] }}
@@ -93,8 +93,8 @@
                     <div class="dropdown-divider"></div>
                     {% if session['admin'] %}
 <!-- start SEARCH button -->
-                    <li><a class="btn dropdown-item" onclick="searchPlayer()">Search</a></li>
-                    <li><a class="btn dropdown-item" onclick="pendingWithdraw()">Pending</a></li>
+                    <li><a class="btn dropdown-item" onclick="go_to_searchPlayer()">Search</a></li>
+                    <li><a class="btn dropdown-item" onclick="go_to_pendingWithdraw()">Pending</a></li>
 
 <!--                        <a class="btn dropdown-item" href="/search"><i class="bi bi-search">Search</i></a>-->
                     {% endif %}
@@ -134,7 +134,7 @@
 
     $(document).ready(function(){
         $('#top-bar-dropdown-button,#username-field').on('click', function(){
-            $('#topbar-dropdown-menu').toggle()
+<!--            $('#topbar-dropdown-menu').toggle()-->
 
 {% if current_user.is_authenticated %}
             waitForElm('#withdraw-balance').then((withdraw_balance) => {
