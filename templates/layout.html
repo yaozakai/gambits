@@ -64,13 +64,12 @@
 <!--        <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>-->
 
         <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/main.js"></script>
-        <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/metamask_modal.js"></script>
+
 
 
     </head>
 
   <body style="font-family: Futura, sans-serif;"  data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true" data-bs-offset="40">
-
         <!-- TOP BAR -->
       <script>
         $(function() {
@@ -143,7 +142,9 @@
     <div id="modals"></div>
 
       <!-- UI Javascript -->
-        <script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/navbar_sticky.js"></script>
+        <script language="JavaScript" type="module" src="{{ root_path }}static/js/navbar_sticky.js"></script>
+        <script language="JavaScript" type="module" src="{{ root_path }}/static/js/metamask_modal.js"></script>
+
 <!--        <script language="JavaScript" type="text/javascript">-->
 
 
@@ -161,6 +162,7 @@
 <!--                }-->
 <!--            });-->
 <!--        </script>-->
+
   </body>
 
 

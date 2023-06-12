@@ -51,11 +51,11 @@ function generate_table_txnHistory(results) {
             htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
             htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
             htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
-<!--                    htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";-->
-<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";-->
-<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";-->
+//<!--                    htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";-->
+//<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";-->
+//<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";-->
             htmloutput = htmloutput + "<td>" + results[i]["rake"] + "</td>";
-<!--                            htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";-->
+//<!--                            htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";-->
                     htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">Detail:" + results[i]["detail"] + "<br>Result:" + results[i]["gameresult"] + "</div></td></tr>";
         };
     }

@@ -67,15 +67,15 @@
             <div class="dropdown">
                 <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
               <ul class="dropdown-menu green-text">
-                <li class="dropdown-submenu dropdown-item">
+                <li class=" dropdown-item">
                     <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-complete" name="txn-filter-complete" type="checkbox" checked>
                     <label for="txn-filter-complete"> {{ translations['txn:complete'][session['lang']] }}</label>
                 </li>
-                <li class="dropdown-submenu dropdown-item">
+                <li class=" dropdown-item">
                     <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-pending" name="txn-filter-pending" type="checkbox" checked>
                     <label for="txn-filter-pending"> {{ translations['txn:pending'][session['lang']] }}</label>
                 </li>
-                <li class="dropdown-submenu dropdown-item">
+                <li class=" dropdown-item">
                     <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-unverified" name="txn-filter-unverified" type="checkbox" checked>
                     <label for="txn-filter-unverified"> {{ translations['txn:failed'][session['lang']] }}</label>
                 </li>
@@ -86,17 +86,18 @@
         <th>Date</th>
         <th>Time</th>
         <th style="display: flex;">Type
+<div class="dropdown">
             <div class="dropdown">
                 <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
 
               <ul class="dropdown-menu green-text">
 
 <!--                  <label for="txn-filter-deposit"> {{ translations['deposit'][session['lang']] }}</label>-->
-                <li class="dropdown-submenu dropdown-item">
+                <li class="dropdown-item">
                     <input onclick="txn_filter();" class="txn-filter-type" id="txn-filter-withdraw" name="txn-filter-withdraw" type="checkbox" checked>
                     <label for="txn-filter-withdraw"> {{ translations['withdraw'][session['lang']] }}</label>
                 </li>
-                <li class="dropdown-submenu dropdown-item">
+                <li class="dropdown-item">
                     <input onclick="txn_filter();" class="txn-filter-type" id="txn-filter-deposit" name="txn-filter-deposit" type="checkbox" checked>
                     <label for="txn-filter-deposit"> {{ translations['deposit'][session['lang']] }}</label>
                 </li>
