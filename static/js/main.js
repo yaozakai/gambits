@@ -287,40 +287,37 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
       dataType: "json",
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify({
+        "mode": mode,
         "txHash":txHash,
         "chain":chain,
         "currency": currency,
         "amount": amount,
         "fromAddress": fromAddress,
-        "mode": mode,
-        "reconcile_id": txHash
       }),
       success: function(response) {
-        let appendix = ' ' + amount + ' USDT'
+      // response is a TxnEntry object
+//        let appendix = ' ' + amount + ' USDT'
 
-        if (response.alert_type == 'success:txnSuccess') {
+        if (mode == "reconcile"){
+            const reconcile_id = fromAddress
+
+            $("#reconcile-" + reconcile_id).prop('disabled', true)
+//            $("#reconcile_id-" + reconcile_id).html('<a href="https://etherscan.io/tx/' + response.txHash + ' target="_blank">')
+            $("#reconcile_id-" + reconcile_id).html('<a href="https://goerli.etherscan.io/tx/' + response.txHash + ' target="_blank">')
+            $("#reconcile_status-" + reconcile_id).html("Complete")
+
+            return true
+        } else if (response.alert_type == 'success:txnSuccess') {
             // update table regardless if shown
             $("#row-" + txHash).html('Complete')
             $("#row-" + txHash).css('color', 'green')
 
-            if (mode == "reconcile"){
-                $("#" + amount + "-" + fromAddress).prop('disabled', true)
-                $("#reconcile:" + reconcile_id).html(response.reconciled_txHash)
-            } else if (mode == "pre"){
-
-            }
-
+            // send alert popup
             let msg = response.amount + ' <span style="font-size: small;">' + response.currency.toUpperCase() + '</span> ' + translations['success:txnSuccess'][lang]
             send_alert('txn:complete', '', false, msg, 'blue')
 
             // update balance across UI
             set_balance_UI(response.balance)
-
-
-
-//            balance_field_usdt.innerHTML = response.balance + ' <span class="crypto-symbol">USDT</span>'
-//            withdraw_balance.innerHTML = response.balance
-//            $('#deposit-display-amount').html(response.balance + ' USDT @ ERC20')
 
             return true
 

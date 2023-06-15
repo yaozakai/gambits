@@ -15,7 +15,7 @@ from constants import BANK_ADDRESS, ETHERSCAN_API_KEY, BSNSCAN_API_KEY
 wallet = Blueprint('wallet', __name__)
 
 
-def verify_transaction_loop(deposit):
+def etherscan_parser(deposit):
     if deposit.type == 'Withdraw':
         lookup_address = deposit.fromAddress
     else:
@@ -78,7 +78,7 @@ def verify_transaction_loop(deposit):
 #         if count < 6:
 #             count += 1
 #             print("count: " + str(count))
-#             amount = verify_transaction_loop(count)
+#             amount = etherscan_parser(count)
 #             if amount > 0:
 #                 # update user db
 #                 db_add_balance(email, amount, request.json['currency'])

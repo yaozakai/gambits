@@ -13,7 +13,7 @@ from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_template import template
 from route_user import user
-from route_wallet import wallet, verify_transaction_loop
+from route_wallet import wallet, etherscan_parser
 from utils import reload_game_titles, reload_icon_placement, setup_home_template, set_flag_from_lang, \
     set_session_geo_lang
 
@@ -112,10 +112,8 @@ def verify_transaction():
     user_db = db_get_user()
     # email = user_db.email
     # email = 'lele@gmeow.com'
-    if request.json['mode'] == 'reconcile':
-        txHash = request.json['reconcile_id']
-    else:
-        txHash = request.json['txHash']
+
+    txHash = request.json['txHash']
 
     if request.json['mode'] == 'pre':
         deposit = TxnEntry('Deposit', user_db.email, user_db.user_id, (request.json['amount']),
@@ -123,31 +121,28 @@ def verify_transaction():
                            request.json['chain'], 'Pending', request.json['fromAddress'], txHash)
         deposit.commit()
         lookup_address = BANK_ADDRESS
-    else:
+    elif request.json['mode'] == 'reconcile':
+        # deposit = db_get_deposit(txHash)
+        # lookup_address = request.json['fromAddress']
+        new_txhash = request.json['txHash']
+        old_reconcile_id = request.json['fromAddress']
+        # mark deposit complete
+        deposit = db_get_deposit(old_reconcile_id)
+        deposit.mark_complete(new_txhash)
+        return jsonify(deposit.serialize())
+        # deposit.commit()
+        # reconciled_txHash = request.json['txHash']
+    elif request.json['mode'] == 'reverify':
         deposit = db_get_deposit(txHash)
         # deposit = TxnEntry().query.filter_by(txHash=txHash).first()
 
     if deposit.status != 'Complete':
 
-        if request.json['mode'] == 'reverify':
-            # deposit = db_get_deposit(txHash)
-            lookup_address = BANK_ADDRESS
-            reconciled_txHash = request.json['txHash']
-        elif request.json['mode'] == 'reconcile':
-            # deposit = db_get_deposit(txHash)
-            lookup_address = request.json['fromAddress']
-            # mark deposit complete
-            deposit.mark_complete(request.json['txHash'])
-            # deposit.commit()
-            reconciled_txHash = request.json['txHash']
-
-        currency = request.json['currency']
-
         while run:
-            if count < 6:
+            if count < 3:
                 count += 1
                 print("count: " + str(count))
-                amount = verify_transaction_loop(deposit)
+                amount = etherscan_parser(deposit)
                 if amount > 0:
                     break
                 else:
@@ -168,7 +163,7 @@ def verify_transaction():
                            translations['alert:clickHere'][session['lang']] + '</button>'
             alert_type = 'alert:timeout'
 
-    return jsonify(amount=amount, currency=currency, alert_type=alert_type, notification_title=notification_title,
+    return jsonify(amount=amount, currency=request.json['currency'], alert_type=alert_type, notification_title=notification_title,
                    notification=notification, reconciled_txHash=deposit.txHash, balance=user_db.balance_usdt)
 
 
