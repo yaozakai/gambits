@@ -519,7 +519,7 @@ def withdraw_request():
     ##### make sure you check and make sure the user has enough to withdraw
 
     if float(request.json['amount']) <= round(user_db.balance_usdt, 2):
-        txnHash_temp = str(TxnEntry().query.count())
+        txnHash_temp = str(TxnEntry().query.count()+1)
 
         withdraw = TxnEntry('Withdraw', user_db.email, user_db.user_id, request.json['amount'],
                             request.json['currency'],

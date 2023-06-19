@@ -40,7 +40,7 @@
 <!--        <th>Chain</th>-->
         <th>Wallet</th>
         <th>Reconcile</th>
-        <th>Cancel</th>
+<!--        <th>Cancel</th>-->
 <!--        <th>Valid Bet</th>-->
 <!--        <th>Jackpot</th>-->
 <!--        <th>JackContribution</th>-->
@@ -61,23 +61,28 @@
             <td>{{ record.created.strftime('%H:%M:%S') }}</td>
             {% endif %}
 
-            <td id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>
+<!--            {% if record.status == 'Pending' %}-->
+                <td style="color: yellow;" id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>
+<!--            {% else %}-->
+<!--                <td id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>-->
+<!--            {% endif %}-->
 
-            <td>{{ record.email|truncate(9, true, '') }}</td>
+            <td>{{ record.email }}</td>
+<!--            <td>{{ record.email[:9] }}..{{ record.email[:-3] }}</td>-->
 
             <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
             <td id="reconcile_id-{{ record.txHash }}">{{ record.txHash }}</td>
 
-            <td><a href='https://etherscan.io/address/{{ record.fromAddress }}' target="_blank">{{ record.fromAddress|truncate(6, true, '') }}</a></td>
+            <td id="receipient_address-{{ record.fromAddress }}"><a href='https://etherscan.io/address/{{ record.fromAddress }}' target="_blank">{{ record.fromAddress[:6] }}..{{ record.fromAddress[-3:] }}</a></td>
 
             <td>
-                <button onclick="setup_reconciliation();" id="reconcile-{{ record.txHash }}" name="{{ record.amount }}"
+                <button onclick="setup_reconciliation();" id="reconcile-{{ record.txHash }}" name="{{ record.fromAddress }}-{{ record.amount }}"
                                           class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Go</button>
             </td>
-            <td>
-                <button onclick="cancel_reconciliation();" id="{{ record.amount }}-{{ record.txHash }}"
-                                          class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Cancel</button>
-            </td>
+<!--            <td>-->
+<!--                <button onclick="cancel_reconciliation();" id="{{ record.amount }}-{{ record.txHash }}"-->
+<!--                                          class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Cancel</button>-->
+<!--            </td>-->
 <!--            <td>{{ record.validbet }}</td>-->
 <!--          <td>{{ record.jackpot }}</td>-->
 <!--          <td>{{ record.jackpotcontribution }}</td>-->

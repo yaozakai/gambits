@@ -302,9 +302,15 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
             const reconcile_id = fromAddress
 
             $("#reconcile-" + reconcile_id).prop('disabled', true)
+            $("#reconcile-" + reconcile_id).html("Done")
+            $("#reconcile-" + reconcile_id).css('color', 'red')
 //            $("#reconcile_id-" + reconcile_id).html('<a href="https://etherscan.io/tx/' + response.txHash + ' target="_blank">')
-            $("#reconcile_id-" + reconcile_id).html('<a href="https://goerli.etherscan.io/tx/' + response.txHash + ' target="_blank">')
+            $("#reconcile_id-" + reconcile_id).html('<a href="https://goerli.etherscan.io/tx/' + response.txHash + ' target="_blank"><i class="bi bi-link"></i></a>')
             $("#reconcile_status-" + reconcile_id).html("Complete")
+            $("#reconcile_status-" + reconcile_id).css('color', 'red')
+
+            alert_box.classList.remove('show')
+
 
             return true
         } else if (response.alert_type == 'success:txnSuccess') {

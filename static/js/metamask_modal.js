@@ -25,9 +25,11 @@ async function setup_reconciliation() {
 //    let amount = event.target.id.split('-') [1]
 //    let address = event.target.id.split('-') [1]
     let reconcile_id = event.target.id.split('-') [1]
-    let amount = event.target.name
+    let recipient_address = event.target.name.split('-') [0]
+    let amount = event.target.name.split('-') [1]
 
-    await open_wallet_app('usdt', 'goerli', amount)
+
+    await open_wallet_app('usdt', 'goerli', amount, recipient_address)
     .then(function(txHash) {
         send_alert("Reconciling withdraw request", "Verifying...", true, '', 'yellow')
         verify_txhash('reconcile', txHash['transactionHash'], 'goerli', 'usdt', amount, reconcile_id)
