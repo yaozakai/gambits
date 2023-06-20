@@ -315,8 +315,8 @@ def launch():
         if request.data:
             gamecode = json.loads(request.data.decode("utf-8"))['id'].split('_')[0]
             link = game_launch(user.username, gamecode)
-    if link:
-        return jsonify(link=link)
+
+    return jsonify(link=link)
 
 
 # @application.route('/translate', methods=['POST'])
@@ -596,5 +596,5 @@ if __name__ == '__main__':
         application.run(host='0.0.0.0')
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
         application.debug = True
-        application.run(host='192.168.1.107')
-        # application.run(port=5000)
+        # application.run(host='192.168.1.107')
+        application.run(port=5000)

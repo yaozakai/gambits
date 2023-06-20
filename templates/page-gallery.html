@@ -481,9 +481,6 @@ $(function() {
     $(document).ready(function(){
         $("#back-to-games").hide()
 
-<!--    alert({{ category }});-->
-
-
         $('.launch').on('click', function(){
             event.preventDefault();
             $.ajax({
@@ -496,16 +493,20 @@ $(function() {
               }),
               success: function(self) {
                 $('#loadingscreenModal').modal('hide');
-                window.open(self.link.toString());
+                if (self.link.toString().length > 0){
+                    window.open(self.link.toString());
+                } else {
+                    send_alert('network:down', 'try again later')
+                }
               },
               error: function(e) {
 <!--                Just check if you look like you're online in the UI -->
-                    var top_bar_online_is_visible = document.getElementById('username-field')
-                    if (top_bar_online_is_visible) {
-                        console.log('launch error: ' + e);
-                        console.log('reloading...');
-                        location.reload();
-                    }
+<!--                    var top_bar_online_is_visible = document.getElementById('username-field')-->
+<!--                    if (top_bar_online_is_visible) {-->
+<!--                        console.log('launch error: ' + e);-->
+<!--                        console.log('reloading...');-->
+<!--                        location.reload();-->
+<!--                    }-->
 <!--                notification_popup('alert:serverReset', 'please reload')-->
               }
             });

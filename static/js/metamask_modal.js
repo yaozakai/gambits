@@ -182,8 +182,11 @@ function metamaskError(error) {
         send_alert('alert:wallet', 'alert:checkWallet')
         return
     } else {
-        send_alert(error['message'].split(':')[0], error['message'].split(':')[1], true)
-        return
+        if (error['message'].split(':')[0].includes('reverted by the EVM')){
+            send_alert(error['message'].split(':')[0], translations['txn:insufficient'][lang], true)
+        } else {
+            send_alert(error['message'].split(':')[0], error['message'].split(':')[1], true)
+        }return
     }
 }
 

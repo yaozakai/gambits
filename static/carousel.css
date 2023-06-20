@@ -151,6 +151,17 @@ body {
     padding-bottom: 50px;
 }
 
+.loading-logo {
+    display: flex;
+    height: 100px;
+    /* padding: 0 0 0 0; */
+    margin-left: auto;
+    margin-right: auto;
+    /* left: auto; */
+    align-items: center;
+    /* width: 50%; */
+}
+
 .main-logo {
     height: 23px;
     display: inherit;
@@ -437,7 +448,7 @@ h3 {
 }
 
 #loadingscreenModalWindow {
-    width: 300px;
+    width: 200px;
 }
 
 .spinner-logo {

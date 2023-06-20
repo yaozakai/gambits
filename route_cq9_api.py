@@ -53,7 +53,11 @@ def game_launch(username, gamecode):
         'gamecode': gamecode, 'lang': 'en'
     }
     x = requests.post(url + 'gameboy/player/sw/gamelink', headers=header, data=body)
-    launch_url = json.loads(x.text)['data']['url']
+
+    try:
+        launch_url = json.loads(x.text)['data']['url']
+    except:
+        launch_url = ''
     return launch_url
 
 
@@ -83,7 +87,7 @@ def cq9_balance(username):
 
         model = {
               "data": {
-                "balance": float(user.balance),
+                "balance": float(user.balance_usdt),
                 "currency": "USD"
               },
               "status": {
