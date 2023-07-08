@@ -76,7 +76,14 @@
             $("#topbar").load("/topbar");
         });
       </script>
+
       <div id="topbar"></div>
+
+        {% if 'stage' in session %}
+        <div style="position: absolute;left: 50%;color: aquamarine;font-size: xxx-large;z-index: 10;">
+            STAGE
+        </div>
+        {% endif %}
 
     <main class="main-bg min-vh-100">
 <!--        {% if report_date is defined %}-->

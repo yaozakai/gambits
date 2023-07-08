@@ -57,6 +57,9 @@ def home():
     set_flag_from_lang()
     debug_out('done')
 
+    if 'stage' in sys.argv[1:]:
+        session['stage'] = True
+
     if 'page' in session:
         if session['page'] == 'gallery':
             return render_template('page-gallery.html', icon_placement=utils.icon_placement,
@@ -601,8 +604,6 @@ if __name__ == '__main__':
         else:
             application.run(host='0.0.0.0')
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
-        # if 'stage' in sys.argv[1:]:
-        #     pass
         application.debug = True
         application.run(host='192.168.1.107')
         # application.run(port=5000)
