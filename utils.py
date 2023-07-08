@@ -140,7 +140,7 @@ def validate_password(password, lang):
     # symbol_error = re.search(r"[ !#$%&'()*+,-./[\\\]^_`{|}~"+r'"]', password) is None
 
     # overall result
-    password_ok = not ( length_error or digit_error or uppercase_error or lowercase_error)
+    # password_ok = not ( length_error or digit_error or uppercase_error or lowercase_error)
 
     return errors
 
