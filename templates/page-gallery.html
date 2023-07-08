@@ -38,7 +38,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -84,7 +84,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -130,7 +130,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -176,7 +176,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -226,7 +226,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -270,7 +270,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -314,7 +314,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -358,7 +358,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -405,7 +405,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -452,7 +452,7 @@ $(function() {
                                 </div>
 
 
-                                <button id="{{ k }}" type="submit" value="{{ k }}" class="btn-outline btn gallery-btn launch"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
@@ -481,36 +481,7 @@ $(function() {
     $(document).ready(function(){
         $("#back-to-games").hide()
 
-        $('.launch').on('click', function(){
-            event.preventDefault();
-            $.ajax({
-              url: "/launch",
-              type: "post",
-              dataType: "json",
-              contentType: "application/json; charset=UTF-8",
-              data: JSON.stringify({
-                "id":$(this).attr("id")
-              }),
-              success: function(self) {
-                $('#loadingscreenModal').modal('hide');
-                if (self.link.toString().length > 0){
-                    window.open(self.link.toString());
-                } else {
-                    send_alert('network:down', 'try again later')
-                }
-              },
-              error: function(e) {
-<!--                Just check if you look like you're online in the UI -->
-<!--                    var top_bar_online_is_visible = document.getElementById('username-field')-->
-<!--                    if (top_bar_online_is_visible) {-->
-<!--                        console.log('launch error: ' + e);-->
-<!--                        console.log('reloading...');-->
-<!--                        location.reload();-->
-<!--                    }-->
-<!--                notification_popup('alert:serverReset', 'please reload')-->
-              }
-            });
-        });
+
     });
 
 

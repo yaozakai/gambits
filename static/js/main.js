@@ -1,4 +1,29 @@
+//$('.launch').on('click', function(){
+//    event.preventDefault();
 
+
+function launch_game() {
+    $.ajax({
+      url: "/launch",
+      type: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({
+        "id":event.target.id
+      }),
+      success: function(self) {
+        $('#loadingscreenModal').modal('hide');
+        if (self.link.toString().length > 0){
+            window.open(self.link.toString());
+        } else {
+            send_alert('network:down', 'try again later')
+        }
+      },
+      error: function(e) {
+
+      }
+    });
+}
 
 function go_to_gallery() {
 

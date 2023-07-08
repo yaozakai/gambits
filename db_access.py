@@ -231,7 +231,7 @@ def db_refund():
 def db_bet():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
-    balance = user.balance
+    balance = user.balance_usdt
     # bet = float(request.form['amount'])
     bet = Number.parseFloat(request.form['amount'])
     new_balance = Number.parseFloat((balance - bet).toFixed(10))

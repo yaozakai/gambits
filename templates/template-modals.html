@@ -483,12 +483,12 @@ $('.add-to-total').on('click', function(){
                         {{ login_form.password(id_="login-password", class_="form-control") }}
                     </div>
 
-                    <span class="green-text-outline">
-                        {{ login_form.rememberme(id_="login-rememberme") }}
-                        <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>
+                    <span class="green-text-outline" style="display: inline-flex;">
+<!--                        {{ login_form.rememberme(id_="login-rememberme") }}-->
+<!--                        <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>-->
+                        <div id="login-recaptcha"></div>
                         <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
                     </span>
-                    <div id="login-recaptcha"></div>
                     {{ login_form.hidden_tag() }}
                     <span>
                         <div>
@@ -655,8 +655,8 @@ $('.add-to-total').on('click', function(){
 
                     $('#registerbtn').on('click', function(self){
 
-                        $('#reg-spinner').height($('#registerbtn').height());
-                        $('#reg-spinner').width($('#registerbtn').width());
+                        $('#reg-spinner').height($('#registerbtn').outerHeight() - 2);
+                        $('#reg-spinner').width($('#registerbtn').outerWidth() - 2);
                         $('#reg-spinner').css({
                             'display': 'inline-flex'
                         });

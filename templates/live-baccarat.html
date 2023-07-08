@@ -13,7 +13,7 @@
         <div class="video-element-title">{{ translations['live baccarat'][session['lang']] }}</div>
       </div>
 
-      <button class="btn btn-outline-success video-element-button-wide video-element-title" data-bs-toggle="modal" data-bs-target="#loginModal">
+      <button class="btn btn-outline-success video-element-button-wide video-element-title launch" data-bs-toggle="modal" data-bs-target="#loginModal">
         <div >{{ translations['playnow'][session['lang']] }}</div>
       </button>
     </div>
@@ -32,7 +32,7 @@
         <div class="video-element-title">{{ translations['live baccarat'][session['lang']] }}</div>
       </div>
 
-      <button class="btn btn-outline-success video-element-button-wide video-element-title" data-bs-toggle="modal" data-bs-target="#loginModal">
+      <button onclick="launch_game();" class="btn btn-outline-success video-element-button-wide video-element-title" data-bs-toggle="modal" data-bs-target="#loginModal">
         <div >{{ translations['playnow'][session['lang']] }}</div>
       </button>
     </div>
@@ -48,7 +48,7 @@
       <div class="video-element-description-narrow">
         <img class="video-element-logo-narrow" src="{{ root_path }}static/logos/motivation_logo.png">
         <div class="video-element-title">{{ translations['live baccarat'][session['lang']] }}</div>
-        <button class="btn btn-outline-success video-element-button-narrow video-element-title" data-bs-toggle="modal" data-bs-target="#loginModal">
+        <button onclick="launch_game();" class="btn btn-outline-success video-element-button-narrow video-element-title" data-bs-toggle="modal" data-bs-target="#loginModal">
         <div >{{ translations['playnow'][session['lang']] }}</div>
       </button>
       </div>
