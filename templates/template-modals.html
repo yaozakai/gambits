@@ -451,7 +451,7 @@ $('.add-to-total').on('click', function(){
                  $(".error").html('');
                  $("#login-email").val("");
                  $("#login-password").val("");
-                 $("#login-rememberme").prop("checked", false);
+<!--                 $("#login-rememberme").prop("checked", false);-->
                  $('#login-spinner').hide();
 
                  grecaptcha.reset(widgetId1);
@@ -498,8 +498,8 @@ $('.add-to-total').on('click', function(){
                                 </div>
                             </div>
                             {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
-                            <div class="login-with-text green-text text-sm">...{{ translations['or log in with'][session['lang']] }}:</div>
-                            <button onclick="login()" class="btn btn-outline-success btn-lg btn-transparent" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>
+<!--                            <div class="login-with-text green-text text-sm">...{{ translations['or log in with'][session['lang']] }}:</div>-->
+<!--                            <button onclick="login()" class="btn btn-outline-success btn-lg btn-transparent" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>-->
                         </div>
                         <div class='error'></div>
 

@@ -326,12 +326,12 @@ def set_flag_from_lang():
 
 
 def set_session_geo_lang(ip_address):
-    if socket.gethostname() == 'srv.gambits.vip':
-        address = ip_address
-    else:
-        address = ip_address
+    # if socket.gethostname() == 'srv.gambits.vip':
+    #     address = ip_address
+    # else:
+    #     address = ip_address
         # address = input('Enter the IP:')
-    request_url = 'https://geolocation-db.com/jsonp/' + address
+    request_url = 'https://geolocation-db.com/jsonp/' + ip_address
     response = requests.get(request_url)
     result = response.content.decode()
     result = result.split("(")[1].strip(")")
