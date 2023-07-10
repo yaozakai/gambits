@@ -60,6 +60,9 @@ def home():
     if 'stage' in sys.argv[1:]:
         session['stage'] = True
 
+    if 'ref' in request.args:
+        session['ref'] = request.args['ref']
+
     if 'page' in session:
         if session['page'] == 'gallery':
             return render_template('page-gallery.html', icon_placement=utils.icon_placement,

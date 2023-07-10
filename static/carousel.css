@@ -56,6 +56,11 @@ body {
     left: 15px;
 }
 
+.excited-title {
+    color: greenyellow!important;
+    text-shadow: 2px 4px black;
+}
+
 
 
 /* CUSTOMIZE THE CAROUSEL

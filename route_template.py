@@ -69,6 +69,10 @@ def modals():
     login_form.csrf_token.data = csrf_token
     login_form.login.label = Label("login", translations['log in'][session['lang']])
     register_form = RegisterForm()
+
+    # if 'ref' in session:
+    #     register_form.referral.default = session['ref']
+
     register_form.csrf_token.data = csrf_token
     register_form.register.label = Label("register", translations['register'][session['lang']])
     return render_template('template-modals.html', login_form=login_form, register_form=register_form,

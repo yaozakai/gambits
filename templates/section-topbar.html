@@ -42,6 +42,14 @@
 <!--                        <span class="crypto-symbol">USDT</span> {{ translations['loading'][session['lang']] }}...-->
                         {{ '%0.2f' % current_user.balance_usdt }} <span class="crypto-symbol">USDT</span>
                     </li>
+
+                    <li>
+                        <button class="btn dropdown-item excited-title" id="rewards-copy-button" data-bs-toggle="modal" data-bs-target="#rewardsModal">
+                            <i class="bi bi-gift"></i>
+                            {{ translations['get rewards'][session['lang']] }}
+                        </button>
+                    </li>
+
                     <div class="dropdown-divider"></div>
 <!--Deposit button-->
                     <li>

@@ -40,6 +40,36 @@
 
 {% if current_user.is_authenticated %}
 
+<!-- rewards popup -->
+<div class="modal fade" id="rewardsModal" tabindex="-1" role="dialog" aria-labelledby="rewardsModalWindow" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" id="rewardsModalWindow">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">{{ translations['rewards:5050'][session['lang']] }}</h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+
+                <div class="green-text mb-2" style="text-align: left;">{{ translations['rewards:description'][session['lang']] }}</div>
+
+                <div class="modal-top-row mb-2">
+                    <button id="copy-button" onclick="copyToClipboard('https://gambits.vip?ref={{ current_user.username }}');" type="button" class="btn btn-outline-success symbol-text"><i class="bi bi-clipboard"></i> {{ translations['copy'][session['lang']] }}</button>
+                    <button onclick="copyToClipboard('https://gambits.vip?ref={{ current_user.username }}');" type="button" class="btn btn-link">https://gambits.vip?ref={{ current_user.username }}</button>
+                        <textarea id="value-clipboard"  tabindex='-1' aria-hidden='true' style="z-index: -10000; position: absolute; left: -9999px;"></textarea>
+
+                </div>
+
+                <div class="green-text excited-title" style="text-align: left;">{{ translations['rewards:description bold'][session['lang']] }}</div>
+<!--                <div class="d-flex modal-divider-horz"><div class="vr"></div></div>-->
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- deposit popup -->
 <div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="depositModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="depositModalWindow">
@@ -388,7 +418,7 @@ $('.add-to-total').on('click', function(){
 {% endif %}
 
 <!-- forgot password -->
-<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -483,11 +513,12 @@ $('.add-to-total').on('click', function(){
                         {{ login_form.password(id_="login-password", class_="form-control") }}
                     </div>
 
+                    <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
+
                     <span class="green-text-outline" style="display: inline-flex;">
 <!--                        {{ login_form.rememberme(id_="login-rememberme") }}-->
 <!--                        <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>-->
                         <div id="login-recaptcha"></div>
-                        <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
                     </span>
                     {{ login_form.hidden_tag() }}
                     <span>
@@ -596,9 +627,11 @@ $('.add-to-total').on('click', function(){
                  $(".error").html('');
                  $("#reg-email").val("");
                  $("#reg-password").val("");
-                 $("#reg-referral").val("");
+<!--                 $("#reg-referral").val("");-->
                  $("#reg-username").val("");
                  $('#reg-spinner').hide();
+
+                 $('#reg-referral').val('{{ session["ref"] }}')
 
                  grecaptcha.reset(widgetId2);
               });
@@ -631,7 +664,7 @@ $('.add-to-total').on('click', function(){
                       {{ register_form.password(id_="reg-password", class_="form-control") }}
                     </div>
                     <div class="input-group mb-3">
-                      <span class="input-group-text whiteFont">{{ translations['bonus'][lang] }}</span>
+                      <span class="input-group-text whiteFont">{{ translations['referral'][lang] }}</span>
                       {{ register_form.referral(id_="reg-referral", class_="form-control") }}
                     </div>
                     <div id="reg-recaptcha"></div>
@@ -652,6 +685,7 @@ $('.add-to-total').on('click', function(){
             </div>
             <script>
                 $(document).ready(function(){
+
 
                     $('#registerbtn').on('click', function(self){
 

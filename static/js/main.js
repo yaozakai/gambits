@@ -1,6 +1,28 @@
 //$('.launch').on('click', function(){
 //    event.preventDefault();
 
+function copyToClipboard(text_to_copy) {
+
+//    var session = $('#meta-session').data()['name']
+    var translations = $('#meta-translations').data()['name']
+
+
+//    var $temp = ;
+    $("#value-clipboard").val(text_to_copy)
+//    $("body").append($temp);
+//    $("#value-clipboard").select();
+    let original_width = $("#copy-button").width()
+    $("#copy-button").html(translations['done'][lang] + '!')
+    $("#copy-button").width(original_width);
+
+
+    $("#value-clipboard").select()
+    if( document.execCommand("copy") ){
+        console.log('copied');
+      }
+//    $temp.remove();
+}
+
 
 function launch_game() {
     $.ajax({
@@ -369,3 +391,5 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
       }
     });
 }
+
+
