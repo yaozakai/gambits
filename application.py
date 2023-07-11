@@ -1,6 +1,7 @@
 import sys
 from operator import itemgetter
 from threading import Lock
+from waitress import serve
 
 from flask_login import login_required, logout_user
 
@@ -603,10 +604,14 @@ if __name__ == '__main__':
     # print('SQLALCHEMY_DATABASE_URI: ' + socket.gethostname())
     if socket.gethostname() == 'srv.gambits.vip':
         if 'stage' in sys.argv[1:]:
-            application.run(host='0.0.0.0', port=5001)
+            # application.run(host='0.0.0.0', port=5001)
+            serve(application, host="0.0.0.0", port=5001)
         else:
-            application.run(host='0.0.0.0')
+            # application.run(host='0.0.0.0')
+            serve(application, host="0.0.0.0")
     elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
         application.debug = True
-        application.run(host='192.168.1.107')
+        # application.run(host='192.168.1.107')
+        serve(application, host="192.168.1.107")
+
         # application.run(port=5000)

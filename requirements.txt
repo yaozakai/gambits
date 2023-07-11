@@ -20,3 +20,5 @@ conf~=0.4.1
 SQLAlchemy~=1.4.46
 mysql-connector-python~=8.0.32
 psycopg2-binary~=2.9.6
+
+waitress~=2.1.2
