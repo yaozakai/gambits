@@ -602,14 +602,14 @@ if __name__ == '__main__':
 
     print('Socket: ' + socket.gethostname())
     # print('SQLALCHEMY_DATABASE_URI: ' + socket.gethostname())
-    if socket.gethostname() == 'srv.gambits.vip':
+    # if socket.gethostname() == 'srv.gambits.vip':
         # if 'stage' in sys.argv[1:]:
             # application.run(host='0.0.0.0', port=5001)
             # serve(application, host="0.0.0.0", port=5001)
         # else:
             # application.run(host='0.0.0.0')
             # serve(application, host="0.0.0.0")
-    elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
+    if socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
         application.debug = True
         # application.run(host='192.168.1.107')
         # serve(application, host="192.168.1.107")
