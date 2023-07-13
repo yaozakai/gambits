@@ -18,9 +18,9 @@
         <title>Gambit's</title>
 
                   <!-- Jquery -->
-<!--        <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>-->
 <!--        <script language="JavaScript" type="text/javascript" src="{{ root_path }}static/bootstrap/jquery-3.6.0.min.js"></script>-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>-->
+        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 <!--        <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js" integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>-->
 
         <!-- Bootstrap core  -->
@@ -72,11 +72,20 @@
 
   <body style="font-family: Futura, sans-serif;"  data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true" data-bs-offset="40">
         <!-- TOP BAR -->
-      <script>
-        $(function() {
-            $("#topbar").load("/topbar");
-        });
-      </script>
+        <object type="text/html" data="static/frames/section-topbar.html"></object>
+<!--        <div w3-include-html="static/frames/section-topbar.html"></div>-->
+<!--      <script>-->
+<!--        $(function() {-->
+<!--            $("#topbar").load("/topbar");-->
+<!--        });-->
+<!--      </script>-->
+
+
+        <script>
+includeHTML();
+</script>
+
+
 
       <div id="topbar"></div>
 
