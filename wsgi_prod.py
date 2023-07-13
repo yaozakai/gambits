@@ -8,7 +8,7 @@ def max_workers():
     return cpu_count()
 
 
-bind = '0.0.0.0:' + environ.get('PORT', '5000')
+bind = '0.0.0.0:' + environ.get('PORT', '6000')
 
 max_requests = 1000
 worker_class = 'gevent'
