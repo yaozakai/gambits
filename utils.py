@@ -10,6 +10,9 @@ import chinese_converter
 from os import listdir
 from os.path import isfile, join
 
+import gevent.monkey
+gevent.monkey.patch_all()
+
 import requests
 from flask import jsonify, request, redirect, url_for, session, render_template
 from urllib.parse import urlparse, urljoin
@@ -160,7 +163,7 @@ def send_json(status='', sid='', uuid='', balance=''):
 
 
 def reload_translations():
-    print('reload_translations')
+    debug_out('reload_translations')
     reader = csv.DictReader(open('static/csv/translations.csv', mode='r', encoding='utf-8-sig'))
     global translations
     # translations = {name: [] for name in reader.fieldnames}
@@ -169,7 +172,7 @@ def reload_translations():
         # trad = {'name': chinese_converter.to_traditional(row['zh-cn']), 'lang': 'zh-tw'}
         # row['zh-tw'] = chinese_converter.to_traditional(row['zh-cn'])
         translations[row['name']] = row
-    pass
+    session['translations'] = 'fesfesf'
 
 
 def reload_game_titles():
@@ -250,6 +253,7 @@ def reload_icon_placement():
     global icon_placement
 
     icon_placement = placement
+    session['icon_placement'] = placement
 
 
 def load_crypto_prices():

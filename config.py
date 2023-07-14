@@ -8,9 +8,8 @@ from flask_socketio import SocketIO
 
 from constants import *
 
-
-
-app = Flask(__name__)
+app = Flask('GambitFlask')
+app.config.from_object('config')
 
 # app.config['SERVER_NAME'] = 'lets.getiton:5000'
 app.config['MAIL_SERVER'] = 'smtpout.secureserver.net'

@@ -46,7 +46,7 @@
                     <li>
                         <button class="btn dropdown-item excited-title" id="rewards-copy-button" data-bs-toggle="modal" data-bs-target="#rewardsModal">
                             <i class="bi bi-gift"></i>
-                            {{ translations['get rewards'][session['lang']] }}
+<!--                            {{ translations['get rewards'][session['lang']] }}-->
                         </button>
                     </li>
 
@@ -135,14 +135,10 @@
     </div>
 </nav>
 
-<!--    <script language="JavaScript" type="module" src="{{ root_path }}/js/metamask_connect.js"></script>-->
 <script language="JavaScript" type="text/javascript">
-
-
 
     $(document).ready(function(){
         $('#top-bar-dropdown-button,#username-field').on('click', function(){
-<!--            $('#topbar-dropdown-menu').toggle()-->
 
 {% if current_user.is_authenticated %}
             waitForElm('#withdraw-balance').then((withdraw_balance) => {
@@ -153,25 +149,6 @@
         });
 
 {% if current_user.is_authenticated %}
-
-<!--        $(document).ready(function(){-->
-<!--        //connect to the socket server.-->
-<!--          //   var socket = io.connect("http://" + document.domain + ":" + location.port);-->
-<!--            var socket = io.connect();-->
-<!--            var balance_field_usdt = document.getElementById("balance_usdt");-->
-<!--            var withdraw_balance = document.getElementById("withdraw-balance");-->
-
-
-
-<!--          //receive details from server-->
-<!--          socket.on("balance", function (msg) {-->
-<!--            console.log("Received sensorData :: " + msg.date + " :: " + msg.value);-->
-
-<!--            $('#balance_usdt').html('<span class="crypto-symbol">USDT</span> ' + balances['usdt'])-->
-<!--            $('#withdraw-balance').html(balances['usdt'])-->
-<!--            $('#deposit-display-amount').html(balances['usdt'] + ' USDT @ ERC20')-->
-<!--          });-->
-<!--        });-->
 
         $('#topbar-withdraw-button').on('click', function(){
             $('#withdraw-spinner').hide();
@@ -191,8 +168,6 @@
         }
 
 {% endif %}
-
-
     });
 
 

@@ -14,11 +14,14 @@ from config import app as application, socketio
 from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
 # from route_stage import stage
 from route_cq9_api import cq9_api, game_launch, player_report_today
-from route_template import template
+# from route_template import template
 from route_user import user
 from route_wallet import wallet, etherscan_parser
 from utils import reload_game_titles, reload_icon_placement, setup_home_template, set_flag_from_lang, \
     set_session_geo_lang
+
+from os.path import abspath, dirname
+app.root_path = abspath(dirname(__file__))
 
 uaform = None
 ftform = None
@@ -66,7 +69,7 @@ def home():
 
     if 'page' in session:
         if session['page'] == 'gallery':
-            return render_template('page-gallery.html', icon_placement=utils.icon_placement,
+            return render_template('layout.html', icon_placement=utils.icon_placement,
                                    game_titles=utils.game_titles,
                                    root_path='', login_form=login_form, register_form=register_form,
                                    RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
@@ -102,7 +105,7 @@ def home():
 
     else:
         session['page'] = 'gallery'
-        return render_template('page-gallery.html', icon_placement=utils.icon_placement,
+        return render_template('layout.html', icon_placement=utils.icon_placement,
                                game_titles=utils.game_titles,
                                root_path='', login_form=login_form, register_form=register_form,
                                RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
@@ -589,30 +592,49 @@ def disconnect():
     print('Client disconnected', request.sid)
 
 
-if __name__ == '__main__':
-
-    reload_icon_placement()
-    reload_translations()
-    reload_game_titles()
+def create_app():
+    with application.test_request_context():
+        reload_icon_placement()
+        reload_translations()
+        reload_game_titles()
+    # application.register_blueprint(template)
     application.register_blueprint(cq9_api)
-    application.register_blueprint(template)
     application.register_blueprint(user)
     application.register_blueprint(wallet)
-    # application.register_blueprint(stage)
 
-    print('Socket: ' + socket.gethostname())
-    # print('SQLALCHEMY_DATABASE_URI: ' + socket.gethostname())
-    if socket.gethostname() == 'srv.gambits.vip':
-        application.run(host='0.0.0.0')
-    # if 'stage' in sys.argv[1:]:
-            # application.run(host='0.0.0.0', port=5001)
-            # serve(application, host="0.0.0.0", port=5001)
-        # else:
-            # application.run(host='0.0.0.0')
-            # serve(application, host="0.0.0.0")
-    if socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
-        application.debug = True
-        application.run(host='192.168.1.107')
-        # serve(application, host="192.168.1.107")
+    return application
 
-        # application.run(port=5000)
+
+# if __name__ == '__main__':
+#
+#     reload_icon_placement()
+#     reload_translations()
+#     reload_game_titles()
+#     # application.register_blueprint(cq9_api)
+#     # application.register_blueprint(template)
+#     # application.register_blueprint(user)
+#     # application.register_blueprint(wallet)
+#     # application.register_blueprint(stage)
+#
+#     print('Socket: ' + socket.gethostname())
+#
+#     create_app = create_app()
+#     create_app.run()
+# else:
+#     gunicorn_app = create_app()
+
+
+    # if socket.gethostname() == 'srv.gambits.vip':
+    #     application.run(host='0.0.0.0')
+    # # if 'stage' in sys.argv[1:]:
+    #         # application.run(host='0.0.0.0', port=5001)
+    #         # serve(application, host="0.0.0.0", port=5001)
+    #     # else:
+    #         # application.run(host='0.0.0.0')
+    #         # serve(application, host="0.0.0.0")
+    # if socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
+    #     application.debug = True
+    #     application.run(host='192.168.1.107')
+    #     # serve(application, host="192.168.1.107")
+    #
+    #     # application.run(port=5000)

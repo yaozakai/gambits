@@ -72,18 +72,25 @@
 
   <body style="font-family: Futura, sans-serif;"  data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true" data-bs-offset="40">
         <!-- TOP BAR -->
-        <object type="text/html" data="static/frames/section-topbar.html"></object>
+<!--        <object type="text/html" data="static/frames/section-topbar.html"></object>-->
+<!--        {% if 'stage' in session %}-->
+<!--            <object type="text/html" data="static/frames/section-topbar.html"></object>-->
+<!--        {% endif %}-->
+
 <!--        <div w3-include-html="static/frames/section-topbar.html"></div>-->
 <!--      <script>-->
-<!--        $(function() {-->
-<!--            $("#topbar").load("/topbar");-->
+<!--&lt;!&ndash;      alert("works?")&ndash;&gt;-->
+<!--        $(functions() {-->
+<!--            $("#topbar").load("static/frames/section-topbar.html");-->
 <!--        });-->
 <!--      </script>-->
 
+        {% include 'section-topbar.html' %}
+<!--<div >{{ translations['log in'][session['lang']] }}</div>-->
 
-        <script>
-includeHTML();
-</script>
+<!--        <script>-->
+<!--includeHTML();-->
+<!--</script>-->
 
 
 
@@ -96,12 +103,7 @@ includeHTML();
         {% endif %}
 
     <main class="main-bg min-vh-100">
-<!--        {% if report_date is defined %}-->
-<!--            id="main-container"-->
-<!--        {% endif %}-->
-<!--        >-->
         <div>
-
             <!-- main_section -->
             <div id="main_section" >
                 {% block pendingWithdraw %}{% endblock %}
@@ -113,10 +115,14 @@ includeHTML();
             </div>
         {% if session['page'] == 'gallery' %}
             <!-- Bottom Nav bar -->
-            <div id="navigationbar"></div>
-            <script>
-                $(function() { $("#navigationbar").load("/navigationbar"); });
-            </script>
+<!--            <div id="navigationbar"></div>-->
+<!--            <script>-->
+<!--                $(function() { $("#navigationbar").load("/navigationbar"); });-->
+<!--            </script>-->
+        {% include 'page-gallery.html' %}
+        {% include 'section-navbar.html' %}
+
+
         {% else %}
             <button class="alert alert-dark btn btn-primary" id="back-to-games" onclick="go_to_gallery()">
                 <div>
@@ -127,12 +133,14 @@ includeHTML();
         {% endif %}
 
             <!-- MODALS -->
-            <script>
-                $(window).on('load', function(){
-                    $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',
-                        'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});
-                });
-            </script>
+        {% include 'template-modals.html' %}
+
+<!--            <script>-->
+<!--                $(window).on('load', function(){-->
+<!--                    $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',-->
+<!--                        'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});-->
+<!--                });-->
+<!--            </script>-->
         </div>
               <!-- FOOTER -->
     <footer class="green-text-outline container-fluid footer-bg">
@@ -158,31 +166,9 @@ includeHTML();
 
     <div id="modals"></div>
 
-        <script type='text/javascript' >
-          var current_page;
-        </script>
-
       <!-- UI Javascript -->
         <script language="JavaScript" type="module" src="{{ root_path }}static/js/navbar_sticky.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/metamask_modal.js"></script>
-
-<!--        <script language="JavaScript" type="text/javascript">-->
-
-
-<!--            document.addEventListener('DOMContentLoaded', function() {-->
-<!--                // When the user scrolls the page, execute myFunction-->
-<!--                window.addEventListener('resize', myFunction);-->
-
-<!--                myFunction();-->
-
-<!--                function myFunction() {-->
-<!--                    var top_bar = document.getElementById("main_section");-->
-
-<!--                    var main_bg = document.getElementById("main-gallery");-->
-
-<!--                }-->
-<!--            });-->
-<!--        </script>-->
 
   </body>
 
