@@ -11,7 +11,7 @@ from constants import *
 app = Flask('GambitFlask')
 app.config.from_object('config')
 
-# app.config['SERVER_NAME'] = 'lets.getiton:5000'
+# app.config['SERVER_NAME'] = '192.168.0.107:5000'
 app.config['MAIL_SERVER'] = 'smtpout.secureserver.net'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'no-reply@gambits.vip'

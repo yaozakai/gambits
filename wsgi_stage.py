@@ -12,6 +12,6 @@ bind = '127.0.0.1:' + environ.get('PORT', '5001')
 
 max_requests = 1000
 worker_class = 'gevent'
-workers = max_workers()
+workers = 1
 
 
