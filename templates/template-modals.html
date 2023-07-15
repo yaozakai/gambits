@@ -70,6 +70,15 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function(){
+      $('#rewardsModal').on('show.bs.modal', function(){
+         $("#copy-button").html('<i class="bi bi-clipboard"></i> {{ translations["copy"][session["lang"]] }}');
+
+      });
+    });
+</script>
+
 <!-- deposit popup -->
 <div class="modal fade" id="depositModal" tabindex="-1" role="dialog" aria-labelledby="depositModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="depositModalWindow">
@@ -513,13 +522,14 @@ $('.add-to-total').on('click', function(){
                         {{ login_form.password(id_="login-password", class_="form-control") }}
                     </div>
 
-                    <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
-
                     <span class="green-text-outline" style="display: inline-flex;">
 <!--                        {{ login_form.rememberme(id_="login-rememberme") }}-->
 <!--                        <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>-->
                         <div id="login-recaptcha"></div>
+                        <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
                     </span>
+
+
                     {{ login_form.hidden_tag() }}
                     <span>
                         <div>
@@ -585,6 +595,7 @@ $('.add-to-total').on('click', function(){
 
                         },
                         error: function(e) {
+                            $('#login-spinner').hide();
                             console.log('login: ' + e);
                         }
                     });
@@ -625,6 +636,7 @@ $('.add-to-total').on('click', function(){
             $(document).ready(function(){
               $('#registerModal').on('show.bs.modal', function(){
                  $(".error").html('');
+                 $(".error").hide();
                  $("#reg-email").val("");
                  $("#reg-password").val("");
 <!--                 $("#reg-referral").val("");-->
@@ -718,7 +730,8 @@ $('.add-to-total').on('click', function(){
                           success: function(self) {
 
                             if (typeof self.resend_email != 'undefined'){
-                                $('#reg-spinner').hide();
+                                $('#reg-spinner').hide()
+                                $(".error").show()
                                 if (typeof self.link_text != 'undefined'){
                                     $(".error").html(self.error.toString()+'<br><button id=\"resendEmail\" class=\"modal-error-link\" value=\"' + self.resend_email + '/">' + self.link_text.toString() + '</button>');
                                 } else {
@@ -727,7 +740,8 @@ $('.add-to-total').on('click', function(){
                             } else {
                                 if (typeof self.error != 'undefined'){
                                     $('#reg-spinner').hide();
-                                    $(".error").html('<p>'+self.error.toString()+'</p>');
+                                    $(".error").html('<p>'+self.error.toString()+'</p>')
+                                    $(".error").show()
                                 } else if (typeof self.notification != 'undefined'){
                                     $(".notification").html('<p>'+self.notification.toString()+'</p>');
                                     $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');

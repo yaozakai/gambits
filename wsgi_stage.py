@@ -1,5 +1,4 @@
 """gunicorn WSGI server configuration."""
-import sys
 from multiprocessing import cpu_count
 from os import environ
 
@@ -13,5 +12,6 @@ bind = '127.0.0.1:' + environ.get('PORT', '5001')
 max_requests = 1000
 worker_class = 'gevent'
 workers = 1
+environ['env'] = 'stage'
 
 

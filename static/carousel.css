@@ -314,7 +314,10 @@ h3 {
 
 #login-recaptcha {
     padding-bottom: 10px;
-    padding-top: 10px;
+    /* padding-top: 10px; */
+    /* bottom: 13px; */
+    /* left: 30px; */
+    position: relative;
 }
 
 #rc-anchor-container {
@@ -420,7 +423,13 @@ h3 {
 }
 
 #forgotPassword {
+    /* padding-left: 0px; */
     float: right;
+    right: 5px;
+    top: -15px;
+    height: 100%;
+    position: absolute;
+    font-size: small;
 }
 
 .game-launch-spinner {

@@ -241,9 +241,11 @@ async function send_alert(title, msg, native=false, appendix='', color='red', sy
     var translations = $('#meta-translations').data()['name']
     var lang = $('#meta-lang').data()['name']
 
-    if (alert_box.classList.contains('show')) {
-        alert_box.classList.remove('show')
-    }
+    $('alert-box').toggle()
+
+//    if (alert_box.classList.contains('show')) {
+//        alert_box.classList.remove('show')
+//    }
 
     if (color == 'red'){
         alert_box.classList.remove('alert-info') // blue

@@ -261,9 +261,9 @@ async function setup_deposit() {
 
                 let appendix = translations['txn:depositing'][lang] + ': <strong>' + txHash.events.Transfer.returnValues.value / 10 ** 6 + '<span style="font-size: smaller;"> USDT</span></strong><button onclick="checkStatus()" class="btn btn-link" style="padding-top: 0;">' + translations['alert:clickHere'][lang] + '</button>'
                 send_alert("success:waiting", "success:txnSent", false, appendix, 'green')
-                if (current_page == 'txnHistory'){
-                    go_to_txnHistory()
-                }
+//                if (current_page == 'txnHistory'){
+//                    go_to_txnHistory()
+//                }
                 verify_txhash('pre', txHash['transactionHash'], 'goerli', 'usdt', txHash.events.Transfer.returnValues.value / 10 ** 6, accounts[0])
             })
             .catch(error => {

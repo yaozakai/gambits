@@ -1,6 +1,8 @@
 import sys
 from operator import itemgetter
 from threading import Lock
+from os import environ
+
 # from waitress import serve
 
 from flask_login import login_required, logout_user
@@ -61,8 +63,7 @@ def home():
     set_flag_from_lang()
     debug_out('done')
 
-    if 'stage' in sys.argv[1:]:
-        session['stage'] = True
+    session['env'] = environ['env']
 
     if 'ref' in request.args:
         session['ref'] = request.args['ref']
@@ -605,36 +606,18 @@ def create_app():
     return application
 
 
-# if __name__ == '__main__':
-#
-#     reload_icon_placement()
-#     reload_translations()
-#     reload_game_titles()
-#     # application.register_blueprint(cq9_api)
-#     # application.register_blueprint(template)
-#     # application.register_blueprint(user)
-#     # application.register_blueprint(wallet)
-#     # application.register_blueprint(stage)
-#
-#     print('Socket: ' + socket.gethostname())
-#
-#     create_app = create_app()
-#     create_app.run()
-# else:
-#     gunicorn_app = create_app()
+if __name__ == '__main__':
 
+    with application.test_request_context():
+        reload_icon_placement()
+        reload_translations()
+        reload_game_titles()
 
-    # if socket.gethostname() == 'srv.gambits.vip':
-    #     application.run(host='0.0.0.0')
-    # # if 'stage' in sys.argv[1:]:
-    #         # application.run(host='0.0.0.0', port=5001)
-    #         # serve(application, host="0.0.0.0", port=5001)
-    #     # else:
-    #         # application.run(host='0.0.0.0')
-    #         # serve(application, host="0.0.0.0")
-    # if socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
-    #     application.debug = True
-    #     application.run(host='192.168.1.107')
-    #     # serve(application, host="192.168.1.107")
-    #
-    #     # application.run(port=5000)
+    print('Socket: ' + socket.gethostname())
+    environ['env'] = 'stage'
+
+    if socket.gethostname() == 'srv.gambits.vip':
+        application.run(host='0.0.0.0')
+    elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
+        application.debug = True
+        application.run(host='192.168.1.107')
