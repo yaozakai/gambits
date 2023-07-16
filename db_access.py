@@ -5,6 +5,7 @@ from flask import request, session
 from sqlalchemy import desc, literal, column, text
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from constants import TWO_DIGIT_CURRENCIES
 from db_classes import *
 from utils import get_timestamp, translations
 
@@ -58,13 +59,14 @@ def db_add_balance(email, amount, currency):
     db.session.commit()
 
 
-def db_get_bet(mtcode):
-    query = BetEntry().query.filter_by(mtcode=mtcode).first()
-    return query
+# def db_get_bet(mtcode):
+#     query = BetEntry().query.filter_by(mtcode=mtcode).first()
+#     return query
 
 
 def db_refund_exists():
     query = RefundEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+    # true if exists
     return query is not None
 
 
@@ -171,14 +173,14 @@ def db_search_userid(userid):
     return dataclass.query.filter_by(user_id=userid).first()
 
 
-def db_check_mtcode():
+def db_refund_find_txn():
     trans_type = request.form['mtcode'].split('-')[1]
     if trans_type == 'bet':
         entry = BetEntry().query.filter_by(mtcode=request.form['mtcode']).first()
     elif trans_type == 'rollout':
         entry = RolloutEntry().query.filter_by(mtcode=request.form['mtcode']).first()
     # true if exists
-    return entry is not None
+    return entry
 
 
 def db_check_mtcode_bet():
@@ -199,17 +201,18 @@ def db_check_roundid():
     return bet is not None
 
 
-def db_refund():
-    trans_type = request.form['mtcode'].split('-')[1]
-    if trans_type == 'bet':
-        entry = BetEntry().query.filter_by(mtcode=request.form['mtcode']).first()
-    elif trans_type == 'rollout':
-        entry = RolloutEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+def db_refund(entry):
+    # trans_type = request.form['mtcode'].split('-')[1]
+    # if trans_type == 'bet':
+    #     entry = BetEntry().query.filter_by(mtcode=request.form['mtcode']).first()
+    # elif trans_type == 'rollout':
+    #     entry = RolloutEntry().query.filter_by(mtcode=request.form['mtcode']).first()
 
     # settle the bet to balance
     user = UserEntry().query.filter_by(username=entry.username).first()
+
     # settle the bet to balance
-    user.balance = float(user.balance) + float(entry.amount)
+    user.balance_usdt += round(float(entry.amount), 2)
 
     # write to bet db
     refund = RefundEntry(
@@ -225,7 +228,9 @@ def db_refund():
     db.session.add(refund)
     db.session.commit()
 
-    return float(user.balance)
+    # bet_return = {'balance': balance, 'valid': bet < balance}
+
+    return user.balance_usdt
 
 
 def db_bet():
@@ -233,14 +238,10 @@ def db_bet():
     # settle the bet to balance
     balance = user.balance_usdt
     # bet = float(request.form['amount'])
-    bet = Number.parseFloat(request.form['amount'])
-    new_balance = Number.parseFloat((balance - bet).toFixed(10))
-    # new_balance = f'{new_balance:g}'
+    bet = float(request.form['amount'])
 
-    if user.currency == 'USD':
-        new_balance = format(new_balance, '.2f')
-
-    if new_balance > 0:
+    if bet < balance:
+        balance = balance - bet
         if 'platform' in request.form:
             platform = request.form['platform']
         else:
@@ -250,9 +251,13 @@ def db_bet():
         else:
             session = ''
 
-        user.balance = new_balance
+        if user.currency in TWO_DIGIT_CURRENCIES:
+            user.balance_usdt = format(balance, '.2f')
+        else:
+            user.balance_usdt = format(balance, '.0Df')
+
         # write to bet db
-        bet = BetEntry(
+        entry = BetEntry(
             request.form['account'],
             request.form['amount'],
             request.form['eventTime'],
@@ -263,17 +268,19 @@ def db_bet():
             request.form['roundid'],
             session
         )
-        db.session.add(bet)
+        db.session.add(entry)
         db.session.commit()
 
-    return new_balance
+    bet_return = {'balance': balance, 'valid': bet < balance}
+
+    return bet_return
 
 
 def db_takeall():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
-    balance = user.balance
-    user.balance = 0
+    balance = user.balance_usdt
+    user.balance_usdt = 0
 
     # write to bet db
     takeAll = TakeallEntry(
@@ -298,7 +305,8 @@ def db_endround():
     for result in data:
         # bet = Number.parseFloat(request.form['amount'])
         # new_balance = Number.parseFloat((balance - bet).toFixed(10))
-        user.balance = Number.parseFloat((user.balance + result['amount']).toFixed(10))
+        # user.balance = Number.parseFloat((user.balance + result['amount']).toFixed(10))
+        user.balance_usdt += round(float(result['amount']), 2)
 
     # filter out the optional parameters
     if 'freegame' in request.form:
@@ -349,16 +357,19 @@ def db_endround():
     db.session.add(endround)
     db.session.commit()
 
-    return user.balance
+    return user.balance_usdt
 
 
 # db to cq9
 def db_rollout():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
-    new_balance = Number.parseFloat(user.balance - float(request.form['amount']).toFixed(10))
+    # new_balance = Number.parseFloat(user.balance - float(request.form['amount']).toFixed(10))
+
+    new_balance = user.balance_usdt + round(float(request.form['amount']), 2)
+
     if new_balance >= 0:
-        user.balance = new_balance
+        user.balance_usdt = new_balance
         # write to bet db
         bet = RolloutEntry(
             request.form['account'],
@@ -381,9 +392,10 @@ def db_rollin():
     # update the user
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
-    user.balance = Number.parseFloat(user.balance + float(request.form['amount']).toFixed(10))
-    if user.currency == 'USD':
-        user.balance = format(user.balance, '.2f')
+    # user.balance = Number.parseFloat(user.balance + float(request.form['amount']).toFixed(10))
+    user.balance_usdt += float(request.form['amount'])
+    # if user.currency in TWO_DIGIT_CURRENCIES:
+        # user.balance = format(user.balance, '.2f')
 
     # write to EndRound db
     rollin = RollinEntry(
@@ -405,4 +417,4 @@ def db_rollin():
     db.session.add(rollin)
     db.session.commit()
 
-    return user.balance
+    return user.balance_usdt

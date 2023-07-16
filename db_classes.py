@@ -62,7 +62,7 @@ class UserEntry(UserMixin, db.Model):
     admin = db.Column(db.Numeric(1), default=0)
     logged_in = db.Column(db.Numeric(1), default=0)
     is_anonymous = False
-    currency = db.Column(db.String(10), default='USD')
+    currency = db.Column(db.String(10), default='USDT')
     lang = db.Column(db.String(10), default='en')
 
     # page = ''
@@ -167,6 +167,22 @@ class BetEntry(db.Model):
         self.platform = platform
         self.roundid = roundid
         self.session = session
+
+    # def __init__(self, mtcode=''):
+    #     if mtcode:
+    #         copy = self.query.filter_by(mtcode=mtcode).first()
+    #         self.username = copy.username
+    #         self.amount = copy.amount
+    #         self.time = copy.time
+    #         self.gamecode = copy.gamecode
+    #         self.gamehall = copy.gamehall
+    #         self.mtcode = copy.mtcode
+    #         self.platform = copy.platform
+    #         self.roundid = copy.roundid
+    #         self.session = copy.session
+
+    def mtcode_exists(self, mtcode):
+        self.query.filter_by(mtcode=mtcode).first()
 
 
 class TakeallEntry(db.Model):
