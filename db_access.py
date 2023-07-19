@@ -236,25 +236,28 @@ def db_refund(entry):
 def db_bet():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
     # settle the bet to balance
-    balance = user.balance_usdt
+    # balance = user.balance_usdt
     # bet = float(request.form['amount'])
     bet = float(request.form['amount'])
+    valid = False
 
-    if bet < balance:
-        balance = balance - bet
+    if bet < user.balance_usdt:
+        valid = True
+        user.balance_usdt -= bet
+
         if 'platform' in request.form:
             platform = request.form['platform']
         else:
             platform = ''
-        if 'session' in request.form:
-            session = request.form['session']
-        else:
-            session = ''
+        # if 'session' in request.form:
+        #     session = request.form['session']
+        # else:
+        #     session = ''
 
-        if user.currency in TWO_DIGIT_CURRENCIES:
-            user.balance_usdt = format(balance, '.2f')
-        else:
-            user.balance_usdt = format(balance, '.0Df')
+        # if user.currency in TWO_DIGIT_CURRENCIES:
+        #     user.balance_usdt = format(balance, '.2f')
+        # else:
+        #     user.balance_usdt = format(balance, '.0Df')
 
         # write to bet db
         entry = BetEntry(
@@ -266,12 +269,12 @@ def db_bet():
             request.form['mtcode'],
             platform,
             request.form['roundid'],
-            session
+            # session
         )
         db.session.add(entry)
         db.session.commit()
 
-    bet_return = {'balance': balance, 'valid': bet < balance}
+    bet_return = {'balance': user.balance_usdt, 'valid': valid}
 
     return bet_return
 
@@ -365,10 +368,11 @@ def db_rollout():
     user = UserEntry().query.filter_by(username=request.form['account']).first()
 
     # new_balance = Number.parseFloat(user.balance - float(request.form['amount']).toFixed(10))
-
-    new_balance = user.balance_usdt + round(float(request.form['amount']), 2)
+    new_balance = user.balance_usdt - round(float(request.form['amount']), 2)
+    valid = False
 
     if new_balance >= 0:
+        valid = True
         user.balance_usdt = new_balance
         # write to bet db
         bet = RolloutEntry(
@@ -384,7 +388,9 @@ def db_rollout():
         db.session.add(bet)
         db.session.commit()
 
-    return new_balance
+    bet_return = {'balance': user.balance_usdt, 'valid': valid}
+
+    return bet_return
 
 
 # cq9 to db

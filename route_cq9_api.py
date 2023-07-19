@@ -4,9 +4,10 @@ import requests
 from flask import Blueprint, jsonify
 
 import utils
+from constants import CQ9_API_KEY
 from utils import get_timezone
 from db_access import *
-from utils import get_timestamp, check_token, authKey, url
+from utils import get_timestamp, check_token, url
 
 cq9_api = Blueprint('cq9_api', __name__, template_folder='templates')
 
@@ -23,7 +24,7 @@ def player_report_today(username, date):
         start_time = start_time.isoformat()
         end_time = end_time.isoformat()
 
-    header = {'Authorization': authKey, 'Content-Type': 'application/x-www-form-urlencoded'}
+    header = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/x-www-form-urlencoded'}
     body = {
         # 'starttime': get_bod_timestamp(),
         'starttime': start_time,
@@ -47,7 +48,7 @@ def player_report_today(username, date):
 
 
 def game_launch(username, gamecode):
-    header = {'Authorization': authKey, 'Content-Type': 'application/x-www-form-urlencoded'}
+    header = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/x-www-form-urlencoded'}
     body = {
         'account': username, 'gamehall': 'cq9', 'gameplat': 'WEB',
         'gamecode': gamecode, 'lang': session['lang']
@@ -104,7 +105,7 @@ def cq9_balance(username):
     model = {
         "data": {
             "balance": float(user.balance_usdt),
-            "currency": "USD"
+            "currency": "USDT"
         },
         "status": {
             "code": error_code,
@@ -140,7 +141,7 @@ def cq9_bet():
     model = {
         "data": {
             "balance": new_balance['balance'],
-            "currency": "USD"
+            "currency": "USDT"
         },
         "status": {
             "code": error_code,
@@ -163,7 +164,7 @@ def cq9_endround():
         model = {
             "data": {
                 "balance": f'{balance:.2f}',
-                "currency": "USD"
+                "currency": "USDT"
             },
             "status": {
                 "code": error_code,
@@ -182,25 +183,58 @@ def cq9_credit():
 
 @cq9_api.route('/cq9/transaction/game/rollout', methods=['POST'])
 def cq9_rollout():
-    if check_token():
-        # if db_getuser_username(request.form['account']) is not None:
-        balance = db_rollout()
-        if balance >= 0:
-            error_code = '0'
+    error_code = '0'
+    # time_stamp = get_timestamp(False)
+    # user = db_getuser_username(username)
+    if float(request.form['amount']) < 0:
+        error_code = '1003'
+    else:
+        if check_token():
+            entry_exists = RolloutEntry().check_mtcode(request.form['mtcode'])
+            if entry_exists:
+                error_code = '9'
+            else:
+                pass
         else:
-            error_code = '1003'
-        model = {
-            "data": {
-                "balance": f'{balance:.2f}',
-                "currency": "USD"
-            },
-            "status": {
-                "code": error_code,
-                "message": "Success",
-                "datetime": get_timestamp()
-            }
+            error_code = '3'
+
+    # new_balance will be -1 if rejected
+    new_balance = db_rollout()
+    if not new_balance['valid']:
+        error_code = '1005'
+
+    model = {
+        "data": {
+            "balance": new_balance['balance'],
+            "currency": "USDT"
+        },
+        "status": {
+            "code": error_code,
+            "message": "Success",
+            "datetime": get_timestamp()
         }
-        return jsonify(model)
+    }
+    return jsonify(model)
+# def cq9_rollout():
+#     if check_token():
+#         # if db_getuser_username(request.form['account']) is not None:
+#         balance = db_rollout()
+#         if balance >= 0:
+#             error_code = '0'
+#         else:
+#             error_code = '1003'
+#         model = {
+#             "data": {
+#                 "balance": f'{balance:.2f}',
+#                 "currency": "USDT"
+#             },
+#             "status": {
+#                 "code": error_code,
+#                 "message": "Success",
+#                 "datetime": get_timestamp()
+#             }
+#         }
+#         return jsonify(model)
 
 
 @cq9_api.route('/cq9/transaction/game/rollin', methods=['POST'])
@@ -221,7 +255,7 @@ def cq9_rollin():
         model = {
             "data": {
                 "balance": balance,
-                "currency": "USD"
+                "currency": "USDT"
             },
             "status": {
                 "code": error_code,
@@ -242,7 +276,7 @@ def cq9_takeall():
                 "data": {
                     "amount": f'{balance:.2f}',
                     "balance": 0,
-                    "currency": "USD"
+                    "currency": "USDT"
                 },
                 "status": {
                     "code": '0',
@@ -262,18 +296,19 @@ def cq9_refund():
 
         if db_refund_exists():
             error_code = '9'
-        elif txn is None:
-            # missing the bet/rollout that matches this refund request
-            error_code = '1014'
         else:
-            balance = db_refund(txn)
+            if txn is None:
+                # missing the bet/rollout that matches this refund request
+                error_code = '1014'
+            else:
+                balance = db_refund(txn)
     else:
         error_code = '3'
 
     model = {
         "data": {
-            "balance": f'{balance:.2f}',
-            "currency": "USD"
+            "balance": balance,
+            "currency": "USDT"
         },
         "status": {
             "code": error_code,

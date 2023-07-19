@@ -95,7 +95,7 @@
         {% endif %}
 
     <main class="main-bg min-vh-100">
-        <div>
+<!--        <div id="complete_main">-->
             <!-- main_section -->
             <div id="main_section" >
                 {% block pendingWithdraw %}{% endblock %}
@@ -103,6 +103,11 @@
                 {% block gamehistory %}{% endblock %}
                 {% block txnHistory %}{% endblock %}
                 {% block gallery %}{% endblock %}
+
+<!--            <div id="fdsfjaew">-->
+                {% include 'section-navbar.html' %}
+<!--            </div>-->
+
 
             </div>
         {% if session['page'] == 'gallery' %}
@@ -112,8 +117,6 @@
 <!--                $(function() { $("#navigationbar").load("/navigationbar"); });-->
 <!--            </script>-->
         {% include 'page-gallery.html' %}
-        {% include 'section-navbar.html' %}
-
 
         {% else %}
             <button class="alert alert-dark btn btn-primary" id="back-to-games" onclick="go_to_gallery()">
@@ -133,7 +136,7 @@
 <!--                        'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});-->
 <!--                });-->
 <!--            </script>-->
-        </div>
+<!--        </div>-->
               <!-- FOOTER -->
     <footer class="green-text-outline container-fluid footer-bg">
 <!--            id="main-footer">-->

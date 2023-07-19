@@ -21,6 +21,13 @@
     font-size: .8rem;
 }
 
+.nav-link.active  {
+    background-color: #342a34;
+    color: #333;
+    color: #ffe204;
+    text-shadow: 2px 3px 7px black;
+}
+
 .nav-link-selector a.active-link {
   color: #28a745;
 }
@@ -63,6 +70,7 @@
 #navigation-bar {
     padding: 0px 0% 0px 0%;
     /* width: 100%; */
+    /* height: -309px; */
 }
 
 .dropdown-toggle::after {
@@ -100,7 +108,8 @@
 }
 
 .navbar-icon {
-    height: 11vw;
+    height: 8vw;
+    padding: 6px;
     margin: 0 auto 0 auto;
     max-height: 72px;
 }
@@ -118,10 +127,24 @@
     /* max-width: 1120px; */
     left: 50%;
     transform: translate(-50%, 0);
+    background: #252027;
 }
 
 .nav-link-container {
     display: grid;
+}
+
+
+@media (max-width: 340px) {
+
+    .nav-link {/* font-size: 0.7rem; */padding: 10px 0vw 0px 0vw;width: 13vw;}
+
+}
+
+@media (max-width: 300px) {
+
+    .nav-link { font-size: 0.6rem; }
+
 }
 
 @media (max-width: 347px) {
@@ -156,35 +179,69 @@
 
 @media (min-width: 640px) {
     #slots-dropdown {
-    bottom: 114px;
+    top: 9px;
+    left: 198px;
+    /* width: 7px!important; */
+    display: block;
     }
 }
 
-@media (max-width: 768px) {
-    .navbar-fixed {
-        height: 17vw;
-
-    }
-
-    .navbar-icon {
-        height: 9vw;
-        margin: 0 auto 0 auto;
+@media (min-width: 768px) {
+    .nav-link {
+        font-size: 1.2rem;
+        background-color: #252028;
+        height: 77px;
     }
 
 }
 
-@media (min-width: 769px) {
-    .navbar-fixed {
-        height: 113px;
+@media (max-width: 900px) {
 
-    }
 
-    .navbar-icon {
+}
 
-    }
+
+@media (min-width: 900px) {
+    .navbar-icon {/* float: right; */right: 575px;position: absolute;height: 55px;}
 
     .nav-link-title {
         font-size: 1rem;
+        /* float: right; */
+        right: 650px;
+        /* top: 100px; */
+        margin-top: 15px;
+        position: absolute;
     }
 
+    .navbar-fixed {
+        top: 55px;
+        /*        left: 75px;
+        width: 148px;
+        */
+        height: 97px;
+        position: fixed;
+        left: 50%;
+        width: 750px;
+        background: none;
+    }
+
+    .nav-link {
+        display: flex;
+        margin-right: 116px;
+        width: 192px;
+    }
+
+   .nav-bar-selector {
+        font-size: 0.9rem;
+    }
+
+    .bg-dark {
+        background: none;
+    }
+}
+
+@media (min-width: 1180px) {
+   .nav-bar-selector {
+        font-size: 0.9rem;
+    }
 }

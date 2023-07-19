@@ -154,10 +154,10 @@ class BetEntry(db.Model):
     mtcode = db.Column(db.String(70), primary_key=True)
     platform = db.Column(db.String(20))
     roundid = db.Column(db.String(60))
-    session = db.Column(db.String(60))
+    # session = db.Column(db.String(60))
 
     def __init__(self, username='', amount=0, time='', gamecode='', gamehall='', mtcode='', platform='',
-                 roundid='', session='', ):
+                 roundid='', ):
         self.username = username
         self.amount = amount
         self.time = time
@@ -166,7 +166,7 @@ class BetEntry(db.Model):
         self.mtcode = mtcode
         self.platform = platform
         self.roundid = roundid
-        self.session = session
+        # self.session = session
 
     # def __init__(self, mtcode=''):
     #     if mtcode:
@@ -281,6 +281,12 @@ class RolloutEntry(db.Model):
         self.mtcode = mtcode
         self.roundid = roundid
         self.session = session
+
+    def check_mtcode(self, mtcode):
+        entry = self.query.filter_by(mtcode=mtcode).first()
+        return entry is not None
+
+
 
 
 class RollinEntry(db.Model):

@@ -19,7 +19,7 @@ from urllib.parse import urlparse, urljoin
 
 from flask_wtf import csrf
 
-from constants import RECAPTCHA_PUBLIC_KEY
+from constants import RECAPTCHA_PUBLIC_KEY, CQ9_API_KEY
 from db_classes import UserEntry, db
 from email_confirmation import confirm_token
 from forms import LoginForm, RegisterForm
@@ -30,7 +30,6 @@ translations = {}
 
 url = 'https://api.cqgame.games/'
 root_path = 'static'
-authKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI2M2VjZTczODM1ZTYyMzhjYzI2MTdlOTEiLCJhY2NvdW50IjoiZ2FtYml0c19zdyIsIm93bmVyIjoiNjNlY2U3MzgzNWU2MjM4Y2MyNjE3ZTkxIiwicGFyZW50Ijoic2VsZiIsImN1cnJlbmN5IjoiVVNEIiwianRpIjoiODIxMTIzMzE5IiwiaWF0IjoxNjc2NDcwMDcyLCJpc3MiOiJDeXByZXNzIiwic3ViIjoiU1NUb2tlbiJ9.mj1H6gOiA402u8DJhC9Go1CdFFSXab3OhDVagqhmWHE'
 
 
 def debug_out(output):
@@ -40,7 +39,7 @@ def debug_out(output):
 
 
 def check_token():
-    return request.headers.get('Wtoken') == authKey
+    return request.headers.get('Wtoken') == CQ9_API_KEY
 
 
 def get_timezone():
@@ -179,7 +178,7 @@ def reload_game_titles():
     titles = {}
     print('reload_game_titles')
 
-    myobj = {'Authorization': authKey, 'Content-Type': 'application/json; charset=UTF-8'}
+    myobj = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/json; charset=UTF-8'}
     x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
     global game_titles
     game_titles = x.json()['data']

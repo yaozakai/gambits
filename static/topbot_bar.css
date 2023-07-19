@@ -1,6 +1,6 @@
 .top-bar-right-side {
-    float: right;
-    position: relative;
+    right: 0px;
+    position: absolute;
     display : flex;
     align-items : center;
     top: 0px;
@@ -8,8 +8,10 @@
 }
 
 .top-bar-desktop {
-    width: 100%;
-    display: contents;
+    width: 900px;
+    position: relative;
+    display: inherit;
+    margin: 0 auto;
 }
 
 .top-bar-mobile {

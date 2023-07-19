@@ -114,7 +114,7 @@
     right: 0;
     height: 100%;
     width: 101%;
-    background-image: linear-gradient(to bottom, #342a3424, #342a34FA 65%, #342a34FF 100%);
+    background-image: linear-gradient(to bottom, #342a3424, #342a34FA 90%, #342a34FF 100%);
     display: flex;
     top: 0px;
     /* max-width: 1115px; */
