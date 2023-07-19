@@ -63,6 +63,19 @@
     </head>
 
   <body style="font-family: Futura, sans-serif;"  data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true" data-bs-offset="40">
+    <script>
+<!--        $(document).ready(function(){-->
+
+<!--            const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]')-->
+<!--            var nav_slots = document.getElementById('nav-slots');-->
+
+<!--            firstScrollSpyEl.addEventListener('activate.bs.scrollspy', () => {-->
+<!--                nav_slots.classList.add('active')-->
+<!--                alert('hi')-->
+<!--            })-->
+<!--        });-->
+
+    </script>
         <!-- TOP BAR -->
 <!--        <object type="text/html" data="static/frames/section-topbar.html"></object>-->
 <!--        {% if 'stage' in session %}-->
@@ -97,19 +110,14 @@
     <main class="main-bg min-vh-100">
 <!--        <div id="complete_main">-->
             <!-- main_section -->
-            <div id="main_section" >
+            <div id="main_section">
                 {% block pendingWithdraw %}{% endblock %}
                 {% block search %}{% endblock %}
                 {% block gamehistory %}{% endblock %}
                 {% block txnHistory %}{% endblock %}
                 {% block gallery %}{% endblock %}
-
-<!--            <div id="fdsfjaew">-->
-                {% include 'section-navbar.html' %}
-<!--            </div>-->
-
-
             </div>
+        {% include 'section-navbar.html' %}
         {% if session['page'] == 'gallery' %}
             <!-- Bottom Nav bar -->
 <!--            <div id="navigationbar"></div>-->

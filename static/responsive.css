@@ -114,8 +114,8 @@
 
 
 @media (max-width: 460px) {
-    #main-icon {height: 17px;}
-    .main-logo {/* display: none; *//* width: 28vw; */height: 4vw;}
+    #main-icon {/* height: 17px; */}
+    .main-logo {/* display: none; *//* width: 28vw; *//* height: 4vw; */}
 }
 
 @media (max-width: 381px) {
@@ -156,4 +156,22 @@
         padding-left: 200px;
     }
 
+}
+
+@media (min-width: 1035px) {
+    .main-bg {
+        padding-left: 235px;
+    }
+
+    .navbar-icon {
+        right: 782px;
+    }
+
+    .nav-link-title {
+        right: 873px;
+    }
+
+    .navbar-fixed {
+        width: 975px;
+    }
 }

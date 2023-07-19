@@ -15,7 +15,7 @@
 }
 
 .gallery-header-icon {
-    height: 8vw;
+    height: 30px;
     margin-right: 10px;
     max-height: 64px;
 }
@@ -35,12 +35,12 @@
 }
 
 .gallery-header {
-    display: inline-flex;
+    /* display: inline-flex; */
     justify-content: center;
     margin-top: 15px;
     width: 100%;
     padding-top: 186px;
-    margin-top: -150px;
+    margin-top: -160px;
 }
 
 .gallery-slots-header {
@@ -95,6 +95,7 @@
     /* width: 100%; */
     /* height: 160px; */
     margin-bottom: 20px;
+    margin-top: 15px;
     background: #736988;
     font-size: 1.5rem;
     border: none;
@@ -153,6 +154,7 @@
     }
 
     .card-pvp {
+        margin-top: 20px;
         max-width: 218px;
         max-height: 250px;
         margin: 0 10px 0 10px;
@@ -198,6 +200,7 @@
     .gallery-container {
         width: 100%;
         justify-content: center;
+        background-color: none;
     }
 
 }

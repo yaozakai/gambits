@@ -149,6 +149,8 @@
 }
 
 .video-container-parent {
+    margin-top: -50px;
+    padding-top: 49px;
     height: 100%;
     display: flex;
     flex-direction: column;
