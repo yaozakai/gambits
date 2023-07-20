@@ -119,7 +119,7 @@
 }
 
 @media (max-width: 381px) {
-    .main-logo {/* display: none; */height: 4vw;}
+    .main-logo {/* display: none; *//* height: 4vw; */}
 }
 
 

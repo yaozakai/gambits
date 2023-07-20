@@ -39,7 +39,7 @@
 
 .navbar-dark .navbar-brand {
   color: #28a745;
-  /* padding-top: 10px; */
+  padding-bottom: 0;
   vertical-align: middle;
   margin-right: 0px;
 }
