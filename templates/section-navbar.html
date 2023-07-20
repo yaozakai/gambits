@@ -1,5 +1,5 @@
         <div>
-    <nav id="navigation-bar">
+    <nav id="navigation-bar" class="is-fixed">
             <nav class=" navbar-expand-md nav-bar-selector navbar-fixed" >
                 <a class="nav-link active" id="nav-baccarat" href="#header-baccarat">
         <!--            <div>-->
@@ -73,7 +73,7 @@
         // select the target node
 
         <!--const observerOptions = { attributes: true, childList: true, subtree: true };-->
-        var dropdown_popup = document.getElementById('slots-dropdown');
+        var slots_dropdown_popup = document.getElementById('slots-dropdown');
         var nav_slots = document.getElementById('nav-slots');
         var nav_slots_treasure = document.getElementById('nav-slots-treasure');
         var nav_slots_jump = document.getElementById('nav-slots-jump');
@@ -87,11 +87,15 @@
 <!--          bootstrap.ScrollSpy.getInstance(dataSpyEl).refresh()-->
 <!--        })-->
 
-        dropdown_popup.style.display = "none";
+        slots_dropdown_popup.style.display = "none";
 
         $(document).ready(function(){
+
             $('#nav-slots').on('click', function(){
-                dropdown_popup.style.display = "block";
+                const width = window.innerWidth
+                if (width < 900) {
+                    slots_dropdown_popup.style.display = "block";
+                }
                 var header = document.getElementById('header-slots').scrollIntoView();
             });
 
@@ -100,7 +104,7 @@
                 $('.slots-subicon').each(function () {
                     if ($(this).is('.active')) {
                         nav_slots.classList.add('active')
-                        dropdown_popup.style.display = "block";
+                        slots_dropdown_popup.style.display = "block";
                     }
                 });
             });
@@ -114,26 +118,26 @@
 
             if (nav_slots_treasure.classList.contains('active')) {
                 nav_slots.classList.add('active');
-                dropdown_popup.style.display = "block";
+                slots_dropdown_popup.style.display = "block";
             } else if (nav_slots_jump.classList.contains('active')) {
                 nav_slots.classList.add('active');
-                dropdown_popup.style.display = "block";
+                slots_dropdown_popup.style.display = "block";
             } else if (nav_slots_fantasy.classList.contains('active')) {
                 nav_slots.classList.add('active');
-                dropdown_popup.style.display = "block";
+                slots_dropdown_popup.style.display = "block";
             } else if (nav_slots_cute.classList.contains('active')) {
                 nav_slots.classList.add('active');
-                dropdown_popup.style.display = "block";
+                slots_dropdown_popup.style.display = "block";
             } else if (nav_slots_animals.classList.contains('active')) {
                 nav_slots.classList.add('active');
-                dropdown_popup.style.display = "block";
+                slots_dropdown_popup.style.display = "block";
             } else if (nav_slots_action.classList.contains('active')) {
                 nav_slots.classList.add('active');
-                dropdown_popup.style.display = "block";
+                slots_dropdown_popup.style.display = "block";
             } else {
                 nav_slots.classList.remove('active');
 
-                dropdown_popup.style.display = "none";
+                slots_dropdown_popup.style.display = "none";
             }
         }
 <!--        let observer = new MutationObserver(callback);-->

@@ -62,55 +62,12 @@
 
     </head>
 
-  <body style="font-family: Futura, sans-serif;"  data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true" data-bs-offset="40">
-    <script>
-<!--        $(document).ready(function(){-->
+  <body style="font-family: Futura, sans-serif;"  data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true" data-bs-root-margin="0px 0px">
 
-<!--            const firstScrollSpyEl = document.querySelector('[data-bs-spy="scroll"]')-->
-<!--            var nav_slots = document.getElementById('nav-slots');-->
-
-<!--            firstScrollSpyEl.addEventListener('activate.bs.scrollspy', () => {-->
-<!--                nav_slots.classList.add('active')-->
-<!--                alert('hi')-->
-<!--            })-->
-<!--        });-->
-
-    </script>
-        <!-- TOP BAR -->
-<!--        <object type="text/html" data="static/frames/section-topbar.html"></object>-->
-<!--        {% if 'stage' in session %}-->
-<!--            <object type="text/html" data="static/frames/section-topbar.html"></object>-->
-<!--        {% endif %}-->
-
-<!--        <div w3-include-html="static/frames/section-topbar.html"></div>-->
-<!--      <script>-->
-<!--&lt;!&ndash;      alert("works?")&ndash;&gt;-->
-<!--        $(functions() {-->
-<!--            $("#topbar").load("static/frames/section-topbar.html");-->
-<!--        });-->
-<!--      </script>-->
-
-        {% include 'section-topbar.html' %}
-<!--<div >{{ translations['log in'][session['lang']] }}</div>-->
-
-<!--        <script>-->
-<!--includeHTML();-->
-<!--</script>-->
+    {% include 'section-topbar.html' %}
 
 
 
-      <div id="signup-bonus-container">
-          <div id="signup-bonus-bubble"></div>
-          <div id="signup-bonus-content">
-              <div>
-                <img src="static/icons/signup-bonus.png" id="signup-gift-icon"></img>
-              </div>
-<!--            <img class="bi bi-gift" style="height: 30px;padding-right: 10px;"></img>-->
-              <div style="padding: 5px;">
-                <div class="excited-title"> 50 USDT </div> sign up bonus!
-              </div>
-          </div>
-      </div>
 
         {% if session['env'] == 'stage' %}
         <div style="position: absolute;left: 50%;color: aquamarine;font-size: xxx-large;z-index: 10;">

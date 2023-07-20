@@ -1,3 +1,9 @@
+.modal-open {
+  overflow:hidden;
+  overflow-y: scroll!important;
+  padding-right: 0px!important;
+}
+
 .crypto-icon {
     height: 100%;
 }

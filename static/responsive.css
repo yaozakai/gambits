@@ -60,9 +60,14 @@
 
 .complete_main {
         padding-left: 0px;
-    }
+}
 
-
+#top_bar {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    padding-right: 0px!important;
+}
 
 @media (max-width: 767px) {
 
@@ -104,7 +109,7 @@
     .main-bg {/* margin-top: 55px; */}
     .carousel {height: 220px;}
 
-    #top_bar {/* height: 90px; */}
+
     #top_bar_not_logged {/* height: 55px; */}
     .main-logo {/* height: 12px; *//* width: 25%; *//* position: relative; *//* top: 0px; */}
 

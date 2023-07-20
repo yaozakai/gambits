@@ -2,6 +2,21 @@
 <!--<script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.2/socket.io.js"></script>-->
 
 
+{% if not current_user.is_authenticated %}
+  <div id="signup-bonus-container">
+      <div id="signup-bonus-bubble"></div>
+      <div id="signup-bonus-content">
+          <div>
+            <img src="static/icons/signup-bonus.png" id="signup-gift-icon"></img>
+          </div>
+<!--            <img class="bi bi-gift" style="height: 30px;padding-right: 10px;"></img>-->
+          <div id="signup-bonus-text">
+            <div class="excited-title"> 50 USDT </div> sign up bonus!
+          </div>
+      </div>
+  </div>
+{% endif %}
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
     <div class="top-bar-desktop">
         <!-- start LOGO -->
@@ -32,7 +47,7 @@
                     <span class="caret"></span>
                 </button>
 
-                <ul class="dropdown-menu multi-level green-text" id="topbar-dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-right multi-level green-text" id="topbar-dropdown-menu">
 <!--Balances-->
 <!--                    <li class="" id="balance_eth" style="margin-left: 7px;">-->
 <!--                        <span class="crypto-symbol">ETH</span> {{ current_user.balance_eth }}-->
@@ -78,7 +93,7 @@
             {% if not current_user.is_authenticated %}
                         <div class="dropdown">
                             <button class="btn btn-outline-success" type="button" id="dropdown-language" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
+                                <span class="flag-icon flag-icon-{{ session['flag'] }}"></span>
                             </button>
                             <ul class="dropdown-menu green-text" aria-labelledby="dropdown-language" id="language-select" >
             {% endif %}

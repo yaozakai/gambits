@@ -14,6 +14,10 @@
   text-decoration: none;
 }
 
+.nav-link:focus, .nav-link:hover {
+    color: #b276be;
+}
+
 .nav-bar-selector {
     text-align: center;
     width: 100%;
@@ -44,7 +48,7 @@
   margin-right: 0px;
 }
 
-.navbar-dark:hover .navbar-brand:hover {
+.navbar-dark:hover {
     color: #c8ed07;
     background-color: #524252;
 }
@@ -276,12 +280,19 @@
         top: 392px;
         border: none;
         background: none;
+        inset: auto!important;
+        transform: translate3d(13px, 0px, 0px)!important;
     }
 
     .slots-subicon {
         width: 175px;
         /* right: 0px; */
         /* position: relative; */
+    }
+
+    #nav-slots {
+      margin-top: 3px;
+      
     }
 }
 

@@ -54,7 +54,7 @@ def login():
                         session['logged_in'] = True
 
                         session['lang'] = user_db.get_lang()
-                        debug_out('login: flask login')
+                        # debug_out('login: flask login')
                         login_user(user_db, remember=login_form.rememberme.data)
                         output = user_db.serialize()
                         session['admin'] = user_db.is_admin()

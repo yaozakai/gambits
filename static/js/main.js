@@ -220,17 +220,13 @@ function generate_table_txnHistory(results) {
     document.getElementById("results").innerHTML = htmloutput;
 }
 
-function notification_popup(title, msg){
+function reload_popup(title, msg){
     var translations = $('#meta-translations').data()['name']
     var lang = $('#meta-lang').data()['name']
 
     $('#modalNotificationTitle').html(translations[title][lang]);
     $('#modalNotificationMsg').html(translations[msg][lang]);
-    $('#notificationModal').modal('show');
-}
-
-function notification_popup_hide() {
-    $('#notificationModal').modal('hide');
+    $('#notificationModal').modal({backdrop: 'static', keyboard: false}, 'show');
 }
 
 async function send_alert(title, msg, native=false, appendix='', color='red', symbol='') {
@@ -311,8 +307,14 @@ function get_balance(){
 
         },
         error: function(e) {
-            send_alert('reload website', '')
-            console.log('getBalance error: ' + e);
+//            send_alert('reload website', '')
+            reload_popup('reload:title', 'reload:msg')
+            $('#notificationModal').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+
+//            console.log('getBalance error: ' + e);
         }
     });
 }
