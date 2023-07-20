@@ -60,7 +60,7 @@ change wallet,Change wallet,Change wallet,Change wallet,,,,,,,
 txnHistory,Txn History,Txn History,Transactions,,,,,,,
 gamehistory,歷史,歷史,Game History,,,,,,,
 profile,輪廓,轮廓,Profile,,,,,,,
-register,註冊,注册,Register,등록하다,ลงทะเบียน,Đăng ký,Registro,Daftar,Registro,登録
+register,註冊,注册,Sign up,등록하다,ลงทะเบียน,Đăng ký,Registro,Daftar,Registro,登録
 top-games,最紅的遊戲,最紅的遊戲,Top Games,,,,,,,
 slots,老虎機,老虎机,Slots,,,,Tragamonedas,,,スロット
 baccarat,百家樂,百家乐,Baccarat,,,,Bacará,,,バカラ
@@ -121,3 +121,4 @@ rewards:description bold,,,50% of all profits from your referrals will be given 
 copy,,,Copy,,,,,,,
 referral,,,Referral,,,,,,,
 done,,,Done,,,,,,,
+bonus:signup,,,sign up bonus!,,,,,,,

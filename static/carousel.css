@@ -26,9 +26,7 @@ body {
 }
 
 .btn-check:hover+.btn-outline-success, .btn-outline-success:hover {
-    /* box-shadow: 0 0 0 0.25rem rgb(26 135 84); */
-    box-shadow: 0px 0px 7px 3px rgb(173 255 46); */;
-    color: white!important;
+    box-shadow: 0px 0px 7px 3px rgb(173 255 46);
 }
 /*
 .btn-transparent {
@@ -58,7 +56,7 @@ body {
 
 .excited-title {
     color: greenyellow!important;
-    text-shadow: 2px 4px black;
+    text-shadow: 1px 2px black;
 }
 
 
@@ -519,4 +517,48 @@ h3 {
 #main-icon {
     height: 25px;
     padding-left: 2px;
+}
+
+#signup-bonus-container {
+    max-width: 486px;
+    width: 50%;
+    padding-right: 10px;
+    /* margin: auto; */
+    z-index: 1100;
+    position: fixed;
+    left: 50%;
+    top: 47px;
+    /* width: 825px; */
+    /* position: relative; */
+    /* display: inherit; */
+    /* margin: 0 auto; */
+}
+
+#signup-bonus-bubble {
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    background-color: #c49427;
+    height: 30px;
+    width: 20px;
+    float: right;
+}
+
+#signup-bonus-content {
+    /* width: 200px; */
+    /* height: 75px; */
+    /* float: right; */
+    border: none;
+    right: 0;
+    position: absolute;
+    background-color: #c49427;
+    border-radius: 7px;
+    top: 15px;
+    display: flex;
+}
+
+#signup-gift-icon {
+    height: 70px;
+    padding-right: 21px;
+    /* margin-bottom: -10px; */
+    margin: -20px;
+    margin-bottom: -45px;
 }

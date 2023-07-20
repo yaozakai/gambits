@@ -99,7 +99,18 @@
 
 
 
-      <div id="topbar"></div>
+      <div id="signup-bonus-container">
+          <div id="signup-bonus-bubble"></div>
+          <div id="signup-bonus-content">
+              <div>
+                <img src="static/icons/signup-bonus.png" id="signup-gift-icon"></img>
+              </div>
+<!--            <img class="bi bi-gift" style="height: 30px;padding-right: 10px;"></img>-->
+              <div style="padding: 5px;">
+                <div class="excited-title"> 50 USDT </div> sign up bonus!
+              </div>
+          </div>
+      </div>
 
         {% if session['env'] == 'stage' %}
         <div style="position: absolute;left: 50%;color: aquamarine;font-size: xxx-large;z-index: 10;">

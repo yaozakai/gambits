@@ -71,13 +71,13 @@
                     <li><a class="btn dropdown-item" onclick="go_to_gameHistory()">{{ translations['gamehistory'][session['lang']] }}</a></li>
 <!--Language button-->
                     <li class="dropdown-submenu dropdown-item">
-                        <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"> </span>{{ translations['language'][session['lang']] }}
+                        <span class="flag-icon flag-icon-{{ session['flag'] }}"> </span>{{ translations['language'][session['lang']] }}
                         <ul class="dropdown-menu">
             {% endif %}
 
             {% if not current_user.is_authenticated %}
                         <div class="dropdown">
-                            <button class="btn btn-outline-success dropdown-toggle" type="button" id="dropdown-language" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-outline-success" type="button" id="dropdown-language" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="flag-icon flag-icon-{{ session['flag'] }} me-1"></span>
                             </button>
                             <ul class="dropdown-menu green-text" aria-labelledby="dropdown-language" id="language-select" >
@@ -123,11 +123,11 @@
 <!--                <button class="btn btn-outline-success" id="connect-button">-->
 <!--                  <div >wallet</div>-->
 <!--                </button>-->
-                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal" style="margin-right: 5px;">
                   <div >{{ translations['log in'][session['lang']] }}</div>
                 </button>
-                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#registerModal">
-                  <div >{{ translations['register'][session['lang']] }}</div>
+                <button class="btn btn-outline-success glow" data-bs-toggle="modal" data-bs-target="#registerModal">
+                  <div class="excited-title" >{{ translations['register'][session['lang']] }}</div>
                 </button>
             {% endif %}
         </div>
