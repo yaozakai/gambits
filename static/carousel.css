@@ -1,8 +1,7 @@
-
-/* overrides
--------------------------------------------------- */
-
-
+#page-adjust {
+    left: -140px;
+    position: relative;
+}
 
 /* Padding below the footer and lighter body text */
 
@@ -180,6 +179,7 @@ body {
 .main-bg {
     background: #332a34;
     /* margin-top: 57px; */
+    width: 100%;
 }
 
 .green-text-outline {
@@ -481,7 +481,8 @@ h3 {
 }
 
 #language-select {
-    /* height: 35px; */
+    width: fit-content;
+    z-index: 1035;
     /* top: 3px; */
     /* position: relative; */
     background-color: #4f4151;

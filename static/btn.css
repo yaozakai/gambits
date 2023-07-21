@@ -156,7 +156,7 @@
     border-radius: 10px;
 }
 
-.glow {
+.rainglow {
     /* width: 220px; */
     /* height: 50px; */
     border: none;
@@ -169,7 +169,7 @@
     /* border-radius: 29px; */
 }
 
-.glow:before {
+.rainglow:before {
     content: '';
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     position: absolute;
@@ -186,19 +186,19 @@
     /* border-radius: 10px; */
 }
 
-.glow:active {
+.rainglow:active {
     color: #000
 }
 
-.glow:active:after {
+.rainglow:active:after {
     background: transparent;
 }
 
-.glow:hover:before {
+.rainglow:hover:before {
     opacity: 1;
 }
 
-.glow:after {
+.rainglow:after {
     z-index: -1;
     content: '';
     position: absolute;

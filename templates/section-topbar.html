@@ -2,20 +2,7 @@
 <!--<script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.2/socket.io.js"></script>-->
 
 
-{% if not current_user.is_authenticated %}
-  <div id="signup-bonus-container">
-      <div id="signup-bonus-bubble"></div>
-      <div id="signup-bonus-content">
-          <div>
-            <img src="static/icons/signup-bonus.png" id="signup-gift-icon"></img>
-          </div>
-<!--            <img class="bi bi-gift" style="height: 30px;padding-right: 10px;"></img>-->
-          <div id="signup-bonus-text">
-            <div class="excited-title"> 50 USDT </div> sign up bonus!
-          </div>
-      </div>
-  </div>
-{% endif %}
+
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" id="top_bar">
     <div class="top-bar-desktop">
@@ -32,6 +19,7 @@
         <!-- start RIGHT SIDE BAR -->
         <div class="top-bar-right-side">
             {% if current_user.is_authenticated %}
+
             <!-- start GREETING -->
             <div class="green-text" style="margin-right: 8px;">
               ♥️🙏 {{ translations['hi'][session['lang']] }}
@@ -86,11 +74,24 @@
                     <li><a class="btn dropdown-item" onclick="go_to_gameHistory()">{{ translations['gamehistory'][session['lang']] }}</a></li>
 <!--Language button-->
                     <li class="dropdown-submenu dropdown-item">
-                        <span class="flag-icon flag-icon-{{ session['flag'] }}"> </span>{{ translations['language'][session['lang']] }}
+                        <span class="flag-icon flag-icon-{{ session['flag'] }}"> </span>  {{ translations['language'][session['lang']] }}
                         <ul class="dropdown-menu">
             {% endif %}
 
             {% if not current_user.is_authenticated %}
+                        <!-- signup bonus bubble -->
+                          <div id="signup-bonus-container">
+                              <div id="signup-bonus-bubble"></div>
+                              <div id="signup-bonus-content">
+                                  <div>
+                                    <img src="static/icons/signup-bonus.png" id="signup-gift-icon"></img>
+                                  </div>
+                        <!--            <img class="bi bi-gift" style="height: 30px;padding-right: 10px;"></img>-->
+                                  <div id="signup-bonus-text">
+                                    <div class="excited-title neon"> 50 USDT </div> {{ translations['bonus:signup'][session['lang']] }}
+                                  </div>
+                              </div>
+                          </div>
                         <div class="dropdown">
                             <button class="btn btn-outline-success" type="button" id="dropdown-language" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="flag-icon flag-icon-{{ session['flag'] }}"></span>
@@ -138,10 +139,10 @@
 <!--                <button class="btn btn-outline-success" id="connect-button">-->
 <!--                  <div >wallet</div>-->
 <!--                </button>-->
-                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal" style="margin-right: 5px;">
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal" style="margin-right: 5px; margin-left: 5px;">
                   <div >{{ translations['log in'][session['lang']] }}</div>
                 </button>
-                <button class="btn btn-outline-success glow" data-bs-toggle="modal" data-bs-target="#registerModal">
+                <button class="btn btn-outline-success rainglow" data-bs-toggle="modal" data-bs-target="#registerModal">
                   <div class="excited-title" >{{ translations['register'][session['lang']] }}</div>
                 </button>
             {% endif %}

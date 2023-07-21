@@ -61,6 +61,7 @@ txnHistory,Txn History,Txn History,Transactions,,,,,,,
 gamehistory,歷史,歷史,Game History,,,,,,,
 profile,輪廓,轮廓,Profile,,,,,,,
 register,註冊,注册,Sign up,등록하다,ลงทะเบียน,Đăng ký,Registro,Daftar,Registro,登録
+lets go,,,Let's go!,,,,,,,
 top-games,最紅的遊戲,最紅的遊戲,Top Games,,,,,,,
 slots,老虎機,老虎机,Slots,,,,Tragamonedas,,,スロット
 baccarat,百家樂,百家乐,Baccarat,,,,Bacará,,,バカラ
@@ -88,8 +89,8 @@ created not verified,您的帳戶已創建但尚未驗證,您的帐户已创建�
 username more than 2,用戶名必須超過 2 個字符,用户名必须超过 2 个字符,Username must be more than 2 characters,,,,,,,
 invalid email format,電子郵件格式無效,电子邮件格式无效,Invalid e-mail format,,,,,,,
 recaptcha not verified,reCaptcha 未驗證,reCaptcha 未验证,reCaptcha not verified,,,,,,,
-reload:msg,重新加載網站,重新加载网站,Please reload the website,,,,,,,
-reload:title,,,Lost connection,,,,,,,
+reload:msg,重新加載網站,重新加载网站,"Sorry, something went wrong! Please reload the website",,,,,,,
+reload:title,,,Lost connection to server,,,,,,,
 reset password,重設密碼,重设密码,Reset password,,,,,,,
 password has been updated,密碼已更新。您可以立即登錄！,密码已更新。 您可以立即登录！,Password has been updated. Please play responsibly!,,,,,,,
 account not found,找不到帳戶,找不到帐户,Account not found,,,,,,,
@@ -102,7 +103,6 @@ password must be 8 chars,密碼必須為 8 個字符或更多,密码必须为 8 
 password missing number,密碼缺少數字 (0-9),密码缺少数字 (0-9),Password missing numerical digit (0-9),,,,,,,
 password missing uppercase digit,密碼缺少大寫數字 (A-Z,密码缺少大写数字 (A-Z,Password missing uppercase digit (A-Z,,,,,,,
 password missing lowercase,密碼缺少小寫數字 (a-z),密码缺少小写数字 (a-z),Password missing lowercase digit (a-z),,,,,,,
-please reload,請重新加載,请重新加载,Please reload the website,,,,,,,
 resend verification,重新發送驗證郵件,重新发送验证邮件,Re-send verification email,,,,,,,
 email-activate,歡迎光臨！感謝您的註冊。請點擊此鏈接激活您的帳戶:,欢迎光临！ 感谢您的注册。 请点击此链接激活您的帐户:,Welcome to Gambit's Casino! Please follow this link to activate your account:,,,,,,,
 thank you,謝謝,谢谢,Thank you,,,,,,,

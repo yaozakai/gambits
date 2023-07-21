@@ -84,7 +84,7 @@ def login():
             if email_error or password_error:
                 return jsonify(error="", email_error=email_error, password_error=password_error)
             else:
-                return jsonify(error=translations['please reload'][session['lang']])
+                return jsonify(error=translations['reload:msg'][session['lang']])
     else:
         return jsonify({"error": translations['recaptcha not verified'][session['lang']]})
     # if LoginForm().validate_on_submit():

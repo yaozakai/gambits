@@ -600,8 +600,9 @@ $('.add-to-total').on('click', function(){
 
                         },
                         error: function(e) {
+                            send_alert('reload:title', 'reload:msg')
                             $('#login-spinner').hide();
-                            console.log('login: ' + e);
+<!--                            console.log('login: ' + e);-->
                         }
                     });
                 });
@@ -680,10 +681,27 @@ $('.add-to-total').on('click', function(){
                       <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
                       {{ register_form.password(id_="reg-password", class_="form-control") }}
                     </div>
-                    <div class="input-group mb-3">
-                      <span class="input-group-text whiteFont">{{ translations['referral'][lang] }}</span>
-                      {{ register_form.referral(id_="reg-referral", class_="form-control") }}
+                    <div class=" mb-3 excited-title" style="
+                        background-color: #27172a;
+                        display: block;
+                    ">
+                        <div style="
+                        display: flex;
+                    " class="input-group">
+                            <span class="input-group-text whiteFont" style="
+                        /* background-color: black; */
+                    ">Referral</span>
+                                            <input class="form-control" id="reg-referral" name="referral" type="text" value="">
+                        </div>
+                        <div style="
+                        font-size: 11px;
+                        text-align: center;
+                        padding: 12px;
+                    ">
+                    Enter your friend's Gambit's username here. Refer friends and get massive rewards!
+                        </div>
                     </div>
+
                     <div id="reg-recaptcha"></div>
                     {{ register_form.hidden_tag() }}
                     <span>

@@ -66,53 +66,40 @@
 
     {% include 'section-topbar.html' %}
 
-
-
-
-        {% if session['env'] == 'stage' %}
-        <div style="position: absolute;left: 50%;color: aquamarine;font-size: xxx-large;z-index: 10;">
-            STAGE
-        </div>
-        {% endif %}
+    {% if session['env'] == 'stage' %}
+    <div style="position: absolute;left: 50%;color: aquamarine;font-size: xxx-large;z-index: 10;">
+        STAGE
+    </div>
+    {% endif %}
 
     <main class="main-bg min-vh-100">
-<!--        <div id="complete_main">-->
-            <!-- main_section -->
+        {% include 'section-navbar.html' %}
+
+
             <div id="main_section">
+                <div id="page-adjust">
                 {% block pendingWithdraw %}{% endblock %}
                 {% block search %}{% endblock %}
                 {% block gamehistory %}{% endblock %}
                 {% block txnHistory %}{% endblock %}
+                </div>
                 {% block gallery %}{% endblock %}
             </div>
-        {% include 'section-navbar.html' %}
-        {% if session['page'] == 'gallery' %}
-            <!-- Bottom Nav bar -->
-<!--            <div id="navigationbar"></div>-->
-<!--            <script>-->
-<!--                $(function() { $("#navigationbar").load("/navigationbar"); });-->
-<!--            </script>-->
-        {% include 'page-gallery.html' %}
 
-        {% else %}
-            <button class="alert alert-dark btn btn-primary" id="back-to-games" onclick="go_to_gallery()">
-                <div>
-                    <img src="{{ root_path }}/static/icons/navbar/slots.png" style="width:70px">
-                        <strong>Back to games</strong>
-                </div>
-            </button>
-        {% endif %}
 
             <!-- MODALS -->
         {% include 'template-modals.html' %}
 
-<!--            <script>-->
-<!--                $(window).on('load', function(){-->
-<!--                    $("#modals").load("/modals", {'lang': '{{ lang }}', 'notification_popup': '{{ notification_popup }}',-->
-<!--                        'notification': '{{ notification }}', 'notification_title': '{{ notification_title }}'});-->
-<!--                });-->
-<!--            </script>-->
-<!--        </div>-->
+
+    </main>
+
+    <div id="modals"></div>
+
+      <!-- UI Javascript -->
+        <script language="JavaScript" type="module" src="{{ root_path }}static/js/navbar_sticky.js"></script>
+        <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/metamask_modal.js"></script>
+
+  </body>
               <!-- FOOTER -->
     <footer class="green-text-outline container-fluid footer-bg">
 <!--            id="main-footer">-->
@@ -133,16 +120,6 @@
         <!--          <a href="https://www.flaticon.com/free-icons/baccarat" title="baccarat icons">Baccarat icons created by Freepik - Flaticon</a>-->
         <!--        </font>-->
     </footer>
-    </main>
-
-    <div id="modals"></div>
-
-      <!-- UI Javascript -->
-        <script language="JavaScript" type="module" src="{{ root_path }}static/js/navbar_sticky.js"></script>
-        <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/metamask_modal.js"></script>
-
-  </body>
-
 
 
 </html>
