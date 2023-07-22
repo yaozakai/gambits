@@ -1,5 +1,5 @@
 #page-adjust {
-    left: -140px;
+    left: 70px;
     position: relative;
 }
 
@@ -54,7 +54,14 @@ body {
 }
 
 .excited-title {
-    color: greenyellow!important;
+    /* color: greenyellow!important; */
+    element.style {
+    color: #ab7936;
+};
+    element.style {
+    color: #ab7936;
+};
+    color: #ab7936;
     text-shadow: 1px 2px black;
 }
 
@@ -178,7 +185,7 @@ body {
 /* GALLERY STUFF */
 .main-bg {
     background: #332a34;
-    /* margin-top: 57px; */
+    margin-top: -5px;
     width: 100%;
 }
 
@@ -245,7 +252,7 @@ h3 {
 }
 
 #main_section {
-    margin-top: 56px;
+    margin-top: 60px;
 }
 
 .pb-5, .py-5 {
@@ -414,11 +421,7 @@ h3 {
     background: #332a34;
 }
 
-.rowDrop {
-    padding: 0.5rem;
-    display: none;
-    background-color: black;
-}
+
 
 #forgotPassword {
     /* padding-left: 0px; */
@@ -568,9 +571,15 @@ h3 {
 
 #signup-bonus-text {
     padding: 5px;
-
+    color: beige;
 }
 
+@media (max-width: 900px) {
+    #page-adjust {
+        left:0px;
+    }
+
+}
 @media (max-width: 400px) {
     #signup-gift-icon {
         height: 53px;
@@ -585,4 +594,6 @@ h3 {
     #signup-bonus-text {
         font-size: small;
     }
+
+
 }

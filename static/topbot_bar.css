@@ -44,6 +44,10 @@
     width: 25px;
 }
 
+#rewards-copy-button {
+    color: beige;
+}
+
 #address-field-sub {
     word-wrap: break-word;
     /* font-size: xx-small; */
@@ -115,9 +119,7 @@
   }
 }
 
-.neon {
-
-}
+.neon {color: #4b3716;}
 
 .neon:nth-child(1) {
   animation: neon1 1.5s ease-in-out infinite alternate;

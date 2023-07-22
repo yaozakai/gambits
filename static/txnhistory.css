@@ -12,6 +12,12 @@
     box-shadow: none!important;
 }
 
+.rowDrop {
+    padding: 0.5rem;
+    display: none;
+    background-color: black;
+}
+
 .reconcile-button {
     /* position: absolute; */
     /* bottom: 235px; */
