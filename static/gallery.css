@@ -186,6 +186,13 @@
 
 }
 
+@media (max-width: 900px) {
+    #mid-section {
+        display: block;
+    }
+}
+
+
 /* Mobile-------------------------------------------------- */
 @media (max-width: 414px) {
 

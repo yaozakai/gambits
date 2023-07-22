@@ -1,169 +1,135 @@
 {% extends "layout.html" %}
 {% block txnHistory %}
-<div class="py-2">
-    <h3 class="green-text-outline">{{ translations['title:Transaction History'][session['lang']] }}</h3>
-    <div class="justify-content-center" style="width: 260px;">
-        <div class="input-group mb-3 mt-3">
-<!--            <div class="calendar"></div>-->
-            <span class="input-group-text whiteFont">{{ translations['date'][session['lang']] }}</span>
-            <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
-            <h8 class="green-text-outline" style="margin-left: 10px;">*UTC-8</h8>
+<div id="mid-section">
+    <div class="py-2 profile-container">
+        <h3 class="green-text-outline">{{ translations['title:Transaction History'][session['lang']] }}</h3>
+        <div class="justify-content-center" style="width: 260px;">
+            <div class="input-group mb-3 mt-3">
+    <!--            <div class="calendar"></div>-->
+                <span class="input-group-text whiteFont">{{ translations['date'][session['lang']] }}</span>
+                <input id="reportDate" class="form-control" type="date" value="{{ report_date }}"/>
+                <h8 class="green-text-outline" style="margin-left: 10px;">*UTC-8</h8>
+            </div>
+
         </div>
+        <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>
 
     </div>
-    <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>
 
-</div>
+    <script>
 
-<script>
+        $(document).ready(function(){
+            $("td[colspan=12]").find("p").hide();
+            $("table").click(function(event) {
+                event.stopPropagation();
+                var $target = $(event.target);
+                if ( $target.closest("td").attr("colspan") > 1 ) {
+                    $target.slideUp();
+                    $target.closest("tr").next().find("div").slideToggle();
 
-    $(document).ready(function(){
-        $("td[colspan=12]").find("p").hide();
-        $("table").click(function(event) {
-            event.stopPropagation();
-            var $target = $(event.target);
-            if ( $target.closest("td").attr("colspan") > 1 ) {
-                $target.slideUp();
-                $target.closest("tr").next().find("div").slideToggle();
+                } else {
+                    $target.closest("tr").next().find("div").slideToggle();
 
-            } else {
-                $target.closest("tr").next().find("div").slideToggle();
+                }
+            });
 
-            }
+            const selectElement = document.getElementById('reportDate');
+            selectElement.addEventListener("change", () => {
+                go_to_txnHistory(selectElement.value)
+            });
+
         });
 
-        const selectElement = document.getElementById('reportDate');
-        selectElement.addEventListener("change", () => {
-            go_to_txnHistory(selectElement.value)
-<!--            $.ajax({-->
-<!--                url: "/txnHistory",-->
-<!--                type: "post",-->
-<!--                dataType: "json",-->
-<!--                contentType: "application/json; charset=UTF-8",-->
-<!--                data: JSON.stringify({-->
-<!--                    "reportDate":selectElement.value-->
-<!--                }),-->
-<!--                success: function(self) {-->
-<!--&lt;!&ndash;                    htmloutput = "";&ndash;&gt;-->
-<!--&lt;!&ndash;                    results = self.rec;&ndash;&gt;-->
-<!--                    $("#main_section").html(self.render);-->
-<!--&lt;!&ndash;                    $("#num_results").html(results.length);&ndash;&gt;-->
-<!--&lt;!&ndash;                    generate_table(results);&ndash;&gt;-->
-<!--                },-->
-<!--                error: function(e) {-->
-<!--                    console.log('gamehistory: ' + e);-->
-<!--                }-->
-<!--            });-->
-        });
+    </script>
 
-    });
+    <table id="txn-data" class="table table-hover table-dark profile-container green-text-outline">
+        <thead class="txn-table-header">
+          <tr>
+            <th style="display: flex;">Status
+                <div class="dropdown">
+                    <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
+                  <ul class="dropdown-menu green-text">
+                    <li class=" dropdown-item">
+                        <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-complete" name="txn-filter-complete" type="checkbox" checked>
+                        <label for="txn-filter-complete"> {{ translations['txn:complete'][session['lang']] }}</label>
+                    </li>
+                    <li class=" dropdown-item">
+                        <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-pending" name="txn-filter-pending" type="checkbox" checked>
+                        <label for="txn-filter-pending"> {{ translations['txn:pending'][session['lang']] }}</label>
+                    </li>
+                    <li class=" dropdown-item">
+                        <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-failed" name="txn-filter-failed" type="checkbox" checked>
+                        <label for="txn-filter-failed"> {{ translations['txn:failed'][session['lang']] }}</label>
+                    </li>
+                  </ul>
+                </div>
+            </th>
+    <!--        <th style="display: flex;">Status <button class="btn btn-link reverify-button"><i class="bi bi-filter" style="color: #48ff48;"></i></button></th>-->
+            <th>Date</th>
+            <th>Time</th>
+            <th style="display: flex;">Type
+    <!--<div class="dropdown">-->
+                <div class="dropdown">
+                    <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
 
-</script>
+                  <ul class="dropdown-menu green-text">
 
-<table id="txn-data" class="table table-hover table-dark profile-container green-text-outline">
-    <thead class="txn-table-header">
-      <tr>
-        <th style="display: flex;">Status
-            <div class="dropdown">
-                <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
-              <ul class="dropdown-menu green-text">
-                <li class=" dropdown-item">
-                    <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-complete" name="txn-filter-complete" type="checkbox" checked>
-                    <label for="txn-filter-complete"> {{ translations['txn:complete'][session['lang']] }}</label>
-                </li>
-                <li class=" dropdown-item">
-                    <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-pending" name="txn-filter-pending" type="checkbox" checked>
-                    <label for="txn-filter-pending"> {{ translations['txn:pending'][session['lang']] }}</label>
-                </li>
-                <li class=" dropdown-item">
-                    <input onclick="txn_filter();" class="txn-filter-status" id="txn-filter-failed" name="txn-filter-failed" type="checkbox" checked>
-                    <label for="txn-filter-failed"> {{ translations['txn:failed'][session['lang']] }}</label>
-                </li>
-              </ul>
-            </div>
-        </th>
-<!--        <th style="display: flex;">Status <button class="btn btn-link reverify-button"><i class="bi bi-filter" style="color: #48ff48;"></i></button></th>-->
-        <th>Date</th>
-        <th>Time</th>
-        <th style="display: flex;">Type
-<!--<div class="dropdown">-->
-            <div class="dropdown">
-                <button class="btn reverify-button dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-filter" style="color: #48ff48;"></i></button>
+    <!--                  <label for="txn-filter-deposit"> {{ translations['deposit'][session['lang']] }}</label>-->
+                    <li class="dropdown-item">
+                        <input onclick="txn_filter();" class="txn-filter-type" id="txn-filter-withdraw" name="txn-filter-withdraw" type="checkbox" checked>
+                        <label for="txn-filter-withdraw"> {{ translations['withdraw'][session['lang']] }}</label>
+                    </li>
+                    <li class="dropdown-item">
+                        <input onclick="txn_filter();" class="txn-filter-type" id="txn-filter-deposit" name="txn-filter-deposit" type="checkbox" checked>
+                        <label for="txn-filter-deposit"> {{ translations['deposit'][session['lang']] }}</label>
+                    </li>
+    <!--                <li class="green-text btn"><input id="txn-filter-deposit" name="txn-filter-deposit" type="checkbox"></li>-->
+                  </ul>
+                </div>
+            </th>
+            <th>Amount</th>
+    <!--        <th>Chain</th>-->
+            <th>txHash</th>
+    <!--        <th>Valid Bet</th>-->
+    <!--        <th>Jackpot</th>-->
+    <!--        <th>JackContribution</th>-->
+    <!--        <th>Rake</th>-->
+    <!--        <th>Room Fee</th>-->
+            <script>
 
-              <ul class="dropdown-menu green-text">
-
-<!--                  <label for="txn-filter-deposit"> {{ translations['deposit'][session['lang']] }}</label>-->
-                <li class="dropdown-item">
-                    <input onclick="txn_filter();" class="txn-filter-type" id="txn-filter-withdraw" name="txn-filter-withdraw" type="checkbox" checked>
-                    <label for="txn-filter-withdraw"> {{ translations['withdraw'][session['lang']] }}</label>
-                </li>
-                <li class="dropdown-item">
-                    <input onclick="txn_filter();" class="txn-filter-type" id="txn-filter-deposit" name="txn-filter-deposit" type="checkbox" checked>
-                    <label for="txn-filter-deposit"> {{ translations['deposit'][session['lang']] }}</label>
-                </li>
-<!--                <li class="green-text btn"><input id="txn-filter-deposit" name="txn-filter-deposit" type="checkbox"></li>-->
-              </ul>
-            </div>
-        </th>
-        <th>Amount</th>
-<!--        <th>Chain</th>-->
-        <th>txHash</th>
-<!--        <th>Valid Bet</th>-->
-<!--        <th>Jackpot</th>-->
-<!--        <th>JackContribution</th>-->
-<!--        <th>Rake</th>-->
-<!--        <th>Room Fee</th>-->
-        <script>
-
-            function txn_filter(){
-                let filter_status = []
-                const collection_status = document.getElementsByClassName("txn-filter-status");
-                for (let i = 0; i < collection_status.length; i++) {
-                    if (collection_status[i].checked){
-                        filter_status.push(collection_status[i].id.split('-')[2])
-                    }
-                }
-                let filter_type = []
-                const collection_type = document.getElementsByClassName("txn-filter-type");
-                for (let i = 0; i < collection_type.length; i++) {
-                    if (collection_type[i].checked){
-                        filter_type.push(collection_type[i].id.split('-')[2])
-                    }
-                }
-                console.log("filter_type: " + filter_type)
-                console.log("filter_status: " + filter_status)
-
-                let txn_type = ''
-
-                var table = $("#results")
-                table.find('tr').each(function (i, el) {
-                    var row = $(this)
-                    var $tds = $(this).find('td'),
-                        txn_type = $tds.eq(3).text(),
-                        txn_status = $tds.eq(0).text();
-                        let filter_match = false
-
-                        console.log("txn_status: " + txn_status)
-<!--                        console.log("txn_type: " + txn_type)-->
-                        for (let i = 0; i < filter_type.length; i++) {
-                            if (txn_type.toLowerCase().trim() == filter_type[i]){
-<!--                                console.log("show txn_type: " + txn_type)-->
-                                row.show()
-                                filter_match = true
-                                break
-                            }
+                function txn_filter(){
+                    let filter_status = []
+                    const collection_status = document.getElementsByClassName("txn-filter-status");
+                    for (let i = 0; i < collection_status.length; i++) {
+                        if (collection_status[i].checked){
+                            filter_status.push(collection_status[i].id.split('-')[2])
                         }
-                        if (!filter_match){
-                            row.hide()
-                        } else {
-                        // second chance to show
-                            filter_match = false
-                            for (let i = 0; i < filter_status.length; i++) {
-                                if (txn_status.includes(translations['txn:failed'][lang])){
-                                    txn_status = 'failed'
-                                }
-                                if (txn_status.toLowerCase().trim() == filter_status[i]){
-<!--                                    console.log("show txn_status: " + txn_status)-->
+                    }
+                    let filter_type = []
+                    const collection_type = document.getElementsByClassName("txn-filter-type");
+                    for (let i = 0; i < collection_type.length; i++) {
+                        if (collection_type[i].checked){
+                            filter_type.push(collection_type[i].id.split('-')[2])
+                        }
+                    }
+                    console.log("filter_type: " + filter_type)
+                    console.log("filter_status: " + filter_status)
+
+                    let txn_type = ''
+
+                    var table = $("#results")
+                    table.find('tr').each(function (i, el) {
+                        var row = $(this)
+                        var $tds = $(this).find('td'),
+                            txn_type = $tds.eq(3).text(),
+                            txn_status = $tds.eq(0).text();
+                            let filter_match = false
+
+                            console.log("txn_status: " + txn_status)
+    <!--                        console.log("txn_type: " + txn_type)-->
+                            for (let i = 0; i < filter_type.length; i++) {
+                                if (txn_type.toLowerCase().trim() == filter_type[i]){
+    <!--                                console.log("show txn_type: " + txn_type)-->
                                     row.show()
                                     filter_match = true
                                     break
@@ -171,94 +137,110 @@
                             }
                             if (!filter_match){
                                 row.hide()
+                            } else {
+                            // second chance to show
+                                filter_match = false
+                                for (let i = 0; i < filter_status.length; i++) {
+                                    if (txn_status.includes(translations['txn:failed'][lang])){
+                                        txn_status = 'failed'
+                                    }
+                                    if (txn_status.toLowerCase().trim() == filter_status[i]){
+    <!--                                    console.log("show txn_status: " + txn_status)-->
+                                        row.show()
+                                        filter_match = true
+                                        break
+                                    }
+                                }
+                                if (!filter_match){
+                                    row.hide()
+                                }
                             }
-                        }
-                });
-            }
-        </script>
+                    });
+                }
+            </script>
 
-      </tr>
-    </thead>
-    <tbody class="txn-table-row" id="results">
-      {% set counter = 0 %}
-      {% for record in rec if counter < 50 %}
-        {% set counter = loop.count %}
-        <tr>
-            {% if record.status.lower() == 'failed' %} <!--aka unverified-->
-            <td id="row-{{ record.txHash }}" style="color:red">
-                {{ translations['txn:' + record.status|lower][session['lang']] }}
-                <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
-                                          class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}">
-                  <i class="bi bi-arrow-clockwise"></i>
-                </button>
-            </td>
-          {% elif record.status.lower() == 'pending' %}
-            <td id="row-{{ record.txHash }}" style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
-          {% elif record.status.lower() == 'complete' %}
-            <td style="color:green">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
-          {% endif %}
-
-
-            {% if record.created is string %}
-          <td>{{ record.created.split(' ')[0] }}</td>
-          <td>{{ record.created.split(' ')[1] }}</td>
-            {% else %}
-          <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
-          <td>{{ record.created.strftime('%H:%M:%S') }}</td>
-            {% endif %}
-          <td>{{ record.type }}</td>
+          </tr>
+        </thead>
+        <tbody class="txn-table-row" id="results">
+          {% set counter = 0 %}
+          {% for record in rec if counter < 50 %}
+            {% set counter = loop.count %}
+            <tr>
+                {% if record.status.lower() == 'failed' %} <!--aka unverified-->
+                <td id="row-{{ record.txHash }}" style="color:red">
+                    {{ translations['txn:' + record.status|lower][session['lang']] }}
+                    <button onclick='reverify("row-{{ record.txHash }}", "{{ record.txHash }}", "{{ record.blockchain }}", "{{ record.currency }}", {{ record.amount }}, "{{ record.fromAddress }}", "{{ record.status }}")'
+                                              class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations['button:reverify'][session['lang']] }}">
+                      <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                </td>
+              {% elif record.status.lower() == 'pending' %}
+                <td id="row-{{ record.txHash }}" style="color:yellow">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
+              {% elif record.status.lower() == 'complete' %}
+                <td style="color:green">{{ translations['txn:' + record.status|lower][session['lang']] }}</td>
+              {% endif %}
 
 
-            <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
-<!--            <td>{{ record.blockchain }}</td>-->
-            <td>
-            {% if "0x" in record.txHash  %}
-                {% if record.blockchain == 'goerli' %}
-                    <a href="https://goerli.etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
+                {% if record.created is string %}
+              <td>{{ record.created.split(' ')[0] }}</td>
+              <td>{{ record.created.split(' ')[1] }}</td>
                 {% else %}
-                    <a href="https://etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
+              <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
+              <td>{{ record.created.strftime('%H:%M:%S') }}</td>
                 {% endif %}
-            {% else %}
-                {{  translations['na'][session['lang']]  }}
-            {% endif %}
-            </td>
-<!--            <td>{{ record.validbet }}</td>-->
-<!--          <td>{{ record.jackpot }}</td>-->
-<!--          <td>{{ record.jackpotcontribution }}</td>-->
-<!--            <td>{{ record.rake }}</td>-->
-<!--          <td>{{ record.roomfee }}</td>-->
-        </tr>
-      {% endfor %}
-    </tbody>
+              <td>{{ record.type }}</td>
 
 
-</table>
+                <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
+    <!--            <td>{{ record.blockchain }}</td>-->
+                <td>
+                {% if "0x" in record.txHash  %}
+                    {% if record.blockchain == 'goerli' %}
+                        <a href="https://goerli.etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
+                    {% else %}
+                        <a href="https://etherscan.io/tx/{{ record.txHash }}" target="_blank">{{ record.txHash | truncate(12, True, '...', 0) }}</a>
+                    {% endif %}
+                {% else %}
+                    {{  translations['na'][session['lang']]  }}
+                {% endif %}
+                </td>
+    <!--            <td>{{ record.validbet }}</td>-->
+    <!--          <td>{{ record.jackpot }}</td>-->
+    <!--          <td>{{ record.jackpotcontribution }}</td>-->
+    <!--            <td>{{ record.rake }}</td>-->
+    <!--          <td>{{ record.roomfee }}</td>-->
+            </tr>
+          {% endfor %}
+        </tbody>
 
-<script>
 
-    function reverify(td_id, txHash, chain, currency, amount, fromAddress, status){
+    </table>
 
-        var status = document.getElementById(td_id)
+    <script>
 
-        if (status.innerHTML != 'Checking'){
-            var translations = $('#meta-translations').data()['name']
-            var lang = $('#meta-lang').data()['name']
+        function reverify(td_id, txHash, chain, currency, amount, fromAddress, status){
 
-            status.innerHTML = translations['txn:checking'][lang]
-            status.style.color = 'yellow'
+            var status = document.getElementById(td_id)
 
-            send_alert("success:waiting", "success:txnSent", false, '','blue')
-            if (!verify_txhash('reverify', txHash, chain, currency, amount, fromAddress)){
-<!--                status.innerHTML = 'Failed <button onclick="reverify("row-" + txHash + "," + txHash + "," + chain + "," + currency + "," + amount + "," + fromAddress + "," + status)" class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'-->
-            } else {
-                status.innerHTML = 'Complete'
-                status.css('color', 'green')
+            if (status.innerHTML != 'Checking'){
+                var translations = $('#meta-translations').data()['name']
+                var lang = $('#meta-lang').data()['name']
+
+                status.innerHTML = translations['txn:checking'][lang]
+                status.style.color = 'yellow'
+
+                send_alert("success:waiting", "success:txnSent", false, '','blue')
+                if (!verify_txhash('reverify', txHash, chain, currency, amount, fromAddress)){
+    <!--                status.innerHTML = 'Failed <button onclick="reverify("row-" + txHash + "," + txHash + "," + chain + "," + currency + "," + amount + "," + fromAddress + "," + status)" class="btn btn-link reverify-button" data-bs-toggle="tooltip" data-bs-placement="right" title="{{ translations["button:reverify"][session["lang"]] }}"><i class="bi bi-arrow-clockwise"></i></button>'-->
+                } else {
+                    status.innerHTML = 'Complete'
+                    status.css('color', 'green')
+                }
             }
         }
-    }
 
 
-</script>
+    </script>
 
 <!--    {% if num_results == 0 %}-->
 <!--        <div class="green-text-outline">-->
@@ -266,7 +248,7 @@
 <!--        </div>-->
 <!--    {% endif %}-->
 <!--<script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/calendar.js"></script>-->
-
-{% endblock txnHistory %}
+</div>
+{% endblock %}
 
 

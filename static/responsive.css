@@ -46,10 +46,13 @@
 /* OTHERS *******************/
 
 
-@media (min-width: 768px) {
+@media (min-width: 900px) {
 
      #main_section {
         /* margin-top: 135px; */
+        /* margin-left: 306px; */
+        margin: 60px auto;
+        padding-left: 200px;
     }
 
     .navbar-expand-md {
@@ -156,27 +159,24 @@
         padding-left: 17vw;
     }
 */
-    .main-bg {
-
-        padding-left: 200px;
-    }
+    .main-bg {/* padding-left: 23vw; *//* display: inline-flex; */}
 
 }
 
 @media (min-width: 1035px) {
     .main-bg {
-        padding-left: 235px;
+        /* padding-left: 235px; */
     }
 
     .navbar-icon {
-        right: 782px;
+        /* right: 782px; */
     }
 
     .nav-link-title {
-        right: 873px;
+        /* right: 873px; */
     }
 
     .navbar-fixed {
-        width: 975px;
+        /* width: 975px; */
     }
 }

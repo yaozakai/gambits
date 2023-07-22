@@ -74,6 +74,7 @@
 
 #navigation-bar {
     padding: 0px 0% 0px 0%;
+    position: fixed;
     /* width: 100%; */
     /* height: -309px; */
 }
@@ -226,20 +227,21 @@
 
 
 @media (min-width: 900px) {
-    .navbar-icon {/* float: right; */right: 800px;position: absolute;height: 55px;}
+    .navbar-icon {/* float: right; */right: 0;margin-right: 12px;position: relative;height: 55px;}
 
     .nav-link-title {
         font-size: 1rem;
         /* float: right; */
-        right: 866px;
+        right: -23px;
+        /* right: 788px; */
         /* top: 100px; */
         margin-top: 15px;
-        position: absolute;
+        position: relative;
     }
 
-    .nav-link-title.slots {right: 867px;}
+    .nav-link-title.slots {right: -28px;}
 
-    .navbar-icon.slots {right: 794px;}
+    .navbar-icon.slots {/* right: 0px; */}
 
     .navbar-fixed {
         top: 74px;
@@ -249,7 +251,7 @@
         height: 97px;
         position: fixed;
         left: 50%;
-        width: 985px;
+        max-width: 985px;
         height: 0;
         background: none;
     }
@@ -257,7 +259,8 @@
     .nav-link {
         display: flex;
         /* margin-right: 88px; */
-        width: 213px;
+        width: 185px;
+        /* max-width: 230px; */
         height: 65px;
     }
 
@@ -271,6 +274,7 @@
 
     .nav-link.active {
         /* background-color: #4f2f55; */
+        /* display: inherit; */
     }
 
     #slots-dropdown {
@@ -282,12 +286,13 @@
         background: none;
         inset: auto!important;
         transform: translate3d(13px, 0px, 0px)!important;
+        margin-left: -27px!important;
     }
 
     .slots-subicon {
         width: 175px;
-        /* right: 0px; */
-        /* position: relative; */
+        right: 0px;
+        position: relative;
     }
 
     #nav-slots {
@@ -298,19 +303,19 @@
 
 @media (min-width: 1035px) {
     .main-bg {
-        padding-left: 235px;
+        /* padding-left: 235px; */
     }
 
     .navbar-icon {
-        right: 782px;
+        /* right: 782px; */
     }
 
     .nav-link-title {
-        right: 873px;
+        /* right: 873px; */
     }
 
     .navbar-fixed {
-        width: 975px;
+        /* width: 975px; */
     }
 }
 

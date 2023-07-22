@@ -151,11 +151,14 @@
 .video-container-parent {
     margin-top: -50px;
     padding-top: 49px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    /* left: 1%; */
+    position: relative;
+    /* height: 100%; */
+    display: grid;
+    /* justify-content: center; */
     max-width: 768px;
     align-items: center;
+    /* margin: 0 auto; */
 }
 
 

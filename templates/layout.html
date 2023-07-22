@@ -73,19 +73,18 @@
     {% endif %}
 
     <main class="main-bg min-vh-100">
-        {% include 'section-navbar.html' %}
+
 
 
             <div id="main_section">
-                <div id="page-adjust">
+                {% include 'section-navbar.html' %}
+
                 {% block pendingWithdraw %}{% endblock %}
                 {% block search %}{% endblock %}
                 {% block gamehistory %}{% endblock %}
                 {% block txnHistory %}{% endblock %}
-                </div>
                 {% block gallery %}{% endblock %}
             </div>
-
 
             <!-- MODALS -->
         {% include 'template-modals.html' %}
