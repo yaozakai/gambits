@@ -1,10 +1,12 @@
-//$('.launch').on('click', function(){
-//    event.preventDefault();
+function isEmail(email){
+
+	return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test( email );
+}
 
 function copyToClipboard(text_to_copy) {
 
 //    var session = $('#meta-session').data()['name']
-    var translations = $('#meta-translations').data()['name']
+    const translations = $('#meta-translations').data()['name']
 
 
 //    var $temp = ;
@@ -35,6 +37,9 @@ function launch_game() {
       }),
       success: function(self) {
         $('#loadingscreenModal').modal('hide');
+        $(document.body).removeClass('modal-open');
+        $('.modal-backdrop').remove();
+
         if (self.link.toString().length > 0){
             window.open(self.link.toString());
         } else {
@@ -42,137 +47,15 @@ function launch_game() {
         }
       },
       error: function(e) {
-
+        $('#loadingscreenModal').modal('hide');
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
       }
     });
 }
 
-function go_to_gallery() {
 
-    current_page = 'gallery'
-    console.log('page:: ' + current_page)
-    $("#back-to-games").hide()
-    $.ajax({
-        url: "/gallery",
-        type: "post",
-        success: function(self) {
-            $("#main_section").html(self);
-        },
-        error: function(e) {
-            console.log('getBalance: ' + e);
-        }
-    });
-}
 
-function go_to_searchPlayer(){
-
-    current_page = 'searchPlayer'
-    console.log('page:: ' + current_page)
-    $("#back-to-games").show()
-
-    $.ajax({
-        url: "/search_page",
-        type: "post",
-        success: function(self) {
-            $("#main_section").html(self.render);
-        },
-        error: function(e) {
-            console.log('/search_page: ' + e);
-        }
-    });
-}
-
-function go_to_gameHistory(){
-    current_page = 'gameHistory'
-    console.log('page:: ' + current_page)
-    const selectElement = document.getElementById('reportDateGameHistory');
-    let reportDate = ''
-    if (selectElement) {
-        reportDate = selectElement.value
-    }
-    $("#back-to-games").show()
-
-    $.ajax({
-        url: "/gameHistory",
-        type: "post",
-        dataType: "json",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify({
-            "reportDate":reportDate
-        }),
-        success: function(self) {
-            $("#main_section").html(self.render);
-        },
-        error: function(e) {
-            console.log('gameHistory error: ' + e);
-        }
-    });
-}
-
-function go_to_pendingWithdraw(){
-    current_page = 'pendingWithdraw'
-    console.log('page:: ' + current_page)
-    const selectElement = document.getElementById('reportDate');
-    let reportDate = ''
-    if (selectElement) {
-        reportDate = selectElement.value
-    }
-    $("#back-to-games").show()
-
-    $.ajax({
-        url: "/pendingWithdraw",
-        type: "post",
-        dataType: "json",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify({
-            "reportDate":reportDate
-        }),
-        success: function(self) {
-            $("#main_section").html(self.render);
-//            return true
-        },
-        error: function(e) {
-            console.log('txnHistory: ' + e);
-//            return false
-        }
-    });
-    return true
-}
-
-function go_to_txnHistory(reportDate=''){
-    current_page = 'txnHistory'
-    console.log('page:: ' + current_page)
-
-//    $('#alert-box').removeClass('show')
-
-//    const selectElement = document.getElementById('reportDate');
-//    let reportDate = ''
-//    if (selectElement && reportDate.length == 0) {
-//        reportDate = selectElement.value
-//    } else if (reportDate == 'today'){
-//        reportDate = ''
-//    }
-    $("#back-to-games").show()
-
-    $.ajax({
-        url: "/txnHistory",
-        type: "post",
-        dataType: "json",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify({
-            "reportDate":reportDate
-        }),
-        success: function(self) {
-            $("#main_section").html(self.render);
-//            return true
-        },
-        error: function(e) {
-            console.log('txnHistory: ' + e);
-//            return false
-        }
-    });
-    return true
-}
 
 function waitForElm(selector) {
     return new Promise(resolve => {
@@ -196,99 +79,7 @@ function waitForElm(selector) {
 
 
 
-function generate_table_txnHistory(results) {
-    if (typeof results == 'undefined') {
-        htmloutput = "<div class=\"green-text-outline\">No data</div>";
-    } else {
-        for (let i = 0; i < results.length; i++) {
-            htmloutput = htmloutput + "<tr>";
-            htmloutput = htmloutput + "<td>" + results[i]["endroundtime"].substring(11, 19) + "</td>";
-            htmloutput = htmloutput + "<td>" + results[i]["status"] + "</td>";
-            htmloutput = htmloutput + "<td>" + results[i]["gametype"] + "</td>";
-            htmloutput = htmloutput + "<td>" + results[i]["gamecode"] + "</td>";
-            htmloutput = htmloutput + "<td>" + results[i]["round"] + "</td>";
-            htmloutput = htmloutput + "<td>" + results[i]["bet"] + "</td>";
-            htmloutput = htmloutput + "<td>" + results[i]["win"] + "</td>";
-//<!--                    htmloutput = htmloutput + "<td>" + results[i]["validbet"] + "</td>";-->
-//<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpot"] + "</td>";-->
-//<!--                            htmloutput = htmloutput + "<td>" + results[i]["jackpotcontribution"] + "</td>";-->
-            htmloutput = htmloutput + "<td>" + results[i]["rake"] + "</td>";
-//<!--                            htmloutput = htmloutput + "<td>" + results[i]["roomfee"] + "</td>";-->
-                    htmloutput = htmloutput + "</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\">Detail:" + results[i]["detail"] + "<br>Result:" + results[i]["gameresult"] + "</div></td></tr>";
-        };
-    }
-    document.getElementById("results").innerHTML = htmloutput;
-}
 
-function reload_popup(title, msg){
-    var translations = $('#meta-translations').data()['name']
-    var lang = $('#meta-lang').data()['name']
-
-    $('#modalNotificationTitle').html(translations[title][lang]);
-    $('#modalNotificationMsg').html(translations[msg][lang]);
-    $('#notificationModal').modal({backdrop: 'static', keyboard: false}, 'show');
-}
-
-async function send_alert(title, msg, native=false, appendix='', color='red', symbol='') {
-    var alert_box = document.getElementById('alert-box')
-    var alert_title = document.getElementById('alert-title')
-    var alert_message = document.getElementById('alert-message')
-
-    var translations = $('#meta-translations').data()['name']
-    var lang = $('#meta-lang').data()['name']
-
-    $('alert-box').toggle()
-
-//    if (alert_box.classList.contains('show')) {
-//        alert_box.classList.remove('show')
-//    }
-
-    if (color == 'red'){
-        alert_box.classList.remove('alert-info') // blue
-        alert_box.classList.remove('alert-warning') // yellow
-        alert_box.classList.add('alert-danger') // red
-        alert_box.classList.remove('alert-success') // green
-    } else if (color == 'blue'){
-        alert_box.classList.add('alert-info') // blue
-        alert_box.classList.remove('alert-warning') // yellow
-        alert_box.classList.remove('alert-danger') // red
-        alert_box.classList.remove('alert-success') // green
-    } else if (color == 'yellow'){
-        alert_box.classList.remove('alert-info') // blue
-        alert_box.classList.add('alert-warning') // yellow
-        alert_box.classList.remove('alert-danger') // red
-        alert_box.classList.remove('alert-success') // green
-    } else if (color == 'green'){
-        alert_box.classList.remove('alert-info') // blue
-        alert_box.classList.remove('alert-warning') // yellow
-        alert_box.classList.remove('alert-danger') // red
-        alert_box.classList.add('alert-success') // green
-    }
-
-    if (native) {
-        alert_title.innerHTML = title
-        alert_message.innerHTML = msg + ' ' + appendix
-    } else {
-        if (title.length > 0){
-            alert_title.innerHTML = translations[title][lang]
-        } else {
-            alert_title.innerHTML = ''
-        }
-        if (msg.length > 0){
-            alert_message.innerHTML = translations[msg][lang] + ' ' + appendix
-        } else {
-            alert_message.innerHTML = appendix
-        }
-    }
-
-    if (alert_box.classList.contains('show')) {
-        setTimeout(function(){
-            alert_box.classList.add('show')
-        }, 1000);
-    } else {
-        alert_box.classList.add('show')
-    }
-}
 
 
 function get_balance(){
@@ -395,31 +186,31 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
       }
     });
 }
-
-function includeHTML() {
-  var z, i, elmnt, file, xhttp;
-  /* Loop through a collection of all HTML elements: */
-  z = document.getElementsByTagName("*");
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = elmnt.getAttribute("w3-include-html");
-    if (file) {
-      /* Make an HTTP request using the attribute value as the file name: */
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-          /* Remove the attribute, and call this function once more: */
-          elmnt.removeAttribute("w3-include-html");
-          includeHTML();
-        }
-      }
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      /* Exit the function: */
-      return;
-    }
-  }
-}
+//
+//function includeHTML() {
+//  var z, i, elmnt, file, xhttp;
+//  /* Loop through a collection of all HTML elements: */
+//  z = document.getElementsByTagName("*");
+//  for (i = 0; i < z.length; i++) {
+//    elmnt = z[i];
+//    /*search for elements with a certain atrribute:*/
+//    file = elmnt.getAttribute("w3-include-html");
+//    if (file) {
+//      /* Make an HTTP request using the attribute value as the file name: */
+//      xhttp = new XMLHttpRequest();
+//      xhttp.onreadystatechange = function() {
+//        if (this.readyState == 4) {
+//          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+//          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+//          /* Remove the attribute, and call this function once more: */
+//          elmnt.removeAttribute("w3-include-html");
+//          includeHTML();
+//        }
+//      }
+//      xhttp.open("GET", file, true);
+//      xhttp.send();
+//      /* Exit the function: */
+//      return;
+//    }
+//  }
+//}

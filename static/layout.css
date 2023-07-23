@@ -464,7 +464,7 @@ h3 {
 }
 
 #loadingscreenModalWindow {
-    width: 200px;
+    width: 0px;
 }
 
 .spinner-logo {

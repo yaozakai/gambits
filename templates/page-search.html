@@ -1,109 +1,108 @@
-{% extends "layout.html" %}
-{% block search %}
-
-<div class="container shadow py-2">
-    <h3 class="green-text-outline">Search Player</h3><br>
-    <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> result(s)</h5>
-    <div class="col-8">
-        <div class="input-group mb-3">
-            <span class="input-group-text whiteFont">Email/Username</span>
-            <input id="search_input" class="form-control" value="{{ report_date }}"/>
-            <button class="btn btn-primary" id="search_user">Search</button>
+<div class="profile-container">
+    <div class="py-2">
+        <h3 class="green-text-outline">Search Player</h3><br>
+        <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> result(s)</h5>
+        <div class="col-8">
+            <div class="input-group mb-3">
+                <span class="input-group-text whiteFont">Email/Username</span>
+                <input id="search_input" class="form-control" value="{{ report_date }}"/>
+                <button class="btn btn-primary" id="search_user">Search</button>
 
 
+            </div>
+
+    <!--            <button class="btn btn-primary" id="search_user">Search</button>-->
         </div>
 
-<!--            <button class="btn btn-primary" id="search_user">Search</button>-->
+
     </div>
 
+    <script>
+        $(document).ready(function(){
+            $("td[colspan=12]").find("p").hide();
+            $("table").click(function(event) {
+                event.stopPropagation();
+                var $target = $(event.target);
+                if ( $target.closest("td").attr("colspan") > 1 ) {
+                    $target.slideUp();
+                    $target.closest("tr").next().find("div").slideToggle();
 
-</div>
+                } else {
+                    $target.closest("tr").next().find("div").slideToggle();
 
-<script>
-    $(document).ready(function(){
-        $("td[colspan=12]").find("p").hide();
-        $("table").click(function(event) {
-            event.stopPropagation();
-            var $target = $(event.target);
-            if ( $target.closest("td").attr("colspan") > 1 ) {
-                $target.slideUp();
-                $target.closest("tr").next().find("div").slideToggle();
-
-            } else {
-                $target.closest("tr").next().find("div").slideToggle();
-
-            }
-        });
-
-        const search_user = document.getElementById('search_user');
-        const search_input = document.getElementById('search_input');
-        search_user.addEventListener("click", (event) => {
-            $.ajax({
-                url: "/search_user",
-                type: "post",
-                dataType: "json",
-                contentType: "application/json; charset=UTF-8",
-                data: JSON.stringify({
-                    "search_input":search_input.value
-                }),
-                success: function(self) {
-                    htmloutput = "";
-                    results = self.rec;
-                    $("#num_results").html(self.num_results);
-                    if (self.num_results == 0) {
-                        htmloutput = "<div class=\"green-text-outline\">No data</div>";
-                    } else {
-                        for (let i = 0; i < results.length; i++) {
-                            htmloutput = htmloutput + "<tr>";
-                            htmloutput = htmloutput + "<td>" + results[i]["user_id"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["created"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["username"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["email"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["referral"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["balance"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["currency"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["active"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["admin"] + "</td>";
-                            htmloutput = htmloutput + "<td>" + results[i]["logged_in"] + "</td>";
-                            htmloutput = htmloutput + '</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\"><a class="btn btn-primary" href="/userDetails?' + results[i]["user_id"] + '" role="button" target="_blank">Check details</a></div></td></tr>';
-                        };
-                    }
-
-
-                    document.getElementById("search_user_results").innerHTML = htmloutput;
-                },
-                error: function(e) {
-                    console.log('search_user: ' + e);
                 }
             });
+
+            const search_user = document.getElementById('search_user');
+            const search_input = document.getElementById('search_input');
+            search_user.addEventListener("click", (event) => {
+                $.ajax({
+                    url: "/search_user",
+                    type: "post",
+                    dataType: "json",
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        "search_input":search_input.value
+                    }),
+                    success: function(self) {
+                        htmloutput = "";
+                        results = self.rec;
+                        $("#num_results").html(self.num_results);
+                        if (self.num_results == 0) {
+                            htmloutput = "<div class=\"green-text-outline\">No data</div>";
+                        } else {
+                            for (let i = 0; i < results.length; i++) {
+                                htmloutput = htmloutput + "<tr>";
+                                htmloutput = htmloutput + "<td>" + results[i]["user_id"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["created"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["username"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["email"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["referral"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["balance"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["currency"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["active"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["admin"] + "</td>";
+                                htmloutput = htmloutput + "<td>" + results[i]["logged_in"] + "</td>";
+                                htmloutput = htmloutput + '</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\"><a class="btn btn-primary" href="/userDetails?' + results[i]["user_id"] + '" role="button" target="_blank">Check details</a></div></td></tr>';
+                            };
+                        }
+
+
+                        document.getElementById("search_user_results").innerHTML = htmloutput;
+                    },
+                    error: function(e) {
+                        console.log('search_user: ' + e);
+                    }
+                });
+            });
         });
-    });
 
-</script>
+    </script>
 
-<table id="data" class="table table-hover table-dark container green-text-outline">
-    <thead>
-      <tr>
-        <th>User ID</th>
-        <th>Created</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Referral</th>
-        <th>Balance</th>
-        <th>Currency</th>
-        <th>Active</th>
-        <th>Admin</th>
-        <th>Logged In</th>
-      </tr>
-    </thead>
-    <tbody id="search_user_results"></tbody>
+    <table id="data" class="table table-hover table-dark green-text-outline">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Created</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Referral</th>
+            <th>Balance</th>
+            <th>Currency</th>
+            <th>Active</th>
+            <th>Admin</th>
+            <th>Logged In</th>
+          </tr>
+        </thead>
+        <tbody id="search_user_results"></tbody>
 
-</table>
+    </table>
+</div>
+
 <!--    {% if num_results == 0 %}-->
 <!--        <div class="green-text-outline">-->
 <!--          No Data-->
 <!--        </div>-->
 <!--    {% endif %}-->
 
-{% endblock %}
 

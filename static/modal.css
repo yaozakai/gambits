@@ -1,5 +1,8 @@
+.modal-open .modal-backdrop.in:nth-child(2) { opacity: .5 }
+.modal-backdrop.in { opacity: 0 }
+
 .modal-open {
-  overflow:hidden;
+  overflow: scroll!important;
   overflow-y: scroll!important;
   padding-right: 0px!important;
 }

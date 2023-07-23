@@ -51,8 +51,9 @@
      #main_section {
         /* margin-top: 135px; */
         /* margin-left: 306px; */
-        margin: 60px auto;
-        padding-left: 200px;
+        margin: 16px auto;
+        padding-left: 215px;
+        max-width: 1077px;
     }
 
     .navbar-expand-md {

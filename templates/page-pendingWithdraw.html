@@ -1,110 +1,98 @@
-{% extends "layout.html" %}
-{% block pendingWithdraw %}
+<div class="profile-container">
 
-<div class="py-2">
-    <h3 class="green-text-outline">Pending Withdraws</h3>
+    <div class="py-2">
+        <h3 class="green-text-outline">Pending Withdraws</h3>
 
-    <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>
+        <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>
 
+    </div>
+
+    <script>
+
+    <!--    $(document).ready(function(){-->
+    <!--        $("td[colspan=12]").find("p").hide();-->
+    <!--        $("table").click(function(event) {-->
+    <!--            event.stopPropagation();-->
+    <!--            var $target = $(event.target);-->
+    <!--            if ( $target.closest("td").attr("colspan") > 1 ) {-->
+    <!--                $target.slideUp();-->
+    <!--                $target.closest("tr").next().find("div").slideToggle();-->
+
+    <!--            } else {-->
+    <!--                $target.closest("tr").next().find("div").slideToggle();-->
+
+    <!--            }-->
+    <!--        });-->
+    <!--    });-->
+
+    </script>
+
+    <table id="data" class="table table-hover table-dark green-text-outline">
+        <thead class="txn-table-header">
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Email</th>
+            <th>Amount</th>
+            <th>txHash</th>
+    <!--        <th>Chain</th>-->
+            <th>Wallet</th>
+            <th>Reconcile</th>
+    <!--        <th>Cancel</th>-->
+    <!--        <th>Valid Bet</th>-->
+    <!--        <th>Jackpot</th>-->
+    <!--        <th>JackContribution</th>-->
+    <!--        <th>Rake</th>-->
+    <!--        <th>Room Fee</th>-->
+          </tr>
+        </thead>
+        <tbody class="txn-table-row" id="results">
+    <!--      {% set counter = 0 %}-->
+          {% for record in rec %}
+    <!--        {% set counter = loop.count %}-->
+            <tr>
+                {% if record.created is string %}
+                <td>{{ record.created.split(' ')[0] }}</td>
+                <td>{{ record.created.split(' ')[1] }}</td>
+                {% else %}
+                <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
+                <td>{{ record.created.strftime('%H:%M:%S') }}</td>
+                {% endif %}
+
+    <!--            {% if record.status == 'Pending' %}-->
+                    <td style="color: yellow;" id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>
+    <!--            {% else %}-->
+    <!--                <td id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>-->
+    <!--            {% endif %}-->
+
+                <td>{{ record.email }}</td>
+    <!--            <td>{{ record.email[:9] }}..{{ record.email[:-3] }}</td>-->
+
+                <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
+                <td id="reconcile_id-{{ record.txHash }}">{{ record.txHash }}</td>
+
+                <td id="receipient_address-{{ record.fromAddress }}"><a href='https://etherscan.io/address/{{ record.fromAddress }}' target="_blank">{{ record.fromAddress[:6] }}..{{ record.fromAddress[-3:] }}</a></td>
+
+                <td>
+                    <button onclick="setup_reconciliation();" id="reconcile-{{ record.txHash }}" name="{{ record.fromAddress }}-{{ record.amount }}"
+                                              class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Go</button>
+                </td>
+    <!--            <td>-->
+    <!--                <button onclick="cancel_reconciliation();" id="{{ record.amount }}-{{ record.txHash }}"-->
+    <!--                                          class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Cancel</button>-->
+    <!--            </td>-->
+    <!--            <td>{{ record.validbet }}</td>-->
+    <!--          <td>{{ record.jackpot }}</td>-->
+    <!--          <td>{{ record.jackpotcontribution }}</td>-->
+    <!--            <td>{{ record.rake }}</td>-->
+    <!--          <td>{{ record.roomfee }}</td>-->
+            </tr>
+          {% endfor %}
+        </tbody>
+
+
+    </table>
 </div>
-
-<script>
-
-<!--    $(document).ready(function(){-->
-<!--        $("td[colspan=12]").find("p").hide();-->
-<!--        $("table").click(function(event) {-->
-<!--            event.stopPropagation();-->
-<!--            var $target = $(event.target);-->
-<!--            if ( $target.closest("td").attr("colspan") > 1 ) {-->
-<!--                $target.slideUp();-->
-<!--                $target.closest("tr").next().find("div").slideToggle();-->
-
-<!--            } else {-->
-<!--                $target.closest("tr").next().find("div").slideToggle();-->
-
-<!--            }-->
-<!--        });-->
-<!--    });-->
-
-</script>
-
-<table id="data" class="table table-hover table-dark profile-container green-text-outline">
-    <thead class="txn-table-header">
-      <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Status</th>
-        <th>Email</th>
-        <th>Amount</th>
-        <th>txHash</th>
-<!--        <th>Chain</th>-->
-        <th>Wallet</th>
-        <th>Reconcile</th>
-<!--        <th>Cancel</th>-->
-<!--        <th>Valid Bet</th>-->
-<!--        <th>Jackpot</th>-->
-<!--        <th>JackContribution</th>-->
-<!--        <th>Rake</th>-->
-<!--        <th>Room Fee</th>-->
-      </tr>
-    </thead>
-    <tbody class="txn-table-row" id="results">
-<!--      {% set counter = 0 %}-->
-      {% for record in rec %}
-<!--        {% set counter = loop.count %}-->
-        <tr>
-            {% if record.created is string %}
-            <td>{{ record.created.split(' ')[0] }}</td>
-            <td>{{ record.created.split(' ')[1] }}</td>
-            {% else %}
-            <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
-            <td>{{ record.created.strftime('%H:%M:%S') }}</td>
-            {% endif %}
-
-<!--            {% if record.status == 'Pending' %}-->
-                <td style="color: yellow;" id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>
-<!--            {% else %}-->
-<!--                <td id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>-->
-<!--            {% endif %}-->
-
-            <td>{{ record.email }}</td>
-<!--            <td>{{ record.email[:9] }}..{{ record.email[:-3] }}</td>-->
-
-            <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
-            <td id="reconcile_id-{{ record.txHash }}">{{ record.txHash }}</td>
-
-            <td id="receipient_address-{{ record.fromAddress }}"><a href='https://etherscan.io/address/{{ record.fromAddress }}' target="_blank">{{ record.fromAddress[:6] }}..{{ record.fromAddress[-3:] }}</a></td>
-
-            <td>
-                <button onclick="setup_reconciliation();" id="reconcile-{{ record.txHash }}" name="{{ record.fromAddress }}-{{ record.amount }}"
-                                          class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Go</button>
-            </td>
-<!--            <td>-->
-<!--                <button onclick="cancel_reconciliation();" id="{{ record.amount }}-{{ record.txHash }}"-->
-<!--                                          class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Cancel</button>-->
-<!--            </td>-->
-<!--            <td>{{ record.validbet }}</td>-->
-<!--          <td>{{ record.jackpot }}</td>-->
-<!--          <td>{{ record.jackpotcontribution }}</td>-->
-<!--            <td>{{ record.rake }}</td>-->
-<!--          <td>{{ record.roomfee }}</td>-->
-        </tr>
-      {% endfor %}
-    </tbody>
-
-
-</table>
-
-
-
-
-<!--    {% if num_results == 0 %}-->
-<!--        <div class="green-text-outline">-->
-<!--          No Data-->
-<!--        </div>-->
-<!--    {% endif %}-->
-<!--<script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/calendar.js"></script>-->
-
-{% endblock pendingWithdraw %}
 
 

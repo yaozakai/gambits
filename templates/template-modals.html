@@ -21,19 +21,20 @@
 <!-- loading.... popup -->
 <div class="modal fade" id="loadingscreenModal" tabindex="-1" role="dialog" aria-labelledby="loadingscreenModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="loadingscreenModalWindow">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="loadingscreenModalLabel">{{ translations['loading'][session['lang']] }}</h3>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
 
-            </div>
+        <div >
+            <button id="loading-modal-close" type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="float: right;position: relative;">
+                <span aria-hidden="true">&times;</span>
+            </button>
             <div class="modal-body" id="game-launch-spinner">
                 <div class="icon-spinner spinner-border text-success" role="status">
                     <img src="{{ root_path }}static/logos/favicon.png" class="loading-logo">
                 </div>
             </div>
+
+<!--            <div class="green-text" style="text-align: center;">-->
+<!--                <span  id="loadingscreenModalLabel">{{ translations['loading'][session['lang']] }}</span>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
@@ -163,38 +164,7 @@
     </div>
 </div>
 
-<!--<script>-->
-<!--    $('#deposit-amount').on('input', function(){-->
-<!--        var balance = {{ current_user.balance_usdt }};-->
-<!--        var decimals = $('#deposit-amount').val().split('.')[1]-->
-<!--        var error = false-->
 
-<!--        if (typeof decimals !== 'undefined') {-->
-<!--            if (decimals.length > 2) {-->
-<!--                $('#money-deposit').prop('disabled', true)-->
-<!--                $('#deposit-error').text(translations['only2decimals'][lang])-->
-<!--                error = true-->
-<!--            } else {-->
-<!--                $('#money-deposit').prop('disabled', false)-->
-<!--                $('#deposit-error').text('')-->
-<!--                error = false-->
-<!--            }-->
-<!--        }-->
-<!--        let added_amount = 0-->
-<!--        if ($('#deposit-amount').val()) {-->
-<!--            added_amount = $('#deposit-amount').val()-->
-<!--        }-->
-
-<!--        if (!error) {-->
-<!--            let displayed_amount = balance + parseFloat(added_amount)-->
-<!--&lt;!&ndash;            console.log(displayed_amount + "=" + balance + "+" + parseFloat(added_amount))&ndash;&gt;-->
-<!--&lt;!&ndash;            $('#deposit-display-amount').html(displayed_amount.toFixed(2) + ' USDT @ ERC20')&ndash;&gt;-->
-<!--        }-->
-
-
-
-<!--    });-->
-<!--</script>-->
 <!-- withdraw popup -->
 <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="withdrawModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="withdrawModalWindow">
@@ -485,19 +455,7 @@ $('.add-to-total').on('click', function(){
 {% if not current_user.is_authenticated %}
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <script>
-            $(document).ready(function(){
-              $('#loginModal').on('show.bs.modal', function(){
-                 $(".error").html('');
-                 $("#login-email").val("");
-                 $("#login-password").val("");
-<!--                 $("#login-rememberme").prop("checked", false);-->
-                 $('#login-spinner').hide();
 
-                 grecaptcha.reset(widgetId1);
-                 document.getElementById('login-email').placeholder = "";
-                 document.getElementById('login-password').placeholder = "";
-              });
-            });
         </script>
 
         <div class="modal-dialog modal-dialog-centered" role="document" id="loginDialog">
@@ -550,11 +508,20 @@ $('.add-to-total').on('click', function(){
         </div>
         <script>
 
-
-
-
-
             $(document).ready(function(){
+
+                $('#loginModal').on('show.bs.modal', function(){
+                     $(".error").html('');
+                     $("#login-email").val("");
+                     $("#login-password").val("");
+    <!--                 $("#login-rememberme").prop("checked", false);-->
+                     $('#login-spinner').hide();
+
+                     grecaptcha.reset(widgetId1);
+                     document.getElementById('login-email').placeholder = "";
+                     document.getElementById('login-password').placeholder = "";
+                  });
+
                 $('#forgotPassword').on('click', function(){
                     $('#loginModal').modal('hide');
                 });
@@ -562,18 +529,40 @@ $('.add-to-total').on('click', function(){
 
 
                 $('#loginbtn').on('click', function(){
-                    $('#login-spinner').outerHeight($('#loginbtn').outerHeight());
-                    $('#login-spinner').outerWidth($('#loginbtn').outerWidth());
-                    $('#login-spinner').css({
-                        'display': 'inline-flex'
-                    });
+<!--                    event.preventDefault();-->
+                    const email = $("#login-email").val();
+                    const password = $("#login-password").val();
+                    const csrf_token = $("#csrf_token").val();
 
-                    event.preventDefault();
-                    var email = $("#login-email").val();
-                    var password = $("#login-password").val();
-                    var csrf_token = $("#csrf_token").val();
+<!--                    $('#login-spinner').outerHeight($('#loginbtn').outerHeight());-->
+<!--                    $('#login-spinner').outerWidth($('#loginbtn').outerWidth());-->
+<!--                    $('#login-spinner').css({-->
+<!--                        'display': 'inline-flex'-->
+<!--                    });-->
+
+                    if (!isEmail(email)) {
+                        $(".error").html('<p>'+'{{ translations['invalid email format'][session['lang']] }}'+'</p>');
+
+                        return true
+                    }
+
 <!--                    var rememberme = document.querySelector('#login-rememberme').checked;-->
                     var recaptcha = grecaptcha.getResponse();
+                    if (!recaptcha) {
+                        $(".error").html('<p>'+'{{ translations['recaptcha not verified'][session['lang']] }}'+'</p>');
+
+                        return true
+                    }
+
+                    if (!password) {
+                        $(".error").html('<p>'+'{{ translations['password:missing'][session['lang']] }}'+'</p>');
+
+                        return true
+                    }
+
+                    $('#loadingscreenModal').modal('show');
+                    $('#loginModal').modal('hide');
+
                     $.ajax({
                         url: "/login",
                         type: "post",
@@ -587,6 +576,7 @@ $('.add-to-total').on('click', function(){
                             "csrf_token":csrf_token
                         }),
                         success: function(self) {
+<!--                            $('#loadingscreenModal').modal('hide');-->
                             if (typeof self.error != 'undefined'){
                                 $('#login-spinner').hide();
                                 if (typeof self.resend_email != 'undefined'){
@@ -600,11 +590,16 @@ $('.add-to-total').on('click', function(){
 
                         },
                         error: function(e) {
+                            $('#loadingscreenModal').modal('hide');
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
                             send_alert('reload:title', 'reload:msg')
                             $('#login-spinner').hide();
 <!--                            console.log('login: ' + e);-->
                         }
                     });
+
+
                 });
             });
             $(document).on('click', '#resendEmail', function(self){

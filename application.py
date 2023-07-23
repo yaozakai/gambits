@@ -23,6 +23,7 @@ from utils import reload_game_titles, reload_icon_placement, setup_home_template
     set_session_geo_lang
 
 from os.path import abspath, dirname
+
 app.root_path = abspath(dirname(__file__))
 
 uaform = None
@@ -90,19 +91,22 @@ def home():
                     if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
                         rec.insert(0, query.serialize())
                 rec.sort(key=itemgetter('created'), reverse=True)
-                return render_template('page-txnHistory.html', rec=rec, report_date=report_date,
+                return render_template('page-txnHistory-wrap.html', rec=rec, report_date=report_date,
                                        translations=utils.translations)
             elif session['page'] == 'gameHistory':
                 rec = player_report_today(db_get_user().username, report_date)
                 # report_date = report_date.strftime('%Y-%m-%d')
                 if rec is None:
-                    return render_template('page-gamehistory.html', rec=[], translations=utils.translations,
+                    return render_template('page-gamehistory-wrap.html', rec=[], translations=utils.translations,
                                            report_date=report_date, lang=session['lang'])
                 else:
-                    return render_template('page-gamehistory.html', rec=rec['Data'], translations=utils.translations,
+                    return render_template('page-gamehistory-wrap.html', rec=rec['Data'],
+                                           translations=utils.translations,
                                            report_date=report_date, lang=session['lang'])
             elif session['page'] == 'pendingWithdraw':
                 return pendingWithdraw(True)
+            elif session['page'] == 'search':
+                return search()
 
     else:
         session['page'] = 'gallery'
@@ -176,7 +180,8 @@ def verify_transaction():
                            translations['alert:clickHere'][session['lang']] + '</button>'
             alert_type = 'alert:timeout'
 
-    return jsonify(amount=amount, currency=request.json['currency'], alert_type=alert_type, notification_title=notification_title,
+    return jsonify(amount=amount, currency=request.json['currency'], alert_type=alert_type,
+                   notification_title=notification_title,
                    notification=notification, reconciled_txHash=deposit.txHash, balance=user_db.balance_usdt)
 
 
@@ -192,7 +197,10 @@ def logout():
 @application.route('/search_page', methods=['GET', 'POST'])
 @login_required
 def search():
-    return jsonify(render=render_template('page-search.html', rec=[], translations=utils.translations))
+    session['page'] = 'search'
+    div_render = render_template('page-search.html', rec=[], translations=utils.translations)
+    return jsonify(render=render_template('page-search.html', rec=[], translations=utils.translations),
+                   div_render=div_render)
 
 
 @application.route('/userDetails', methods=['GET'])
@@ -255,9 +263,11 @@ def txnHistory():
 
     rec.sort(key=itemgetter('created'), reverse=True)
     # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
-
-    return jsonify(render=render_template('page-txnHistory.html', rec=rec, report_date=str(report_date).split(' ')[0],
-                                          translations=utils.translations))
+    div_render = render_template('page-txnHistory.html', rec=rec, report_date=str(report_date).split(' ')[0],
+                                 translations=utils.translations)
+    return jsonify(
+        render=render_template('page-txnHistory-wrap.html', rec=rec, report_date=str(report_date).split(' ')[0],
+                               translations=utils.translations), div_render=div_render)
 
 
 @application.route('/pendingWithdraw', methods=['GET', 'POST'])
@@ -269,34 +279,13 @@ def pendingWithdraw(reload=False):
     for query in queries:
         rec.insert(0, query.serialize())
     if reload:
-        return render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations)
+        return render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations)
     else:
         session['page'] = 'pendingWithdraw'
-
-        # queries = queries.query.filter_by(status='Pending')
-        # if len(json.loads(request.data)['reportDate']) > 0:
-        #     report_date = datetime.datetime.strptime(json.loads(request.data)['reportDate'], '%Y-%m-%d')
-        # else:
-        #     # report_date = datetime.datetime.now()
-        #     report_date = datetime.datetime.now()
-        #
-        # rec = []
-        # for query in queries:
-        #     if pytz.UTC.localize(query.created) <= (pytz.UTC.localize(report_date) + datetime.timedelta(days=1)):
-        #         rec.insert(0, query.serialize())
-        #
-        # rec.sort(key=itemgetter('created'), reverse=True)
-        # rec.sort(key=lambda date: datetime.strptime(date, '%Y-%m-%d'))
-
-        return jsonify(render=render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations))
-
-    # rec = player_report_today(db_get_user().username, report_date)
-    # if rec is None:
-    #     return jsonify(rec=[], report_date=report_date, render=render_template('page-txnHistory.html', rec=[],
-    #                                                                            report_date=report_date))
-    # else:
-    #     return jsonify(rec=[], report_date=report_date, render=render_template('page-txnHistory.html', rec=[],
-    #                                                                            report_date=report_date))
+        div_render = render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations)
+        return jsonify(
+            render=render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations),
+            div_render=div_render)
 
 
 @application.route('/gameHistory', methods=['GET', 'POST'])
@@ -313,8 +302,10 @@ def gameHistory():
         report_date = get_timestamp(False, False)
         # rec = player_report_today(db_get_user().username, report_date)
         report_date = report_date.strftime('%Y-%m-%d')
-    return jsonify(render=render_template('page-gamehistory.html', rec=records, translations=utils.translations,
-                                          report_date=report_date, lang=session['lang']))
+    div_render = render_template('page-gamehistory.html', rec=records, translations=utils.translations,
+                                 report_date=report_date, lang=session['lang'])
+    return jsonify(render=render_template('page-gamehistory-wrap.html', rec=records, translations=utils.translations,
+                                          report_date=report_date, lang=session['lang']), div_render=div_render)
 
 
 @application.route("/launch", methods=['GET', 'POST'])
@@ -532,7 +523,7 @@ def withdraw_request():
     ##### make sure you check and make sure the user has enough to withdraw
 
     if float(request.json['amount']) <= round(user_db.balance_usdt, 2):
-        txnHash_temp = str(TxnEntry().query.count()+1)
+        txnHash_temp = str(TxnEntry().query.count() + 1)
 
         withdraw = TxnEntry('Withdraw', user_db.email, user_db.user_id, request.json['amount'],
                             request.json['currency'],

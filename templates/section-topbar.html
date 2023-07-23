@@ -69,9 +69,9 @@
                     </li>
                     <div class="dropdown-divider"></div>
 <!--Transactions button-->
-                    <li><button class="btn dropdown-item" id="txnHistory-button" onclick="go_to_txnHistory()">{{ translations['txnHistory'][session['lang']] }}</button></li>
+                    <li><button class="btn dropdown-item" onclick="go_to_txnHistory()" >{{ translations['txnHistory'][session['lang']] }}</button></li>
 <!--Game History button-->
-                    <li><a class="btn dropdown-item" onclick="go_to_gameHistory()">{{ translations['gamehistory'][session['lang']] }}</a></li>
+                    <li><button class="btn dropdown-item" onclick="go_to_gameHistory()" >{{ translations['gamehistory'][session['lang']] }}</button></li>
 <!--Language button-->
                     <li class="dropdown-submenu dropdown-item">
                         <span class="flag-icon flag-icon-{{ session['flag'] }}"> </span>  {{ translations['language'][session['lang']] }}

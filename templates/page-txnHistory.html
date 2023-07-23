@@ -1,7 +1,5 @@
-{% extends "layout.html" %}
-{% block txnHistory %}
-<div id="mid-section">
-    <div class="py-2 profile-container">
+<div class="profile-container">
+    <div class="py-2 ">
         <h3 class="green-text-outline">{{ translations['title:Transaction History'][session['lang']] }}</h3>
         <div class="justify-content-center" style="width: 260px;">
             <div class="input-group mb-3 mt-3">
@@ -16,33 +14,7 @@
 
     </div>
 
-    <script>
-
-        $(document).ready(function(){
-            $("td[colspan=12]").find("p").hide();
-            $("table").click(function(event) {
-                event.stopPropagation();
-                var $target = $(event.target);
-                if ( $target.closest("td").attr("colspan") > 1 ) {
-                    $target.slideUp();
-                    $target.closest("tr").next().find("div").slideToggle();
-
-                } else {
-                    $target.closest("tr").next().find("div").slideToggle();
-
-                }
-            });
-
-            const selectElement = document.getElementById('reportDate');
-            selectElement.addEventListener("change", () => {
-                go_to_txnHistory(selectElement.value)
-            });
-
-        });
-
-    </script>
-
-    <table id="txn-data" class="table table-hover table-dark profile-container green-text-outline">
+    <table id="txn-data" class="table table-hover table-dark green-text-outline">
         <thead class="txn-table-header">
           <tr>
             <th style="display: flex;">Status
@@ -121,15 +93,31 @@
                     table.find('tr').each(function (i, el) {
                         var row = $(this)
                         var $tds = $(this).find('td'),
-                            txn_type = $tds.eq(3).text(),
-                            txn_status = $tds.eq(0).text();
-                            let filter_match = false
+                        txn_type = $tds.eq(3).text(),
+                        txn_status = $tds.eq(0).text();
+                        let filter_match = false
 
-                            console.log("txn_status: " + txn_status)
-    <!--                        console.log("txn_type: " + txn_type)-->
-                            for (let i = 0; i < filter_type.length; i++) {
-                                if (txn_type.toLowerCase().trim() == filter_type[i]){
-    <!--                                console.log("show txn_type: " + txn_type)-->
+                        console.log("txn_status: " + txn_status)
+<!--                        console.log("txn_type: " + txn_type)-->
+                        for (let i = 0; i < filter_type.length; i++) {
+                            if (txn_type.toLowerCase().trim() == filter_type[i]){
+<!--                                console.log("show txn_type: " + txn_type)-->
+                                row.show()
+                                filter_match = true
+                                break
+                            }
+                        }
+                        if (!filter_match){
+                            row.hide()
+                        } else {
+                        // second chance to show
+                            filter_match = false
+                            for (let i = 0; i < filter_status.length; i++) {
+                                if (txn_status.includes(translations['txn:failed'][lang])){
+                                    txn_status = 'failed'
+                                }
+                                if (txn_status.toLowerCase().trim() == filter_status[i]){
+<!--                                    console.log("show txn_status: " + txn_status)-->
                                     row.show()
                                     filter_match = true
                                     break
@@ -137,24 +125,8 @@
                             }
                             if (!filter_match){
                                 row.hide()
-                            } else {
-                            // second chance to show
-                                filter_match = false
-                                for (let i = 0; i < filter_status.length; i++) {
-                                    if (txn_status.includes(translations['txn:failed'][lang])){
-                                        txn_status = 'failed'
-                                    }
-                                    if (txn_status.toLowerCase().trim() == filter_status[i]){
-    <!--                                    console.log("show txn_status: " + txn_status)-->
-                                        row.show()
-                                        filter_match = true
-                                        break
-                                    }
-                                }
-                                if (!filter_match){
-                                    row.hide()
-                                }
                             }
+                        }
                     });
                 }
             </script>
@@ -216,7 +188,31 @@
 
     </table>
 
+
+
     <script>
+
+        $(document).ready(function(){
+            $("td[colspan=12]").find("p").hide();
+            $("table").click(function(event) {
+                event.stopPropagation();
+                var $target = $(event.target);
+                if ( $target.closest("td").attr("colspan") > 1 ) {
+                    $target.slideUp();
+                    $target.closest("tr").next().find("div").slideToggle();
+
+                } else {
+                    $target.closest("tr").next().find("div").slideToggle();
+
+                }
+            });
+
+            const selectElement = document.getElementById('reportDate');
+            selectElement.addEventListener("change", () => {
+                go_to_txnHistory(selectElement.value)
+            });
+
+        });
 
         function reverify(td_id, txHash, chain, currency, amount, fromAddress, status){
 
@@ -249,6 +245,5 @@
 <!--    {% endif %}-->
 <!--<script language="JavaScript" type="text/javascript" src="{{ root_path }}static/js/calendar.js"></script>-->
 </div>
-{% endblock %}
 
 

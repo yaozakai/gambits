@@ -87,6 +87,7 @@ account exists,存在具有此用戶名的帳戶,存在具有此用户名的帐�
 account exists but not activated,帳戶存在但未激活,帐户存在但未激活,Account exists but not activated,,,,,,,
 created not verified,您的帳戶已創建但尚未驗證,您的帐户已创建但尚未验证,Your account is created but not verified yet,,,,,,,
 username more than 2,用戶名必須超過 2 個字符,用户名必须超过 2 个字符,Username must be more than 2 characters,,,,,,,
+password:missing,,,Missing password,,,,,,,
 invalid email format,電子郵件格式無效,电子邮件格式无效,Invalid e-mail format,,,,,,,
 recaptcha not verified,reCaptcha 未驗證,reCaptcha 未验证,reCaptcha not verified,,,,,,,
 reload:msg,重新加載網站,重新加载网站,"Sorry, something went wrong! Please reload the website",,,,,,,
