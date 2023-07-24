@@ -196,7 +196,10 @@ def db_check_mtcode_rollin():
 
 
 def db_check_roundid():
-    bet = BetEntry().query.filter_by(roundid=request.form['roundid']).first()
+    bets = BetEntry().query.filter_by(roundid=request.form['roundid'])
+    bets_settle = json.loads(request.form['data'])
+    for bet in bets:
+        pass
     # true if exists
     return bet is not None
 
@@ -309,6 +312,9 @@ def db_endround():
         # bet = Number.parseFloat(request.form['amount'])
         # new_balance = Number.parseFloat((balance - bet).toFixed(10))
         # user.balance = Number.parseFloat((user.balance + result['amount']).toFixed(10))
+        bet = BetEntry().query.filter_by(mtcode=result['mtcode']).first()
+        bet.settled = True
+
         user.balance_usdt += round(float(result['amount']), 2)
 
     # filter out the optional parameters

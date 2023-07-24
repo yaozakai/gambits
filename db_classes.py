@@ -64,6 +64,7 @@ class UserEntry(UserMixin, db.Model):
     is_anonymous = False
     currency = db.Column(db.String(10), default='USDT')
     lang = db.Column(db.String(10), default='en')
+    signin_bonus = db.Column(db.Float, default=0)
 
     # page = ''
 
@@ -146,7 +147,6 @@ class UserEntry(UserMixin, db.Model):
 class BetEntry(db.Model):
     __tablename__ = 'bets'
     username = db.Column(db.String(50))
-    # amount = db.Column(db.String(36))
     amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
     gamecode = db.Column(db.String(36))
@@ -154,6 +154,8 @@ class BetEntry(db.Model):
     mtcode = db.Column(db.String(70), primary_key=True)
     platform = db.Column(db.String(20))
     roundid = db.Column(db.String(60))
+    settled = db.Column(db.Numeric(1), default=0)
+
     # session = db.Column(db.String(60))
 
     def __init__(self, username='', amount=0, time='', gamecode='', gamehall='', mtcode='', platform='',

@@ -154,25 +154,33 @@ def cq9_bet():
 
 @cq9_api.route('/cq9/transaction/game/endround', methods=['POST'])
 def cq9_endround():
-    if check_token() and db_check_roundid():
-        # if db_getuser_username(request.form['account']) is not None:
+    error_code = '0'
+    balance = 0
+
+    if check_token():
+        # bets = BetEntry().query.filter_by(roundid=request.form['roundid'])
+        # db_check_roundid()
         balance = db_endround()
-        if balance > 0:
-            error_code = '0'
-        else:
-            error_code = '1003'
-        model = {
-            "data": {
-                "balance": f'{balance:.2f}',
-                "currency": "USDT"
-            },
-            "status": {
-                "code": error_code,
-                "message": "Success",
-                "datetime": get_timestamp()
-            }
+    else:
+        error_code = '3'
+
+        # and db_check_roundid():
+
+
+        # if db_getuser_username(request.form['account']) is not None:
+
+    model = {
+        "data": {
+            "balance": f'{balance:.2f}',
+            "currency": "USDT"
+        },
+        "status": {
+            "code": error_code,
+            "message": "Success",
+            "datetime": get_timestamp()
         }
-        return jsonify(model)
+    }
+    return jsonify(model)
 
 
 @cq9_api.route('/cq9/transaction/game/credit', methods=['POST'])
