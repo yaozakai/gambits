@@ -61,9 +61,11 @@ class UserEntry(UserMixin, db.Model):
     active = db.Column(db.Numeric(1), default=0)
     admin = db.Column(db.Numeric(1), default=0)
     logged_in = db.Column(db.Numeric(1), default=0)
-    is_anonymous = False
+    # is_anonymous = False
     currency = db.Column(db.String(10), default='USDT')
     lang = db.Column(db.String(10), default='en')
+
+    # phone_number = db.Column(db.Numeric(30), default=0)
     signin_bonus = db.Column(db.Float, default=0)
 
     # page = ''
@@ -118,7 +120,7 @@ class UserEntry(UserMixin, db.Model):
                 "password": self.password,
                 "referral": self.referral,
                 "active": self.active,
-                "is_anonymous": self.is_anonymous,
+                # "is_anonymous": self.is_anonymous,
                 "logged_in": self.logged_in}
 
     def add_balance(self, amount, currency):

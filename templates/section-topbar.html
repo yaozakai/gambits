@@ -49,7 +49,7 @@
                     {% if current_user.signin_bonus < 50 %}
                         <li class="" id="" style="margin-left: 7px;">
                             <div style="display: flex;">
-                                <div class="excited-text" style="font-size: small;">{{ translations['signup bonus'][session['lang']] }}</div>
+                                <div class="excited-text" style="font-size: small;">{{ translations['signup bonus:title'][session['lang']] }}</div>
                                 <i class="bi bi-question-circle"  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" data-bs-title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
                                    style="
             bottom: 1px;
@@ -103,7 +103,7 @@
             {% endif %}
 
             {% if not current_user.is_authenticated %}
-                        <!-- signup bonus bubble -->
+                        <!-- signup bonus:title bubble -->
                           <div id="signup-bonus-container">
                               <div id="signup-bonus-bubble"></div>
                               <div id="signup-bonus-content">

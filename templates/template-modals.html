@@ -496,7 +496,8 @@ $('.add-to-total').on('click', function(){
                                     <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
                                 </div>
                             </div>
-                            {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}
+<!--                            {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}-->
+                            <button id="loginbtn" class="btn btn-outline-success btn-lg rainglow" style="float: left;">{{ translations['lets go'][session['lang']] }}</button>
 <!--                            <div class="login-with-text green-text text-sm">...{{ translations['or log in with'][session['lang']] }}:</div>-->
 <!--                            <button onclick="login()" class="btn btn-outline-success btn-lg btn-transparent" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>-->
                         </div>
@@ -678,23 +679,22 @@ $('.add-to-total').on('click', function(){
                     </div>
                     <div class=" mb-3 excited-text" style="
                         background-color: #27172a;
-                        display: block;
+                        display: inline-flex;
+                        width: 100%;
+                        position: relative;
                     ">
-                        <div style="
-                        display: flex;
-                    " class="input-group">
-                            <span class="input-group-text whiteFont" style="
-                        /* background-color: black; */
-                    ">Referral</span>
-                                            <input class="form-control" id="reg-referral" name="referral" type="text" value="">
-                        </div>
-                        <div style="
-                        font-size: 11px;
+                        <span class="input-group-text whiteFont neon" style="background-color: #ac7936;color: #1a1519;min-width: 90px;display: grid;">{{ translations['bonus'][lang] }}</span><div style="
+                        font-size: 15px;
                         text-align: center;
-                        padding: 12px;
+                        margin: 5px auto 5px auto;
                     ">
-                    Enter your friend's Gambit's username here. Refer friends and get massive rewards!
+
+                        {{ translations['signup bonus:desc'][lang] }}<br>
+                        <button class="btn btn-link">{{ translations['signup bonus:link'][lang] }}</button>
                         </div>
+
+                        <img src="static/icons/signup-bonus-bag.png" style="margin: -5px 0 -20px 0;height: 80px;">
+
                     </div>
 
                     <div id="reg-recaptcha"></div>
@@ -706,7 +706,11 @@ $('.add-to-total').on('click', function(){
                                     <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
                                 </div>
                             </div>
-                            {{ register_form.register(class_="btn btn-outline-success btn-lg", style_="float: left;", id_="registerbtn") }}
+<!--                            {{ register_form.register(class_="btn btn-outline-success btn-lg", style_="float: left;", id_="registerbtn") }}-->
+                            <button id="registerbtn" class="btn btn-outline-success btn-lg rainglow" style="float: left;">{{ translations['lets go'][session['lang']] }}</button>
+
+<!--                            <label for="registerbtn"> {{ translations['lets go'][session['lang']] }}</label>-->
+
                         </div>
                         <div class='error'></div>
                     </span>
