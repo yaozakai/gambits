@@ -1,6 +1,10 @@
 .modal-open .modal-backdrop.in:nth-child(2) { opacity: .5 }
 .modal-backdrop.in { opacity: 0 }
 
+#loadingscreenModal {
+  overflow-x: scroll!important;
+}
+
 .modal-open {
   overflow: scroll!important;
   overflow-y: scroll!important;
@@ -136,6 +140,18 @@
 
 .modal-top-row {
     /* display:inline-flex; */
+}
+
+.signup-task {
+    background-color: #9fb4aa;
+    padding: 10px;
+    max-width: 470px;
+}
+
+.signup-task-drop {
+    background-color: #9fb4aa;
+    padding: 0px!important;
+    border: 0px;
 }
 
 .deposit-icon-selector {

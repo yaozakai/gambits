@@ -150,11 +150,8 @@ def db_get_user_from_id(user_id):
 
 
 def db_new_login(login_form):
-    # dataclass_sid = SidEntry()
-    # dataclass_login = LoginEntry()
     dataclass_user = UserEntry().query.filter_by(email=login_form.email.data).first()
     dataclass_user.logged_in = True
-    # dataclass_login = LoginEntry('{' + str(sid) + '}') # , '{' + dataclass_login + '}', '{' + NFT_ID + '}')
     dataclass_login = LoginEntry('', login_form.email.data)
 
     if LoginEntry().query.count():

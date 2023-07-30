@@ -30,15 +30,17 @@ with app.app_context():
 class LoginEntry(db.Model):
     __tablename__ = 'login'
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
-    sid = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100))
-    count = db.Column(db.String(10), primary_key=True)
+    # sid = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(200))
+    # count = db.Column(db.String(10), primary_key=True)
+    count = db.Column(db.Numeric(10), primary_key=True)
 
     def __init__(self, sid='', email=''):
         if len(sid) == 0:
             # session id format ####-####
             sid = str(self.query.count() + 1).zfill(8)
-            self.sid = '-'.join([sid[:4], sid[4:]])
+            # self.sid = '-'.join([sid[:4], sid[4:]])
+            self.sid = sid
         else:
             self.sid = sid
         self.email = email
@@ -49,15 +51,15 @@ class UserEntry(UserMixin, db.Model):
     # sid = db_sid.Column(db_sid.String(50), nullable=False, primary_key=True, unique=True)
     # id = db.Column(db.String(50), primary_key=True)
     # uuid = the_db.Column(the_db.String(50))
-    user_id = db.Column(db.String(50), primary_key=True)
-    email = db.Column(db.String(100), primary_key=True)
-    username = db.Column(db.String(50), primary_key=True)
+    user_id = db.Column(db.String(8), primary_key=True)
+    email = db.Column(db.String(255), primary_key=True)
+    username = db.Column(db.String(16), primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
-    password = db.Column(db.String(255))
+    password = db.Column(db.String(100))
     # publicAddress = db.Column(db.String(255))
     balance_eth = db.Column(db.Float, default=0)
     balance_usdt = db.Column(db.Float, default=0)
-    referral = db.Column(db.String(50))
+    referral = db.Column(db.String(16))
     active = db.Column(db.Numeric(1), default=0)
     admin = db.Column(db.Numeric(1), default=0)
     logged_in = db.Column(db.Numeric(1), default=0)
@@ -66,7 +68,11 @@ class UserEntry(UserMixin, db.Model):
     lang = db.Column(db.String(10), default='en')
 
     # phone_number = db.Column(db.Numeric(30), default=0)
-    signin_bonus = db.Column(db.Float, default=0)
+    snb_totalbet = db.Column(db.Float, default=0)
+    snb_phone = db.Column(db.Numeric(1), default=0)
+    snb_twitter = db.Column(db.Numeric(1), default=0)
+    snb_discord = db.Column(db.Numeric(1), default=0)
+    snb_easter = db.Column(db.Numeric(1), default=0)
 
     # page = ''
 

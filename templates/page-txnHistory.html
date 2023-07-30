@@ -193,19 +193,19 @@
     <script>
 
         $(document).ready(function(){
-            $("td[colspan=12]").find("p").hide();
-            $("table").click(function(event) {
-                event.stopPropagation();
-                var $target = $(event.target);
-                if ( $target.closest("td").attr("colspan") > 1 ) {
-                    $target.slideUp();
-                    $target.closest("tr").next().find("div").slideToggle();
+<!--            $("td[colspan=12]").find("p").hide();-->
+<!--            $("table").click(function(event) {-->
+<!--                event.stopPropagation();-->
+<!--                var $target = $(event.target);-->
+<!--                if ( $target.closest("td").attr("colspan") > 1 ) {-->
+<!--                    $target.slideUp();-->
+<!--                    $target.closest("tr").next().find("div").slideToggle();-->
 
-                } else {
-                    $target.closest("tr").next().find("div").slideToggle();
+<!--                } else {-->
+<!--                    $target.closest("tr").next().find("div").slideToggle();-->
 
-                }
-            });
+<!--                }-->
+<!--            });-->
 
             const selectElement = document.getElementById('reportDate');
             selectElement.addEventListener("change", () => {

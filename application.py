@@ -71,7 +71,7 @@ def home():
 
     if 'page' in session:
         if session['page'] == 'gallery':
-            return render_template('page-gallery.html', icon_placement=utils.icon_placement,
+            return render_template('page-gallery-wrap.html', icon_placement=utils.icon_placement,
                                    game_titles=utils.game_titles,
                                    root_path='', login_form=login_form, register_form=register_form,
                                    RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
@@ -110,7 +110,7 @@ def home():
 
     else:
         session['page'] = 'gallery'
-        return render_template('page-gallery.html', icon_placement=utils.icon_placement,
+        return render_template('page-gallery-wrap.html', icon_placement=utils.icon_placement,
                                game_titles=utils.game_titles,
                                root_path='', login_form=login_form, register_form=register_form,
                                RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
@@ -241,7 +241,13 @@ def search_user():
 @application.route('/gallery', methods=['POST'])
 def gallery():
     session['page'] = 'gallery'
-    return redirect(url_for('home'))
+    # return redirect(url_for('home'))
+    return render_template('page-gallery.html', icon_placement=utils.icon_placement,
+                                       game_titles=utils.game_titles,
+                                       root_path='', login_form='', register_form='',
+                                       RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
+                                       notification='', notification_title='', reset_pass=False,
+                                       lang=session['lang'], translations=utils.translations)
 
 
 @application.route('/txnHistory', methods=['GET', 'POST'])

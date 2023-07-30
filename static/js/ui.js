@@ -1,4 +1,8 @@
-function go_to_gallery() {
+let current_page = 'gallery'
+
+function go_to_gallery(id) {
+    $('#loadingscreenModal').modal('show');
+
 
     current_page = 'gallery'
     console.log('page:: ' + current_page)
@@ -7,16 +11,26 @@ function go_to_gallery() {
         url: "/gallery",
         type: "post",
         success: function(self) {
+            close_modal()
+
             $("#main_section").html(self);
+            document.getElementById(id).scrollIntoView()
         },
         error: function(e) {
-            console.log('getBalance: ' + e);
+            close_modal()
+            console.log('gallery: ' + e);
+
+            send_alert('network:down', 'try again later')
+
         }
     });
 }
 
 function go_to_pendingWithdraw(){
     $('#loadingscreenModal').modal('show');
+    if (current_page == 'gallery'){
+        navbar_clear()
+    }
 
     current_page = 'pendingWithdraw'
     console.log('page:: ' + current_page)
@@ -25,7 +39,6 @@ function go_to_pendingWithdraw(){
     if (selectElement) {
         reportDate = selectElement.value
     }
-//    $("#back-to-games").show()
 
     $.ajax({
         url: "/pendingWithdraw",
@@ -39,12 +52,16 @@ function go_to_pendingWithdraw(){
             close_modal()
 
             $("#main_section").html(self.div_render);
+
+
 //            return true
         },
         error: function(e) {
             close_modal()
 
             console.log('txnHistory: ' + e);
+            send_alert('network:down', 'try again later')
+
 //            return false
         }
     });
@@ -53,7 +70,9 @@ function go_to_pendingWithdraw(){
 
 function go_to_searchPlayer(){
     $('#loadingscreenModal').modal('show');
-
+    if (current_page == 'gallery'){
+        navbar_clear()
+    }
     current_page = 'searchPlayer'
     console.log('page:: ' + current_page)
 //    $("#back-to-games").show()
@@ -76,6 +95,9 @@ function go_to_searchPlayer(){
 
 function go_to_gameHistory(){
     $('#loadingscreenModal').modal('show');
+    if (current_page == 'gallery'){
+        navbar_clear()
+    }
 
     current_page = 'gameHistory'
     console.log('page:: ' + current_page)
@@ -110,6 +132,9 @@ function go_to_gameHistory(){
 
 function go_to_txnHistory(reportDate=''){
     $('#loadingscreenModal').modal('show');
+    if (current_page == 'gallery'){
+        navbar_clear()
+    }
 
     current_page = 'txnHistory'
     console.log('page:: ' + current_page)
@@ -133,7 +158,7 @@ function go_to_txnHistory(reportDate=''){
         error: function(e) {
             close_modal()
 
-            console.log('txnHistory: ' + e);
+            console.log('txnHistory error: ' + e);
 //            return false
         }
     });
@@ -242,4 +267,9 @@ async function send_alert(title, msg, native=false, appendix='', color='red', sy
     } else {
         alert_box.classList.add('show')
     }
+}
+
+function navbar_clear(){
+//    const curr_active = document.getElementsByClassName('navbar-fixed a').removeClass('active');
+    $(".navbar-fixed a").removeClass('active')
 }

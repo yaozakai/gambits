@@ -84,5 +84,5 @@
 # @template.route('/topSection')
 # def top_section():
 #
-#     return render_template('live-baccarat.html', icon_placement=icon_placement, game_titles=game_titles,
+#     return render_template('section-baccarat.html', icon_placement=icon_placement, game_titles=game_titles,
 #                            root_path='', lang=session['lang'], translations=translations)

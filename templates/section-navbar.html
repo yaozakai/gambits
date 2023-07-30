@@ -89,6 +89,19 @@
 
         $(document).ready(function(){
 
+<!--            var current_page = $('#meta-page').data()['name']-->
+
+            $('.nav-link').on('click', function(){
+                if (current_page != 'gallery'){
+                    go_to_gallery($(this).attr("id"))
+
+                    const button_clicked = document.getElementById($(this).attr("id")).scrollIntoView()
+<!--                    console.log(button_clicked)-->
+
+<!--                    var header = document.getElementById('header-slots').scrollIntoView();-->
+                }
+            });
+
             $('#nav-slots').on('click', function(){
                 const width = window.innerWidth
                 if (width < 900) {

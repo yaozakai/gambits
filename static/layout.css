@@ -66,6 +66,11 @@ body {
     text-shadow: 1px 2px black;
 }
 
+.med-excited-text {
+    color: #ffe204;
+    /* text-shadow: 2px 3px 7px black; */
+    filter: drop-shadow(5px 6px 1px rgb(0 0 0 / 0.4));
+}
 
 
 /* CUSTOMIZE THE CAROUSEL

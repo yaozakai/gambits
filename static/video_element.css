@@ -149,7 +149,7 @@
 }
 
 .video-container-parent {
-    margin-top: -50px;
+    margin-top: -33px;
     padding-top: 49px;
     /* left: 1%; */
     position: relative;
@@ -159,6 +159,7 @@
     max-width: 768px;
     align-items: center;
     /* margin: 0 auto; */
+    z-index: 0;
 }
 
 
