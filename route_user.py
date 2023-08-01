@@ -1,7 +1,10 @@
+import urllib.parse
+
 import flask
 from flask import Blueprint, json
 from flask_login import login_user
 
+from constants import SMS_SEVENIO_KEY
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha
@@ -114,8 +117,8 @@ def forgot_pass():
 
     return jsonify(notification_title=translations['check email'][session['lang']],
                    notification=translations['email sent to'][session['lang']])
-        # return redirect(url_for('home', notification='Token expired, please try again',
-        #                         notification_title='Reset Password'), code=307)
+    # return redirect(url_for('home', notification='Token expired, please try again',
+    #                         notification_title='Reset Password'), code=307)
 
 
 @user.route("/set_password", methods=['POST'])
@@ -190,3 +193,28 @@ def register():
             return jsonify(error=translations['invalid email format'][session['lang']])
     else:
         return jsonify(error=translations['recaptcha not verified'][session['lang']])
+
+
+@user.route('/verifySMS', methods=['GET', 'POST'])
+def verifySMS():
+    url_target = 'https://gateway.sms77.io/api/sms'
+    code = '123456'
+    to = json.loads(request.data)['recipient']
+    message = urllib.parse.quote(translations['sms:title'][session['lang']] + ' ' + code) + '%0A' + \
+        urllib.parse.quote(translations['sms:expires'][session['lang']])
+
+    payload = {'p': SMS_SEVENIO_KEY,
+               'to': to,
+               'from': "Gambit's",
+               'text': message,
+               'return_msg_id': 1}
+    x = requests.post(url_target, json=payload)
+    try:
+        if x.content.decode("utf-8").split('\n')[0] == '100':
+            return True
+        else:
+            return False
+    except:
+        return False
+
+    return False

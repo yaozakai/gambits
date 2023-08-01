@@ -340,6 +340,9 @@ def set_session_geo_lang(ip_address):
     result = result.split("(")[1].strip(")")
     result = json.loads(result)
 
+    session['country'] = result['country_code']
+    debug_out('geolocation:' + result['country_code'])
+
     if result['country_code'] == 'TW':
         session['lang'] = 'zh-tw'
         # session['flag'] = result['country_code'].lower()
@@ -374,4 +377,5 @@ def set_session_geo_lang(ip_address):
         # session['flag'] = 'es'
     else:
         session['lang'] = 'en'
-        # session['flag'] = 'gb'
+        if result['country_code'] == 'Not found':
+            session['country'] = 'GB'

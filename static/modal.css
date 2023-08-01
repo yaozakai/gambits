@@ -149,9 +149,15 @@
 }
 
 .signup-task-drop {
-    background-color: #9fb4aa;
-    padding: 0px!important;
-    border: 0px;
+    /* background-color: #9fb4aa; */
+    /* padding: 0px!important; */
+    /* margin: 10px; */
+    /* border: 0px; */
+}
+
+.sms-digitfield {
+    width: 35px;
+    margin-right: 5px;
 }
 
 .deposit-icon-selector {
@@ -165,6 +171,62 @@
 
 #alert-message {
     /* margin-left: 0px; */
+}
+
+
+.countrycode-drop {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 15px 19px;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #475F7B;
+    background-color: #FFF;
+    border: 1px solid #DFE3E7;
+    border-radius: .267rem;
+    -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.countrycode-drop:focus {
+    color: #475F7B;
+    background-color: #FFF;
+    border-color: #5A8DEE;
+    outline: 0;
+    box-shadow: 0 3px 8px 0 rgb(0 0 0 / 10%);
+}
+
+.iti__country-list {
+    background-color: #212529!important;
+    color: #ac7936!important;
+    border: none;
+}
+
+.iti__flag-container {
+    border-right: 1px #1a8754;
+    border-style: solid;
+}
+
+.iti__selected-dial-code {
+    font-size: small;
+    color: #1a8754;
+}
+
+.iti__arrow {
+    border-top: 4px solid #1a8754;
+}
+
+#sms-rowDrop {
+    display: none;
+}
+
+#mobile_code {
+    padding-left: 95px!important;
+    background: none;
+    border-width: 1px;
+    border-color: rgb(26, 135, 84);
+    color: rgb(26, 135, 84);
+    max-width: 220px;
 }
 
 @media (max-width: 514px) {

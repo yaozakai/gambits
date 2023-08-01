@@ -1,3 +1,6 @@
+{% include 'modal-rewards.html' %}
+
+
 <!-- alert -->
 <div class="alert alert-primary alert-danger fade" id="alert-box">
     <button id="close-alert-button" type="button" class="btn-close btn-close-alert" aria-label="Close"></button>
@@ -39,151 +42,6 @@
     </div>
 </div>
 
-
-<!-- Rewards popup -->
-<div class="modal fade" id="rewardsModal" tabindex="-1" role="dialog" aria-labelledby="rewardsModalWindow" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document" id="rewardsModalWindow">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title neon">{{ translations['bonus rewards:title'][session['lang']] }}</h3>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" >
-
-                <div class="green-text mb-2" style="text-align: center;">{{ translations['bonus rewards:desc'][session['lang']] }}</div>
-                <div class="d-flex modal-divider-horz"><div class="vr"></div></div>
-
-                <h5 class="modal-title excited-text mt-3">{{ translations['signup bonus:title'][session['lang']] }}</h5>
-                <div class="green-text mb-2" style="text-align: left;">{{ translations['signup bonus:desc long'][session['lang']] }}</div>
-
-                <table class="table table-sm list-group mb-2">
-                    <tr>
-                      <td class="list-group-item signup-task" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
-                            <i class="bi bi-check-square-fill" style="color: green;"></i>
-                            {{ translations['snb:task:sms'][session['lang']] }}
-                          {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
-                            {{ translations['snb:task:sms'][session['lang']] }}
-                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
-                          {% endif %}
-                      </td>
-                    </tr>
-                    <tr>
-                        <td class="list-group-item signup-task signup-task-drop" style="background-color: #9fb4aa;">
-                            <div class="rowDrop" style="background-color: rgb(166, 166, 166);">
-                                <div class='green-text-outline'>{{ translations['enter your email to update password'][session['lang']] }}</div>
-
-                                <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
-                                <br>
-                                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['send email'][session['lang']] }}</button>
-
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr>
-                      <td class="list-group-item signup-task" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
-                            <i class="bi bi-check-square-fill" style="color: green;"></i>
-                            {{ translations['snb:task:twitter'][session['lang']] }}
-                          {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
-                            {{ translations['snb:task:twitter'][session['lang']] }}
-                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
-                          {% endif %}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="list-group-item signup-task" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
-                            <i class="bi bi-check-square-fill" style="color: green;"></i>
-                            {{ translations['snb:task:discord'][session['lang']] }}
-                          {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
-                            {{ translations['snb:task:discord'][session['lang']] }}
-                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
-                          {% endif %}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="list-group-item signup-task" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
-                            <i class="bi bi-check-square-fill" style="color: green;"></i>
-                            {{ translations['snb:task:egg'][session['lang']] }}
-                          {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
-                            {{ translations['snb:task:egg'][session['lang']] }}
-                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
-                          {% endif %}
-                      </td>
-                    </tr>
-                    <tr>
-                        <td class="list-group-item signup-task" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
-                            <i class="bi bi-check-square-fill" style="color: green;"></i>
-                            {{ translations['snb:task:play100'][session['lang']] }}
-                          {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
-                            {{ translations['snb:task:play100'][session['lang']] }}
-                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
-                          {% endif %}
-                        </td>
-                  </tr>
-                </table>
-
-                <a class="mb-3" href="https://blog.gambits.vip" target="_blank">{{ translations['signup bonus:link'][lang] }}</a>
-
-
-                <div class="d-flex modal-divider-horz mt-3"><div class="vr"></div></div>
-
-                <h5 class="modal-title excited-text mt-4">{{ translations['rewards:5050'][session['lang']] }}</h5>
-                <div class="green-text mb-2" style="text-align: left;">{{ translations['rewards:description'][session['lang']] }}</div>
-                <div class="modal-top-row mb-2">
-                    <button id="copy-button" onclick="copyToClipboard('https://gambits.vip?ref={{ current_user.username }}');" type="button" class="btn btn-outline-success symbol-text"><i class="bi bi-clipboard"></i> {{ translations['copy'][session['lang']] }}</button>
-                    <button onclick="copyToClipboard('https://gambits.vip?ref={{ current_user.username }}');" type="button" class="btn btn-link">https://gambits.vip?ref={{ current_user.username }}</button>
-                        <textarea id="value-clipboard"  tabindex='-1' aria-hidden='true' style="z-index: -10000; position: absolute; left: -9999px;"></textarea>
-                </div>
-                <div class="green-text excited-text" style="text-align: left;">{{ translations['rewards:description bold'][session['lang']] }}</div>
-
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    $(document).ready(function(){
-
-
-      $("td .signup-task-drop").hide();
-      $("table").on('click', function(){
-            event.stopPropagation();
-            var $target = $(event.target);
-
-
-            if ( $target.closest("td").attr("colspan") > 1 ) {
-                $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(-90deg)")
-
-                $target.slideUp();
-                $target.closest("tr").next().find("div").slideToggle();
-
-            } else {
-                $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(90deg)")
-                $target.closest("tr").next().find("div").slideToggle();
-
-            }
-        });
-
-      $('#rewardsModal').on('show.bs.modal', function(){
-         $("#copy-button").html('<i class="bi bi-clipboard"></i> {{ translations["copy"][session["lang"]] }}');
-
-      });
-
-    });
-</script>
 {% if current_user.is_authenticated %}
 
 <!-- deposit popup -->
@@ -246,7 +104,7 @@
                     <span class="input-group-text whiteFont">{{ translations['amount'][session['lang']] }}</span>
                     <input type="number" class="form-control" id="deposit-amount">
                     <div class="btn-group" role="group">
-                        <button onclick="setup_deposit();" type="button" id="money-deposit" class="btn btn-outline-success symbol-text">{{ translations['send money'][session['lang']] }}</button>
+                        <button onclick="setup_deposit();" type="button" id="money-deposit" class="btn btn-outline-success symbol-text"><i class="bi bi-send"></i></button>
 <!--                        <div class="btn btn-outline-success btn-lg" id="deposit-spinner">-->
 <!--                            <div class="icon-spinner spinner-border text-success" role="status" style="position: relative;">-->
 <!--                                <img src="{{ root_path }}static/logos/favicon.png" style="height: 25px;">-->
@@ -330,173 +188,173 @@
 
 <script>
 
-var translations = $('#meta-translations').data()['name']
-var lang = $('#meta-lang').data()['name']
+    var translations = $('#meta-translations').data()['name']
+    var lang = $('#meta-lang').data()['name']
 
-$('#withdraw-amount').on('input', function(){
-    var balance = {{ current_user.balance_usdt }};
-<!--    var withdraw_amount = parseFloat($('#withdraw-amount').val()).toFixed(2)-->
-<!--    $('#withdraw-amount').val() = withdraw_amount.toString()-->
-    var decimals = $('#withdraw-amount').val().split('.')[1]
-    console.log("dec" + decimals)
+    $('#withdraw-amount').on('input', function(){
+        var balance = {{ current_user.balance_usdt }};
+    <!--    var withdraw_amount = parseFloat($('#withdraw-amount').val()).toFixed(2)-->
+    <!--    $('#withdraw-amount').val() = withdraw_amount.toString()-->
+        var decimals = $('#withdraw-amount').val().split('.')[1]
+        console.log("dec" + decimals)
 
-    if (typeof decimals !== 'undefined') {
-        if (decimals.length > 2) {
-            $('#send-money-withdraw').prop('disabled', true)
-            $('#withdraw-error').text(translations['only2decimals'][lang])
+        if (typeof decimals !== 'undefined') {
+            if (decimals.length > 2) {
+                $('#send-money-withdraw').prop('disabled', true)
+                $('#withdraw-error').text(translations['only2decimals'][lang])
+            } else {
+                $('#send-money-withdraw').prop('disabled', false)
+                $('#withdraw-error').text('')
+            }
         } else {
-            $('#send-money-withdraw').prop('disabled', false)
-            $('#withdraw-error').text('')
+            if (parseFloat($('#withdraw-amount').val()) > parseFloat(balance)) {
+                $('#send-money-withdraw').prop('disabled', true)
+                $('#withdraw-error').text(translations['withdraw:toomuch'][lang])
+            } else if (parseFloat($('#withdraw-amount').val()) < 20){
+                $('#send-money-withdraw').prop('disabled', true)
+                $('#withdraw-error').text(translations['withdraw:toolittle'][lang])
+            } else {
+                $('#send-money-withdraw').prop('disabled', false)
+                $('#withdraw-error').text('')
+            }
         }
-    } else {
-        if (parseFloat($('#withdraw-amount').val()) > parseFloat(balance)) {
-            $('#send-money-withdraw').prop('disabled', true)
-            $('#withdraw-error').text(translations['withdraw:toomuch'][lang])
-        } else if (parseFloat($('#withdraw-amount').val()) < 20){
-            $('#send-money-withdraw').prop('disabled', true)
-            $('#withdraw-error').text(translations['withdraw:toolittle'][lang])
+
+
+    });
+
+    $('#send-money-withdraw').on('click', function(){
+
+        $('#withdraw-spinner').show();
+
+        if ($('#withdraw-walletID').val().length > 0){
+            $.ajax({
+                url: "/withdrawRequest",
+                type: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify({
+                    "amount":parseFloat($('#withdraw-amount').val()),
+                    "currency":"usdt",
+                    "chain":"goerli",
+                    "fromAddress":$('#withdraw-walletID').val()
+                }),
+                success: function(response) {
+
+                    $('#withdrawModal').modal('hide');
+
+                    $('#modalNotificationTitle').html(translations['withdraw:requestSent'][lang]);
+                    $('#modalNotificationMsg').html(translations['withdraw:walletID'][lang] + ": " + $('#withdraw-walletID').val().substring(0,6) + "..." + $('#withdraw-walletID').val().slice(-4) + "<br>" + translations['withdraw:24hours'][lang] + " " +
+                        '<br><button type="button" class="btn btn-link" style="padding-left: 0px;" onclick="go_to_txnHistory()" data-bs-dismiss="modal" aria-label="Close">' + translations['alert:clickHere'][lang] + '</button>');
+                    $('#notificationModal').modal('show');
+
+                    balance_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + response.usdt
+                    user_balance = response.usdt
+                },
+                error: function(e) {
+                    console.log('getBalance: ' + e);
+                },
+            });
         } else {
-            $('#send-money-withdraw').prop('disabled', false)
-            $('#withdraw-error').text('')
+            $('#withdraw-error').text(translations['withdraw:missingWallet'][lang])
+            $('#withdraw-spinner').hide();
         }
-    }
+    });
+
+    $('#depositModal').on('show.bs.modal', function(){
+        var crypto_buttons = document.getElementsByClassName('crypto-button')
+        for (var crypto_button of crypto_buttons) {
+            crypto_button.classList.remove('active')
+        }
+        var blockchain_buttons = document.getElementsByClassName('blockchain-button')
+        for (var blockchain_button of blockchain_buttons) {
+            blockchain_button.classList.remove('active')
+        }
+
+        $("#deposit-amount").val("");
+        $("#crypto-text").html("🥦");
+        $("#blockchain-text").html("🍇");
+    <!--    $("#deposit-amount").html("");-->
+
+    });
+
+    var blockchain_text = document.getElementById('blockchain-text')
+    var crypto_text = document.getElementById('crypto-text')
 
 
-});
+    $('.blockchain-button').on('click', function(){
 
-$('#send-money-withdraw').on('click', function(){
+        const button_clicked = document.getElementById($(this).attr("id"))
 
-    $('#withdraw-spinner').show();
+        var cryptos = $(".blockchain-button")
+        for (var token of cryptos) {
+            if ( token.id != button_clicked.id ) {
+                token.classList.remove('active')
+                token.style.opacity = "0.5"
+            } else {
+                token.classList.add('active')
+                token.style.opacity = "1"
+                blockchain_text.innerHTML = button_clicked.id.split('-')[2].toUpperCase()
+            }
+        }
+    });
 
-    if ($('#withdraw-walletID').val().length > 0){
-        $.ajax({
-            url: "/withdrawRequest",
-            type: "post",
-            dataType: "json",
-            contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify({
-                "amount":parseFloat($('#withdraw-amount').val()),
-                "currency":"usdt",
-                "chain":"goerli",
-                "fromAddress":$('#withdraw-walletID').val()
-            }),
-            success: function(response) {
+    $('.crypto-button').on('click', function(){
 
-                $('#withdrawModal').modal('hide');
+        const button_clicked = document.getElementById($(this).attr("id"))
+        var token_name = button_clicked.id.split('-')[2]
 
-                $('#modalNotificationTitle').html(translations['withdraw:requestSent'][lang]);
-                $('#modalNotificationMsg').html(translations['withdraw:walletID'][lang] + ": " + $('#withdraw-walletID').val().substring(0,6) + "..." + $('#withdraw-walletID').val().slice(-4) + "<br>" + translations['withdraw:24hours'][lang] + " " +
-                    '<br><button type="button" class="btn btn-link" style="padding-left: 0px;" onclick="go_to_txnHistory()" data-bs-dismiss="modal" aria-label="Close">' + translations['alert:clickHere'][lang] + '</button>');
-                $('#notificationModal').modal('show');
+        var cryptos = $(".crypto-button")
+        for (var token of cryptos) {
+            if ( token.id != button_clicked.id ) {
+                token.classList.remove('active')
+            } else {
+                token.classList.add('active')
+                crypto_text.innerHTML = token_name.toUpperCase()
+            }
+        }
 
-                balance_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + response.usdt
-                user_balance = response.usdt
-            },
-            error: function(e) {
-                console.log('getBalance: ' + e);
-            },
-        });
-    } else {
-        $('#withdraw-error').text(translations['withdraw:missingWallet'][lang])
-        $('#withdraw-spinner').hide();
-    }
-});
+        // switch the shortcut keys
+        var adds = document.getElementsByClassName("add-to-total");
+        if (token_name == "eth") {
+            adds.item(0).innerHTML = "+0.001"
+            adds.item(1).innerHTML = "+0.005"
+            adds.item(2).innerHTML = "+0.01"
+            adds.item(3).innerHTML = "+0.05"
+            adds.item(4).innerHTML = "+0.1"
+            adds.item(5).innerHTML = "+0.5"
+        } else if (token_name == "usdt") {
+            adds.item(0).innerHTML = "+10"
+            adds.item(1).innerHTML = "+20"
+            adds.item(2).innerHTML = "+50"
+            adds.item(3).innerHTML = "+100"
+            adds.item(4).innerHTML = "+500"
+            adds.item(5).innerHTML = "+1000"
+        }
 
-$('#depositModal').on('show.bs.modal', function(){
-    var crypto_buttons = document.getElementsByClassName('crypto-button')
-    for (var crypto_button of crypto_buttons) {
-        crypto_button.classList.remove('active')
-    }
-    var blockchain_buttons = document.getElementsByClassName('blockchain-button')
-    for (var blockchain_button of blockchain_buttons) {
-        blockchain_button.classList.remove('active')
-    }
-
-    $("#deposit-amount").val("");
-    $("#crypto-text").html("🥦");
-    $("#blockchain-text").html("🍇");
-<!--    $("#deposit-amount").html("");-->
-
-});
-
-var blockchain_text = document.getElementById('blockchain-text')
-var crypto_text = document.getElementById('crypto-text')
+    });
 
 
-$('.blockchain-button').on('click', function(){
+    $('.add-to-total').on('click', function(){
+        const button_clicked = document.getElementById($(this).attr("id"))
+        deposit_amount = document.getElementById('deposit-amount')
 
-    const button_clicked = document.getElementById($(this).attr("id"))
+        amount = parseFloat(button_clicked.innerHTML.split('+')[1])
+    <!--    console.log("button clicked: %f", amount);-->
 
-    var cryptos = $(".blockchain-button")
-    for (var token of cryptos) {
-        if ( token.id != button_clicked.id ) {
-            token.classList.remove('active')
-            token.style.opacity = "0.5"
+        if (deposit_amount.value.length > 0) {
+
+            new_balance = parseFloat((amount + parseFloat(deposit_amount.value)).toFixed(10))
+    <!--        console.log("%f + %f = %f", amount, parseFloat(deposit_amount.value), new_balance);-->
+            deposit_amount.value = new_balance
         } else {
-            token.classList.add('active')
-            token.style.opacity = "1"
-            blockchain_text.innerHTML = button_clicked.id.split('-')[2].toUpperCase()
+            deposit_amount.value = amount
         }
-    }
-});
+        let current_balance = {{ current_user.balance_usdt }} + parseFloat(deposit_amount.value);
 
-$('.crypto-button').on('click', function(){
-
-    const button_clicked = document.getElementById($(this).attr("id"))
-    var token_name = button_clicked.id.split('-')[2]
-
-    var cryptos = $(".crypto-button")
-    for (var token of cryptos) {
-        if ( token.id != button_clicked.id ) {
-            token.classList.remove('active')
-        } else {
-            token.classList.add('active')
-            crypto_text.innerHTML = token_name.toUpperCase()
-        }
-    }
-
-    // switch the shortcut keys
-    var adds = document.getElementsByClassName("add-to-total");
-    if (token_name == "eth") {
-        adds.item(0).innerHTML = "+0.001"
-        adds.item(1).innerHTML = "+0.005"
-        adds.item(2).innerHTML = "+0.01"
-        adds.item(3).innerHTML = "+0.05"
-        adds.item(4).innerHTML = "+0.1"
-        adds.item(5).innerHTML = "+0.5"
-    } else if (token_name == "usdt") {
-        adds.item(0).innerHTML = "+10"
-        adds.item(1).innerHTML = "+20"
-        adds.item(2).innerHTML = "+50"
-        adds.item(3).innerHTML = "+100"
-        adds.item(4).innerHTML = "+500"
-        adds.item(5).innerHTML = "+1000"
-    }
-
-});
+    <!--    $('#deposit-display-amount').html(current_balance.toFixed(2) + ' USDT @ ERC20')-->
 
 
-$('.add-to-total').on('click', function(){
-    const button_clicked = document.getElementById($(this).attr("id"))
-    deposit_amount = document.getElementById('deposit-amount')
-
-    amount = parseFloat(button_clicked.innerHTML.split('+')[1])
-<!--    console.log("button clicked: %f", amount);-->
-
-    if (deposit_amount.value.length > 0) {
-
-        new_balance = parseFloat((amount + parseFloat(deposit_amount.value)).toFixed(10))
-<!--        console.log("%f + %f = %f", amount, parseFloat(deposit_amount.value), new_balance);-->
-        deposit_amount.value = new_balance
-    } else {
-        deposit_amount.value = amount
-    }
-    let current_balance = {{ current_user.balance_usdt }} + parseFloat(deposit_amount.value);
-
-<!--    $('#deposit-display-amount').html(current_balance.toFixed(2) + ' USDT @ ERC20')-->
-
-
-});
+    });
 
 </script>
 
@@ -742,7 +600,7 @@ $('.add-to-total').on('click', function(){
 <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
         <script>
             $(document).ready(function(){
-              $('#registerModal').on('show.bs.modal', function(){
+              $('#registerModal').on('hide.bs.modal', function(){
                  $(".error").html('');
                  $(".error").hide();
                  $("#reg-email").val("");

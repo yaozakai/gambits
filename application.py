@@ -57,9 +57,8 @@ def home():
     login_form.csrf_token.data = csrf_token
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
-    if 'lang' not in session:
+    if 'lang' or 'country' not in session:
         # find user's location, defaults to English
-        debug_out('looking up geolocation for language setting...')
         set_session_geo_lang(request.remote_addr)
     set_flag_from_lang()
     debug_out('done')

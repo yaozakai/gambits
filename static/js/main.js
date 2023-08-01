@@ -3,6 +3,51 @@ function isEmail(email){
 	return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test( email );
 }
 
+function send_sms(){
+    var regexp = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+
+    var no = [$(".iti__selected-dial-code").first()[0].textContent, $("#mobile_code").val()].join('')
+
+    if (!regexp.test(no) && no.length < 0) {
+        alert("Wrong phone no");
+        return
+    }
+
+    $.ajax({
+        url: "/verifySMS",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "recipient":no
+        }),
+        success: function(self) {
+            $('#sms-send-button').prop('disabled', true)
+            $('#sms-send-button').html('<span id="countdown">5</span>')
+            var n = document.getElementById("countdown"),
+            e = parseInt(n.innerText),
+            t = setInterval((function() {
+              e--, n.innerText = e, e <= 0 && (clearInterval(t),
+              $('#snb-sms-container').slideToggle(),
+              $('#sms-rowDrop').slideToggle())
+            }), 1000)
+
+
+    //            return true
+        },
+        error: function(e) {
+//            close_modal()
+
+//            console.log('txnHistory: ' + e);
+//            send_alert('network:down', 'try again later')
+
+    //            return false
+        }
+    });
+
+
+}
+
 function copyToClipboard(text_to_copy) {
 
 //    var session = $('#meta-session').data()['name']

@@ -1,0 +1,207 @@
+<!--        Country codes-->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+
+
+<!-- Rewards popup -->
+<div class="modal fade" id="rewardsModal" tabindex="-1" role="dialog" aria-labelledby="rewardsModalWindow" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" id="rewardsModalWindow">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title neon">{{ translations['bonus rewards:title'][session['lang']] }}</h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+
+                <div class="green-text mb-2" style="text-align: center;">{{ translations['bonus rewards:desc'][session['lang']] }}</div>
+                <div class="d-flex modal-divider-horz"><div class="vr"></div></div>
+
+                <h5 class="modal-title med-excited-text mt-3">{{ translations['signup bonus:title'][session['lang']] }}</h5>
+                <div class="green-text mb-2" style="text-align: left;">{{ translations['signup bonus:desc long'][session['lang']] }}</div>
+
+                <table class="table table-sm list-group mb-2">
+                    <tr>
+                      <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
+                          {% if current_user.snb_phone %}
+                            <i class="bi bi-check-square-fill" style="color: green;"></i>
+                            {{ translations['snb:task:sms'][session['lang']] }}
+                          {% else %}
+                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            {{ translations['snb:task:sms'][session['lang']] }}
+                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute; transition: all 300ms;"></i>
+                          {% endif %}
+                      </td>
+                    </tr>
+                    <tr>
+                        <td class="" style="padding: 0;border: none;">
+                            <span class="rowDrop signup-task-drop">
+                                <div style="display: flow-root;">
+                                    <div id="snb-sms-container">
+                                        <div class='green-text-outline'>{{ translations['sms verify'][session['lang']] }}</div>
+                                        <div class="pt-2" style="display: flex;">
+                                            <input type="tel" id="mobile_code" class="form-control" placeholder="Phone number">
+                                            <button id="sms-send-button" type="button" class="btn btn-outline-success"><i class="bi bi-send"></i></button>
+                                        </div>
+                                    </div>
+                                    <div id="sms-rowDrop">
+                                        <div class='green-text-outline'>{{ translations['sms verify'][session['lang']] }}</div>
+                                        <div class="mt-2 mb-2" style="display: flex;height: 40px;float: right;">
+                                            <input type="text" class="sms-digitfield form-control" maxlength="1" pattern="[0-9]" tabindex= "0">
+                                            <input type="text" class="sms-digitfield form-control" maxlength="1" pattern="[0-9]" tabindex= "0">
+                                            <input type="text" class="sms-digitfield form-control" maxlength="1" pattern="[0-9]" tabindex= "0">
+                                            <input type="text" class="sms-digitfield form-control" maxlength="1" pattern="[0-9]" tabindex= "0">
+                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['verify'][session['lang']] }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    $(document).ready(function(){
+
+                                        $('#rewardsModal').on('hide.bs.modal', function(){
+                                            $(".bi-chevron-right").each(function() {
+                                                $(this).css("transform","rotate(0deg)")
+                                            });
+
+                                            $(".signup-task-drop").each(function() {
+                                                $(this).slideUp()
+                                            });
+
+                                            $("#sms-rowDrop").slideUp()
+                                            $("#snb-sms-container").slideDown()
+                                            $("#mobile_code").val("");
+
+                                        });
+
+                                        $(".sms-digitfield").keyup(function () {
+                                            if (this.value.length == this.maxLength) {
+                                              $(this).next('.sms-digitfield').focus();
+                                            }
+                                        });
+
+                                        $('#sms-send-button').click(function(){
+
+                                            send_sms()
+
+                                        });
+                                    });
+
+                                </script>
+
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                      <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
+                          {% if current_user.snb_phone %}
+                            <i class="bi bi-check-square-fill" style="color: green;"></i>
+                            {{ translations['snb:task:twitter'][session['lang']] }}
+                          {% else %}
+                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            {{ translations['snb:task:twitter'][session['lang']] }}
+                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
+                          {% endif %}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
+                          {% if current_user.snb_phone %}
+                            <i class="bi bi-check-square-fill" style="color: green;"></i>
+                            {{ translations['snb:task:discord'][session['lang']] }}
+                          {% else %}
+                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            {{ translations['snb:task:discord'][session['lang']] }}
+                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
+                          {% endif %}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
+                          {% if current_user.snb_phone %}
+                            <i class="bi bi-check-square-fill" style="color: green;"></i>
+                            {{ translations['snb:task:egg'][session['lang']] }}
+                          {% else %}
+                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            {{ translations['snb:task:egg'][session['lang']] }}
+                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
+                          {% endif %}
+                      </td>
+                    </tr>
+                    <tr>
+                        <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
+                          {% if current_user.snb_phone %}
+                            <i class="bi bi-check-square-fill" style="color: green;"></i>
+                            {{ translations['snb:task:play100'][session['lang']] }}
+                          {% else %}
+                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            {{ translations['snb:task:play100'][session['lang']] }}
+                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
+                          {% endif %}
+                        </td>
+                  </tr>
+                </table>
+
+                <a class="mb-3" href="https://blog.gambits.vip" target="_blank">{{ translations['signup bonus:link'][lang] }}</a>
+
+
+                <div class="d-flex modal-divider-horz mt-3"><div class="vr"></div></div>
+
+                <h5 class="modal-title med-excited-text mt-4">{{ translations['rewards:5050'][session['lang']] }}</h5>
+                <div class="green-text mb-2" style="text-align: left;">{{ translations['rewards:description'][session['lang']] }}</div>
+                <div class="modal-top-row mb-2">
+                    <button id="copy-button" onclick="copyToClipboard('https://gambits.vip?ref={{ current_user.username }}');" type="button" class="btn btn-outline-success symbol-text"><i class="bi bi-clipboard"></i> {{ translations['copy'][session['lang']] }}</button>
+                    <button onclick="copyToClipboard('https://gambits.vip?ref={{ current_user.username }}');" type="button" class="btn btn-link">https://gambits.vip?ref={{ current_user.username }}</button>
+                        <textarea id="value-clipboard"  tabindex='-1' aria-hidden='true' style="z-index: -10000; position: absolute; left: -9999px;"></textarea>
+                </div>
+                <div class="green-text excited-text" style="text-align: left;">{{ translations['rewards:description bold'][session['lang']] }}</div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function(){
+
+        <!-- Country Code Selection-->
+        var input = document.querySelector("#mobile_code");
+
+        window.intlTelInput(input, {
+            initialCountry: "{{ session['country'] }}",
+           formatOnDisplay: false,
+           nationalMode: false,
+           autoPlaceholder: 'aggressive',
+           separateDialCode: true,
+           preferredCountries: ['BR', 'CN', 'FR', 'HK', 'IN', 'ID', 'JP', 'KR', 'MX', 'PH', 'ES', 'TH', 'VN']
+        });
+
+        $("table").on('click', function(){
+            event.stopPropagation();
+            var $target = $(event.target);
+            var rowDrop = $target.closest("tr").next().find("span").first()
+<!--                console.log('rowDrop.is=' + rowDrop.is(":hidden"))-->
+
+            if( rowDrop.is(":visible") ) {
+                $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(0deg)")
+            } else {
+                $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(90deg)")
+            }
+            rowDrop.slideToggle(function() {
+
+<!--                if ($(this).css('display') == 'block') $(this).css('display', 'inherit');-->
+            });
+
+
+        });
+
+      $('#rewardsModal').on('show.bs.modal', function(){
+         $("#copy-button").html('<i class="bi bi-clipboard"></i> {{ translations["copy"][session["lang"]] }}');
+
+      });
+
+    });
+</script>

@@ -269,7 +269,7 @@
     }
 
     .bg-dark {
-        background: none;
+        /* background: none; */
     }
 
     .nav-link.active {
