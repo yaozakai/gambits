@@ -1,3 +1,5 @@
+import math
+import random
 import urllib.parse
 
 import flask
@@ -195,26 +197,78 @@ def register():
         return jsonify(error=translations['recaptcha not verified'][session['lang']])
 
 
-@user.route('/verifySMS', methods=['GET', 'POST'])
-def verifySMS():
+@user.route('/verifySMScode', methods=['GET', 'POST'])
+def verifySMScode():
+    code = json.loads(request.data)['code']
+    db_user = db_get_user()
+
+    dataclass_phone = PhoneEntry().query.filter_by(phone=json.loads(request.data)['phone']).first()
+    if dataclass_phone is not None:
+        if dataclass_phone.verified:
+            return jsonify(error=2)
+        else:
+            difference = datetime.datetime.now() - dataclass_phone.timestamp
+            if difference.seconds > 900:
+                return jsonify(error=4)
+    else:
+        return jsonify(error=3)
+
+    if dataclass_phone.otp == code:
+
+        db_user.snb_phone = json.loads(request.data)['phone']
+
+        dataclass_phone.verified = True
+
+        db.session.commit()
+        return jsonify(error=0)
+    else:
+        return jsonify(error=1)
+
+
+@user.route('/sendSMS', methods=['GET', 'POST'])
+def sendSMS():
     url_target = 'https://gateway.sms77.io/api/sms'
-    code = '123456'
     to = json.loads(request.data)['recipient']
-    message = urllib.parse.quote(translations['sms:title'][session['lang']] + ' ' + code) + '%0A' + \
-        urllib.parse.quote(translations['sms:expires'][session['lang']])
+
+    # create OTP code
+    digits = "0123456789"
+    otp_code = ""
+    for i in range(4):
+        otp_code += digits[math.floor(random.random() * 10)]
+
+    phoneEntry = PhoneEntry().query.filter_by(phone=to).first()
+    if phoneEntry is not None:
+        if phoneEntry.verified:
+            return jsonify(error=2)
+        else:
+            # user is retrying, not verified yet
+            phoneEntry.otp = otp_code
+            phoneEntry.timestamp = datetime.datetime.now(tz=pytz.timezone('Asia/Shanghai'))
+
+    else:
+        phoneEntry = PhoneEntry()
+        phoneEntry.phone = to
+        phoneEntry.otp = otp_code
+        db.session.add(phoneEntry)
+
+    db.session.commit()
+
+    message = translations['sms:title'][session['lang']] + ' ' + otp_code + '\n' + \
+        translations['sms:expires'][session['lang']]
 
     payload = {'p': SMS_SEVENIO_KEY,
                'to': to,
                'from': "Gambit's",
-               'text': message,
-               'return_msg_id': 1}
-    x = requests.post(url_target, json=payload)
+               'text': message
+               }
+    x = requests.post(url_target, data=payload)
     try:
-        if x.content.decode("utf-8").split('\n')[0] == '100':
-            return True
+        # if x.content.decode("utf-8").split('\n')[0] == '100':
+        if x.content.decode("utf-8") == '100':
+            return jsonify(error=0)
         else:
-            return False
+            return jsonify(error=1)
     except:
-        return False
+        return jsonify(error=1)
 
-    return False
+    return jsonify(error=1)

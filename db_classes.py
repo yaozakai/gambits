@@ -25,51 +25,51 @@ with app.app_context():
 
 
 ##################################################################################################################
+class PhoneEntry(db.Model):
+    __tablename__ = 'phone'
+    phone = db.Column(db.String(16), primary_key=True)
+    timestamp = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
+    verified = db.Column(db.Numeric(1), default=0)
+    otp = db.Column(db.String(4))
 
 
 class LoginEntry(db.Model):
     __tablename__ = 'login'
-    created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
+    log_time = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     # sid = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(200))
     # count = db.Column(db.String(10), primary_key=True)
     count = db.Column(db.Numeric(10), primary_key=True)
 
-    def __init__(self, sid='', email=''):
-        if len(sid) == 0:
-            # session id format ####-####
-            sid = str(self.query.count() + 1).zfill(8)
-            # self.sid = '-'.join([sid[:4], sid[4:]])
-            self.sid = sid
-        else:
-            self.sid = sid
+    def __init__(self, email=''):
+        # if len(sid) == 0:
+        #     # session id format ####-####
+        #     sid = str(self.query.count() + 1).zfill(8)
+        #     # self.sid = '-'.join([sid[:4], sid[4:]])
+        #     self.sid = sid
+        # else:
+        #     self.sid = sid
         self.email = email
 
 
 class UserEntry(UserMixin, db.Model):
     __tablename__ = 'users'
-    # sid = db_sid.Column(db_sid.String(50), nullable=False, primary_key=True, unique=True)
-    # id = db.Column(db.String(50), primary_key=True)
-    # uuid = the_db.Column(the_db.String(50))
     user_id = db.Column(db.String(8), primary_key=True)
     email = db.Column(db.String(255), primary_key=True)
     username = db.Column(db.String(16), primary_key=True)
     created = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
     password = db.Column(db.String(100))
-    # publicAddress = db.Column(db.String(255))
     balance_eth = db.Column(db.Float, default=0)
     balance_usdt = db.Column(db.Float, default=0)
     referral = db.Column(db.String(16))
     active = db.Column(db.Numeric(1), default=0)
     admin = db.Column(db.Numeric(1), default=0)
     logged_in = db.Column(db.Numeric(1), default=0)
-    # is_anonymous = False
     currency = db.Column(db.String(10), default='USDT')
     lang = db.Column(db.String(10), default='en')
 
-    # phone_number = db.Column(db.Numeric(30), default=0)
     snb_totalbet = db.Column(db.Float, default=0)
-    snb_phone = db.Column(db.Numeric(1), default=0)
+    snb_phone = db.Column(db.String(16))
     snb_twitter = db.Column(db.Numeric(1), default=0)
     snb_discord = db.Column(db.Numeric(1), default=0)
     snb_easter = db.Column(db.Numeric(1), default=0)
@@ -154,7 +154,7 @@ class UserEntry(UserMixin, db.Model):
 
 class BetEntry(db.Model):
     __tablename__ = 'bets'
-    username = db.Column(db.String(50))
+    username = db.Column(db.String(16))
     amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
     gamecode = db.Column(db.String(36))
@@ -197,7 +197,7 @@ class BetEntry(db.Model):
 
 class TakeallEntry(db.Model):
     __tablename__ = 'takealls'
-    username = db.Column(db.String(50))
+    username = db.Column(db.String(16))
     time = db.Column(db.DateTime)
     gamecode = db.Column(db.String(36))
     gamehall = db.Column(db.String(36))
@@ -218,7 +218,7 @@ class TakeallEntry(db.Model):
 
 class EndroundEntry(db.Model):
     __tablename__ = 'endrounds'
-    username = db.Column(db.String(36))
+    username = db.Column(db.String(16))
     gamehall = db.Column(db.String(36))
     gamecode = db.Column(db.String(36))
     roundid = db.Column(db.String(50), primary_key=True)
@@ -249,17 +249,17 @@ class EndroundEntry(db.Model):
 
 class RefundEntry(db.Model):
     __tablename__ = 'refunds'
-    username = db.Column(db.String(50))
+    username = db.Column(db.String(16))
     amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
     gamecode = db.Column(db.String(36))
     gamehall = db.Column(db.String(36))
     mtcode = db.Column(db.String(70), primary_key=True)
     roundid = db.Column(db.String(60))
-    session = db.Column(db.String(60))
+    # session = db.Column(db.String(60))
 
     def __init__(self, username='', amount=0, time='', gamecode='', gamehall='', mtcode='',
-                 roundid='', session=''):
+                 roundid=''):
         self.username = username
         self.amount = amount
         self.time = time
@@ -267,12 +267,12 @@ class RefundEntry(db.Model):
         self.gamehall = gamehall
         self.mtcode = mtcode
         self.roundid = roundid
-        self.session = session
+        # self.session = session
 
 
 class RolloutEntry(db.Model):
     __tablename__ = 'rollouts'
-    username = db.Column(db.String(50))
+    username = db.Column(db.String(16))
     amount = db.Column(db.Numeric(36))
     time = db.Column(db.DateTime)
     gamecode = db.Column(db.String(36))
@@ -297,11 +297,9 @@ class RolloutEntry(db.Model):
         return entry is not None
 
 
-
-
 class RollinEntry(db.Model):
     __tablename__ = 'rollins'
-    username = db.Column(db.String(36))
+    username = db.Column(db.String(16))
     event_time = db.Column(db.DateTime)
     gamehall = db.Column(db.String(36))
     gamecode = db.Column(db.String(36))

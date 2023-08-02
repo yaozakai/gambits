@@ -3,18 +3,92 @@ function isEmail(email){
 	return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test( email );
 }
 
+function verify_sms_code(){
+
+    const country_code = $(".iti__selected-dial-code").first()[0].textContent
+    const phone = $("#mobile_code").val()
+
+    $('#snb-sms-verify').prop('disabled', true)
+
+    var no = [country_code, phone].join('')
+
+    $.ajax({
+        url: "/verifySMScode",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "code":$('#sms-digitfield-first').val().trim(),
+            "phone":no.trim()
+        }),
+        success: function(self) {
+            $('#snb-sms-verify').prop('disabled', false)
+            if (self.error == 0){
+                send_alert("snb:task:sms", "snb:task:phone:success", false, '', 'green')
+                $('#snb-phone-status').addClass('bi-check-square-fill')
+                $('#snb-phone-status').removeClass('bi-exclamation-square-fill')
+                $('#snb-phone-status').css('color', 'green')
+//                $('#span-snb-phone').remove()
+
+                $("#sms-rowDrop").remove()
+                $("#span-snb-phone").remove()
+                $('#snb-row1').find("i.bi-chevron-right").remove()
+
+
+            } else if (self.error == 1){
+                send_alert("snb:task:sms", "sms:error:incorrectPin")
+            } else if (self.error == 2) {
+                send_alert('alert:phone', 'sms:error:phoneExists')
+            } else if (self.error == 3) {
+                send_alert('alert:phone', 'sms:error:incorrectPhone')
+            } else if (self.error == 4) {
+                send_alert('alert:phone', 'sms:error:expired')
+            }
+        },
+        error: function(e) {
+            $('#snb-sms-verify').prop('disabled', false)
+            send_alert('alert:phone', 'alert:SMSserver')
+        }
+    });
+}
+
 function send_sms(){
     var regexp = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/
+    const country_code = $(".iti__selected-dial-code").first()[0].textContent
+    const phone = $("#mobile_code").val()
 
-    var no = [$(".iti__selected-dial-code").first()[0].textContent, $("#mobile_code").val()].join('')
+    var no = [country_code, phone].join('')
 
-    if (!regexp.test(no) && no.length < 0) {
-        alert("Wrong phone no");
+    if (!regexp.test(no) || phone.length < 6) {
+        send_alert('alert:phone', 'alert:invalidPhone')
         return
     }
 
+    $('#sms-rowDrop').slideDown()
+//    $('#snb-sms-container').slideToggle()
+
+    $('#sms-send-button').prop('disabled', true)
+    $('#sms-send-button').html('<span id="countdown">60</span>')
+    var n = document.getElementById("countdown")
+    e = parseInt(n.innerText)
+    t = setInterval((function() {
+        e--
+        n.innerText = e
+        e <= 0 && (
+            clearInterval(t),
+            $('#sms-send-button').html('<i class="bi bi-send"></i>'),
+            $('#sms-send-button').prop('disabled', false)
+//            $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(0deg)")
+
+//            $('.sms-digitfield').each(function () {
+//                $(this).css
+//            })
+      )
+
+    }), 1000)
+
     $.ajax({
-        url: "/verifySMS",
+        url: "/sendSMS",
         type: "post",
         dataType: "json",
         contentType: "application/json; charset=UTF-8",
@@ -22,26 +96,17 @@ function send_sms(){
             "recipient":no
         }),
         success: function(self) {
-            $('#sms-send-button').prop('disabled', true)
-            $('#sms-send-button').html('<span id="countdown">5</span>')
-            var n = document.getElementById("countdown"),
-            e = parseInt(n.innerText),
-            t = setInterval((function() {
-              e--, n.innerText = e, e <= 0 && (clearInterval(t),
-              $('#snb-sms-container').slideToggle(),
-              $('#sms-rowDrop').slideToggle())
-            }), 1000)
-
-
-    //            return true
+            if (self.error == 0){
+                // do nothing
+                return
+            } else if (self.error == 1) {
+                send_alert('alert:phone', 'alert:SMSserver')
+            } else if (self.error == 2) {
+                send_alert('alert:phone', 'sms:error:phoneExists')
+            }
         },
         error: function(e) {
-//            close_modal()
-
-//            console.log('txnHistory: ' + e);
-//            send_alert('network:down', 'try again later')
-
-    //            return false
+            send_alert('alert:phone', 'alert:SMSserver')
         }
     });
 

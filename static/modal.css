@@ -158,6 +158,15 @@
 .sms-digitfield {
     width: 35px;
     margin-right: 5px;
+    text-align: center;
+    border: 1px solid #1a8754;
+    border-radius: .25rem;
+    background-color: transparent;
+    color: #1a8754;
+}
+
+.sms-digitfield:focus-visible{
+  
 }
 
 .deposit-icon-selector {

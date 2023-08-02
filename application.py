@@ -328,15 +328,6 @@ def launch():
     return jsonify(link=link)
 
 
-# @application.route('/translate', methods=['POST'])
-# @login_required
-# def translate():
-#     if 'phrase' in request.json:
-#         phrase = translations[request.json['phrase']][session['lang']]
-#
-#     return jsonify(phrase=phrase)
-
-
 @application.route('/translate_alert', methods=['POST'])
 @login_required
 def translate_alert():
@@ -369,141 +360,11 @@ def verify_email():
     return setup_home_template(notification_title, notification, False)
 
 
-# @application.route('/', methods=['GET', 'POST'])
-# def home():
-#     csrf_token = csrf.generate_csrf()
-#     login_form = LoginForm()
-#     login_form.csrf_token.data = csrf_token
-#     register_form = RegisterForm()
-#     register_form.csrf_token.data = csrf_token
-#     if 'lang' not in session:
-#         # find user's location, defaults to English
-#         debug_out('looking up geolocation for language setting...')
-#         set_session_geo_lang(request.remote_addr)
-#     session['page'] = 'gallery'
-#     # if 'page' in session and session['page'] == 'txnHistory':
-#     #     if 'report_date' in session:
-#     #         report_date = session['report_date']
-#     #     else:
-#     #         report_date = str(datetime.datetime.now()).split(' ')[0]
-#     # else:
-#     #     report_date = ''
-#     set_flag_from_lang()
-#     debug_out('done')
-#     return render_template('page-gallery.html', icon_placement=utils.icon_placement, game_titles=utils.game_titles,
-#                            root_path='', login_form=login_form, register_form=register_form,
-#                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
-#                            notification='', notification_title='', reset_pass=False,
-#                            lang=session['lang'], translations=utils.translations)
-
-
 @application.route('/gameHistory', methods=['GET', 'POST'])
 @application.route("/logout", methods=['GET', 'POST'])
 @application.route("/launch", methods=['GET', 'POST'])
 def redirect_home():
     return redirect(url_for('home'))
-
-
-# @application.route('/forgot_pass', methods=['POST'])
-# def forgot_pass():
-#     # check if the email is a user
-#     email = json.loads(request.data)['email']
-#     if db_getuser_email(email) is not None:
-#         create_reset_pass_email(email)
-#
-#     return jsonify(notification_title=translations['check email'][session['lang']],
-#                    notification=translations['email sent to'][session['lang']])
-#
-#
-# @application.route('/reset', endpoint='reset_password', methods=['GET'])
-# def reset():
-#     token = request.args['token']
-#     session['lang'] = request.args['lang']
-#     email = 'walt.yao@gmail.com'
-#     if len(email) > 0:
-#         session["email"] = email
-#         return setup_home_template(notification='', notification_title='', reset_pass_popup=True)
-#     else:
-#         return setup_home_template(notification=translations['token expired'][session['lang']],
-#                                    notification_title=translations['reset password'][session['lang']],
-#                                    reset_pass_popup=False)
-#
-#         # return redirect(url_for('home', notification='Token expired, please try again',
-#         #                         notification_title='Reset Password'), code=307)
-#
-#
-# @application.route("/set_password", methods=['POST'])
-# def set_password():
-#     email = session.pop("email", None)
-#     password = json.loads(request.data)['password']
-#     if db_set_password(email, password) is not None:
-#         return jsonify(notification=translations['password has been updated'][session['lang']],
-#                        notification_title=translations['reset password'][session['lang']], reset_pass_popup=False)
-#     else:
-#         return setup_home_template(notification='Account not found',
-#                                    notification_title=translations['reset password'][session['lang']],
-#                                    reset_pass_popup=False)
-#
-#
-# @application.route('/resend', methods=['POST'])
-# def resend():
-#     email = json.loads(request.data)['email'][0:-1]
-#     create_verify_email(email, translations)
-#     return jsonify(notification_title=translations['check email'][session['lang']],
-#                    notification=translations['email sent to'][session['lang']])
-#
-#
-# @application.route('/register', methods=['GET', 'POST'])
-# def register():
-#     if 'lang' not in session:
-#         session['lang'] = 'zh-tw'
-#
-#     # sharing the same captcha as login
-#     captcha_response = json.loads(request.data)['recaptcha']
-#
-#     # verify captcha
-#     if verify_captcha(captcha_response):
-#         register_form = RegisterForm()
-#         email = register_form.email.data
-#         if email_valid(email):
-#             password_not_valid = validate_password(register_form.password.data, session['lang'])
-#             username = register_form.username.data
-#             if len(username) > 2:
-#                 # CHANGE this to == 0 on production
-#                 if len(password_not_valid) != 0:
-#                     # check email exists
-#                     user = db_getuser_email(email)
-#                     if user is None:
-#                         # check username exists
-#                         user = db_getuser_username(username)
-#                         if user is None:
-#                             # create the user
-#                             create_verify_email(email, translations)
-#                             db_new_user(register_form)
-#                             return jsonify(notification_title=translations['check email'][session['lang']],
-#                                            notification=translations['email sent to'][session['lang']])
-#                         else:
-#                             if user.is_active():
-#                                 return jsonify(error=translations['account exists'][session['lang']])
-#                             else:
-#                                 return jsonify(error=translations['account exists but not activated'][session['lang']],
-#                                                resend_email=email,
-#                                                link_text=translations['resend verification'][session['lang']])
-#                     else:
-#                         if user.is_active():
-#                             return jsonify(error=translations['account exists'][session['lang']])
-#                         else:
-#                             return jsonify(error=translations['account exists but not activated'][session['lang']],
-#                                            resend_email=email,
-#                                            link_text=translations['resend verification'][session['lang']])
-#                 else:
-#                     return jsonify(error=password_not_valid)
-#             else:
-#                 return jsonify(error=translations['username more than 2'][session['lang']])
-#         else:
-#             return jsonify(error=translations['invalid email format'][session['lang']])
-#     else:
-#         return jsonify(error=translations['recaptcha not verified'][session['lang']])
 
 
 @application.route('/reset', endpoint='reset_password', methods=['GET'])
@@ -524,8 +385,6 @@ def reset_password():
 @login_required
 def withdraw_request():
     user_db = db_get_user()
-
-    ##### make sure you check and make sure the user has enough to withdraw
 
     if float(request.json['amount']) <= round(user_db.balance_usdt, 2):
         txnHash_temp = str(TxnEntry().query.count() + 1)

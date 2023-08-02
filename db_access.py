@@ -152,7 +152,7 @@ def db_get_user_from_id(user_id):
 def db_new_login(login_form):
     dataclass_user = UserEntry().query.filter_by(email=login_form.email.data).first()
     dataclass_user.logged_in = True
-    dataclass_login = LoginEntry('', login_form.email.data)
+    dataclass_login = LoginEntry(login_form.email.data)
 
     if LoginEntry().query.count():
         dataclass_login.count = str(int(LoginEntry().query.order_by(desc('count')).first().count) + 1).zfill(8)

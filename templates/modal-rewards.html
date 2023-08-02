@@ -1,3 +1,5 @@
+{% if current_user.is_authenticated %}
+
 <!--        Country codes-->
 <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
 
@@ -22,20 +24,21 @@
 
                 <table class="table table-sm list-group mb-2">
                     <tr>
-                      <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
+                      <td id="snb-row1" class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
                           {% if current_user.snb_phone %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:sms'][session['lang']] }}
                           {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            <i id="snb-phone-status" class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
                             {{ translations['snb:task:sms'][session['lang']] }}
                             <i class="bi bi-chevron-right" style="right: 15px;position: absolute; transition: all 300ms;"></i>
                           {% endif %}
                       </td>
                     </tr>
+                    {% if not current_user.snb_phone %}
                     <tr>
                         <td class="" style="padding: 0;border: none;">
-                            <span class="rowDrop signup-task-drop">
+                            <span id='span-snb-phone' class="rowDrop signup-task-drop">
                                 <div style="display: flow-root;">
                                     <div id="snb-sms-container">
                                         <div class='green-text-outline'>{{ translations['sms verify'][session['lang']] }}</div>
@@ -45,19 +48,24 @@
                                         </div>
                                     </div>
                                     <div id="sms-rowDrop">
-                                        <div class='green-text-outline'>{{ translations['sms verify'][session['lang']] }}</div>
+                                        <div class='green-text-outline pt-2'>{{ translations['sms enter code'][session['lang']] }}</div>
                                         <div class="mt-2 mb-2" style="display: flex;height: 40px;float: right;">
-                                            <input type="text" class="sms-digitfield form-control" maxlength="1" pattern="[0-9]" tabindex= "0">
-                                            <input type="text" class="sms-digitfield form-control" maxlength="1" pattern="[0-9]" tabindex= "0">
-                                            <input type="text" class="sms-digitfield form-control" maxlength="1" pattern="[0-9]" tabindex= "0">
-                                            <input type="text" class="sms-digitfield form-control" maxlength="1" pattern="[0-9]" tabindex= "0">
-                                            <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['verify'][session['lang']] }}</button>
+                                            <input id="sms-digitfield-first" type="text" autocomplete="one-time-code" inputmode="numeric" maxlength="4" pattern="\d{4}">
+
+<!--                                            <input id="sms-digitfield-first" type="text" class="sms-digitfield" maxlength="1" pattern="[0-9]" tabindex= "0">-->
+<!--                                            <input type="text" class="sms-digitfield" maxlength="1" pattern="[0-9]" tabindex= "0">-->
+<!--                                            <input type="text" class="sms-digitfield" maxlength="1" pattern="[0-9]" tabindex= "0">-->
+<!--                                            <input type="text" class="sms-digitfield" maxlength="1" pattern="[0-9]" tabindex= "0">-->
+                                            <button id="snb-sms-verify" onclick="verify_sms_code()" type="button" class="btn btn-outline-success">{{ translations['verify'][session['lang']] }}</button>
                                         </div>
                                     </div>
                                 </div>
 
                                 <script>
                                     $(document).ready(function(){
+
+                                        const input = document.querySelector('[autocomplete=one-time-code');
+                                        input.addEventListener('input', () => input.style.setProperty('--_otp-digit', input.selectionStart));
 
                                         $('#rewardsModal').on('hide.bs.modal', function(){
                                             $(".bi-chevron-right").each(function() {
@@ -70,7 +78,8 @@
 
                                             $("#sms-rowDrop").slideUp()
                                             $("#snb-sms-container").slideDown()
-                                            $("#mobile_code").val("");
+                                            $("#mobile_code").val("")
+                                            $('#sms-digitfield-first').val("")
 
                                         });
 
@@ -81,10 +90,39 @@
                                         });
 
                                         $('#sms-send-button').click(function(){
-
+                                            $('#sms-digitfield-first').focus();
                                             send_sms()
 
                                         });
+
+                                        <!-- Country Code Selection-->
+                                        window.intlTelInput(document.querySelector("#mobile_code"), {
+                                            initialCountry: "{{ session['country'] }}",
+                                           formatOnDisplay: false,
+                                           nationalMode: false,
+                                           autoPlaceholder: 'aggressive',
+                                           separateDialCode: true,
+                                           preferredCountries: ['BR', 'CN', 'FR', 'HK', 'IN', 'ID', 'JP', 'KR', 'MX', 'PH', 'ES', 'TH', 'VN']
+                                        });
+
+                                        $("table").on('click', function(){
+                                            event.stopPropagation();
+                                            const $target = $(event.target);
+                                            const rowDrop = $target.closest("tr").next().find("span").first()
+
+                                            const row = $target.closest("td").first()
+
+                                            if( rowDrop.is(":visible") ) {
+                                                $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(0deg)")
+                                            } else {
+                                                $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(90deg)")
+                                            }
+                                            rowDrop.slideToggle(function() {
+                                <!--                if ($(this).css('display') == 'block') $(this).css('display', 'inherit');-->
+                                            });
+                                        });
+
+
                                     });
 
                                 </script>
@@ -92,10 +130,11 @@
                             </span>
                         </td>
                     </tr>
+                    {% endif %}
 
                     <tr>
                       <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
+                          {% if current_user.snb_twitter %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:twitter'][session['lang']] }}
                           {% else %}
@@ -107,7 +146,7 @@
                     </tr>
                     <tr>
                       <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
+                          {% if current_user.snb_discord %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:discord'][session['lang']] }}
                           {% else %}
@@ -119,7 +158,7 @@
                     </tr>
                     <tr>
                       <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
+                          {% if current_user.snb_easter %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:egg'][session['lang']] }}
                           {% else %}
@@ -131,7 +170,7 @@
                     </tr>
                     <tr>
                         <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
-                          {% if current_user.snb_phone %}
+                          {% if current_user.snb_totalbet < 100 %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:play100'][session['lang']] }}
                           {% else %}
@@ -167,41 +206,10 @@
 
     $(document).ready(function(){
 
-        <!-- Country Code Selection-->
-        var input = document.querySelector("#mobile_code");
-
-        window.intlTelInput(input, {
-            initialCountry: "{{ session['country'] }}",
-           formatOnDisplay: false,
-           nationalMode: false,
-           autoPlaceholder: 'aggressive',
-           separateDialCode: true,
-           preferredCountries: ['BR', 'CN', 'FR', 'HK', 'IN', 'ID', 'JP', 'KR', 'MX', 'PH', 'ES', 'TH', 'VN']
+        $('#rewardsModal').on('show.bs.modal', function(){
+            $("#copy-button").html('<i class="bi bi-clipboard"></i> {{ translations["copy"][session["lang"]] }}');
         });
-
-        $("table").on('click', function(){
-            event.stopPropagation();
-            var $target = $(event.target);
-            var rowDrop = $target.closest("tr").next().find("span").first()
-<!--                console.log('rowDrop.is=' + rowDrop.is(":hidden"))-->
-
-            if( rowDrop.is(":visible") ) {
-                $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(0deg)")
-            } else {
-                $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(90deg)")
-            }
-            rowDrop.slideToggle(function() {
-
-<!--                if ($(this).css('display') == 'block') $(this).css('display', 'inherit');-->
-            });
-
-
-        });
-
-      $('#rewardsModal').on('show.bs.modal', function(){
-         $("#copy-button").html('<i class="bi bi-clipboard"></i> {{ translations["copy"][session["lang"]] }}');
-
-      });
 
     });
 </script>
+{% endif %}
