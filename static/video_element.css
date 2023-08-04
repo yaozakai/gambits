@@ -113,7 +113,7 @@
     left: 0;
     right: 0;
     height: 100%;
-    width: 101%;
+    width: 100%;
     background-image: linear-gradient(to bottom, #342a3424, #342a34FA 90%, #342a34FF 100%);
     display: flex;
     top: 0px;
@@ -128,7 +128,7 @@
     /* left: 0; */
     /* right: 0; */
     height: 37vw;
-    width: 101%;
+    width: 100%;
     background-image: linear-gradient(to bottom, #342a3424, #342a34DA 60%, #342a34FF 100%);
     /* display: flex; */
     max-width: 1115px;

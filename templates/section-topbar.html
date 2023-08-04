@@ -36,7 +36,23 @@
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-right multi-level green-text" id="topbar-dropdown-menu">
-<!--Balances-->
+                <!--Discord button-->
+                    <li>
+                        <button class="btn dropdown-item" id="" data-bs-toggle="modal" data-bs-target="#depositModal">
+                            <i class="bi bi-discord"></i>
+                            {{ translations['socials:discord'][session['lang']] }}
+                        </button>
+                    </li>
+                <!--Twitter X button-->
+                    <li>
+                        <button class="btn dropdown-item" id="" data-bs-toggle="modal" data-bs-target="#depositModal">
+                            <img src = "static/logos/Twitter X.svg" class="svg-filter-excited" style="height: 16px;">
+                            {{ translations['socials:discord'][session['lang']] }}
+                        </button>
+                    </li>
+                    <div class="dropdown-divider"></div>
+
+                    <!--Balances-->
 <!--                    <li class="" id="balance_eth" style="margin-left: 7px;">-->
 <!--                        <span class="crypto-symbol">ETH</span> {{ current_user.balance_eth }}-->
 <!--                    </li>-->
@@ -51,10 +67,7 @@
                             <div style="display: flex;">
                                 <div class="excited-text" style="font-size: small;">{{ translations['signup bonus:title'][session['lang']] }}</div>
                                 <i class="bi bi-question-circle"  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" data-bs-title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
-                                   style="
-            bottom: 1px;
-            left: 3px;
-            position: relative;"></i>
+                                   style="bottom: 1px; left: 3px; position: relative;"></i>
                             </div>
                             <div style="display: flex;justify-content: center;">
                                 <div class="excited-text" style="

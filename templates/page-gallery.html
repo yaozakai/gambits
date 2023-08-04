@@ -1,5 +1,8 @@
 <!-- top section -->
-{% include 'section-socials.html' %}
+{% if not current_user.is_authenticated %}
+    {% include 'section-socials.html' %}
+{% endif %}
+
 {% include 'section-baccarat.html' %}
 
 <!--<div id="top-section"></div>-->

@@ -10,6 +10,7 @@ import chinese_converter
 from os import listdir
 from os.path import isfile, join
 
+import flask
 import gevent.monkey
 gevent.monkey.patch_all()
 
@@ -181,7 +182,12 @@ def reload_game_titles():
     myobj = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/json; charset=UTF-8'}
     x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
     global game_titles
-    game_titles = x.json()['data']
+    print('CQ9 return:' + str(x.status_code))
+
+    if x.status_code == 200:
+        game_titles = x.json()['data']
+    else:
+        flask.abort(69)
 
     file = open('static/csv/game_list.csv', 'w', encoding='utf-8-sig')
     game_list = csv.writer(file)
