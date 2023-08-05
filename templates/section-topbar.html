@@ -15,7 +15,9 @@
             </a>
         </div>
         <!-- end LOGO -->
-
+        {% if not current_user.is_authenticated %}
+        <button class="btn btn-link" type="button" id="blog-button" style="color:#28a745;">{{ translations['news'][session['lang']] }}</button>
+        {% endif %}
         <!-- start RIGHT SIDE BAR -->
         <div class="top-bar-right-side">
             {% if current_user.is_authenticated %}
@@ -38,16 +40,16 @@
                 <ul class="dropdown-menu dropdown-menu-right multi-level green-text" id="topbar-dropdown-menu">
                 <!--Discord button-->
                     <li>
-                        <button class="btn dropdown-item" id="" data-bs-toggle="modal" data-bs-target="#depositModal">
+                        <button class="btn dropdown-item" data-bs-toggle="modal" data-bs-target="#depositModal">
                             <i class="bi bi-discord"></i>
-                            {{ translations['socials:discord'][session['lang']] }}
+                            Discord
                         </button>
                     </li>
                 <!--Twitter X button-->
                     <li>
-                        <button class="btn dropdown-item" id="" data-bs-toggle="modal" data-bs-target="#depositModal">
+                        <button class="btn dropdown-item" data-bs-toggle="modal" data-bs-target="#depositModal">
                             <img src = "static/logos/Twitter X.svg" class="svg-filter-excited" style="height: 16px;">
-                            {{ translations['socials:discord'][session['lang']] }}
+                            Twitter
                         </button>
                     </li>
                     <div class="dropdown-divider"></div>
@@ -129,6 +131,7 @@
                                   </div>
                               </div>
                           </div>
+
                         <div class="dropdown">
                             <button class="btn btn-outline-success" type="button" id="dropdown-language" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="flag-icon flag-icon-{{ session['flag'] }}"></span>

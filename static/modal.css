@@ -1,3 +1,7 @@
+.modal {
+    width: 101%;
+}
+
 .modal-open .modal-backdrop.in:nth-child(2) { opacity: .5 }
 .modal-backdrop.in { opacity: 0 }
 

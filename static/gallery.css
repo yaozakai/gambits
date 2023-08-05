@@ -5,7 +5,7 @@
     margin-right: 221px;
     /* margin-top: -6px; */
     max-width: 500px;
-    top: 30px;
+    top: 17px;
     z-index: 1;
 }
 
@@ -57,10 +57,10 @@
 
 #header-social-networks {
     position: absolute;
-    margin-top: -21px;
-    margin-left: -39px;
+    margin-top: -15px;
+    /* margin-left: 1px; */
     z-index: 10;
-    font-size: large;
+    font-size: medium;
 }
 
 .svg-filter-excited {
@@ -78,10 +78,13 @@
 .gallery-container {
     max-width: 768px;
     display: inline-flex;
-    /* margin-left: auto; */
-    /* margin-right: auto; */
+    margin-left: auto;
+    margin-right: auto;
+    left: 50%;
+    /* right: 50%; */
     width: 99%;
     /* margin: 0 auto; */
+    /* position: relative; */
 }
 
 .gallery-header-icon {
@@ -97,6 +100,7 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+    /* margin-left: 45px; */
 }
 
 .list-group-top-section {
@@ -131,6 +135,18 @@
 .view-small {
     display: grid;
     width: 100%;
+    /* justify-content: center; */
+    margin: 0 1px 0 1px;
+}
+
+.gallery-container-top-games {
+    display: block;
+    max-width: 750px;
+}
+
+.view-small-top-games {
+    display: flex;
+    width: 100%;
     justify-content: center;
     margin: 0 1px 0 1px;
 }
@@ -142,7 +158,7 @@
     /* display: flex; */
     /* justify-content: center; */
     top: 0px;
-    background-image: linear-gradient(to bottom, #342a3424, #342a34DA 72%, #342a34FF 90%, #342a34FF 100%);
+    background-image: linear-gradient(to bottom, #342a3400, #342a34DA 86%, #342a34FF 90%, #342a34FF 100%);
     left: -1%;
     right: -1%;
     top: -1%;
@@ -162,7 +178,7 @@
 }
 
 .card {
-    /* width: 100%; */
+    width: 100%;
     /* height: 160px; */
     margin-bottom: 20px;
     margin-top: 15px;
@@ -181,7 +197,7 @@
 }
 
 .card-fishing {width: 42vw!important;height: 33vw!important;max-width: 300px;max-height: 200px;}
-.card-pvp {width: 80vw!important;height: 39vw!important;max-width: 800px;max-height: 180px;}
+.card-pvp {/* width: 80vw!important; */height: 39vw!important;max-width: 800px;max-height: 180px;}
 
 .large-card {
     width: 200px;
@@ -195,10 +211,10 @@
 }
 
 .gallery-btn {
-    font-size: .8rem;
+    font-size: 1.5rem;
     position: absolute;
     width: 100%;
-    font-weight: 300;
+    /* font-weight: 300; */
     height: 100%;
     background-color: #00000000;
     color: #00000000;
@@ -208,10 +224,13 @@
 
 .gallery-btn:hover {
     background-color: #000000BB;
-    color: #28a745;
-    font-weight: 400;
-    font-size: small;
+    /* color: #28a745; */
+    /* font-weight: 400; */
+    /* font-size: small; */
     border-radius: 0px;
+    color: #ffe204;
+    /* text-shadow: 2px 3px 7px black; */
+    /* filter: drop-shadow(5px 6px 1px rgb(0 0 0 / 0.4)); */
 }
 
 @media (min-width: 769px) {
@@ -221,6 +240,7 @@
 
     #gallery-pvp-container {
         display: inline-flex;
+        justify-content: center;
     }
 
     .card-pvp {
@@ -238,7 +258,7 @@
 
 @media (max-width: 900px) {
     #mid-section {
-        display: block;
+        /* display: block; */
     }
 
     .socials-container {

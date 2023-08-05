@@ -22,6 +22,7 @@ alert:selectChain,Please select a blockchain,Please select a blockchain,Please s
 button:reverify,Re-verify the transaction,Re-verify the transaction,Re-verify the transaction,,,,,,,
 title:Transaction History,退款紀錄,退款紀錄,Transaction History,,,,,,,
 title:Gaming History,遊戲紀錄,遊戲紀錄,Gaming History,,,,,,,
+news,,,News,,,,,,,
 date,日期,日期,Date,,,,,,,
 na,,,N/A,,,,,,,
 hi,您好,您好,Hi,,,,,,,

@@ -5,6 +5,12 @@ function isEmail(email){
 
 function verify_sms_code(){
 
+//    $('#login-spinner').outerHeight($('#loginbtn').outerHeight());
+//    $('#login-spinner').outerWidth($('#loginbtn').outerWidth());
+//    $('#login-spinner').css({
+//        'display': 'inline-flex'
+//    });
+
     const country_code = $(".iti__selected-dial-code").first()[0].textContent
     const phone = $("#mobile_code").val()
 

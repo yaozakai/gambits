@@ -17,11 +17,11 @@
     {% for category in icon_placement if category == 'top-games' %}
     <hr class="dropdown-divider" style="top: 8px; position: relative;">
     <div class="video-element-title gallery-header" id="header-top-games"><img class="gallery-header-icon" src="{{ root_path }}static/icons/navbar/{{ category }}.png"> {{ translations[category][session['lang']] }}</div>
-    <div class="gallery-container">
+    <div class="gallery-container-top-games">
         {% for k in icon_placement[category] %}
             {% set outer_loop = loop %}
-            {% if outer_loop.index % 4 == 1 %}
-                <div class="view-small">
+            {% if outer_loop.index % 3 == 1 %}
+                <div class="view-small-top-games">
             {% endif %}
                     <div class="med-card card shadow-sm">
                         {% for game_title in game_titles %}
@@ -39,20 +39,19 @@
                                     </div>
                                 </div>
 
-
                                 <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}
                                             data-bs-toggle="modal" data-bs-target="#registerModal">
                                     {% endif %}
-                                    {{ translations['playnow'][session['lang']] }}<br><br>
+                                        {{ translations['playnow'][session['lang']] }}<br><br>
         <!--                                        {{ game_title['nameset']|select(lang) }}-->
                                 </button>
                             {% endif %}
                         {% endfor %}
                     </div>
-            {% if outer_loop.index % 4 == 0 %}
+            {% if outer_loop.index % 3 == 0 %}
                 </div>
             {% endif %}
         {% endfor %}
@@ -67,7 +66,7 @@
         {% for k in icon_placement[category] %}
             {% set outer_loop = loop %}
             {% if outer_loop.index % 2 == 1 %}
-                <div class="view-small">
+                <div class="view-small" style="justify-content: center;">
             {% endif %}
                     <div class="med-card card card-{{ category }} shadow-sm">
                         {% for game_title in game_titles %}
@@ -235,9 +234,9 @@
                                             data-bs-toggle="modal" data-bs-target="#registerModal">
                                     {% endif %}
                                     {{ translations['playnow'][session['lang']] }}<br><br>
-                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
-                                        {{ title['name'] }}
-                                    {% endfor %}
+<!--                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}-->
+<!--                                        {{ title['name'] }}-->
+<!--                                    {% endfor %}-->
         <!--                                        {{ game_title['nameset']|select(lang) }}-->
                                 </button>
                             {% endif %}
@@ -282,9 +281,9 @@
                                             data-bs-toggle="modal" data-bs-target="#registerModal">
                                     {% endif %}
                                     {{ translations['playnow'][session['lang']] }}<br><br>
-                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
-                                        {{ title['name'] }}
-                                    {% endfor %}
+<!--                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}-->
+<!--                                        {{ title['name'] }}-->
+<!--                                    {% endfor %}-->
         <!--                                        {{ game_title['nameset']|select(lang) }}-->
                                 </button>
                             {% endif %}
@@ -329,9 +328,9 @@
                                             data-bs-toggle="modal" data-bs-target="#registerModal">
                                     {% endif %}
                                     {{ translations['playnow'][session['lang']] }}<br><br>
-                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
-                                        {{ title['name'] }}
-                                    {% endfor %}
+<!--                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}-->
+<!--                                        {{ title['name'] }}-->
+<!--                                    {% endfor %}-->
         <!--                                        {{ game_title['nameset']|select(lang) }}-->
                                 </button>
                             {% endif %}

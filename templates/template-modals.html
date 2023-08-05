@@ -14,7 +14,6 @@
         <div id="alert-message"></div>
     </div>
 </div>
-
 <script>
     $('#close-alert-button').on('click', function () {
         $('#alert-box').removeClass('show')
@@ -185,7 +184,6 @@
         </div>
     </div>
 </div>
-
 <script>
 
     var translations = $('#meta-translations').data()['name']
@@ -418,86 +416,81 @@
 <!-- Login -->
 {% if not current_user.is_authenticated %}
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <script>
 
-        </script>
+    <div class="modal-dialog modal-dialog-centered" role="document" id="loginDialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="loginModalLabel">{{ translations['log in'][lang] }}</h3>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <span class="modal-body">
 
-        <div class="modal-dialog modal-dialog-centered" role="document" id="loginDialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="loginModalLabel">{{ translations['log in'][lang] }}</h3>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <input type="hidden" name="csrf_token" value="{{ login_form.csrf_token.current_token }}">
+                <div class="input-group mb-3">
+                    <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
+
+                    {{ login_form.email(id_="login-email", class_="form-control") }}
                 </div>
-                <span class="modal-body">
 
-                    <input type="hidden" name="csrf_token" value="{{ login_form.csrf_token.current_token }}">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
+                <div class="input-group mb-3">
+                    <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
+                    {{ login_form.password(id_="login-password", class_="form-control") }}
+                </div>
 
-                        {{ login_form.email(id_="login-email", class_="form-control") }}
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <span class="input-group-text whiteFont">{{ translations['password'][lang] }}</span>
-                        {{ login_form.password(id_="login-password", class_="form-control") }}
-                    </div>
-
-                    <span class="green-text-outline" style="display: inline-flex;">
+                <span class="green-text-outline" style="display: inline-flex;">
 <!--                        {{ login_form.rememberme(id_="login-rememberme") }}-->
 <!--                        <label for="login-rememberme">{{ translations['keep me logged in'][lang] }}</label>-->
-                        <div id="login-recaptcha"></div>
-                        <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
-                    </span>
+                    <div id="login-recaptcha"></div>
+                    <button id="forgotPassword" type="button" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal" class="btn btn-link green-text">{{ translations['forgot password'][lang] }}?</button>
+                </span>
 
-
-                    {{ login_form.hidden_tag() }}
-                    <span>
-                        <div>
-                            <div class="btn btn-outline-success btn-lg login-reg-spinner" id="login-spinner">
-                                <div class="icon-spinner spinner-border text-success" role="status">
-                                    <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
-                                </div>
+                {{ login_form.hidden_tag() }}
+                <span>
+                    <div>
+                        <div class="btn btn-outline-success btn-lg login-reg-spinner" id="login-spinner">
+                            <div class="icon-spinner spinner-border text-success" role="status">
+                                <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
                             </div>
+                        </div>
 <!--                            {{ login_form.login(method_="POST", class_="btn btn-outline-success btn-lg", id_="loginbtn", style_="float: left;") }}-->
-                            <button id="loginbtn" class="btn btn-outline-success btn-lg rainglow" style="float: left;">{{ translations['lets go'][session['lang']] }}</button>
+                        <button id="loginbtn" class="btn btn-outline-success btn-lg rainglow" style="float: left;">{{ translations['lets go'][session['lang']] }}</button>
 <!--                            <div class="login-with-text green-text text-sm">...{{ translations['or log in with'][session['lang']] }}:</div>-->
 <!--                            <button onclick="login()" class="btn btn-outline-success btn-lg btn-transparent" id="login-metamask" style="float:left; border: none;"><img src="{{ root_path }}static/logos/MetaMask.png" style="height: 24px;"></button>-->
-                        </div>
-                        <div class='error'></div>
+                    </div>
+                    <div class='error'></div>
 
-                    </span>
                 </span>
-            </div>
+            </span>
         </div>
-        <script>
+    </div>
+    <script>
 
-            $(document).ready(function(){
+        $(document).ready(function(){
 
-                $('#loginModal').on('show.bs.modal', function(){
-                     $(".error").html('');
-                     $("#login-email").val("");
-                     $("#login-password").val("");
-    <!--                 $("#login-rememberme").prop("checked", false);-->
-                     $('#login-spinner').hide();
+            $('#loginModal').on('show.bs.modal', function(){
+                 $(".error").html('');
+                 $("#login-email").val("");
+                 $("#login-password").val("");
+<!--                 $("#login-rememberme").prop("checked", false);-->
+                 $('#login-spinner').hide();
 
-                     grecaptcha.reset(widgetId1);
-                     document.getElementById('login-email').placeholder = "";
-                     document.getElementById('login-password').placeholder = "";
-                  });
+                 grecaptcha.reset(widgetId1);
+                 document.getElementById('login-email').placeholder = "";
+                 document.getElementById('login-password').placeholder = "";
+              });
 
-                $('#forgotPassword').on('click', function(){
-                    $('#loginModal').modal('hide');
-                });
+            $('#forgotPassword').on('click', function(){
+                $('#loginModal').modal('hide');
+            });
 
 
 
-                $('#loginbtn').on('click', function(){
-<!--                    event.preventDefault();-->
-                    const email = $("#login-email").val();
-                    const password = $("#login-password").val();
-                    const csrf_token = $("#csrf_token").val();
+            $('#loginbtn').on('click', function(){
+                const email = $("#login-email").val();
+                const password = $("#login-password").val();
+                const csrf_token = $("#csrf_token").val();
 
 <!--                    $('#login-spinner').outerHeight($('#loginbtn').outerHeight());-->
 <!--                    $('#login-spinner').outerWidth($('#loginbtn').outerWidth());-->
@@ -505,95 +498,95 @@
 <!--                        'display': 'inline-flex'-->
 <!--                    });-->
 
-                    if (!isEmail(email)) {
-                        $(".error").html('<p>'+'{{ translations['invalid email format'][session['lang']] }}'+'</p>');
+                if (!isEmail(email)) {
+                    $(".error").html('<p>'+'{{ translations['invalid email format'][session['lang']] }}'+'</p>');
 
-                        return true
-                    }
+                    return true
+                }
 
 <!--                    var rememberme = document.querySelector('#login-rememberme').checked;-->
-                    var recaptcha = grecaptcha.getResponse();
-                    if (!recaptcha) {
-                        $(".error").html('<p>'+'{{ translations['recaptcha not verified'][session['lang']] }}'+'</p>');
+                var recaptcha = grecaptcha.getResponse();
+                if (!recaptcha) {
+                    $(".error").html('<p>'+'{{ translations['recaptcha not verified'][session['lang']] }}'+'</p>');
 
-                        return true
-                    }
+                    return true
+                }
 
-                    if (!password) {
-                        $(".error").html('<p>'+'{{ translations['password:missing'][session['lang']] }}'+'</p>');
+                if (!password) {
+                    $(".error").html('<p>'+'{{ translations['password:missing'][session['lang']] }}'+'</p>');
 
-                        return true
-                    }
+                    return true
+                }
 
-                    $('#loadingscreenModal').modal('show');
-                    $('#loginModal').modal('hide');
-
-                    $.ajax({
-                        url: "/login",
-                        type: "post",
-                        dataType: "json",
-                        contentType: "application/json; charset=UTF-8",
-                        data: JSON.stringify({
-                            "email":email,
-                            "password":password,
-<!--                            "rememberme":rememberme,-->
-                            "recaptcha":recaptcha,
-                            "csrf_token":csrf_token
-                        }),
-                        success: function(self) {
-<!--                            $('#loadingscreenModal').modal('hide');-->
-                            if (typeof self.error != 'undefined'){
-                                $('#login-spinner').hide();
-                                if (typeof self.resend_email != 'undefined'){
-                                    $(".error").html(self.error.toString() + '<br><button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">' + self.link_text + '</button>');
-                                } else {
-                                    $(".error").html('<p>'+self.error.toString()+'</p>');
-                                }
-                            } else {
-                                location.href = "{{ url_for('home') }}"
-                            }
-
-                        },
-                        error: function(e) {
-                            $('#loadingscreenModal').modal('hide');
-                            $('body').removeClass('modal-open');
-                            $('.modal-backdrop').remove();
-                            send_alert('reload:title', 'reload:msg')
-                            $('#login-spinner').hide();
-<!--                            console.log('login: ' + e);-->
-                        }
-                    });
-
-
-                });
-            });
-            $(document).on('click', '#resendEmail', function(self){
-                event.preventDefault();
-                $('#registerModal').modal('hide');
+                $('#loadingscreenModal').modal('show');
                 $('#loginModal').modal('hide');
+
                 $.ajax({
-                  url: "/resend",
-                  type: "post",
-                  dataType: "json",
-                  contentType: "application/json; charset=UTF-8",
-                  data: JSON.stringify({
-                    "email":$('#resendEmail').val()
-                  }),
-                  success: function(self) {
-                    if (typeof self.notification != 'undefined'){
-                        $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                        $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+                    url: "/login",
+                    type: "post",
+                    dataType: "json",
+                    contentType: "application/json; charset=UTF-8",
+                    data: JSON.stringify({
+                        "email":email,
+                        "password":password,
+<!--                            "rememberme":rememberme,-->
+                        "recaptcha":recaptcha,
+                        "csrf_token":csrf_token
+                    }),
+                    success: function(self) {
+<!--                            $('#loadingscreenModal').modal('hide');-->
+                        if (typeof self.error != 'undefined'){
+                            $('#login-spinner').hide();
+                            if (typeof self.resend_email != 'undefined'){
+                                $(".error").html(self.error.toString() + '<br><button id=\"resendEmail\" style=\"display: inline;\" class=\"btn-link\" value=\"' + self.resend_email + '/">' + self.link_text + '</button>');
+                            } else {
+                                $(".error").html('<p>'+self.error.toString()+'</p>');
+                            }
+                        } else {
+                            location.href = "{{ url_for('home') }}"
+                        }
 
-                        $('#notificationModal').modal('show');
-
+                    },
+                    error: function(e) {
+                        $('#loadingscreenModal').modal('hide');
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                        send_alert('reload:title', 'reload:msg')
+                        $('#login-spinner').hide();
+<!--                            console.log('login: ' + e);-->
                     }
-                  },
-                  error: function(e) {
-                    console.log('resend: ' + e);
-                  }
                 });
+
+
             });
-        </script>
+        });
+        $(document).on('click', '#resendEmail', function(self){
+            event.preventDefault();
+            $('#registerModal').modal('hide');
+            $('#loginModal').modal('hide');
+            $.ajax({
+              url: "/resend",
+              type: "post",
+              dataType: "json",
+              contentType: "application/json; charset=UTF-8",
+              data: JSON.stringify({
+                "email":$('#resendEmail').val()
+              }),
+              success: function(self) {
+                if (typeof self.notification != 'undefined'){
+                    $(".notification").html('<p>'+self.notification.toString()+'</p>');
+                    $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+
+                    $('#notificationModal').modal('show');
+
+                }
+              },
+              error: function(e) {
+                console.log('resend: ' + e);
+              }
+            });
+        });
+    </script>
 </div>
 
 <!-- Register -->
@@ -796,6 +789,7 @@
         </div>
     </div>
 </div>
+
 {% if notification_popup == 'True' %}
 <script language="JavaScript" type="text/javascript">
     $(document).ready(function(){
@@ -838,7 +832,6 @@
     });
 </script>
 {% endif %}
-
 
 {% if not current_user.is_authenticated %}
         <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&hl={{ lang }}' async defer></script>
