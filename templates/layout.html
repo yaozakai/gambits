@@ -34,7 +34,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.4-rc.1/web3.min.js"></script>
 
 <!--        Country code CSS-->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.css">
 
 <!-- Custom styles for this template -->
         <link  type="text/css" href="{{ url_for('static', filename='nav.css') }}" rel="stylesheet">
@@ -49,10 +49,11 @@
         <link  type="text/css" href="{{ url_for('static', filename='gamehistory.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='responsive.css') }}" rel="stylesheet">
         <link  type="text/css" href="{{ url_for('static', filename='grid-pattern.css') }}" rel="stylesheet">
-        <link  type="text/css" href="{{ url_for('static', filename='spinner-circle.css') }}" rel="stylesheet">
+<!--        <link  type="text/css" href="{{ url_for('static', filename='spinner-circle.css') }}" rel="stylesheet">-->
         <link  type="text/css" href="{{ url_for('static', filename='otp.css') }}" rel="stylesheet">
 <!--        <link  type="text/css" href="{{ url_for('static', filename='calendar.css') }}" rel="stylesheet">-->
-
+<!--        Country codes-->
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
         <!--   Icons -->
         <link rel="icon" type="image/x-icon" href="{{ root_path }}static/logos/favicon.png">
 <!--          <link rel="stylesheet" href="{{ root_path }}static/fontawesome/css/brands.css">-->
@@ -98,8 +99,8 @@
 
     </main>
             <!-- MODALS -->
-        {% include 'template-modals.html' %}
         {% include 'modal-rewards.html' %}
+        {% include 'template-modals.html' %}
 
 
   </body>

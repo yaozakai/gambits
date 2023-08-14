@@ -1,3 +1,4 @@
+import base64
 import csv
 import functools
 import json
@@ -146,6 +147,14 @@ def validate_password(password, lang):
     # password_ok = not ( length_error or digit_error or uppercase_error or lowercase_error)
 
     return errors
+
+
+def stringToBase64(s):
+    return base64.b64encode(s.encode('utf-8'))
+
+
+def base64ToString(b):
+    return base64.b64decode(b).decode('utf-8')
 
 
 def send_json(status='', sid='', uuid='', balance=''):

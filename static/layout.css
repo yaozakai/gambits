@@ -447,25 +447,32 @@ h3 {
 }
 
 .login-reg-spinner {
-    background-color: #120e12;
+    background-color: #120e12cc;
     display: flex;
     position: absolute;
-    justify-content: center;
-    padding: 0 0 0 0;
+    /* justify-content: center; */
+    margin: 0 auto;
+    z-index: 1;
+    bottom: 0;
 }
 
 .icon-spinner {
     border: none;
-    width: 100%;
-    height: 100%;
-    animation: 1.5s linear infinite spinner-border;
+    width: 100px;
+    height: 100px;
+    animation: 3.5s linear infinite spinner-border;
     /* bottom: 8px; */
     position: inherit;
-    left: 0px;
-    right: 0;
-    top: auto;
-    bottom: auto;
-    /* vertical-align: middle; */
+    margin: 0 auto;
+    /* right: 0px; */
+    /* left: 0px; */
+    top: calc(50% - 50px);
+    /* bottom: auto; */
+    vertical-align: middle;
+    /* margin-right: auto; */
+    /* padding-left: 65px; */
+    display: none;
+    left: calc(50% - 50px);
 }
 
 #loadingscreenModalWindow {
@@ -506,7 +513,7 @@ h3 {
 
 .dropdown-item:hover {
     border-radius: 0rem;
-    background-color: #1a8754 !important;
+    background-color: #6c7872 !important;
     border-color: #0d3516 !important;
     color: #adff2e;
 }

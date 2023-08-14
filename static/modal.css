@@ -1,12 +1,13 @@
 .modal {
-    width: 101%;
+    overflow-y: initial;
+    overflow-x: hidden;
 }
 
 .modal-open .modal-backdrop.in:nth-child(2) { opacity: .5 }
 .modal-backdrop.in { opacity: 0 }
 
 #loadingscreenModal {
-  overflow-x: scroll!important;
+  overflow-y: scroll!important;
 }
 
 .modal-open {

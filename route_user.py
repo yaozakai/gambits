@@ -1,15 +1,19 @@
 import math
 import random
+import oauth2 as oauth
+import time
+import string
 import urllib.parse
 
 import flask
 from flask import Blueprint, json
-from flask_login import login_user
+from flask_login import login_user, login_required
 
-from constants import SMS_SEVENIO_KEY
+from constants import SMS_SEVENIO_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KEY_SECRET
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha
+from util_oauth import OAuthSignature
 from utils import *
 
 user = Blueprint('user', __name__)
@@ -137,6 +141,7 @@ def set_password():
 
 
 @user.route('/resend', methods=['POST'])
+@login_required
 def resend():
     email = json.loads(request.data)['email'][0:-1]
     create_verify_email(email, translations)
@@ -198,6 +203,7 @@ def register():
 
 
 @user.route('/verifySMScode', methods=['GET', 'POST'])
+@login_required
 def verifySMScode():
     code = json.loads(request.data)['code']
     db_user = db_get_user()
@@ -225,7 +231,130 @@ def verifySMScode():
         return jsonify(error=1)
 
 
+def twitter_client():
+    # Create your consumer with the proper key/secret.
+    consumer = oauth.Consumer(key=TWITTER_CONSUMER_KEY,
+                              secret=TWITTER_CONSUMER_KEY_SECRET)
+
+    # Request token URL for Twitter.
+    request_token_url = "https://api.twitter.com/oauth/request_token"
+
+    # Create our client.
+    client = oauth.Client(consumer)
+
+    # The OAuth Client request works just like httplib2 for the most part.
+    resp, content = client.request(request_token_url, "GET")
+    # print(resp)
+    # print(content)
+    # pass
+    return 'https://api.twitter.com/oauth/authorize?' + content.decode("utf-8")
+
+
+@user.route('/api/twt_oauth', methods=['GET', 'POST'])
+def twt_oauth():
+# check for twitter callback
+    if 'oauth_token' in request.args:
+        # make sure oauth_token matches
+        match = OAuthEntry().query.filter_by(oauth_token=request.args['oauth_token']).first()
+        if match is None:
+            return
+        if 'oauth_verifier' in request.args:
+            url = 'https://api.twitter.com/oauth/access_token'
+            myobj = {'oauth_consumer_key': TWITTER_CONSUMER_KEY,
+                     'oauth_token': request.args['oauth_token'],
+                     'oauth_verifier': request.args['oauth_verifier']
+                     }
+
+            x = requests.post(url, json=myobj)
+            pass
+
+
+
+@user.route('/connect_twitter', methods=['GET', 'POST'])
+# @login_required
+def connect_twitter():
+    url = twitter_client()
+
+
+    # Set the API endpoint
+    url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+
+    # Set the base oauth_* parameters along with any other parameters required
+    # for the API call.
+    # params = {
+    #     'oauth_version': '1.0',
+    #     # 'oauth_consumer_key': "c_key",x
+    #     'oauth_consumer_key': TWITTER_CONSUMER_KEY,
+    #     'oauth_token': TWITTER_CONSUMER_KEY,
+    #     # 'oauth_token': "t_key",
+    #     'oauth_timestamp': int(time.time()),
+    #     'oauth_signature_method': 'HMAC-SHA1',
+    #     'oauth_nonce': oauth.generate_nonce(),
+    # }
+    # #
+    # # params = {
+    # #     'oauth_version': "1.0",
+    # #     'oauth_nonce': oauth.generate_nonce(),
+    # #     'oauth_timestamp': str(int(time.time())),
+    # #     'user': 'joestump',
+    # #     'photoid': 555555555555
+    # # }
+    #
+    # # Set up instances of our Token and Consumer. The Consumer.key and
+    # # Consumer.secret are given to you by the API provider. The Token.key and
+    # # Token.secret is given to you after a three-legged authentication.
+    # token = oauth.Token(key="TWITTER_CONSUMER_KEY", secret="tok-test-secret")
+    # consumer = oauth.Consumer(key=TWITTER_CONSUMER_KEY, secret=TWITTER_CONSUMER_KEY_SECRET)
+    #
+    # # Set our token/key parameters
+    # params['oauth_token'] = token.key
+    # params['oauth_consumer_key'] = consumer.key
+    #
+    # # Create our request. Change method, etc. accordingly.
+    # req = oauth.Request(method="GET", url=url, parameters=params)
+    #
+    # # Sign the request.
+    # signature_method = oauth.SignatureMethod_HMAC_SHA1()
+    # req.sign_request(signature_method, consumer, token)
+    #
+    # pass
+
+
+    # oauthCtrl = OAuthSignature()
+    # oauthCtrl.url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+    # oauthCtrl.secrets = {
+    #     # 'consumer_secret': stringToBase64(TWITTER_CONSUMER_KEY_SECRET),
+    #     'consumer_secret': TWITTER_CONSUMER_KEY_SECRET,
+    #     # 'token_secret': stringToBase64(TWITTER_CONSUMER_KEY)
+    #     'token_secret': TWITTER_CONSUMER_KEY
+    # }
+    #
+    # params = {
+    #     'oauth_version': '1.0',
+    #     'oauth_consumer_key': "c_key",
+    #     # 'oauth_consumer_key': TWITTER_CONSUMER_KEY_SECRET,
+    #     # 'oauth_token': TWITTER_CONSUMER_KEY,
+    #     'oauth_token': "t_key",
+    #     'oauth_timestamp': int(time.time()),
+    #     'oauth_signature_method': 'HMAC-SHA1',
+    #     'oauth_nonce': oauthCtrl.nonce()
+    # }
+    #
+    # signature = oauthCtrl.generate(params)
+    #
+    # params['oauth_signature'] = signature
+    #
+    # x = requests.post('https://api.twitter.com/oauth/request_token', headers=header, data=params)
+    #
+    # try:
+    #     launch_url = json.loads(x.text)['data']['url']
+    # except:
+    #     launch_url = ''
+    # return launch_url
+
+
 @user.route('/sendSMS', methods=['GET', 'POST'])
+@login_required
 def sendSMS():
     url_target = 'https://gateway.sms77.io/api/sms'
     to = json.loads(request.data)['recipient']

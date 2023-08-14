@@ -25,6 +25,14 @@ with app.app_context():
 
 
 ##################################################################################################################
+class OAuthEntry(db.Model):
+    __tablename__ = 'oauth'
+    user_id = db.Column(db.String(8), primary_key=True)
+    oauth_token = db.Column(db.String(55))
+    oauth_token_secret = db.Column(db.String(50))
+
+
+
 class PhoneEntry(db.Model):
     __tablename__ = 'phone'
     phone = db.Column(db.String(16), primary_key=True)

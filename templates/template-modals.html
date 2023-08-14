@@ -25,9 +25,9 @@
     <div class="modal-dialog modal-dialog-centered" role="document" id="loadingscreenModalWindow">
 
         <div >
-            <button id="loading-modal-close" type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="float: right;position: relative;">
-                <span aria-hidden="true">&times;</span>
-            </button>
+<!--            <button id="loading-modal-close" type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="float: right;position: relative;">-->
+<!--                <span aria-hidden="true">&times;</span>-->
+<!--            </button>-->
             <div class="modal-body" id="game-launch-spinner">
                 <div class="icon-spinner spinner-border text-success" role="status">
                     <img src="{{ root_path }}static/logos/favicon.png" class="loading-logo">
@@ -488,6 +488,7 @@
 
 
             $('#loginbtn').on('click', function(){
+<!--                    event.preventDefault();-->
                 const email = $("#login-email").val();
                 const password = $("#login-password").val();
                 const csrf_token = $("#csrf_token").val();
@@ -620,7 +621,12 @@
 <!--                    <div>-->
 <!--                        <button type="button" class="btn btn-link">Re-send verification email</button>-->
 <!--                    </div>-->
-                <div class="modal-body">
+                <div class="login-reg-spinner" id="reg-spinner">
+                    <div class="icon-spinner spinner-border text-success" role="status">
+                        <img src="{{ root_path }}static/logos/favicon.png" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="modal-body" id="register-modal-body">
                     {{ register_form.csrf_token }}
                     <div class="input-group mb-3">
                       <span class="input-group-text whiteFont">{{ translations['email'][lang] }}</span>
@@ -657,14 +663,10 @@
                     <div id="reg-recaptcha"></div>
                     {{ register_form.hidden_tag() }}
                     <span>
+                        <button id="registerbtn" class="btn btn-outline-success btn-lg rainglow" style="float: left;">{{ translations['lets go'][session['lang']] }}</button>
                         <div>
-                            <div class="btn btn-outline-success btn-lg login-reg-spinner" id="reg-spinner">
-                                <div class="icon-spinner spinner-border text-success" role="status">
-                                    <img src="{{ root_path }}static/logos/favicon.png" class="spinner-logo">
-                                </div>
-                            </div>
+
 <!--                            {{ register_form.register(class_="btn btn-outline-success btn-lg", style_="float: left;", id_="registerbtn") }}-->
-                            <button id="registerbtn" class="btn btn-outline-success btn-lg rainglow" style="float: left;">{{ translations['lets go'][session['lang']] }}</button>
 
 <!--                            <label for="registerbtn"> {{ translations['lets go'][session['lang']] }}</label>-->
 
@@ -680,11 +682,11 @@
 
                     $('#registerbtn').on('click', function(self){
 
-                        $('#reg-spinner').height($('#registerbtn').outerHeight() - 2);
-                        $('#reg-spinner').width($('#registerbtn').outerWidth() - 2);
-                        $('#reg-spinner').css({
-                            'display': 'inline-flex'
-                        });
+<!--                        $('#reg-spinner').height($('#registerbtn').outerHeight() - 2);-->
+                        $('#reg-spinner').height($('#register-modal-body').outerHeight() - 2);
+<!--                        $('#reg-spinner').width($('#registerbtn').outerWidth() - 2);-->
+                        $('#reg-spinner').width($('#register-modal-body').outerWidth() - 2);
+                        $('#reg-spinner').show()
 
                         event.preventDefault();
 

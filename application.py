@@ -17,7 +17,7 @@ from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
 # from route_stage import stage
 from route_cq9_api import cq9_api, game_launch, player_report_today
 # from route_template import template
-from route_user import user
+from route_user import user, connect_twitter
 from route_wallet import wallet, etherscan_parser
 from utils import reload_game_titles, reload_icon_placement, setup_home_template, set_flag_from_lang, \
     set_session_geo_lang
@@ -453,6 +453,7 @@ def create_app():
         reload_icon_placement()
         reload_translations()
         reload_game_titles()
+
     # application.register_blueprint(template)
     application.register_blueprint(cq9_api)
     application.register_blueprint(user)

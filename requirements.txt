@@ -71,3 +71,5 @@ Werkzeug==2.2.2
 WTForms==3.0.1
 zope.event==4.6
 zope.interface==6.0
+
+oauth2~=1.9.0.post1

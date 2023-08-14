@@ -3,6 +3,24 @@ function isEmail(email){
 	return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test( email );
 }
 
+function snb_table_click(){
+    event.stopPropagation();
+
+    const $target = $(event.target);
+    const rowDrop = $target.closest("tr").next().find("div").first()
+
+    const row = $target.closest("td").first()
+
+    if( rowDrop.is(":visible") ) {
+        rowDrop.slideUp();
+        $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(0deg)")
+    } else {
+        rowDrop.slideDown();
+        $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(90deg)")
+    }
+
+}
+
 function verify_sms_code(){
 
 //    $('#login-spinner').outerHeight($('#loginbtn').outerHeight());
@@ -38,7 +56,7 @@ function verify_sms_code(){
 
                 $("#sms-rowDrop").remove()
                 $("#span-snb-phone").remove()
-                $('#snb-row1').find("i.bi-chevron-right").remove()
+                $('#snb-row-sms').find("i.bi-chevron-right").remove()
 
 
             } else if (self.error == 1){
@@ -53,6 +71,31 @@ function verify_sms_code(){
         },
         error: function(e) {
             $('#snb-sms-verify').prop('disabled', false)
+            send_alert('alert:phone', 'alert:SMSserver')
+        }
+    });
+}
+
+function connect_twitter(){
+    $.ajax({
+        url: "/connect_twitter",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "recipient":no
+        }),
+        success: function(self) {
+            if (self.error == 0){
+                // do nothing
+                return
+            } else if (self.error == 1) {
+                send_alert('alert:phone', 'alert:SMSserver')
+            } else if (self.error == 2) {
+                send_alert('alert:phone', 'sms:error:phoneExists')
+            }
+        },
+        error: function(e) {
             send_alert('alert:phone', 'alert:SMSserver')
         }
     });
