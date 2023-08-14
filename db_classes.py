@@ -2,6 +2,7 @@ from datetime import datetime
 
 import flask
 import pytz
+from flask import session
 from flask_login import UserMixin
 
 from flask_sqlalchemy import SQLAlchemy
@@ -31,6 +32,8 @@ class OAuthEntry(db.Model):
     oauth_token = db.Column(db.String(55))
     oauth_token_secret = db.Column(db.String(50))
 
+    def __init__(self):
+        user_id = session['_user_id']
 
 
 class PhoneEntry(db.Model):
@@ -82,7 +85,9 @@ class UserEntry(UserMixin, db.Model):
     snb_discord = db.Column(db.Numeric(1), default=0)
     snb_easter = db.Column(db.Numeric(1), default=0)
 
-    # page = ''
+    oauth_token = db.Column(db.String(55))
+    oauth_token_secret = db.Column(db.String(50))
+    twt_user_id = db.Column(db.String(22))
 
     def __init__(self, user_id='', email='', username='', password='', referral=''):
         self.email = email

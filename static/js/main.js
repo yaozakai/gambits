@@ -76,29 +76,42 @@ function verify_sms_code(){
     });
 }
 
-function connect_twitter(){
+function ajax_connect_twitter(){
+
     $.ajax({
         url: "/connect_twitter",
-        type: "post",
-        dataType: "json",
-        contentType: "application/json; charset=UTF-8",
-        data: JSON.stringify({
-            "recipient":no
-        }),
-        success: function(self) {
-            if (self.error == 0){
-                // do nothing
-                return
-            } else if (self.error == 1) {
-                send_alert('alert:phone', 'alert:SMSserver')
-            } else if (self.error == 2) {
-                send_alert('alert:phone', 'sms:error:phoneExists')
-            }
+        type: "GET",
+        success: function (data) {
+            window.location.replace(data);
         },
         error: function(e) {
             send_alert('alert:phone', 'alert:SMSserver')
         }
     });
+
+
+//    $.ajax({
+//        url: "/connect_twitter",
+//        type: "post",
+//        dataType: "json",
+//        contentType: "application/json; charset=UTF-8",
+//        data: JSON.stringify({
+//            "recipient":no
+//        }),
+//        success: function(self) {
+//            if (self.error == 0){
+//                // do nothing
+//                return
+//            } else if (self.error == 1) {
+//                send_alert('alert:phone', 'alert:SMSserver')
+//            } else if (self.error == 2) {
+//                send_alert('alert:phone', 'sms:error:phoneExists')
+//            }
+//        },
+//        error: function(e) {
+//            send_alert('alert:phone', 'alert:SMSserver')
+//        }
+//    });
 }
 
 function send_sms(){

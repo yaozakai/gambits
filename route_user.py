@@ -13,6 +13,7 @@ from constants import SMS_SEVENIO_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KE
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha
+from util_geoloc import set_session_geo_lang
 from util_oauth import OAuthSignature
 from utils import *
 
@@ -231,7 +232,43 @@ def verifySMScode():
         return jsonify(error=1)
 
 
-def twitter_client():
+@user.route('/api/twt_oauth', methods=['GET', 'POST'])
+def twt_oauth():
+    if 'oauth_token' in request.args:
+        # make sure oauth_token matches
+        db_user = db_get_user()
+        # db_user.oauth_token = request.args['oauth_token']
+
+        # match = OAuthEntry().query.filter_by(oauth_token=request.args['oauth_token']).first()
+        # if match is None:
+        if db_user.oauth_token != request.args['oauth_token']:
+            return setup_home_template()
+        if 'oauth_verifier' in request.args:
+            url = 'https://api.twitter.com/oauth/access_token'
+            myobj = {'oauth_consumer_key': TWITTER_CONSUMER_KEY,
+                     'oauth_token': request.args['oauth_token'],
+                     'oauth_verifier': request.args['oauth_verifier']
+                     }
+
+            x = requests.post(url, json=myobj)
+            pass
+
+
+def parseURLparam(big_str, small_str):
+    index = big_str.find(small_str) + 1
+    index += len(small_str)
+
+    search_str = big_str[index:]
+    amp = search_str.find('&')
+
+    param = search_str[:amp]
+
+    return param
+
+
+@user.route('/connect_twitter', methods=['GET'])
+# @login_required
+def connect_twitter():
     # Create your consumer with the proper key/secret.
     consumer = oauth.Consumer(key=TWITTER_CONSUMER_KEY,
                               secret=TWITTER_CONSUMER_KEY_SECRET)
@@ -244,40 +281,24 @@ def twitter_client():
 
     # The OAuth Client request works just like httplib2 for the most part.
     resp, content = client.request(request_token_url, "GET")
-    # print(resp)
-    # print(content)
+
+    # Save auth_token
+    params = content.decode("utf-8")
+    # auth_token = parseURLparam(params, 'auth_token')
+    # auth_token_secret = parseURLparam(params, 'auth_token_secret')
+    user = db_get_user()
+    user.oauth_token = parseURLparam(params, 'auth_token')
+    user.oauth_token_secret = parseURLparam(params, 'auth_token_secret')
+    db.session.commit()
+
     # pass
     return 'https://api.twitter.com/oauth/authorize?' + content.decode("utf-8")
 
-
-@user.route('/api/twt_oauth', methods=['GET', 'POST'])
-def twt_oauth():
-# check for twitter callback
-    if 'oauth_token' in request.args:
-        # make sure oauth_token matches
-        match = OAuthEntry().query.filter_by(oauth_token=request.args['oauth_token']).first()
-        if match is None:
-            return
-        if 'oauth_verifier' in request.args:
-            url = 'https://api.twitter.com/oauth/access_token'
-            myobj = {'oauth_consumer_key': TWITTER_CONSUMER_KEY,
-                     'oauth_token': request.args['oauth_token'],
-                     'oauth_verifier': request.args['oauth_verifier']
-                     }
-
-            x = requests.post(url, json=myobj)
-            pass
-
-
-
-@user.route('/connect_twitter', methods=['GET', 'POST'])
-# @login_required
-def connect_twitter():
-    url = twitter_client()
-
-
-    # Set the API endpoint
-    url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
+    # url = twitter_client()
+    #
+    #
+    # # Set the API endpoint
+    # url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
 
     # Set the base oauth_* parameters along with any other parameters required
     # for the API call.

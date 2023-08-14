@@ -9,6 +9,7 @@ from flask_login import login_required, logout_user
 
 import utils
 from db_access import *
+from util_geoloc import set_session_geo_lang
 # from email_confirmation import create_verify_email, create_reset_pass_email
 # from forms import verify_captcha
 from utils import *
@@ -19,8 +20,7 @@ from route_cq9_api import cq9_api, game_launch, player_report_today
 # from route_template import template
 from route_user import user, connect_twitter
 from route_wallet import wallet, etherscan_parser
-from utils import reload_game_titles, reload_icon_placement, setup_home_template, set_flag_from_lang, \
-    set_session_geo_lang
+from utils import reload_game_titles, reload_icon_placement, setup_home_template, set_flag_from_lang
 
 from os.path import abspath, dirname
 
@@ -59,7 +59,7 @@ def home():
     register_form.csrf_token.data = csrf_token
     if 'lang' or 'country' not in session:
         # find user's location, defaults to English
-        set_session_geo_lang(request.remote_addr)
+        set_session_geo_lang()
     set_flag_from_lang()
     debug_out('done')
 
@@ -453,6 +453,7 @@ def create_app():
         reload_icon_placement()
         reload_translations()
         reload_game_titles()
+        # connect_twitter()
 
     # application.register_blueprint(template)
     application.register_blueprint(cq9_api)
