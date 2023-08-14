@@ -21,7 +21,7 @@
 </script>
 
 <!-- loading.... popup -->
-<div class="modal fade" id="loadingscreenModal" tabindex="-1" role="dialog" aria-labelledby="loadingscreenModalWindow" aria-hidden="true">
+<div class="modal fade" id="loadingscreenModal" tabindex="-1" role="dialog" aria-labelledby="loadingscreenModalWindow" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
     <div class="modal-dialog modal-dialog-centered" role="document" id="loadingscreenModalWindow">
 
         <div >
@@ -618,9 +618,6 @@
                     </button>
 
                 </div>
-<!--                    <div>-->
-<!--                        <button type="button" class="btn btn-link">Re-send verification email</button>-->
-<!--                    </div>-->
                 <div class="login-reg-spinner" id="reg-spinner">
                     <div class="icon-spinner spinner-border text-success" role="status">
                         <img src="{{ root_path }}static/logos/favicon.png" style="width: 100%;">

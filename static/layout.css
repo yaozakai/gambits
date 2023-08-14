@@ -448,7 +448,7 @@ h3 {
 
 .login-reg-spinner {
     background-color: #120e12cc;
-    display: flex;
+    display: none;
     position: absolute;
     /* justify-content: center; */
     margin: 0 auto;
@@ -471,7 +471,7 @@ h3 {
     vertical-align: middle;
     /* margin-right: auto; */
     /* padding-left: 65px; */
-    display: none;
+    /* display: none; */
     left: calc(50% - 50px);
 }
 
