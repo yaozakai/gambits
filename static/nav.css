@@ -232,7 +232,8 @@
     .nav-link-title {
         font-size: 1rem;
         /* float: right; */
-        right: -23px;
+        /* right: -23px; */
+        left: 24px;
         /* right: 788px; */
         /* top: 100px; */
         margin-top: 15px;

@@ -1,11 +1,7 @@
 import math
 import random
 import oauth2 as oauth
-import time
-import string
-import urllib.parse
 
-import flask
 from flask import Blueprint, json
 from flask_login import login_user, login_required
 
@@ -14,7 +10,7 @@ from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha
 from util_geoloc import set_session_geo_lang
-from util_oauth import OAuthSignature
+from util_render_template import setup_home_template
 from utils import *
 
 user = Blueprint('user', __name__)
@@ -109,10 +105,12 @@ def language(lang):
             if 'logged_in' in session and session['logged_in'] is True:
                 db_set_language()
         else:
-            set_session_geo_lang(request.remote_addr)
-        set_flag_from_lang()
+            # set_session_geo_lang(request.remote_addr)
+            set_session_geo_lang()
 
-    return redirect(url_for('home'))
+        set_flag_from_lang()
+    # return redirect(url_for('home'))
+    return setup_home_template()
 
 
 @user.route('/forgot_pass', methods=['POST'])

@@ -1,13 +1,12 @@
 import json
-from numbers import Number
 
-from flask import request, session
-from sqlalchemy import desc, literal, column, text
+from flask import request
+from sqlalchemy import text
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from constants import TWO_DIGIT_CURRENCIES
+# from constants import TWO_DIGIT_CURRENCIES
 from db_classes import *
-from utils import get_timestamp, translations
+from utils import get_timestamp
 
 
 # def db_set_deposit_status_complete(deposit_data):

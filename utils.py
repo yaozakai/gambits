@@ -1,6 +1,5 @@
 import base64
 import csv
-import functools
 import json
 import re
 import datetime
@@ -13,18 +12,21 @@ from os.path import isfile, join
 
 import flask
 import gevent.monkey
+
+# from application import pendingWithdraw
+# from db_access import db_get_user
+# from route_cq9_api import player_report_today
+# from util_geoloc import set_session_geo_lang
+
 gevent.monkey.patch_all()
 
 import requests
-from flask import jsonify, request, redirect, url_for, session, render_template
+from flask import jsonify, request, session
 from urllib.parse import urlparse, urljoin
 
-from flask_wtf import csrf
-
-from constants import RECAPTCHA_PUBLIC_KEY, CQ9_API_KEY
+from constants import CQ9_API_KEY
 from db_classes import UserEntry, db
 from email_confirmation import confirm_token
-from forms import LoginForm, RegisterForm
 
 icon_placement = []
 game_titles = []
@@ -36,7 +38,6 @@ root_path = 'static'
 
 def debug_out(output):
     if socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
-
         print(time.strftime("%H:%M:%S", time.localtime()) + ':' + output)
 
 
@@ -244,7 +245,8 @@ def reload_game_titles():
 def reload_icon_placement():
     icon_path_local = root_path + '/icons/cq9'
     print('Loading files from:' + icon_path_local)
-    icon_files = [f for f in listdir(icon_path_local) if isfile(join(icon_path_local, f)) and not f.endswith('.DS_Store')]
+    icon_files = [f for f in listdir(icon_path_local) if
+                  isfile(join(icon_path_local, f)) and not f.endswith('.DS_Store')]
     print('Loading icon_placement.csv')
     reader = csv.DictReader(open('static/csv/icon_placement.csv', mode='r', encoding='utf-8-sig'))
     placement = {name: [] for name in reader.fieldnames}
@@ -304,22 +306,73 @@ def activate_account(token, lang):
     return notification_json
 
 
-def setup_home_template(notification_title, notification, reset_pass_popup):
-    csrf_token = csrf.generate_csrf()
-    login_form = LoginForm()
-    login_form.csrf_token.data = csrf_token
-    register_form = RegisterForm()
-    register_form.csrf_token.data = csrf_token
-    if len(notification) > 0:
-        notification_popup = True
-    else:
-        notification_popup = False
-    return render_template('page-gallery-wrap.html', icon_placement=icon_placement, game_titles=game_titles,
-                           root_path='../', login_form=login_form, register_form=register_form,
-                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, translations=translations,
-                           notification_popup=notification_popup,
-                           notification=notification, notification_title=notification_title,
-                           reset_pass=reset_pass_popup)
+# def refresh_page(notification_title, notification, reset_pass_popup):
+#     login_form = {}
+#     register_form = {}
+#     if 'logged_in' not in session:
+#         csrf_token = csrf.generate_csrf()
+#         session['csrf'] = csrf_token
+#         login_form = LoginForm()
+#         login_form.csrf_token.data = csrf_token
+#         register_form = RegisterForm()
+#         register_form.csrf_token.data = csrf_token
+#         if 'lang' or 'country' not in session:
+#             # find user's location, defaults to English
+#             set_session_geo_lang()
+#         set_flag_from_lang()
+#
+#         # set stage in jinja
+#         session['env'] = environ['env']
+#
+#         if 'ref' in request.args:
+#             session['ref'] = request.args['ref']
+#
+#         if 'page' in session:
+#             if session['page'] == 'gallery':
+#                 return render_template('page-gallery-wrap.html', icon_placement=icon_placement,
+#                                        game_titles=game_titles,
+#                                        root_path='', login_form=login_form, register_form=register_form,
+#                                        RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
+#                                        notification='', notification_title='', reset_pass=False,
+#                                        lang=session['lang'], translations=translations)
+#             else:
+#                 if len(request.data) > 0:
+#                     report_date = json.loads(request.data)['reportDate']
+#
+#                 else:
+#                     report_date = str(datetime.datetime.now()).split(' ')[0]
+#
+#                 if session['page'] == 'txnHistory':
+#                     queries = TxnEntry().query.filter_by(user_id=session['_user_id'])
+#                     rec = []
+#                     for query in queries:
+#                         if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
+#                             rec.insert(0, query.serialize())
+#                     rec.sort(key=itemgetter('created'), reverse=True)
+#                     return render_template('page-txnHistory-wrap.html', rec=rec, report_date=report_date,
+#                                            translations=translations)
+#                 elif session['page'] == 'gameHistory':
+#                     rec = player_report_today(db_get_user().username, report_date)
+#                     # report_date = report_date.strftime('%Y-%m-%d')
+#                     if rec is None:
+#                         return render_template('page-gamehistory-wrap.html', rec=[], translations=translations,
+#                                                report_date=report_date, lang=session['lang'])
+#                     else:
+#                         return render_template('page-gamehistory-wrap.html', rec=rec['Data'],
+#                                                translations=translations,
+#                                                report_date=report_date, lang=session['lang'])
+#                 elif session['page'] == 'pendingWithdraw':
+#                     return setup_pendingWithdraw_template(True)
+#                 elif session['page'] == 'search':
+#                     return setup_search_template()
+#
+#     session['page'] = 'gallery'
+#     return render_template('page-gallery-wrap.html', icon_placement=icon_placement,
+#                            game_titles=game_titles,
+#                            root_path='', login_form=login_form, register_form=register_form,
+#                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
+#                            notification='', notification_title='', reset_pass=False,
+#                            lang=session['lang'], translations=translations)
 
 
 def set_flag_from_lang():
@@ -341,7 +394,6 @@ def set_flag_from_lang():
         session['flag'] = 'es'
     elif session['lang'] == 'en':
         session['flag'] = 'gb'
-
 
 # def set_session_geo_lang(ip_address):
 #     # if socket.gethostname() == 'srv.gambits.vip':

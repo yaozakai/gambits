@@ -1,15 +1,23 @@
-import sys
+# import sys
+# from operator import itemgetter
 from operator import itemgetter
-from threading import Lock
 from os import environ
+from threading import Lock
+
+from flask import render_template
+# from os import environ
 
 # from waitress import serve
 
 from flask_login import login_required, logout_user
+from flask_wtf import csrf
 
 import utils
 from db_access import *
+from forms import LoginForm, RegisterForm
 from util_geoloc import set_session_geo_lang
+from util_render_template import setup_pendingWithdraw_template, setup_search_template, setup_home_template
+# from util_geoloc import set_session_geo_lang
 # from email_confirmation import create_verify_email, create_reset_pass_email
 # from forms import verify_captcha
 from utils import *
@@ -18,9 +26,9 @@ from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
 # from route_stage import stage
 from route_cq9_api import cq9_api, game_launch, player_report_today
 # from route_template import template
-from route_user import user, connect_twitter
+from route_user import user
 from route_wallet import wallet, etherscan_parser
-from utils import reload_game_titles, reload_icon_placement, setup_home_template, set_flag_from_lang
+from utils import reload_game_titles, reload_icon_placement, set_flag_from_lang
 
 from os.path import abspath, dirname
 
@@ -196,10 +204,11 @@ def logout():
 @application.route('/search_page', methods=['GET', 'POST'])
 @login_required
 def search():
-    session['page'] = 'search'
-    div_render = render_template('page-search.html', rec=[], translations=utils.translations)
-    return jsonify(render=render_template('page-search.html', rec=[], translations=utils.translations),
-                   div_render=div_render)
+    return setup_search_template()
+    # session['page'] = 'search'
+    # div_render = render_template('page-search.html', rec=[], translations=utils.translations)
+    # return jsonify(render=render_template('page-search.html', rec=[], translations=utils.translations),
+    #                div_render=div_render)
 
 
 @application.route('/userDetails', methods=['GET'])
@@ -278,19 +287,20 @@ def txnHistory():
 @application.route('/pendingWithdraw', methods=['GET', 'POST'])
 @login_required
 def pendingWithdraw(reload=False):
-    rec = []
-
-    queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
-    for query in queries:
-        rec.insert(0, query.serialize())
-    if reload:
-        return render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations)
-    else:
-        session['page'] = 'pendingWithdraw'
-        div_render = render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations)
-        return jsonify(
-            render=render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations),
-            div_render=div_render)
+    return setup_pendingWithdraw_template(reload)
+    # rec = []
+    #
+    # queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
+    # for query in queries:
+    #     rec.insert(0, query.serialize())
+    # if reload:
+    #     return render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations)
+    # else:
+    #     session['page'] = 'pendingWithdraw'
+    #     div_render = render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations)
+    #     return jsonify(
+    #         render=render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations),
+    #         div_render=div_render)
 
 
 @application.route('/gameHistory', methods=['GET', 'POST'])

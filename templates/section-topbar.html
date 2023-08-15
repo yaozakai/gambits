@@ -9,7 +9,7 @@
         <!-- start LOGO -->
         <div class="navbar-brand">
             <a href="/">
-                <img src="static/logos/favicon.png" id="main-icon">
+<!--                <img src="static/logos/favicon.png" id="main-icon">-->
                 <img src="static/logos/gambits_logo.png" class="main-logo">
                 <img src="static/logos/gambits_logo long.png" class="main-logo-long">
             </a>
@@ -137,15 +137,15 @@
                             </button>
                             <ul class="dropdown-menu green-text" aria-labelledby="dropdown-language" id="language-select" >
             {% endif %}
-                                <li><a class="dropdown-item" href="/lang/en" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></a></li>
-                                <li><a class="dropdown-item" href="/lang/zh-tw" id="lang-zh-tw"><span class="flag-icon flag-icon-tw me-1"></span> <span>繁體中文</span></a></li>
-                                <li><a class="dropdown-item" href="/lang/zh-cn" id="lang-zh-cn"><span class="flag-icon flag-icon-cn me-1"></span> <span>简体中文</span></a></li>
-                                <li><a class="dropdown-item" href="/lang/ja" id="lang-ja"><span class="flag-icon flag-icon-jp me-1"></span> <span>日本</span></a></li>
-                                <li><a class="dropdown-item" href="/lang/id" id="lang-id"><span class="flag-icon flag-icon-id me-1"></span> <span>Bahasa</span></a></li>
-                                <li><a class="dropdown-item" href="/lang/kr" id="lang-kr"><span class="flag-icon flag-icon-kr me-1"></span> <span>한국어</span></a></li>
-                                <li><a class="dropdown-item" href="/lang/vn" id="lang-vn"><span class="flag-icon flag-icon-vn me-1"></span> <span>Việt</span></a></li>
-                                <li><a class="dropdown-item" href="/lang/br" id="lang-br"><span class="flag-icon flag-icon-br me-1"></span> <span>Português</span></a></li>
-                                <li><a class="dropdown-item" href="/lang/es" id="lang-es"><span class="flag-icon flag-icon-es me-1"></span> <span>Española</span></a></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></button></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-zh-tw"><span class="flag-icon flag-icon-tw me-1"></span> <span>繁體中文</span></button></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-zh-cn"><span class="flag-icon flag-icon-cn me-1"></span> <span>简体中文</span></button></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-ja"><span class="flag-icon flag-icon-jp me-1"></span> <span>日本</span></button></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-id"><span class="flag-icon flag-icon-id me-1"></span> <span>Bahasa</span></button></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-kr"><span class="flag-icon flag-icon-kr me-1"></span> <span>한국어</span></button></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-vn"><span class="flag-icon flag-icon-vn me-1"></span> <span>Việt</span></button></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-br"><span class="flag-icon flag-icon-br me-1"></span> <span>Português</span></button></li>
+                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-es"><span class="flag-icon flag-icon-es me-1"></span> <span>Española</span></button></li>
                             </ul>
             {% if not current_user.is_authenticated %}
                 <!--            close dropdown div-->
@@ -195,19 +195,18 @@
 
     $(document).ready(function(){
 
-
         $('#top-bar-dropdown-button,#username-field').on('click', function(){
 
     {% if current_user.is_authenticated %}
-<!--            $("body").popover({ selector: '[data-bs-toggle=popover]' });-->
-            [...document.querySelectorAll('[data-bs-toggle="tooltip"]')]
-                .forEach(el => new bootstrap.Tooltip(el))
+        [...document.querySelectorAll('[data-bs-toggle="tooltip"]')]
+            .forEach(el => new bootstrap.Tooltip(el))
 
-            waitForElm('#withdraw-balance').then((withdraw_balance) => {
-                get_balance()
-            });
-    {% endif %}
+        waitForElm('#withdraw-balance').then((withdraw_balance) => {
+            get_balance()
         });
+    {% endif %}
+
+    });
 
 {% if current_user.is_authenticated %}
 

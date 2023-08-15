@@ -1,4 +1,6 @@
-let current_page = 'gallery'
+if (typeof current_page !== 'undefined'){
+    let current_page = 'gallery'
+}
 
 function go_to_gallery(id) {
     $('#loadingscreenModal').modal('show');
