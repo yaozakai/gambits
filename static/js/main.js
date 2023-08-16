@@ -81,11 +81,13 @@ function ajax_connect_twitter(){
     $.ajax({
         url: "/connect_twitter",
         type: "GET",
-        success: function (data) {
-            window.location.replace(data);
+        success: function (response) {
+//            window.location.replace(response);
+            location.href = response;
         },
         error: function(e) {
-            send_alert('alert:phone', 'alert:SMSserver')
+            send_alert('snb:subtask:twt', 'try again later')
+            $('#loadingscreenModal').modal('hide')
         }
     });
 
@@ -287,10 +289,10 @@ function get_balance(){
         error: function(e) {
 //            send_alert('reload website', '')
             reload_popup('reload:title', 'reload:msg')
-            $('#notificationModal').modal({
-                backdrop: 'static',
-                keyboard: false
-            })
+//            $('#notificationModal').modal({
+//                backdrop: 'static',
+//                keyboard: false
+//            })
 
 //            console.log('getBalance error: ' + e);
         }

@@ -240,10 +240,13 @@
 
                     $('#withdrawModal').modal('hide');
 
-                    $('#modalNotificationTitle').html(translations['withdraw:requestSent'][lang]);
-                    $('#modalNotificationMsg').html(translations['withdraw:walletID'][lang] + ": " + $('#withdraw-walletID').val().substring(0,6) + "..." + $('#withdraw-walletID').val().slice(-4) + "<br>" + translations['withdraw:24hours'][lang] + " " +
-                        '<br><button type="button" class="btn btn-link" style="padding-left: 0px;" onclick="go_to_txnHistory()" data-bs-dismiss="modal" aria-label="Close">' + translations['alert:clickHere'][lang] + '</button>');
-                    $('#notificationModal').modal('show');
+                    reload_popup(translations['withdraw:requestSent'][lang], translations['withdraw:walletID'][lang] + ": " + $('#withdraw-walletID').val().substring(0,6) + "..." + $('#withdraw-walletID').val().slice(-4) + "<br>" + translations['withdraw:24hours'][lang] + " " +
+                        '<br><button type="button" class="btn btn-link" style="padding-left: 0px;" onclick="go_to_txnHistory()" data-bs-dismiss="modal" aria-label="Close">' + translations['alert:clickHere'][lang] + '</button>')
+
+<!--                    $('#modalNotificationTitle').html(translations['withdraw:requestSent'][lang]);-->
+<!--                    $('#modalNotificationMsg').html(translations['withdraw:walletID'][lang] + ": " + $('#withdraw-walletID').val().substring(0,6) + "..." + $('#withdraw-walletID').val().slice(-4) + "<br>" + translations['withdraw:24hours'][lang] + " " +-->
+<!--                        '<br><button type="button" class="btn btn-link" style="padding-left: 0px;" onclick="go_to_txnHistory()" data-bs-dismiss="modal" aria-label="Close">' + translations['alert:clickHere'][lang] + '</button>');-->
+<!--                    $('#notificationModal').modal('show');-->
 
                     balance_usdt.innerHTML = '<span class="crypto-symbol">USDT</span> ' + response.usdt
                     user_balance = response.usdt
@@ -400,9 +403,11 @@
                     if (typeof self.notification != 'undefined'){
                         $('#forgotPasswordModal').modal('hide');
 
-                        $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                        $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
-                        $('#notificationModal').modal('show');
+<!--                        $(".notification").html('<p>'+self.notification.toString()+'</p>');-->
+<!--                        $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');-->
+<!--                        $('#notificationModal').modal('show');-->
+
+                        reload_popup('<p>'+self.notification.toString()+'</p>', '<p>'+self.notification_title.toString()+'</p>')
                     }
                   },
                   error: function(e) {
@@ -575,10 +580,12 @@
               }),
               success: function(self) {
                 if (typeof self.notification != 'undefined'){
-                    $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                    $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
+<!--                    $(".notification").html('<p>'+self.notification.toString()+'</p>');-->
+<!--                    $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');-->
 
-                    $('#notificationModal').modal('show');
+<!--                    $('#notificationModal').modal('show');-->
+
+                    reload_popup('<p>'+self.notification.toString()+'</p>', '<p>'+self.notification_title.toString()+'</p>')
 
                 }
               },
@@ -721,9 +728,11 @@
                                     $(".error").html('<p>'+self.error.toString()+'</p>')
                                     $(".error").show()
                                 } else if (typeof self.notification != 'undefined'){
-                                    $(".notification").html('<p>'+self.notification.toString()+'</p>');
-                                    $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');
-                                    $('#notificationModal').modal('show');
+<!--                                    $(".notification").html('<p>'+self.notification.toString()+'</p>');-->
+<!--                                    $(".notification_title").html('<p>'+self.notification_title.toString()+'</p>');-->
+<!--                                    $('#notificationModal').modal('show');-->
+
+                                    reload_popup('<p>'+self.notification.toString()+'</p>', '<p>'+self.notification_title.toString()+'</p>')
                                     $('#registerModal').modal('hide');
                                 }
                             }
@@ -789,48 +798,46 @@
     </div>
 </div>
 
+<script language="JavaScript" type="text/javascript">
+    $(document).ready(function(){
+
 {% if notification_popup == 'True' %}
-<script language="JavaScript" type="text/javascript">
-    $(document).ready(function(){
         $('#notificationModal').modal('show');
-    });
-</script>
 {% elif reset_pass == 'True' %}
-<script language="JavaScript" type="text/javascript">
-    $(document).ready(function(){
         $('#resetPassModal').modal('show');
-    });
 
-    $('#newPasswordSend').on('click', function(){
-        $.ajax({
-              url: "/set_password",
-              type: "post",
-              dataType: "json",
-              contentType: "application/json; charset=UTF-8",
-              data: JSON.stringify({
-                "password":document.getElementById("newPassword").value,
-              }),
-              success: function(self) {
+        $('#newPasswordSend').on('click', function(){
+            $.ajax({
+                  url: "/set_password",
+                  type: "post",
+                  dataType: "json",
+                  contentType: "application/json; charset=UTF-8",
+                  data: JSON.stringify({
+                    "password":document.getElementById("newPassword").value,
+                  }),
+                  success: function(self) {
 
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "{{ url_for('home') }}", true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.send(JSON.stringify({
-                    notification: 'Password has been updated.  You may log in now!',
-                    notification_title: 'Reset password'
-                }));
-                $(".notification").html('<p>'+self.notification+'</p>');
-                $(".notification_title").html('<p>'+self.notification_title+'</p>');
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "{{ url_for('home') }}", true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({
+                        notification: 'Password has been updated.  You may log in now!',
+                        notification_title: 'Reset password'
+                    }));
+    <!--                $(".notification").html('<p>'+self.notification+'</p>');-->
+    <!--                $(".notification_title").html('<p>'+self.notification_title+'</p>');-->
 
-                $('#notificationModal').modal('show');
-              },
-              error: function(e) {
-                console.log('set_password: ' + e);
-              }
+    <!--                $('#notificationModal').modal('show');-->
+                    reload_popup('<p>'+self.notification+'</p>', '<p>'+self.notification_title+'</p>')
+                  },
+                  error: function(e) {
+                    console.log('set_password: ' + e);
+                  }
+            });
         });
+{% endif %}
     });
 </script>
-{% endif %}
 
 {% if not current_user.is_authenticated %}
         <script src='https://www.google.com/recaptcha/api.js?onload=onloadCallback&hl={{ lang }}' async defer></script>

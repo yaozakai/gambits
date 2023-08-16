@@ -1,154 +1,155 @@
 ﻿name,zh-tw,zh-cn,en,ko,th,vi,es,id,pt-br,ja
-failed:verify,,,Verification failed,,,,,,,
-success:wallet,Wallet transfer complete!,Wallet transfer complete!,Wallet transfer complete!,,,,,,,
-success:txnSuccess,has been added to your account. GLHF!,has been added to your account. GLHF!,has been added to your account. GLHF!,,,,,,,
-deposit:processing,,,Your deposit request is processing,,,,,,,
-success:txnSent,,,Transaction has been sent. Please standby while we verify,,,,,,,
-success:waiting,,,Waiting for verification,,,,,,,
-alert:phone,,,Phone number error,,,,,,,
-alert:SMSserver,,,"There is a problem with the SMS server, please try again",,,,,,,
-alert:invalidPhone,,,Invalid phone number,,,,,,,
-alert:txnAlready,,,We are busy verifying your first request,,,,,,,
-alert:pleaseWait,,,Please wait,,,,,,,
-alert:clickHere,,,Click here to see status,,,,,,,
-alert:timeout,,,It may take a few minutes for your transaction to appear on the blockchain. Please try again later,,,,,,,
-alert:failed,,,Transaction is not verified yet,,,,,,,
-alert:checkWallet,Please check if your wallet app is already open,Please check if your wallet app is already open,Your wallet app is already open somewhere,,,,,,,
-alert:wallet,Wallet error,Wallet error,Wallet error,,,,,,,
-alert:amount0,Please select a blockchain,Please select a blockchain,Amount is zero,,,,,,,
-alert:incomplete,Incomplete,Incomplete,Incomplete,,,,,,,
-alert:selectCrypto,,,Please select a cryptocurrency,,,,,,,
-alert:selectChain,Please select a blockchain,Please select a blockchain,Please select a network,,,,,,,
-button:reverify,Re-verify the transaction,Re-verify the transaction,Re-verify the transaction,,,,,,,
-title:Transaction History,退款紀錄,退款紀錄,Transaction History,,,,,,,
-title:Gaming History,遊戲紀錄,遊戲紀錄,Gaming History,,,,,,,
-news,,,News,,,,,,,
-date,日期,日期,Date,,,,,,,
-na,,,N/A,,,,,,,
-hi,您好,您好,Hi,,,,,,,
-playnow,現在玩!,現在玩!,Play Now!,,,,,,,
-or log in with,其他登入方式,其他登入方式,or log in with,,,,,,,
-log in,登入,登入,Log in,로그인,เข้าสู่ระบบ,Đăng nhập,Acceso,Gabung,Conecte-se,ログイン
-log out,登出,登出,Log out,,,,,,,
-download metamask,Download MetaMask,Download MetaMask,Download MetaMask,,,,,,,
-totalBalanceAfter,,,Your total balance after deposit,,,,,,,
-yourBalance,,,Your balance,,,,,,,
-withdraw,,,Withdraw,,,,,,,
-deposit,存款,存款,Deposit,,,,,,,
-try again later,,,Please try again later,,,,,,,
-network:down,,,Game network is currently down,,,,,,,
-txn:insufficient,,,Most likely unsufficient funds in your wallet,,,,,,,
-txn:depositing,,,Depositing,,,,,,,
-txn:complete,,,Complete,,,,,,,
-txn:pending,,,Pending,,,,,,,
-txn:checking,,,Checking,,,,,,,
-txn:failed,,,Unverified,,,,,,,
-choose amount,Use shortcut buttons or enter amount manually,Use shortcut buttons or enter amount manually,Choose amount,,,,,,,
-choose chain,Choose network,Choose network,Choose network,,,,,,,
-send,Send,Send,Send,,,,,,,
-deposit:onlyUSDT,,,Only USDT on the ERC20 Blockchain is accepted at the moment,,,,,,,
-only2decimals,,,Only 2 decimals are supported,,,,,,,
-withdraw:missingWallet,,,Missing wallet ID,,,,,,,
-withdraw:24hours,,,It may take up to 24 hours for us to verify the request. Sorry for the inconvenience 🫡,,,,,,,
-withdraw:requestSent,,,Withddraw request sent,,,,,,,
-withdraw:theMinimum,,,The minimum amount to withdraw is 20 USDT,,,,,,,
-withdraw:toolittle,,,Enter 20 USDT or more,,,,,,,
-withdraw:toomuch,,,You don't have enough,,,,,,,
-withdraw:walletID,,,Wallet ID,,,,,,,
-amount,Amount,Amount,Amount,,,,,,,
-choose currency,Choose currency,Choose currency,Choose currency,,,,,,,
-crypto wallet,crypto wallet,crypto wallet,Crypto wallet,,,,,,,
-address set,address set,address set,Address successfully set,,,,,,,
-connect wallet,Connect wallet,Connect wallet,Connect,,,,,,,
-change wallet,Change wallet,Change wallet,Change wallet,,,,,,,
-txnHistory,Txn History,Txn History,Transactions,,,,,,,
-gamehistory,歷史,歷史,Game History,,,,,,,
-profile,輪廓,轮廓,Profile,,,,,,,
-register,註冊,注册,Sign up,등록하다,ลงทะเบียน,Đăng ký,Registro,Daftar,Registro,登録
-lets go,,,Let's go!,,,,,,,
-top-games,最紅的遊戲,最紅的遊戲,Top Games,,,,,,,
-slots,老虎機,老虎机,Slots,,,,Tragamonedas,,,スロット
-baccarat,百家樂,百家乐,Baccarat,,,,Bacará,,,バカラ
-live baccarat,真人百家樂,真人百家乐,Live Baccarat,,,,,,,
-fishing,釣魚,钓鱼,Fishing,,,,Pesca,,,釣り
-arcade,拱廊,拱廊,Arcade,,,,Arcada,,,アーケード
-pvp,玩家對戰,玩家对战,PvP,,,,JcJ,,,PvP
-email,郵件,邮件,Email,,,,,,,
-password,密碼,密码,Password,,,,,,,
-keep me logged in,保持登錄狀態,保持登录状态,Keep me logged in,,,,,,,
-forgot password,忘記密碼,忘记密码,Forgot password,,,,,,,
-bonus,獎金,奖金,Bonus,,,,,,,
-loading,加載中,加载中,Loading,,,,,,,
-enter your email to update password,輸入您的電子郵件以更新密碼,输入您的电子邮件以更新密码,Enter your email to update password,,,,,,,
-send email,發電子郵件,发电子邮件,Send email,,,,,,,
-username,用戶名,用户名,Username,,,,,,,
-check email,,,Check your email,,,,,,,
-verify account,驗證賬戶,验证账户,Verify account,,,,,,,
-language,語言,語言,Language,,,,,,,
-alert:serverReset,,,Server reset,,,,,,,
-email sent to,一封電子郵件已發送給您。請檢查您的收件箱並單擊電子郵件中的鏈接進行驗證。,一封电子邮件已发送给您。 请检查您的收件箱并单击电子邮件中的链接进行验证。,You must verify your account before you can log in. An e-mail has been sent to you. Please check your inbox or spam folder and click the link in the email to verify your account.,,,,,,,
-account exists,存在具有此用戶名的帳戶,存在具有此用户名的帐户,Account already exists,,,,,,,
-account exists but not activated,帳戶存在但未激活,帐户存在但未激活,Account exists but not activated,,,,,,,
-created not verified,您的帳戶已創建但尚未驗證,您的帐户已创建但尚未验证,Your account is created but not verified yet,,,,,,,
-username more than 2,用戶名必須超過 2 個字符,用户名必须超过 2 个字符,Username must be more than 2 characters,,,,,,,
-password:missing,,,Missing password,,,,,,,
-invalid email format,電子郵件格式無效,电子邮件格式无效,Invalid e-mail format,,,,,,,
-recaptcha not verified,reCaptcha 未驗證,reCaptcha 未验证,reCaptcha not verified,,,,,,,
-reload:msg,重新加載網站,重新加载网站,"Sorry, something went wrong! Please reload the website",,,,,,,
-reload:title,,,Lost connection to server,,,,,,,
-reset password,重設密碼,重设密码,Reset password,,,,,,,
-password has been updated,密碼已更新。您可以立即登錄！,密码已更新。 您可以立即登录！,Password has been updated. Please play responsibly!,,,,,,,
-account not found,找不到帳戶,找不到帐户,Account not found,,,,,,,
-token expired,令牌已過期，請重試,令牌已过期，请重试,"Token expired, please try again",,,,,,,
-invalid email or password,無效的電子郵件或密碼,无效的电子邮件或密码,Invalid e-mail or password,,,,,,,
-account verification,帳戶驗證,帐户验证,Account verification,,,,,,,
-account already verified,帳戶已驗證。請登錄,帐户已验证。 请登录,Account activated! Please play responsibly!,,,,,,,
-confirmation link,確認鏈接無效或已過期,确认链接无效或已过期,The confirmation link is invalid or has expired,,,,,,,
-password must be 8 chars,密碼必須為 8 個字符或更多,密码必须为 8 个字符或更多,Password must be 8 characters or more,,,,,,,
-password missing number,密碼缺少數字 (0-9),密码缺少数字 (0-9),Password missing numerical digit (0-9),,,,,,,
-password missing uppercase digit,密碼缺少大寫數字 (A-Z,密码缺少大写数字 (A-Z,Password missing uppercase digit (A-Z,,,,,,,
-password missing lowercase,密碼缺少小寫數字 (a-z),密码缺少小写数字 (a-z),Password missing lowercase digit (a-z),,,,,,,
-resend verification,重新發送驗證郵件,重新发送验证邮件,Re-send verification email,,,,,,,
-email-activate,歡迎光臨！感謝您的註冊。請點擊此鏈接激活您的帳戶:,欢迎光临！ 感谢您的注册。 请点击此链接激活您的帐户:,Welcome to Gambit's Casino! Please follow this link to activate your account:,,,,,,,
-thank you,謝謝,谢谢,Thank you,,,,,,,
-please verify your email,請驗證您的電子郵件,请验证您的电子邮件,Please verify your email,,,,,,,
-password reset,重設密碼,重设密码,Password Reset,,,,,,,
-email-reset-pass,歡迎！請點擊此鏈接重置您的密碼：,欢迎！ 请点击此链接重置您的密码：,Welcome! Please follow this link to reset your password:,,,,,,,
-slots-action,行動,行动,Action,,,,,,,
-slots-animals,動物,动物,Animals,,,,,,,
-slots-jump,跳,跳,Jump,,,,,,,
-slots-cute,可愛的,可爱的,Cute,,,,,,,
-slots-fantasy,幻想,幻想,Fantasy,,,,,,,
-slots-treasure,寶藏,宝藏,Treasure,,,,,,,
-get rewards,,,Get rewards,,,,,,,
-rewards:5050,,,50% profit share,,,,,,,
-rewards:description,,,Copy and share your referral link.,,,,,,,
-rewards:description bold,,,50% of all profits from your referrals will be given to you!,,,,,,,
-copy,,,Copy,,,,,,,
-verify,,,Verify,,,,,,,
-referral,,,Referral,,,,,,,
-done,,,Done,,,,,,,
-bonus:signup,,,sign up bonus!,,,,,,,
-signup bonus:title,,,Sign up bonus,,,,,,,
-signup bonus:desc,,,Get free credits for signing up!,,,,,,,
-signup bonus:link,,,Click here for more details,,,,,,,
-bonus rewards:title,,,Bonus rewards!,,,,,,,
-bonus rewards:desc,,,There are several ways to get bonuses!,,,,,,,
-signup bonus:desc long,,,Finish the following tasks and you will unlock bonus features!,,,,,,,
-socials:discord,,,"Enter raffles, contests, and events. Get customer support or just come hang with us 🙃",,,,,,,
-socials:twitter,,,"Giveways, raffles!",,,,,,,
-snb:task:phone:success,,,Your phone number has been verified!,,,,,,,
-snb:task:sms,,,Verify phone number,,,,,,,
-snb:task:twitter,,,Retweet and follow us on Twitter,,,,,,,
-snb:task:discord,,,Join us on Discord,,,,,,,
-snb:task:egg,,,Find the blog.gambits.vip Easter Egg,,,,,,,
-snb:task:play100,,,Play 100 USDT,,,,,,,
-sms verify,,,Verify your account with SMS,,,,,,,
-sms:title,,,Gambit's code:,,,,,,,
-sms:expires,,,Expires in 15 minutes,,,,,,,
-sms enter code,,,Enter the code from SMS,,,,,,,
-sms:error:phoneExists,,,"Phone number already used, please try a different one",,,,,,,
-sms:error:incorrectPin,,,Incorrect pin,,,,,,,
-sms:error:incorrectPhone,,,Incorrect phone number,,,,,,,
-sms:error:expired,,,OTP pin expired. Please try again,,,,,,,
-snb:subtask:twt,,,Please connect your Twitter account,,,,,,,
+failed:verify,驗證失敗,验证失败,Verification failed,확인 실패,การยืนยันล้มเหลว,Xác minh không hoàn thành,Fallo en la verificación,Verifikasi gagal,Falha na verificação,検証に失敗しました
+success:wallet,錢包轉賬完成！,钱包转账完成！,Wallet transfer complete!,지갑 이체 완료!,การโอน Wallet เสร็จสมบูรณ์!,Chuyển ví hoàn tất!,¡Transferencia de billetera completa!,Transfer dompet selesai!,Transferência de carteira concluída!,ウォレットの転送が完了しました！
+success:txnSuccess,已添加到您的帳戶。 GLHF！,已添加到您的帐户。 GLHF！,has been added to your account. GLHF!,귀하의 계정에 추가되었습니다. GLHF!,ถูกเพิ่มในบัญชีของคุณแล้ว GLHF!,đã được thêm vào tài khoản của bạn. GLHF!,ha sido añadido a tu cuenta. ¡GLHF!,telah ditambahkan ke akun Anda. GLHF!,foi adicionado à sua conta. GLHF!,があなたのアカウントに追加されました。 GL HF！
+deposit:processing,您的存款請求正在處理中,您的存款请求正在处理中,Your deposit request is processing,입금 요청이 처리 중입니다.,คำขอฝากเงินของคุณกำลังดำเนินการ,Yêu cầu gửi tiền của bạn đang được xử lý,Su solicitud de depósito se está procesando,Permintaan setoran Anda sedang diproses,Sua solicitação de depósito está sendo processada,入金リクエストを処理中です
+success:txnSent,交易已發送。 我們正在驗證中，請稍候,交易已发送。 我们正在验证中，请稍候,Transaction has been sent. Please standby while we verify,트랜잭션이 전송되었습니다. 확인하는 동안 대기해 주세요.,ส่งธุรกรรมแล้ว โปรดสแตนด์บายในขณะที่เราตรวจสอบ,Giao dịch đã được gửi. Vui lòng chờ trong khi chúng tôi xác minh,La transacción ha sido enviada. Espere mientras verificamos,Transaksi telah dikirim. Harap siaga sementara kami memverifikasi,A transação foi enviada. Aguarde enquanto verificamos,トランザクションは送信されました。 確認するまでお待ちください
+success:waiting,等待驗證,等待验证,Waiting for verification,확인 대기 중,กำลังรอการตรวจสอบ,Đang chờ xác minh,Esperando verificación,Menunggu verifikasi,Aguardando verificação,検証待ち
+alert:phone,電話號碼錯誤,电话号码错误,Phone number error,전화번호 오류,หมายเลขโทรศัพท์ผิดพลาด,lỗi số điện thoại,Error de número de teléfono,Kesalahan nomor telepon,Erro de número de telefone,電話番号エラー
+alert:SMSserver,短信服務器有問題，請重試,短信服务器有问题，请重试,"There is a problem with the SMS server, please try again",SMS 서버에 문제가 있습니다. 다시 시도하십시오.,มีปัญหากับเซิร์ฟเวอร์ SMS โปรดลองอีกครั้ง,"Đã xảy ra sự cố với máy chủ SMS, vui lòng thử lại","Hay un problema con el servidor de SMS, intente nuevamente","Ada masalah dengan server SMS, silakan coba lagi","Há um problema com o servidor de SMS, tente novamente",SMS サーバーに問題があります。もう一度お試しください。
+alert:invalidPhone,無效的電話號碼,无效的电话号码,Invalid phone number,유효하지 않은 전화 번호,หมายเลขโทรศัพท์ไม่ถูกต้อง,số điện thoại không hợp lệ,Numero de telefono invalido,Nomor telepon tidak valid,Número de telefone inválido,無効な電話番号
+alert:txnAlready,我們正忙於驗證您的第一個請求,我们正忙于验证您的第一个请求,We are busy verifying your first request,귀하의 첫 번째 요청을 확인하는 중입니다.,เรากำลังยุ่งอยู่กับการยืนยันคำขอแรกของคุณ,Chúng tôi đang bận xác minh yêu cầu đầu tiên của bạn,Estamos ocupados verificando su primera solicitud,Kami sibuk memverifikasi permintaan pertama Anda,Estamos ocupados verificando sua primeira solicitação,最初のリクエストを確認するのに忙しいです
+alert:pleaseWait,請稍等,请稍等,Please wait,기다리세요,โปรดรอ,Vui lòng chờ,Espere por favor,Harap tunggu,"Por favor, aguarde",お待ちください
+alert:clickHere,單擊此處查看狀態,单击此处查看状态,Click here to see status,상태를 보려면 여기를 클릭하십시오.,คลิกที่นี่เพื่อดูสถานะ,Nhấn vào đây để xem trạng thái,Haga clic aquí para ver el estado,Klik di sini untuk melihat status,Clique aqui para ver o estado,ステータスを確認するにはここをクリックしてください
+alert:timeout,您的交易可能需要幾分鐘時間才會出現在區塊鏈上。 請稍後再試,您的交易可能需要几分钟时间才会出现在区块链上。 请稍后再试,It may take a few minutes for your transaction to appear on the blockchain. Please try again later,트랜잭션이 블록체인에 표시되는 데 몇 분 정도 걸릴 수 있습니다. 나중에 다시 시도 해주십시오,อาจใช้เวลาสักครู่ก่อนที่ธุรกรรมของคุณจะปรากฏบนบล็อกเชน กรุณาลองใหม่อีกครั้งในภายหลัง,Có thể mất vài phút để giao dịch của bạn xuất hiện trên chuỗi khối. Vui lòng thử lại sau,"Su transacción puede tardar unos minutos en aparecer en la cadena de bloques. Por favor, inténtelo de nuevo más tarde",Mungkin perlu beberapa menit agar transaksi Anda muncul di blockchain. Coba lagi nanti,"Pode levar alguns minutos para que sua transação apareça no blockchain. Por favor, tente novamente mais tarde",トランザクションがブロックチェーンに表示されるまでに数分かかる場合があります。 後でもう一度試してください
+alert:failed,交易尚未驗證,交易尚未验证,Transaction is not verified yet,거래가 아직 확인되지 않았습니다,ธุรกรรมยังไม่ได้รับการยืนยัน,Giao dịch chưa được xác minh,La transacción aún no se ha verificado,Transaksi belum diverifikasi,A transação ainda não foi verificada,トランザクションはまだ確認されていません
+alert:checkWallet,您的錢包應用程序已在某處打開,您的钱包应用程序已在某处打开,Your wallet app is already open somewhere,지갑 앱이 이미 어딘가에 열려 있습니다.,แอปกระเป๋าเงินของคุณเปิดอยู่ที่ไหนสักแห่งแล้ว,Ứng dụng ví của bạn đã mở ở đâu đó,Su aplicación de billetera ya está abierta en algún lugar,Aplikasi dompet Anda sudah terbuka di suatu tempat,Seu aplicativo de carteira já está aberto em algum lugar,ウォレットアプリはすでにどこかで開いています
+alert:wallet,錢包錯誤,钱包错误,Wallet error,지갑 오류,ข้อผิดพลาดกระเป๋าเงิน,Lỗi ví,Error de billetera,Kesalahan dompet,erro de carteira,ウォレットエラー
+alert:amount0,金額為零,金额为零,Amount is zero,금액은 0입니다,จำนวนเงินเป็นศูนย์,Số tiền bằng không,la cantidad es cero,Jumlahnya nol,O valor é zero,金額はゼロです
+alert:incomplete,不完整,不完整,Incomplete,불완전한,ไม่สมบูรณ์,chưa hoàn thiện,Incompleto,Tidak lengkap,Incompleto,不完全な
+alert:selectCrypto,請選擇一種加密貨幣,请选择一种加密货币,Please select a cryptocurrency,암호화폐를 선택해주세요,กรุณาเลือกสกุลเงินดิจิตอล,Vui lòng chọn một loại tiền điện tử,Seleccione una criptomoneda,Silakan pilih mata uang kripto,Selecione uma criptomoeda,暗号通貨を選択してください
+alert:selectChain,請選擇網絡,请选择网络,Please select a network,네트워크를 선택하세요.,กรุณาเลือกเครือข่าย,Vui lòng chọn một mạng,Seleccione una red,Pilih jaringan,Selecione uma rede,ネットワークを選択してください
+button:reverify,重新驗證交易,重新验证交易,Re-verify the transaction,거래 재확인,ตรวจสอบธุรกรรมอีกครั้ง,Xác minh lại giao dịch,Vuelva a verificar la transacción,Verifikasi ulang transaksi,Verifique novamente a transação,トランザクションを再確認する
+title:Transaction History,交易記錄,交易纪录,Transaction History,거래 내역,ประวัติการทำรายการ,Lịch sử giao dịch,Historial de transacciones,sejarah transaksi,Histórico de transações,取引履歴
+title:Gaming History,遊戲歷史,游戏历史,Gaming History,게임 역사,ประวัติการเล่นเกม,Lịch sử trò chơi,Historial de juegos,Sejarah Permainan,Histórico de jogos,ゲームの歴史
+news,消息,消息,News,소식,ข่าว,Tin tức,Noticias,Berita,Notícias,ニュース
+date,日期,日期,Date,날짜,วันที่,Ngày,Fecha,Tanggal,Data,日付
+na,不適用,不适用,N/A,해당 없음,ไม่มีข้อมูล,không áp dụng,N / A,T/A,N / D,該当なし
+hi,你好,你好,Hi,안녕,สวัสดี,CHÀO,Hola,Hai,Oi,こんにちは
+playnow,現在播放！,现在播放！,Play Now!,지금 플레이하세요!,เล่นเลย!,Bắt đầu chơi!,¡Reproducir ahora!,Main sekarang!,Jogue agora!,今すぐプレイしてください！
+or log in with,或登錄,或登录,or log in with,또는 로그인,หรือเข้าสู่ระบบด้วย,hoặc đăng nhập bằng,o inicia sesión con,atau masuk dengan,ou faça login com,または次の方法でログインします
+log in,登錄,登录,Log in,로그인,เข้าสู่ระบบ,Đăng nhập,Acceso,Gabung,Conecte-se,ログイン
+log out,登出,登出,Log out,로그 아웃,ออกจากระบบ,Đăng xuất,Cerrar sesión,Keluar,Sair,ログアウト
+download metamask,下載 MetaMask,下载 MetaMask,Download MetaMask,메타마스크 다운로드,ดาวน์โหลด MetaMask,Tải xuống MetaMask,Descargar MetaMask,Unduh MetaMask.dll,Baixar MetaMask,メタマスクをダウンロード
+totalBalanceAfter,存款後您的總餘額,存款后您的总余额,Your total balance after deposit,입금 후 총 잔액,ยอดรวมของคุณหลังจากฝากเงิน,Tổng số dư của bạn sau khi gửi tiền,Su saldo total después del depósito,Total saldo Anda setelah deposit,Seu saldo total após o depósito,入金後の合計残高
+yourBalance,您的餘額,您的余额,Your balance,귀하의 잔액,ยอดคงเหลือของคุณ,số dư của bạn,Tu balance,Keseimbanganmu,Seu balanço,あなたのバランス
+withdraw,提取,提取,Withdraw,철회하다,ถอน,Rút,Retirar,Menarik,Retirar,撤回する
+deposit,訂金,订金,Deposit,보증금,เงินฝาก,Tiền gửi,Depósito,Menyetorkan,Depósito,デポジット
+try again later,請稍後再試,请稍后再试,Please try again later,나중에 다시 시도 해주십시오,กรุณาลองใหม่อีกครั้งในภายหลัง,Vui lòng thử lại sau,"Por favor, inténtelo de nuevo más tarde",Coba lagi nanti,"Por favor, tente novamente mais tarde",後でもう一度試してください
+network:down,遊戲網絡目前已關閉,游戏网络目前已关闭,Game network is currently down,현재 게임 네트워크가 다운되었습니다.,ขณะนี้เครือข่ายเกมล่ม,Mạng trò chơi hiện đang ngừng hoạt động,La red del juego está actualmente inactiva,Jaringan game saat ini sedang down,A rede de jogos está inativa no momento,ゲームネットワークは現在ダウンしています
+txn:insufficient,很有可能是你錢包裡的資金不足,很有可能是你钱包里的资金不足,Most likely unsufficient funds in your wallet,지갑에 자금이 부족할 가능성이 높습니다.,เป็นไปได้มากว่าเงินในกระเป๋าของคุณไม่เพียงพอ,Rất có thể không đủ tiền trong ví của bạn,Lo más probable es que no haya suficientes fondos en su billetera,Kemungkinan besar dana tidak mencukupi di dompet Anda,Provavelmente fundos insuficientes em sua carteira,ウォレット内の資金が不足している可能性が高い
+txn:depositing,存款,存款,Depositing,입금,ฝาก,gửi tiền,depositando,Menyetor,Depositando,入金中
+txn:complete,完全的,完全的,Complete,완벽한,สมบูรณ์,Hoàn thành,Completo,Menyelesaikan,Completo,完了
+txn:pending,待辦的,待办的,Pending,보류 중,รอดำเนินการ,Chưa giải quyết,Pendiente,Tertunda,Pendente,保留中
+txn:checking,檢查,检查,Checking,확인 중,กำลังตรวจสอบ,kiểm tra,Comprobación,Memeriksa,verificando,チェック中
+txn:failed,未驗證,未验证,Unverified,미확인,ไม่ได้รับการยืนยัน,chưa được xác minh,Inconfirmado,Tidak diverifikasi,Não verificado,未検証
+choose amount,選擇金額,选择金额,Choose amount,금액 선택,เลือกจำนวนเงิน,Chọn số lượng,Elegir la cantidad,Pilih jumlah,Escolha quantidade,金額を選択してください
+choose chain,選擇網絡,选择网络,Choose network,네트워크 선택,เลือกเครือข่าย,Chọn mạng,Elegir red,Pilih jaringan,Escolha a rede,ネットワークの選択
+send,發送,发送,Send,보내다,ส่ง,Gửi,Enviar,Mengirim,Enviar,送信
+deposit:onlyUSDT,目前僅接受 ERC20 區塊鏈上的 USDT,目前仅接受 ERC20 区块链上的 USDT,Only USDT on the ERC20 Blockchain is accepted at the moment,현재 ERC20 블록체인의 USDT만 허용됩니다.,ขณะนี้ยอมรับเฉพาะ USDT บน ERC20 Blockchain เท่านั้น,Hiện tại chỉ chấp nhận USDT trên Chuỗi khối ERC20,Solo se acepta USDT en ERC20 Blockchain en este momento,Hanya USDT pada Blockchain ERC20 yang diterima saat ini,Apenas USDT no ERC20 Blockchain é aceito no momento,現時点ではERC20ブロックチェーン上のUSDTのみが受け入れられます
+only2decimals,僅支持 2 位小數,仅支持 2 位小数,Only 2 decimals are supported,소수점 이하 2자리만 지원됩니다.,รองรับทศนิยมเพียง 2 ตำแหน่งเท่านั้น,Chỉ hỗ trợ 2 số thập phân,Solo se admiten 2 decimales,Hanya 2 desimal yang didukung,Apenas 2 casas decimais são suportadas,小数点以下 2 桁のみがサポートされています
+withdraw:missingWallet,缺少錢包 ID,缺少钱包 ID,Missing wallet ID,지갑 ID 누락,ไม่มีรหัสกระเป๋าเงิน,Thiếu ID ví,ID de billetera faltante,ID dompet tidak ada,ID da carteira ausente,ウォレットIDがありません
+withdraw:24hours,我們最多可能需要 24 小時來驗證該請求。 給您帶來的不便敬請諒解🫡,我们最多可能需要 24 小时来验证该请求。 给您带来的不便敬请谅解🫡,It may take up to 24 hours for us to verify the request. Sorry for the inconvenience 🫡,요청을 확인하는 데 최대 24시간이 걸릴 수 있습니다. 불편을 드려 죄송합니다 🫡,เราอาจใช้เวลาถึง 24 ชั่วโมงในการตรวจสอบคำขอ ขออภัยในความไม่สะดวกค่ะ 🫡,Có thể mất đến 24 giờ để chúng tôi xác minh yêu cầu. Xin lỗi vì sự bất tiện này 🫡,Puede tomar hasta 24 horas para que verifiquemos la solicitud. Disculpen las molestias 🫡,Diperlukan waktu hingga 24 jam bagi kami untuk memverifikasi permintaan tersebut. Mohon maaf atas ketidaknyamanannya 🫡,Pode levar até 24 horas para verificarmos a solicitação. Desculpe o transtorno 🫡,リクエストの確認には最大 24 時間かかる場合があります。 ご迷惑をおかけして申し訳ありません🫡
+withdraw:requestSent,已發送提款請求,已发送提款请求,Withddraw request sent,철회 요청 전송됨,ส่งคำขอถอนแล้ว,Yêu cầu rút tiền đã gửi,Solicitud de retiro enviada,Permintaan penarikan dikirim,Solicitação de saque enviada,出金リクエストが送信されました
+withdraw:theMinimum,最低提現金額為20 USDT,最低提现金额为20 USDT,The minimum amount to withdraw is 20 USDT,인출할 수 있는 최소 금액은 20 USDT입니다.,จำนวนเงินขั้นต่ำในการถอนคือ 20 USDT,Số tiền tối thiểu để rút là 20 USDT,El monto mínimo para retirar es de 20 USDT,Jumlah minimum untuk ditarik adalah 20 USDT,O valor mínimo para saque é de 20 USDT,最低出金額は20 USDTです
+withdraw:toolittle,輸入20 USDT或更多,输入20 USDT或更多,Enter 20 USDT or more,20 USDT 이상 입력,ป้อน 20 USDT หรือมากกว่า,Nhập 20 USDT trở lên,Ingrese 20 USDT o más,Masukkan 20 USDT atau lebih,Digite 20 USDT ou mais,20 USDT以上を入力してください
+withdraw:toomuch,你還不夠,你还不够,You don't have enough,당신은 충분하지 않습니다,คุณมีไม่พอ,bạn không có đủ,no tienes suficiente,Anda tidak memiliki cukup,você não tem o suficiente,足りないよ
+withdraw:walletID,錢包ID,钱包ID,Wallet ID,지갑 ID,ID กระเป๋าเงิน,ID ví,Identificación de billetera,ID Dompet,ID da carteira,ウォレットID
+amount,數量,数量,Amount,양,จำนวน,Số lượng,Cantidad,Jumlah,Quantia,額
+choose currency,選擇貨幣,选择货币,Choose currency,통화 선택,เลือกสกุลเงิน,Chọn tiền tệ,Elegir Moneda,Pilih mata uang,Escolha a moeda,通貨を選んでください
+crypto wallet,加密錢包,加密钱包,Crypto wallet,암호화폐 지갑,กระเป๋าเงิน Crypto,ví tiền điện tử,Monedero criptográfico,Dompet kripto,Carteira criptográfica,暗号ウォレット
+address set,地址設置成功,地址设置成功,Address successfully set,주소가 성공적으로 설정되었습니다.,กำหนดที่อยู่เรียบร้อยแล้ว,Đã đặt địa chỉ thành công,Dirección configurada con éxito,Alamat berhasil ditetapkan,Endereço definido com sucesso,アドレスが正常に設定されました
+connect wallet,連接,连接,Connect,연결하다,เชื่อมต่อ,Kết nối,Conectar,Menghubung,Conectar,接続する
+change wallet,換錢包,换钱包,Change wallet,지갑 변경,เปลี่ยนกระเป๋าสตางค์,Thay đổi ví,Cambiar monedero,Ganti dompet,Trocar carteira,ウォレットを変更する
+txnHistory,交易,交易,Transactions,업무,ธุรกรรม,giao dịch,Actas,Transaksi,Transações,トランザクション
+gamehistory,遊戲歷史,游戏历史,Game History,게임 히스토리,ประวัติเกม,Lịch sử trò chơi,Historial del juego,Sejarah Permainan,História do jogo,ゲームの歴史
+profile,輪廓,轮廓,Profile,프로필,ประวัติโดยย่อ,Hồ sơ,Perfil,Profil,Perfil,プロフィール
+register,報名,报名,Sign up,가입하기,ลงชื่อ,Đăng ký,Inscribirse,Mendaftar,Inscrever-se,サインアップ
+lets go,我們走吧！,我们走吧！,Let's go!,갑시다!,ไปกันเถอะ!,Đi nào!,¡Vamos!,Ayo pergi!,Vamos!,さあ行こう！
+top-games,熱門遊戲,热门游戏,Top Games,인기 게임,เกมส์ยอดนิยม,Trò chơi hàng đầu,Los mejores juegos,Game Teratas,Principais jogos,人気のゲーム
+slots,老虎機,老虎机,Slots,슬롯,สล็อต,máy đánh bạc,Tragamonedas,Slot,slots,スロット
+baccarat,百家樂,百家乐,Baccarat,바카라,บาคาร่า,bài baccarat,Bacará,Bakarat,bacará,バカラ
+live baccarat,真人百家樂,真人百家乐,Live Baccarat,라이브 바카라,บาคาร่าสด,Baccarat trực tiếp,Bacará en vivo,Bakarat Langsung,Bacará ao vivo,ライブバカラ
+fishing,釣魚,钓鱼,Fishing,어업,ตกปลา,Đánh bắt cá,Pesca,Penangkapan ikan,pescaria,釣り
+arcade,拱廊,拱廊,Arcade,아케이드,อาเขต,Giải trí,Arcada,Arkade,videogames,アーケード
+pvp,玩家對戰,玩家对战,PvP,PvP,พีวีพี,PvP,JcJ,PvP,PvP,PvP
+email,電子郵件,电子邮件,Email,이메일,อีเมล,E-mail,Correo electrónico,Surel,E-mail,Eメール
+password,密碼,密码,Password,비밀번호,รหัสผ่าน,Mật khẩu,Contraseña,Kata sandi,Senha,パスワード
+keep me logged in,保持登錄狀態,保持登录状态,Keep me logged in,나를 로그인 유지,ให้ฉันอยู่ในระบบ,Giữ tôi luôn đăng nhập,Mantenme conectado,buat saya tetap masuk,Mantenha-me conectado,ログイン状態を保つ
+forgot password,忘記密碼,忘记密码,Forgot password,비밀번호를 잊으 셨나요,ลืมรหัสผ่าน,Quên mật khẩu,Has olvidado tu contraseña,Tidak ingat kata sandi,Esqueceu sua senha,パスワードをお忘れですか
+bonus,獎金,奖金,Bonus,보너스,โบนัส,Thưởng,Prima,Bonus,Bônus,ボーナス
+loading,加載中,加载中,Loading,로드 중,กำลังโหลด,Đang tải,Cargando,Memuat,Carregando,読み込み中
+enter your email to update password,輸入您的電子郵件以更新密碼,输入您的电子邮件以更新密码,Enter your email to update password,비밀번호를 업데이트하려면 이메일을 입력하세요,ป้อนอีเมลของคุณเพื่ออัปเดตรหัสผ่าน,Nhập email của bạn để cập nhật mật khẩu,Ingrese su correo electrónico para actualizar la contraseña,Masukkan email Anda untuk memperbarui kata sandi,Digite seu e-mail para atualizar a senha,メールアドレスを入力してパスワードを更新してください
+send email,發電子郵件,发电子邮件,Send email,이메일을 보내,ส่งอีเมล,Gửi email,Enviar correo electrónico,Mengirim email,Enviar email,メールを送る
+username,用戶名,用户名,Username,사용자 이름,ชื่อผู้ใช้,tên tài khoản,Nombre de usuario,Nama belakang,Nome de usuário,ユーザー名
+check email,查看你的電子郵件,查看你的电子邮件,Check your email,이메일을 확인,ตรวจสอบอีเมลของคุณ,Kiểm tra hộp thư điện tử của bạn,Consultar su correo electrónico,Periksa email Anda,Verifique seu e-mail,あなたのメールをチェック
+verify account,驗證賬戶,验证账户,Verify account,계정 확인,ตรวจสอบบัญชี,Xác nhận tài khoản,Verificar Cuenta,Verifikasi akun,Verificar conta,アカウントを確認
+language,語言,语言,Language,언어,ภาษา,Ngôn ngữ,Idioma,Bahasa,Linguagem,言語
+alert:serverReset,服務器重置,服务器重置,Server reset,서버 초기화,รีเซ็ตเซิร์ฟเวอร์,Đặt lại máy chủ,reinicio del servidor,Penyetelan ulang server,Reinicialização do servidor,サーバーのリセット
+email sent to,您必須先驗證您的帳戶才能登錄。一封電子郵件已發送給您。 請檢查您的收件箱或垃圾郵件文件夾，然後單擊電子郵件中的鏈接以驗證您的帳戶。,您必须先验证您的帐户才能登录。一封电子邮件已发送给您。 请检查您的收件箱或垃圾邮件文件夹，然后单击电子邮件中的链接以验证您的帐户。,You must verify your account before you can log in. An e-mail has been sent to you. Please check your inbox or spam folder and click the link in the email to verify your account.,로그인하기 전에 계정을 확인해야 합니다. 이메일이 전송되었습니다. 받은 편지함 또는 스팸 폴더를 확인하고 이메일의 링크를 클릭하여 계정을 확인하십시오.,คุณต้องยืนยันบัญชีของคุณก่อนจึงจะสามารถเข้าสู่ระบบได้ อีเมลถูกส่งถึงคุณแล้ว โปรดตรวจสอบกล่องจดหมายหรือโฟลเดอร์สแปมของคุณ แล้วคลิกลิงก์ในอีเมลเพื่อยืนยันบัญชีของคุณ,Bạn phải xác minh tài khoản của mình trước khi có thể đăng nhập. Một e-mail đã được gửi cho bạn. Vui lòng kiểm tra hộp thư đến hoặc thư mục thư rác và nhấp vào liên kết trong email để xác minh tài khoản của bạn.,Debe verificar su cuenta antes de poder iniciar sesión. Se le ha enviado un correo electrónico. Verifique su bandeja de entrada o carpeta de correo no deseado y haga clic en el enlace del correo electrónico para verificar su cuenta.,Anda harus memverifikasi akun Anda sebelum Anda dapat masuk. Email telah dikirimkan kepada Anda. Silakan periksa kotak masuk atau folder spam Anda dan klik tautan di email untuk memverifikasi akun Anda.,"Você deve verificar sua conta antes de fazer login. Um e-mail foi enviado para você. Por favor, verifique sua caixa de entrada ou pasta de spam e clique no link no e-mail para verificar sua conta.",ログインする前にアカウントを確認する必要があります。電子メールが送信されました。 受信箱またはスパムフォルダーを確認し、メール内のリンクをクリックしてアカウントを確認してください。
+account exists,用戶名已經被註冊,用户名已经被注册,Account already exists,계정이 이미 존재합니다.,บัญชีมีอยู่แล้ว,Tài khoản đã tồn tại,la cuenta ya existe,Akun sudah ada,essa conta já existe,アカウントはすでに存在しています
+account exists but not activated,帳戶已存在但未激活,帐户已存在但未激活,Account exists but not activated,계정이 존재하지만 활성화되지 않음,มีบัญชีอยู่แต่ไม่ได้เปิดใช้งาน,Tài khoản tồn tại nhưng chưa được kích hoạt,La cuenta existe pero no está activada,Akun ada tetapi tidak diaktifkan,"A conta existe, mas não está ativada",アカウントは存在しますが、アクティブ化されていません
+created not verified,您的帳戶已創建但尚未驗證,您的帐户已创建但尚未验证,Your account is created but not verified yet,계정이 생성되었지만 아직 확인되지 않았습니다.,บัญชีของคุณถูกสร้างขึ้นแต่ยังไม่ได้รับการยืนยัน,Tài khoản của bạn đã được tạo nhưng chưa được xác minh,Tu cuenta está creada pero aún no está verificada,Akun Anda sudah dibuat tetapi belum diverifikasi,"Sua conta foi criada, mas ainda não foi verificada",アカウントは作成されましたが、まだ認証されていません
+username more than 2,用戶名必須超過2個字符,用户名必须超过2个字符,Username must be more than 2 characters,사용자 이름은 2자 이상이어야 합니다.,ชื่อผู้ใช้ต้องมากกว่า 2 ตัวอักษร,Tên đăng nhập phải nhiều hơn 2 ký tự,El nombre de usuario debe tener más de 2 caracteres,Nama pengguna harus lebih dari 2 karakter,O nome de usuário deve ter mais de 2 caracteres,ユーザー名は 2 文字以上である必要があります
+password:missing,缺少密碼,缺少密码,Missing password,비밀번호가 없습니다.,ไม่มีรหัสผ่าน,thiếu mật khẩu,Falta la contraseña,Kata sandi tidak ada,senha ausente,パスワードがありません
+invalid email format,電子郵件格式無效,电子邮件格式无效,Invalid e-mail format,잘못된 이메일 형식,รูปแบบอีเมลไม่ถูกต้อง,Định dạng email không hợp lệ,Formato de correo inválido,Format email salah,Formato de email inválido,無効な電子メール形式です
+recaptcha not verified,reCaptcha 未驗證,reCaptcha 未验证,reCaptcha not verified,reCaptcha가 확인되지 않음,reCaptcha ไม่ได้รับการยืนยัน,reCaptcha chưa được xác minh,reCaptcha no verificado,reCaptcha tidak diverifikasi,reCaptcha não verificado,reCaptcha が検証されていません
+reload:msg,抱歉，出了一些問題！ 請重新加載網站,抱歉，出了一些问题！ 请重新加载网站,"Sorry, something went wrong! Please reload the website",죄송합니다. 문제가 발생했습니다. 웹사이트를 새로고침하세요,ขอโทษมีบางอย่างผิดพลาด! กรุณาโหลดเว็บไซต์ใหม่,"Xin lỗi, có lỗi xảy ra! Vui lòng tải lại trang web","¡Perdón, algo salió mal! Por favor recarga el sitio web","Maaf, terjadi kesalahan! Muat ulang situs web","Desculpe, algo deu errado! Por favor, recarregue o site",申し訳ありませんが、問題が発生しました。 ウェブサイトをリロードしてください
+reload:title,與服務器失去連接,与服务器失去连接,Lost connection to server,서버 연결 끊김,ขาดการเชื่อมต่อกับเซิร์ฟเวอร์,Mất kết nối với máy chủ,Se perdió la conexión con el servidor,Kehilangan koneksi ke server,Conexão perdida com o servidor,サーバーへの接続が失われました
+reset password,重設密碼,重设密码,Reset password,암호를 재설정,รีเซ็ตรหัสผ่าน,Đặt lại mật khẩu,Restablecer la contraseña,Atur ulang kata sandi,Redefinir senha,パスワードを再設定する
+password has been updated,密碼已更新。 請負責任地玩！,密码已更新。 请负责任地玩！,Password has been updated. Please play responsibly!,비밀번호가 업데이트되었습니다. 책임감 있게 플레이해주세요!,อัปเดตรหัสผ่านแล้ว กรุณาเล่นอย่างมีความรับผิดชอบ!,Mật khẩu đã được cập nhật. Hãy chơi có trách nhiệm!,"La contraseña ha sido actualizada. ¡Por favor, juega responsablemente!",Kata sandi telah diperbarui. Silakan bermain secara bertanggung jawab!,"A senha foi atualizada. Por favor, jogue com responsabilidade!",パスワードが更新されました。 責任を持ってプレイしてください！
+account not found,找不到帳戶,找不到帐户,Account not found,계정을 찾지 못했습니다,ไม่พบบัญชี,Tài khoản không được tìm thấy,Cuenta no encontrada,akun tidak ditemukan,Conta não encontrada,アカウントが見つかりません
+token expired,令牌已過期，請重試,令牌已过期，请重试,"Token expired, please try again",토큰이 만료되었습니다. 다시 시도해 주세요.,โทเค็นหมดอายุ โปรดลองอีกครั้ง,"Mã hiệu đã hết hạn, vui lòng thử lại","Token caducado, inténtalo de nuevo","Token kedaluwarsa, silakan coba lagi","Token expirado, tente novamente",トークンの有効期限が切れました。もう一度お試しください。
+invalid email or password,無效的電子郵件或密碼,无效的电子邮件或密码,Invalid e-mail or password,잘못된 이메일 또는 비밀번호,อีเมลหรือรหัสผ่านไม่ถูกต้อง,Email hoặc mật khẩu không hợp lệ,Correo electrónico o contraseña no válidos,Email atau kata sandi salah,E-mail ou senha inválidos,無効なメールアドレスまたはパスワード
+account verification,帳戶驗證,帐户验证,Account verification,계정 확인,การยืนยันบัญชี,xác minh tài khoản,Verificación de la cuenta,Verifikasi akun,Verificação de conta,アカウント認証
+account already verified,帳號已激活！ 請負責任地玩！,帐号已激活！ 请负责任地玩！,Account activated! Please play responsibly!,계정이 활성화되었습니다! 책임감 있게 플레이해주세요!,เปิดใช้งานบัญชีแล้ว! กรุณาเล่นอย่างมีความรับผิดชอบ!,Đã kích hoạt tài khoản! Hãy chơi có trách nhiệm!,"¡Cuenta activada! ¡Por favor, juega responsablemente!",Akun diaktifkan! Silakan bermain secara bertanggung jawab!,"Conta ativada! Por favor, jogue com responsabilidade!",アカウントが有効になりました! 責任を持ってプレイしてください！
+confirmation link,確認鏈接無效或已過期,确认链接无效或已过期,The confirmation link is invalid or has expired,확인 링크가 유효하지 않거나 만료되었습니다.,ลิงก์ยืนยันไม่ถูกต้องหรือหมดอายุแล้ว,Liên kết xác nhận không hợp lệ hoặc đã hết hạn,El enlace de confirmación no es válido o ha caducado,Tautan konfirmasi tidak valid atau telah kedaluwarsa,O link de confirmação é inválido ou expirou,確認リンクが無効か期限切れです
+password must be 8 chars,密碼必須是8個字符或更多,密码必须是8个字符或更多,Password must be 8 characters or more,비밀번호는 8자 이상이어야 합니다.,รหัสผ่านต้องมีความยาว 8 ตัวอักษรขึ้นไป,Mật khẩu phải từ 8 ký tự trở lên,La contraseña debe tener 8 caracteres o más,Kata sandi harus 8 karakter atau lebih,A senha deve ter 8 caracteres ou mais,パスワードは8文字以上である必要があります
+password missing number,密碼缺少數字 (0-9),密码缺少数字 (0-9),Password missing numerical digit (0-9),비밀번호가 누락된 숫자(0-9),รหัสผ่านไม่มีตัวเลขหลัก (0-9),Mật khẩu thiếu chữ số (0-9),A la contraseña le falta un dígito numérico (0-9),Kata sandi hilang angka numerik (0-9),Dígito numérico ausente na senha (0-9),パスワードに数字 (0 ～ 9) がありません
+password missing uppercase digit,密碼缺少大寫數字 (A-Z,密码缺少大写数字 (A-Z,Password missing uppercase digit (A-Z,비밀번호 누락 대문자(A-Z,รหัสผ่านไม่มีตัวพิมพ์ใหญ่ (A-Z,Mật khẩu thiếu chữ số viết hoa (A-Z,Falta el dígito en mayúscula de la contraseña (A-Z),Kata sandi hilang digit huruf besar (A-Z,Palavra-passe em falta dígito maiúsculo (A-Z,パスワードに大文字の数字 (A ～ Z) がありません
+password missing lowercase,密碼缺少小寫數字 (a-z),密码缺少小写数字 (a-z),Password missing lowercase digit (a-z),암호 누락 소문자(a-z),รหัสผ่านไม่มีตัวพิมพ์เล็ก (a-z),Mật khẩu thiếu chữ thường (a-z),A la contraseña le falta un dígito en minúscula (a-z),Kata sandi hilang digit huruf kecil (a-z),Dígito minúsculo ausente da senha (a-z),パスワードに小文字 (a ～ z) がありません
+resend verification,重新發送驗證郵件,重新发送验证邮件,Re-send verification email,확인 이메일을 다시 보내,ส่งอีเมล์ยืนยันอีกครั้ง,Gửi lại email xác minh,Reenviar correo electrónico de verificación,Mengirim ulang email verifikasi,Reenviar email de verificação,確認メールを再送
+email-activate,歡迎來到甘比特賭場！ 請點擊此鏈接激活您的帳戶：,欢迎来到甘比特赌场！ 请点击此链接激活您的帐户：,Welcome to Gambit's Casino! Please follow this link to activate your account:,갬빗 카지노에 오신 것을 환영합니다! 계정을 활성화하려면 다음 링크를 따르십시오.,ยินดีต้อนรับสู่คาสิโนของ Gambit! โปรดไปที่ลิงก์นี้เพื่อเปิดใช้งานบัญชีของคุณ:,Chào mừng đến với Sòng bạc của Gambit! Vui lòng theo liên kết này để kích hoạt tài khoản của bạn:,¡Bienvenido a Gambit's Casino! Siga este enlace para activar su cuenta:,Selamat datang di Kasino Gambit! Silakan ikuti tautan ini untuk mengaktifkan akun Anda:,Bem-vindo ao Gambit's Casino! Siga este link para ativar sua conta:,ギャンビットのカジノへようこそ! アカウントを有効にするには、次のリンクをクリックしてください。
+thank you,謝謝,谢谢,Thank you,감사합니다,ขอบคุณ,Cảm ơn,Gracias,Terima kasih,Obrigado,ありがとう
+please verify your email,請驗證您的電子郵件,请验证您的电子邮件,Please verify your email,이메일을 확인하세요,กรุณายืนยันอีเมลของคุณ,Vui lòng xác minh email của bạn,Por favor verifica tu correo electrónico,Harap verifikasi email Anda,Verifique seu e-mail,メールアドレスを確認してください
+password reset,重設密碼,重设密码,Password Reset,비밀번호 초기화,รีเซ็ตรหัสผ่าน,Đặt lại mật khẩu,Restablecimiento de contraseña,Atur Ulang Kata Sandi,Redefinição de senha,パスワードのリセット
+email-reset-pass,歡迎！ 請點擊此鏈接重置您的密碼：,欢迎！ 请点击此链接重置您的密码：,Welcome! Please follow this link to reset your password:,환영! 비밀번호를 재설정하려면 다음 링크를 따르십시오.,ยินดีต้อนรับ! โปรดไปที่ลิงก์นี้เพื่อรีเซ็ตรหัสผ่านของคุณ:,Chào mừng! Vui lòng theo liên kết này để đặt lại mật khẩu của bạn:,¡Bienvenido! Siga este enlace para restablecer su contraseña:,Selamat datang! Silakan ikuti tautan ini untuk mengatur ulang kata sandi Anda:,Bem-vindo! Siga este link para redefinir sua senha:,いらっしゃいませ！ パスワードをリセットするには、このリンクをクリックしてください。
+slots-action,行動,行动,Action,행동,การกระทำ,Hoạt động,Acción,Tindakan,Ação,アクション
+slots-animals,動物,动物,Animals,동물,สัตว์,Động vật,animales,Hewan,animais,動物
+slots-jump,跳,跳,Jump,도약,กระโดด,Nhảy,Saltar,Melompat,Pular,ジャンプ
+slots-cute,可愛的,可爱的,Cute,귀여운,น่ารัก,Dễ thương,Lindo,Imut-imut,Bonitinho,かわいい
+slots-fantasy,幻想,幻想,Fantasy,공상,แฟนตาซี,tưởng tượng,Fantasía,Fantasi,Fantasia,ファンタジー
+slots-treasure,寶藏,宝藏,Treasure,보물,สมบัติ,Kho báu,Tesoro,Harta karun,Tesouro,宝物
+get rewards,獲得獎勵,获得奖励,Get rewards,보상 받기,รับรางวัล,Được nhận thưởng,Obtener recompensas,Dapatkan hadiah,Obter recompensas,報酬を獲得する
+rewards:5050,50% 利潤分成,50% 利润分成,50% profit share,50% 이익 공유,ส่วนแบ่งกำไร 50%,chia sẻ lợi nhuận 50%,50% de participación en las ganancias,50% bagi hasil,50% de participação nos lucros,50%の利益分配
+rewards:description,複製並分享您的推薦鏈接。,复制并分享您的推荐链接。,Copy and share your referral link.,추천 링크를 복사하여 공유하세요.,คัดลอกและแบ่งปันลิงค์อ้างอิงของคุณ,Sao chép và chia sẻ liên kết giới thiệu của bạn.,Copie y comparta su enlace de referencia.,Salin dan bagikan tautan referensi Anda.,Copie e compartilhe seu link de indicação.,紹介リンクをコピーして共有します。
+rewards:description bold,您推薦的所有利潤的 50% 將歸您所有！,您推荐的所有利润的 50% 将归您所有！,50% of all profits from your referrals will be given to you!,추천인의 모든 수익의 50%가 귀하에게 지급됩니다!,คุณจะได้รับ 50% ของกำไรทั้งหมดจากการแนะนำของคุณ!,50% tất cả lợi nhuận từ các lượt giới thiệu của bạn sẽ được trao cho bạn!,¡Se le otorgará el 50% de todas las ganancias de sus referencias!,50% dari semua keuntungan dari referensi Anda akan diberikan kepada Anda!,50% de todos os lucros de suas referências serão dados a você!,ご紹介による収益の 50% があなたに還元されます。
+copy,複製,复制,Copy,복사,สำเนา,sao chép,Copiar,Menyalin,cópia de,コピー
+verify,核實,核实,Verify,확인하다,ตรวจสอบ,Xác minh,Verificar,Memeriksa,Verificar,確認する
+referral,推薦,推荐,Referral,추천,การอ้างอิง,Giới thiệu,Remisión,Rujukan,Referência,照会
+done,完畢,完毕,Done,완료,เสร็จแล้ว,Xong,Hecho,Selesai,Feito,終わり
+bonus:signup,註冊獎金！,注册奖金！,sign up bonus!,가입 보너스!,สมัครรับโบนัส!,đăng ký tiền thưởng!,¡Bonus al registrarse!,daftar bonus!,bônus de inscrição!,サインアップボーナス！
+signup bonus:title,註冊獎金,注册奖金,Sign up bonus,가입 보너스,ลงทะเบียนโบนัส,đăng ký tiền thưởng,Bonus al registrarse,Mendaftar bonus,bônus de inscrição,サインアップボーナス
+signup bonus:desc,註冊即可獲得免費積分！,注册即可获得免费积分！,Get free credits for signing up!,가입하고 무료 크레딧을 받으세요!,รับเครดิตฟรีสำหรับการสมัคร!,Nhận tín dụng miễn phí để đăng ký!,¡Consigue créditos gratis por registrarte!,Dapatkan kredit gratis untuk mendaftar!,Obtenha créditos gratuitos para se inscrever!,サインアップで無料クレジットを獲得しましょう!
+signup bonus:link,點擊這裡了解更多詳情,点击这里了解更多详情,Click here for more details,자세한 내용을 보려면 여기를 클릭하십시오.,คลิกที่นี่เพื่อดูรายละเอียดเพิ่มเติม,Bấm vào đây để biết thêm chi tiết,Haga clic aquí para más detalles,Klik di sini untuk detail lebih lanjut,Clique aqui para mais detalhes,詳細についてはここをクリックしてください
+bonus rewards:title,獎金獎勵！,奖金奖励！,Bonus rewards!,보너스 보상!,รางวัลโบนัส!,Phần thưởng tiền thưởng!,¡Recompensas de bonificación!,Hadiah bonus!,Recompensas de bônus!,ボーナス報酬！
+bonus rewards:desc,有多種方式可以獲得獎金！,有多种方式可以获得奖金！,There are several ways to get bonuses!,보너스를 받는 방법에는 여러 가지가 있습니다!,มีหลายวิธีในการรับโบนัส!,Có một số cách để nhận tiền thưởng!,¡Hay varias formas de obtener bonos!,Ada beberapa cara untuk mendapatkan bonus!,Existem várias maneiras de obter bônus!,ボーナスを獲得するにはいくつかの方法があります!
+signup bonus:desc long,完成以下任務，您將解鎖獎勵功能！,完成以下任务，您将解锁奖励功能！,Finish the following tasks and you will unlock bonus features!,다음 작업을 완료하면 보너스 기능이 잠금 해제됩니다!,ทำภารกิจต่อไปนี้ให้เสร็จ แล้วคุณจะปลดล็อคคุณสมบัติโบนัส!,Hoàn thành các nhiệm vụ sau và bạn sẽ mở khóa các tính năng tiền thưởng!,¡Termine las siguientes tareas y desbloqueará funciones adicionales!,Selesaikan tugas berikut dan Anda akan membuka kunci fitur bonus!,Conclua as seguintes tarefas e você desbloqueará recursos de bônus!,次のタスクを完了すると、ボーナス機能のロックが解除されます。
+socials:discord,參加抽獎、競賽和活動。 獲得客戶支持或直接與我們聯繫🙃,参加抽奖、竞赛和活动。 获得客户支持或直接与我们联系🙃,"Enter raffles, contests, and events. Get customer support or just come hang with us 🙃","추첨, 콘테스트 및 이벤트를 입력하십시오. 고객 지원을 받거나 우리와 함께 놀러 오세요 🙃",เข้าร่วมการจับฉลาก การแข่งขัน และกิจกรรมต่างๆ รับการสนับสนุนลูกค้าหรือเพียงแค่มาคุยกับเรา🙃,"Nhập xổ số, cuộc thi và sự kiện. Nhận hỗ trợ khách hàng hoặc chỉ cần đến với chúng tôi 🙃","Participa en sorteos, concursos y eventos. Obtenga atención al cliente o simplemente venga a pasar el rato con nosotros 🙃","Masukkan undian, kontes, dan acara. Dapatkan dukungan pelanggan atau datang saja bersama kami 🙃","Participe de sorteios, concursos e eventos. Obtenha suporte ao cliente ou apenas venha conosco 🙃",抽選会、コンテスト、イベントに参加してください。 カスタマーサポートを受けるか、単にお付き合いください 🙃
+socials:twitter,贈品，抽獎！,赠品，抽奖！,"Giveways, raffles!","경품, 추첨!",แจกจับฉลาก!,"Quà tặng, xổ số!","¡Regalos, sorteos!","Hadiah, undian!","Brindes, sorteios!",プレゼント、抽選会！
+snb:task:phone:success,您的電話號碼已被驗證！,您的电话号码已被验证！,Your phone number has been verified!,전화번호가 확인되었습니다!,หมายเลขโทรศัพท์ของคุณได้รับการยืนยันแล้ว!,Số điện thoại của bạn đã được xác minh!,¡Tu número de teléfono ha sido verificado!,Nomor telepon Anda telah diverifikasi!,Seu número de telefone foi verificado!,電話番号が認証されました!
+snb:task:sms,驗證電話號碼,验证电话号码,Verify phone number,전화번호 확인,ยืนยันหมายเลขโทรศัพท์,Xác minh số điện thoại,Verificar número de teléfono,Verifikasi nomor telepon,Verificar número de telefone,電話番号を確認する
+snb:task:twitter,轉發並在 Twitter 上關注我們,转发并在 Twitter 上关注我们,Retweet and follow us on Twitter,Twitter에서 리트윗하고 팔로우하세요.,รีทวีตและติดตามเราบน Twitter,Tweet lại và theo dõi chúng tôi trên Twitter,Retuitea y síguenos en Twitter,Retweet dan ikuti kami di Twitter,Retweet e siga-nos no Twitter,Twitterでリツイートしてフォローしてください
+snb:task:discord,加入我們的 Discord,加入我们的 Discord,Join us on Discord,디스코드에 가입하세요,เข้าร่วมกับเราใน Discord,Tham gia với chúng tôi trên Discord,Únete a nosotros en Discord,Bergabunglah dengan kami di Discord,Junte-se a nós no Discord,Discord に参加してみませんか
+snb:task:egg,查找 blog.gambits.vip 復活節彩蛋,查找 blog.gambits.vip 复活节彩蛋,Find the blog.gambits.vip Easter Egg,blog.gambits.vip 부활절 달걀 찾기,ค้นหา blog.gambits.vip ไข่อีสเตอร์,Tìm Trứng phục sinh blog.gambits.vip,Encuentra el Easter Egg de blog.gambits.vip,Temukan Telur Paskah blog.gambits.vip,Encontre o Ovo de Páscoa do blog.gambits.vip,blog.gambits.vip イースターエッグを見つける
+snb:task:play100,玩100 USDT,玩100 USDT,Play 100 USDT,100 USDT 플레이,เล่น 100 USDT,Chơi 100 USDT,Juega 100 USDT,Mainkan 100 USDT,Jogue 100 USDT,100USDTをプレイ
+sms verify,通過短信驗證您的帳戶,通过短信验证您的帐户,Verify your account with SMS,SMS로 계정 확인,ยืนยันบัญชีของคุณด้วย SMS,Xác minh tài khoản của bạn bằng SMS,Verifica tu cuenta con SMS,Verifikasi akun Anda dengan SMS,Verifique sua conta com SMS,SMS でアカウントを認証する
+sms:title,甘比特的代碼：,甘比特的代码：,Gambit's code:,Gambit의 코드:,รหัสของกลเม็ด:,Mã Gambit:,Código de Gambito:,Kode Gambit:,Código do Gambit:,ガンビットのコード:
+sms:expires,15 分鐘後過期,15 分钟后过期,Expires in 15 minutes,15분 후 만료,หมดอายุใน 15 นาที,Hết hạn sau 15 phút,Caduca en 15 minutos,Berakhir dalam 15 menit,Expira em 15 minutos,15 分で期限切れになります
+sms enter code,輸入短信中的代碼,输入短信中的代码,Enter the code from SMS,SMS에서 받은 코드를 입력하세요.,ป้อนรหัสจาก SMS,Nhập mã từ SMS,Ingrese el código de SMS,Masukkan kode dari SMS,Digite o código do SMS,SMSからコードを入力してください
+sms:error:phoneExists,電話號碼已被使用，請嘗試使用其他號碼,电话号码已被使用，请尝试使用其他号码,"Phone number already used, please try a different one",이미 사용 중인 전화번호입니다. 다른 번호를 입력하세요.,หมายเลขโทรศัพท์ถูกใช้ไปแล้ว โปรดลองใช้หมายเลขอื่น,"Số điện thoại đã được sử dụng, vui lòng thử một số khác","Número de teléfono ya utilizado, intente con uno diferente","Nomor telepon sudah digunakan, silakan coba yang lain","Número de telefone já usado, tente outro",電話番号はすでに使用されています。別の番号をお試しください
+sms:error:incorrectPin,引腳不正確,引脚不正确,Incorrect pin,잘못된 핀,พินไม่ถูกต้อง,ghim sai,pin incorrecto,Pin salah,Pino incorreto,間違ったピン
+sms:error:incorrectPhone,電話號碼不正確,电话号码不正确,Incorrect phone number,잘못된 전화번호,หมายเลขโทรศัพท์ไม่ถูกต้อง,Số điện thoại không chính xác,Número de teléfono incorrecto,Nomor telepon salah,Número de telefone incorreto,電話番号が間違っています
+sms:error:expired,OTP PIN 碼已過期。 請再試一次,OTP PIN 码已过期。 请再试一次,OTP pin expired. Please try again,OTP 핀이 만료되었습니다. 다시 시도해 주세요,รหัส OTP หมดอายุ กรุณาลองอีกครั้ง,Pin OTP đã hết hạn. Vui lòng thử lại,El pin OTP caducó. Inténtalo de nuevo,Pin OTP kedaluwarsa. Silakan coba lagi,"Pino OTP expirado. Por favor, tente novamente",OTP ピンの有効期限が切れました。 もう一度試してください
+snb:subtask:twt,請連接您的 Twitter 帳戶,请连接您的 Twitter 帐户,Connect with Twitter,트위터 계정을 연결해주세요,กรุณาเชื่อมต่อบัญชี Twitter ของคุณ,Vui lòng kết nối tài khoản Twitter của bạn,Conecta tu cuenta de Twitter,Silakan hubungkan akun Twitter Anda,Conecte sua conta do Twitter,Twitterアカウントを接続してください
+snb:subtask:twt:success,,,Account successfully connected to your Twitter account!,,,,,,,

@@ -7,7 +7,7 @@
 .modal-backdrop.in { opacity: 0 }
 
 #loadingscreenModal {
-  /* overflow-y: scroll!important; */
+  overflow-y: scroll!important;
 }
 
 .modal-open {

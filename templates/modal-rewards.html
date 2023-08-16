@@ -62,10 +62,14 @@
                                 </div>
 
                                 <script>
-                                    let iti;
-                                    if(iti != null){
-                                          iti.destroy();
+                                    if (typeof iti !== 'undefined'){
+                                        iti.destroy();
+
+                                    } else {
+                                        let iti;
                                     }
+
+
 
                                     $(document).ready(function(){
                                         $('#sms-send-button').click(function(){
@@ -142,10 +146,10 @@
                             <div id='span-snb-twitter' class="rowDrop signup-task-drop">
                                 <div style="display: flow-root;">
                                     <div>
-                                        <div class='green-text-outline'>1. {{ translations['snb:subtask:twt'][session['lang']] }}</div>
+<!--                                        <div class='green-text-outline'>1. {{ translations['snb:subtask:twt'][session['lang']] }}</div>-->
                                         <div class="pt-2" style="display: flex;">
-                                            <button id="snb-connect-twitter">
-                                                <img src="static/logos/Twitter X.svg" class="svg-filter-excited" style="height: 13px;margin: 0 0 3px 2px;filter: invert(99%) sepia(0%) saturate(7498%) hue-rotate(249deg) brightness(102%) contrast(102%);"> <-- Click here
+                                            <button id="snb-connect-twitter" class="btn btn-outline-success" onclick="ajax_connect_twitter();">
+                                                <img src="static/logos/Twitter X.svg" class="svg-filter-excited" style="height: 13px;margin: 0 0 3px 2px;filter: invert(99%) sepia(0%) saturate(7498%) hue-rotate(249deg) brightness(102%) contrast(102%);"> {{ translations['snb:subtask:twt'][session['lang']] }}
                                             </button>
                                         </div>
                                     </div>
@@ -166,7 +170,7 @@
                                 <script>
                                     $(document).ready(function(){
                                         $('#snb-connect-twitter').click(function(){
-                                            ajax_connect_twitter()
+                                            $('#loadingscreenModal').modal('show');
 
                                         });
                                     });

@@ -4,7 +4,7 @@ from operator import itemgetter
 from os import environ
 from threading import Lock
 
-from flask import render_template
+from flask import render_template, redirect, url_for
 # from os import environ
 
 # from waitress import serve
@@ -59,13 +59,28 @@ def load_user(user_id):
 
 @application.route('/', methods=['GET', 'POST'])
 def home():
+
+    # notifications
+    notification = ''
+    notification_title = ''
+    notification_popup = False
+    if 'notify' in session:
+        notification_popup = True
+        if session['notify'] == 'oauth':
+            notification = translations['snb:subtask:twt:success'][session['lang']]
+            notification_title = translations['snb:subtask:twt'][session['lang']]
+
+    # lang selector
+    if 'lang' in request.args:
+        session['lang'] = request.args['lang']
+
     csrf_token = csrf.generate_csrf()
     session['csrf'] = csrf_token
     login_form = LoginForm()
     login_form.csrf_token.data = csrf_token
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
-    if 'lang' or 'country' not in session:
+    if 'lang' not in session or 'country' not in session:
         # find user's location, defaults to English
         set_session_geo_lang()
     set_flag_from_lang()
@@ -81,8 +96,8 @@ def home():
             return render_template('page-gallery-wrap.html', icon_placement=utils.icon_placement,
                                    game_titles=utils.game_titles,
                                    root_path='', login_form=login_form, register_form=register_form,
-                                   RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
-                                   notification='', notification_title='', reset_pass=False,
+                                   RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
+                                   notification=notification, notification_title=notification_title, reset_pass=False,
                                    lang=session['lang'], translations=utils.translations)
         else:
             if len(request.data) > 0:
@@ -120,8 +135,8 @@ def home():
         return render_template('page-gallery-wrap.html', icon_placement=utils.icon_placement,
                                game_titles=utils.game_titles,
                                root_path='', login_form=login_form, register_form=register_form,
-                               RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
-                               notification='', notification_title='', reset_pass=False,
+                               RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=notification_popup,
+                               notification=notification, notification_title=notification_title, reset_pass=False,
                                lang=session['lang'], translations=utils.translations)
 
 

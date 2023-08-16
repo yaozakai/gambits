@@ -1,17 +1,23 @@
 import math
 import random
+# from cgi import parse_qsl
+
 import oauth2 as oauth
 
-from flask import Blueprint, json
+from flask import Blueprint, json, redirect, url_for
 from flask_login import login_user, login_required
 
 from constants import SMS_SEVENIO_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KEY_SECRET
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
-from forms import verify_captcha
+from forms import verify_captcha, LoginForm, RegisterForm
 from util_geoloc import set_session_geo_lang
 from util_render_template import setup_home_template
 from utils import *
+
+# Create OAUTH client.
+consumer = oauth.Consumer(key=TWITTER_CONSUMER_KEY, secret=TWITTER_CONSUMER_KEY_SECRET)
+client = oauth.Client(consumer)
 
 user = Blueprint('user', __name__)
 
@@ -231,25 +237,51 @@ def verifySMScode():
 
 
 @user.route('/api/twt_oauth', methods=['GET', 'POST'])
+# @login_required
 def twt_oauth():
     if 'oauth_token' in request.args:
         # make sure oauth_token matches
-        db_user = db_get_user()
+        # db_user = db_get_user()
         # db_user.oauth_token = request.args['oauth_token']
 
-        # match = OAuthEntry().query.filter_by(oauth_token=request.args['oauth_token']).first()
-        # if match is None:
-        if db_user.oauth_token != request.args['oauth_token']:
-            return setup_home_template()
-        if 'oauth_verifier' in request.args:
-            url = 'https://api.twitter.com/oauth/access_token'
-            myobj = {'oauth_consumer_key': TWITTER_CONSUMER_KEY,
-                     'oauth_token': request.args['oauth_token'],
-                     'oauth_verifier': request.args['oauth_verifier']
-                     }
+        # match = UserEntry().query.filter_by(oauth_token=request.args['oauth_token']).first()
+        if session['oauth_token'] == request.args['oauth_token']:
+            if 'oauth_verifier' in request.args:
+                # request_token = session['request_token']
+                token = oauth.Token(
+                    session['oauth_token'],
+                    session['oauth_token_secret']
+                )
+                token.set_verifier(request.args['oauth_verifier'])
+                oauth_client = oauth.Client(consumer, token)
 
-            x = requests.post(url, json=myobj)
-            pass
+                # Request token URL for Twitter.
+                request_token_url = "https://api.twitter.com/oauth/access_token"
+
+                headers = {
+                         # 'Accept': '*/*',
+                         # 'Connection': 'close',
+                         # 'User-Agent':  'OAuth gem v0.4.4',
+                         'Content-Type': 'application/x-www-form-urlencoded',
+                         # 'Content-Length': '76',
+                         # 'Host': 'api.twitter.com'
+                         }
+
+                # The OAuth Client request works just like httplib2 for the most part.
+                resp, content = oauth_client.request(request_token_url, "POST", headers=headers)
+                params = content.decode("utf-8")
+                user = db_get_user()
+                user.oauth_token = parseURLparam(params, 'oauth_token')
+                user.oauth_token_secret = parseURLparam(params, 'oauth_token_secret')
+                db.session.commit()
+                session['notify'] = 'oauth'
+                return redirect(url_for('home'))
+                # return setup_home_template(notification=translations['snb:subtask:twt:success'][session['lang']],
+                #                            notification_title=translations['snb:subtask:twt'][session['lang']])
+
+    return redirect(url_for('home'))
+
+    # return setup_home_template()
 
 
 def parseURLparam(big_str, small_str):
@@ -265,17 +297,17 @@ def parseURLparam(big_str, small_str):
 
 
 @user.route('/connect_twitter', methods=['GET'])
-# @login_required
+@login_required
 def connect_twitter():
     # Create your consumer with the proper key/secret.
-    consumer = oauth.Consumer(key=TWITTER_CONSUMER_KEY,
-                              secret=TWITTER_CONSUMER_KEY_SECRET)
+    # consumer = oauth.Consumer(key=TWITTER_CONSUMER_KEY,
+    #                           secret=TWITTER_CONSUMER_KEY_SECRET)
 
     # Request token URL for Twitter.
     request_token_url = "https://api.twitter.com/oauth/request_token"
 
     # Create our client.
-    client = oauth.Client(consumer)
+    # client = oauth.Client(consumer)
 
     # The OAuth Client request works just like httplib2 for the most part.
     resp, content = client.request(request_token_url, "GET")
@@ -283,14 +315,12 @@ def connect_twitter():
     # Save auth_token
     params = content.decode("utf-8")
     # auth_token = parseURLparam(params, 'auth_token')
-    # auth_token_secret = parseURLparam(params, 'auth_token_secret')
-    user = db_get_user()
-    user.oauth_token = parseURLparam(params, 'auth_token')
-    user.oauth_token_secret = parseURLparam(params, 'auth_token_secret')
-    db.session.commit()
-
-    # pass
-    return 'https://api.twitter.com/oauth/authorize?' + content.decode("utf-8")
+    if parseURLparam(params, 'oauth_callback_confirmed'):
+        session['oauth_token'] = parseURLparam(params, 'oauth_token')
+        session['oauth_token_secret'] = parseURLparam(params, 'oauth_token_secret')
+        # pass
+        return 'https://api.twitter.com/oauth/authorize?' + content.decode("utf-8")
+        # return redirect('https://api.twitter.com/oauth/authorize?' + content.decode("utf-8"))
 
     # url = twitter_client()
     #
@@ -337,7 +367,6 @@ def connect_twitter():
     # req.sign_request(signature_method, consumer, token)
     #
     # pass
-
 
     # oauthCtrl = OAuthSignature()
     # oauthCtrl.url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
@@ -402,7 +431,7 @@ def sendSMS():
     db.session.commit()
 
     message = translations['sms:title'][session['lang']] + ' ' + otp_code + '\n' + \
-        translations['sms:expires'][session['lang']]
+              translations['sms:expires'][session['lang']]
 
     payload = {'p': SMS_SEVENIO_KEY,
                'to': to,

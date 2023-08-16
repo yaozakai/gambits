@@ -1,5 +1,18 @@
-if (typeof current_page !== 'undefined'){
-    let current_page = 'gallery'
+//if (typeof iti !== 'undefined'){
+
+let current_page = 'gallery'
+
+function nav_jump(item) {
+    var header_tag = $(item).attr("id")
+    header_tag = header_tag.slice(4, header_tag.length)
+
+    if (current_page == 'gallery'){
+        document.getElementById('header-' + header_tag).scrollIntoView();
+    } else {
+        go_to_gallery('header-' + header_tag)
+    }
+
+
 }
 
 function go_to_gallery(id) {
@@ -207,7 +220,7 @@ function reload_popup(title, msg){
 
     $('#modalNotificationTitle').html(translations[title][lang]);
     $('#modalNotificationMsg').html(translations[msg][lang]);
-    $('#notificationModal').modal({backdrop: 'static', keyboard: false}, 'show');
+    $('#notificationModal').modal('show', {backdrop: 'static', keyboard: false});
 }
 
 async function send_alert(title, msg, native=false, appendix='', color='red', symbol='') {
@@ -269,6 +282,10 @@ async function send_alert(title, msg, native=false, appendix='', color='red', sy
     } else {
         alert_box.classList.add('show')
     }
+
+    setTimeout(function(){
+        alert_box.classList.remove('show')
+    }, 5000);
 }
 
 function navbar_clear(){

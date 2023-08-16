@@ -12,17 +12,11 @@ def get_country_code():
 
     ip_address = response["ip"]
 
-    # response = requests.get(f'https://ipapi.co/{ip_address}/json/', timeout=1).json()
-    response = requests.get(f'http://ip-api.com/json/{ip_address}', timeout=1).json()
+    response = requests.get(f'https://ipapi.co/{ip_address}/json/', timeout=1).json()
+    return response.get("country_code")
 
-    # location_data = {
-    #     "ip": ip_address,
-    #     "city": response.get("city"),
-    #     "region": response.get("region"),
-    #     "country": response.get("country_name")
-    # }
-    # return response.get("country_code")
-    return response.get("countryCode")
+    # response = requests.get(f'http://ip-api.com/json/{ip_address}', timeout=1).json()
+    # return response.get("countryCode")
 
 
 def set_session_geo_lang():

@@ -15,6 +15,7 @@
         <meta id="meta-translations" data-name='{{ translations|tojson|safe }}' >
         <meta id="meta-lang" data-name='{{ session["lang"] }}' >
         <meta id="meta-page" data-name='{{ session["page"] }}' >
+        <meta id="meta-notify" data-name='{{ session["notify"] }}' >
 <!--        <meta id="meta-session" data-name='{{ session|tojson|safe }}' >-->
         <title>Gambit's</title>
 
@@ -105,7 +106,7 @@
 
   </body>
       <!-- UI Javascript -->
-        <script language="JavaScript" type="module" src="{{ root_path }}static/js/navbar_sticky.js"></script>
+        <script language="JavaScript" type="module" src="{{ root_path }}static/js/notification_pop.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/metamask_modal.js"></script>
 
               <!-- FOOTER -->
