@@ -105,18 +105,17 @@ def login():
 
 @user.route('/lang/<lang>', methods=['GET'])
 def language(lang):
-    if request.method == 'GET':
-        if len(lang) > 0:
-            session['lang'] = lang
-            if 'logged_in' in session and session['logged_in'] is True:
-                db_set_language()
-        else:
-            # set_session_geo_lang(request.remote_addr)
-            set_session_geo_lang()
+    if len(lang) > 0:
+        session['lang'] = lang
+        if 'logged_in' in session and session['logged_in'] is True:
+            db_set_language()
+    else:
+        # set_session_geo_lang(request.remote_addr)
+        set_session_geo_lang()
 
         set_flag_from_lang()
-    # return redirect(url_for('home'))
-    return setup_home_template()
+    return redirect(url_for('home'))
+    # return setup_home_template()
 
 
 @user.route('/forgot_pass', methods=['POST'])
@@ -321,84 +320,6 @@ def connect_twitter():
         # pass
         return 'https://api.twitter.com/oauth/authorize?' + content.decode("utf-8")
         # return redirect('https://api.twitter.com/oauth/authorize?' + content.decode("utf-8"))
-
-    # url = twitter_client()
-    #
-    #
-    # # Set the API endpoint
-    # url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
-
-    # Set the base oauth_* parameters along with any other parameters required
-    # for the API call.
-    # params = {
-    #     'oauth_version': '1.0',
-    #     # 'oauth_consumer_key': "c_key",x
-    #     'oauth_consumer_key': TWITTER_CONSUMER_KEY,
-    #     'oauth_token': TWITTER_CONSUMER_KEY,
-    #     # 'oauth_token': "t_key",
-    #     'oauth_timestamp': int(time.time()),
-    #     'oauth_signature_method': 'HMAC-SHA1',
-    #     'oauth_nonce': oauth.generate_nonce(),
-    # }
-    # #
-    # # params = {
-    # #     'oauth_version': "1.0",
-    # #     'oauth_nonce': oauth.generate_nonce(),
-    # #     'oauth_timestamp': str(int(time.time())),
-    # #     'user': 'joestump',
-    # #     'photoid': 555555555555
-    # # }
-    #
-    # # Set up instances of our Token and Consumer. The Consumer.key and
-    # # Consumer.secret are given to you by the API provider. The Token.key and
-    # # Token.secret is given to you after a three-legged authentication.
-    # token = oauth.Token(key="TWITTER_CONSUMER_KEY", secret="tok-test-secret")
-    # consumer = oauth.Consumer(key=TWITTER_CONSUMER_KEY, secret=TWITTER_CONSUMER_KEY_SECRET)
-    #
-    # # Set our token/key parameters
-    # params['oauth_token'] = token.key
-    # params['oauth_consumer_key'] = consumer.key
-    #
-    # # Create our request. Change method, etc. accordingly.
-    # req = oauth.Request(method="GET", url=url, parameters=params)
-    #
-    # # Sign the request.
-    # signature_method = oauth.SignatureMethod_HMAC_SHA1()
-    # req.sign_request(signature_method, consumer, token)
-    #
-    # pass
-
-    # oauthCtrl = OAuthSignature()
-    # oauthCtrl.url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
-    # oauthCtrl.secrets = {
-    #     # 'consumer_secret': stringToBase64(TWITTER_CONSUMER_KEY_SECRET),
-    #     'consumer_secret': TWITTER_CONSUMER_KEY_SECRET,
-    #     # 'token_secret': stringToBase64(TWITTER_CONSUMER_KEY)
-    #     'token_secret': TWITTER_CONSUMER_KEY
-    # }
-    #
-    # params = {
-    #     'oauth_version': '1.0',
-    #     'oauth_consumer_key': "c_key",
-    #     # 'oauth_consumer_key': TWITTER_CONSUMER_KEY_SECRET,
-    #     # 'oauth_token': TWITTER_CONSUMER_KEY,
-    #     'oauth_token': "t_key",
-    #     'oauth_timestamp': int(time.time()),
-    #     'oauth_signature_method': 'HMAC-SHA1',
-    #     'oauth_nonce': oauthCtrl.nonce()
-    # }
-    #
-    # signature = oauthCtrl.generate(params)
-    #
-    # params['oauth_signature'] = signature
-    #
-    # x = requests.post('https://api.twitter.com/oauth/request_token', headers=header, data=params)
-    #
-    # try:
-    #     launch_url = json.loads(x.text)['data']['url']
-    # except:
-    #     launch_url = ''
-    # return launch_url
 
 
 @user.route('/sendSMS', methods=['GET', 'POST'])

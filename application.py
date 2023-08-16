@@ -73,6 +73,7 @@ def home():
     # lang selector
     if 'lang' in request.args:
         session['lang'] = request.args['lang']
+        return redirect(url_for('home'))
 
     csrf_token = csrf.generate_csrf()
     session['csrf'] = csrf_token

@@ -1,19 +1,11 @@
-.modal {
-    overflow-y: initial;
-    overflow-x: hidden;
-}
+
 
 .modal-open .modal-backdrop.in:nth-child(2) { opacity: .5 }
 .modal-backdrop.in { opacity: 0 }
 
-#loadingscreenModal {
-  overflow-y: scroll!important;
-}
 
 .modal-open {
-  overflow: scroll!important;
-  overflow-y: scroll!important;
-  padding-right: 0px!important;
+    overflow: auto;
 }
 
 #forgotPassEmail::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -67,10 +59,6 @@
 
 .blockchain-button:hover {
     background-color: none;
-}
-
-.icon-spinner {
-    border: none;
 }
 
 #deposit-spinner {

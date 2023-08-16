@@ -303,7 +303,7 @@
 }
 
 @media (min-width: 1035px) {
-    .main-bg {
+    #main-bg {
         /* padding-left: 235px; */
     }
 

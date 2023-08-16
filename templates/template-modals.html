@@ -271,9 +271,9 @@
             blockchain_button.classList.remove('active')
         }
 
-        $("#deposit-amount").val("");
-        $("#crypto-text").html("🥦");
-        $("#blockchain-text").html("🍇");
+<!--        $("#deposit-amount").val("");-->
+<!--        $("#crypto-text").html("🥦");-->
+<!--        $("#blockchain-text").html("🍇");-->
     <!--    $("#deposit-amount").html("");-->
 
     });
@@ -375,7 +375,7 @@
             <div class="modal-body">
                 <div class='green-text-outline'>{{ translations['enter your email to update password'][session['lang']] }}</div>
 
-                <input type="text" id="forgotPassEmail" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                <input type="text" id="forgotPassEmail" class="form-control" aria-label="Email" aria-describedby="basic-addon1">
                 <br>
                 <button type="button" id="forgotEmailSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">{{ translations['send email'][session['lang']] }}</button>
             </div>
@@ -790,7 +790,7 @@
             <div class="modal-body">
                 <div class='notification green-text-outline'>Enter a new password</div>
 
-                <input type="password" id="newPassword" class="form-control" placeholder="Password" aria-label="Email" aria-describedby="basic-addon1">
+                <input type="password" id="newPassword" class="form-control">
                 <br>
                 <button type="button" id="newPasswordSend" class="btn btn-outline-success" data-bs-dismiss="modal" aria-label="Close">Set password</button>
             </div>

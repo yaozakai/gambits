@@ -5,14 +5,14 @@ from flask import session
 def get_country_code():
     try:
         # get ip
-        response = requests.get('https://api64.ipify.org?format=json', timeout=1).json()
+        response = requests.get('https://api64.ipify.org?format=json', timeout=5).json()
     except requests.exceptions.Timeout:
         # default country
         return 'GB'
 
     ip_address = response["ip"]
 
-    response = requests.get(f'https://ipapi.co/{ip_address}/json/', timeout=1).json()
+    response = requests.get(f'https://ipapi.co/{ip_address}/json/', timeout=5).json()
     return response.get("country_code")
 
     # response = requests.get(f'http://ip-api.com/json/{ip_address}', timeout=1).json()

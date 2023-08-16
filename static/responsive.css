@@ -111,7 +111,7 @@
 @media (max-width: 538px) {
 
 
-    .main-bg {/* margin-top: 55px; */}
+    #main-bg {/* margin-top: 55px; */}
     .carousel {height: 220px;}
 
 
@@ -161,12 +161,12 @@
         padding-left: 17vw;
     }
 */
-    .main-bg {/* padding-left: 23vw; *//* display: inline-flex; */}
+    #main-bg {/* padding-left: 23vw; *//* display: inline-flex; */}
 
 }
 
 @media (min-width: 1035px) {
-    .main-bg {
+    #main-bg {
         /* padding-left: 235px; */
     }
 

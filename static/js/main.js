@@ -177,20 +177,20 @@ function send_sms(){
 
 }
 
-function lang_change(item) {
-
-    $.ajax({
-            url: "/lang/" + $(item).attr("id").split('-')[1],
-            type: "GET",
-            success: function(response) {
-                document.write(response)
-            },
-            error: function(e) {
-                send_alert('reload:title', 'reload:msg')
-            }
-        });
-
-}
+//function lang_change(item) {
+//
+//    $.ajax({
+//            url: "/lang/" + $(item).attr("id").split('-')[1],
+//            type: "GET",
+//            success: function(response) {
+//                document.write(response)
+//            },
+//            error: function(e) {
+//                send_alert('reload:title', 'reload:msg')
+//            }
+//        });
+//
+//}
 
 function copyToClipboard(text_to_copy) {
 
