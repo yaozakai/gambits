@@ -12,8 +12,6 @@ from flask import render_template, redirect, url_for
 from flask_login import login_required, logout_user
 from flask_wtf import csrf
 
-from twython import Twython
-
 import utils
 from db_access import *
 from forms import LoginForm, RegisterForm
@@ -466,16 +464,16 @@ def disconnect():
     print('Client disconnected', request.sid)
 
 
-def tweet_twitter_pic():
-    twitter = Twython(
-        app_key=TWITTER_CONSUMER_KEY,
-        app_secret=TWITTER_CONSUMER_KEY_SECRET,
-        oauth_token='1486009629792698369-q6Zv5ksJ3OCOi76XP7Q637Mpd9FWGf',
-        oauth_token_secret='3OBx6AbCb1SyAZHqNPFrufS8ptqVAkzvgc8lHdTdY3B7j'
-    )
-
-    twitter.update_status_with_media(media='static/logos/favicon.png', status='wazzaaaaaa!')
-    pass
+# def tweet_twitter_pic():
+#     twitter = Twython(
+#         app_key=TWITTER_CONSUMER_KEY,
+#         app_secret=TWITTER_CONSUMER_KEY_SECRET,
+#         oauth_token='1486009629792698369-q6Zv5ksJ3OCOi76XP7Q637Mpd9FWGf',
+#         oauth_token_secret='3OBx6AbCb1SyAZHqNPFrufS8ptqVAkzvgc8lHdTdY3B7j'
+#     )
+#
+#     twitter.update_status_with_media(media='static/logos/favicon.png', status='wazzaaaaaa!')
+#     pass
 
 
 def create_app():
