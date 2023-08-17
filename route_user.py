@@ -1,5 +1,7 @@
 import math
 import random
+import urllib
+
 # from cgi import parse_qsl
 
 import oauth2 as oauth
@@ -22,16 +24,17 @@ client = oauth.Client(consumer)
 user = Blueprint('user', __name__)
 
 
-# @user.route('/user_new_address', methods=['POST'])
-# # @login_required
-# def user_new_address():
-#     if 'address' in request.json:
-#         db_set_public_address(request.json['address'])
-#         session['publicAddress'] = request.json['address']
-#         return jsonify(success=True, address=session['publicAddress'], address_set_message=utils.translations['address set'][session['lang']],
-#                        address_set_title=utils.translations['crypto wallet'][session['lang']])
-#     else:
-#         return flask.abort(400)
+def tweet_twitter():
+    token = oauth.Token('1486009629792698369-q6Zv5ksJ3OCOi76XP7Q637Mpd9FWGf', '3OBx6AbCb1SyAZHqNPFrufS8ptqVAkzvgc8lHdTdY3B7j')
+    # consumer = oauth.Consumer(consumer_key, consumer_secret)
+
+    client = oauth.Client(consumer, token)
+
+    data = {'status': 'hello world'}
+    request_uri = 'https://api.twitter.com/1/statuses/update.json'
+
+    resp, content = client.request(request_uri, 'POST', urllib.parse.urlencode(data))
+    pass
 
 
 @user.route('/login', methods=['POST'])

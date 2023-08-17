@@ -5,23 +5,16 @@ import re
 import datetime
 import socket
 import time
-
-import chinese_converter
+import flask
+import requests
 from os import listdir
 from os.path import isfile, join
-
-import flask
-import gevent.monkey
-
-# from application import pendingWithdraw
-# from db_access import db_get_user
-# from route_cq9_api import player_report_today
-# from util_geoloc import set_session_geo_lang
-
-gevent.monkey.patch_all()
-
-import requests
 from flask import jsonify, request, session
+
+import chinese_converter
+
+# gevent.monkey.patch_all()
+
 from urllib.parse import urlparse, urljoin
 
 from constants import CQ9_API_KEY
@@ -182,94 +175,7 @@ def reload_translations():
         # trad = {'name': chinese_converter.to_traditional(row['zh-cn']), 'lang': 'zh-tw'}
         # row['zh-tw'] = chinese_converter.to_traditional(row['zh-cn'])
         translations[row['name']] = row
-    session['translations'] = 'fesfesf'
-
-
-def reload_game_titles():
-    titles = {}
-    print('reload_game_titles')
-
-    myobj = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/json; charset=UTF-8'}
-    x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
-    global game_titles
-    print('CQ9 return:' + str(x.status_code))
-
-    if x.status_code == 200:
-        game_titles = x.json()['data']
-    else:
-        flask.abort(69)
-
-    file = open('static/csv/game_list.csv', 'w', encoding='utf-8-sig')
-    game_list = csv.writer(file)
-
-    # header
-    row = []
-    lang_header = ['en', 'zh-tw', 'zh-cn', 'ko', 'ja', 'th', 'vn', 'id', 'pt-br', 'es']
-    for header_name in game_titles[0]:
-        if header_name != 'nameset':
-            row.append(header_name)
-    # for lang in lang_header:
-    #     row.append(lang)
-
-    row.extend(lang_header)
-    game_list.writerow(row)
-
-    for game_title in game_titles:
-        # translate simplified to traditional chinese
-        for title in game_title['nameset']:
-            if title['lang'] == 'zh-cn':
-                trad = {'name': chinese_converter.to_traditional(title['name']), 'lang': 'zh-tw'}
-                game_title['nameset'].append(trad)
-                break
-
-        # write to csv
-        row = []
-        for field in game_title:
-            if field == 'nameset':
-                # search and iterate through supported languages for matches
-                for lang in lang_header:
-                    for lang_entry in game_title[field]:
-                        if lang_entry['lang'] == lang:
-                            row.append(lang_entry['name'])
-                            lang_found = True
-                    if not lang_found:
-                        row.append('')
-
-            else:
-                row.append(game_title[field])
-
-        game_list.writerow(row)
-    file.close()
-
-
-def reload_icon_placement():
-    icon_path_local = root_path + '/icons/cq9'
-    print('Loading files from:' + icon_path_local)
-    icon_files = [f for f in listdir(icon_path_local) if
-                  isfile(join(icon_path_local, f)) and not f.endswith('.DS_Store')]
-    print('Loading icon_placement.csv')
-    reader = csv.DictReader(open('static/csv/icon_placement.csv', mode='r', encoding='utf-8-sig'))
-    placement = {name: [] for name in reader.fieldnames}
-    for row in reader:
-        for header_name in reader.fieldnames:
-            if len(row[header_name]) > 0:
-                placement_name = row[header_name]
-                icon_found = False
-                for icon in icon_files:
-                    if icon.split('_')[0] == placement_name:
-                        icon_found = True
-                        placement[header_name].append(icon)
-                        break
-                if not icon_found:
-                    print('   icon_placement.csv: gamecode -' + placement_name + '- not found')
-
-                    # [string for string in icon_files if row[header_name] in string]
-                # if len(icon_filename) > 0:
-                #     placement[header_name].append(icon_filename[0])
-    global icon_placement
-
-    icon_placement = placement
-    session['icon_placement'] = placement
+    # session['translations'] = 'fesfesf'
 
 
 def load_crypto_prices():
@@ -450,3 +356,105 @@ def set_flag_from_lang():
 #         session['lang'] = 'en'
 #         if result['country_code'] == 'Not found':
 #             session['country'] = 'GB'
+def save_game_list(game_title_list):
+
+    file = open('static/csv/game_list.csv', 'w', encoding='utf-8-sig')
+    game_list = csv.writer(file)
+
+    # header
+    row = []
+    lang_header = ['en', 'zh-tw', 'zh-cn', 'ko', 'ja', 'th', 'vn', 'id', 'pt-br', 'es']
+    for header_name in game_title_list[0]:
+        if header_name != 'nameset':
+            row.append(header_name)
+    # for lang in lang_header:
+    #     row.append(lang)
+
+    row.extend(lang_header)
+    game_list.writerow(row)
+
+    for game_title in game_title_list:
+        # translate simplified to traditional chinese
+        for title in game_title['nameset']:
+            if title['lang'] == 'zh-cn':
+                trad = {'name': chinese_converter.to_traditional(title['name']), 'lang': 'zh-tw'}
+                game_title['nameset'].append(trad)
+                break
+
+        # write to csv
+        row = []
+        for field in game_title:
+            if field == 'nameset':
+                # search and iterate through supported languages for matches
+                for lang in lang_header:
+                    for lang_entry in game_title[field]:
+                        if lang_entry['lang'] == lang:
+                            row.append(lang_entry['name'])
+                            lang_found = True
+                    if not lang_found:
+                        row.append('')
+
+            else:
+                row.append(game_title[field])
+
+        game_list.writerow(row)
+    file.close()
+
+
+def get_game_list(online=True):
+
+    if online:
+        print('reload_game_titles: ONLINE')
+
+        myobj = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/json; charset=UTF-8'}
+        x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
+        # global game_titles
+        print('CQ9 return:' + str(x.status_code))
+
+        if x.status_code == 200:
+            game_title_list = x.json()['data']
+            return game_title_list
+        else:
+            flask.abort(69)
+    # else:
+    #     print('reload_game_titles: LOCAL')
+
+
+def reload_game_titles():
+    global game_titles
+    game_titles = get_game_list()
+
+    save_game_list(game_titles)
+
+    # return game_titles
+
+
+def reload_icon_placement():
+    icon_path_local = root_path + '/icons/cq9'
+    print('Loading files from:' + icon_path_local)
+    icon_files = [f for f in listdir(icon_path_local) if
+                  isfile(join(icon_path_local, f)) and not f.endswith('.DS_Store')]
+    print('Loading icon_placement.csv')
+    reader = csv.DictReader(open('static/csv/icon_placement.csv', mode='r', encoding='utf-8-sig'))
+    placement = {name: [] for name in reader.fieldnames}
+    for row in reader:
+        for header_name in reader.fieldnames:
+            if len(row[header_name]) > 0:
+                placement_name = row[header_name]
+                icon_found = False
+                for icon in icon_files:
+                    if icon.split('_')[0] == placement_name:
+                        icon_found = True
+                        placement[header_name].append(icon)
+                        break
+                if not icon_found:
+                    print('   icon_placement.csv: gamecode -' + placement_name + '- not found')
+
+                    # [string for string in icon_files if row[header_name] in string]
+                # if len(icon_filename) > 0:
+                #     placement[header_name].append(icon_filename[0])
+    global icon_placement
+
+    icon_placement = placement
+    session['icon_placement'] = icon_placement
+    return icon_placement

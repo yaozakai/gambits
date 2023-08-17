@@ -74,3 +74,4 @@ zope.interface==6.0
 
 oauth2~=1.9.0.post1
 ipify~=1.0.0
+twython~=3.9.1

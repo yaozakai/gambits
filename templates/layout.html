@@ -4,14 +4,23 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta property="og:title" content="Gambit's Casino" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://gambits.vip" />
-        <meta property="og:image" content="https://gambits.vip/static/logos/favicon.png" />
+        <meta property="og:title" content="Gambit's Casino">
+        <meta property="og:type" content="website">
+        {% if session['env'] == 'stage' %}
+        <meta property="og:url" content="https://stage.gambits.vip">
+        <meta property="og:image" content="https://stage.gambits.vip/static/logos/favicon.png">
+        {% else %}
+        <meta property="og:url" content="https://gambits.vip">
+        <meta property="og:image" content="https://gambits.vip/static/logos/favicon.png">
+        {% endif %}
+        <meta property="og:description" content="WAGMI">
         <meta name="twitter:title" content="Gambit's Casino">
         <meta name="twitter:description" content="The best online casino, seriously.">
-        <meta name="twitter:image" content="https://gambits.vip/static/logos/favicon.png">
+        <meta name="twitter:image" content="https://pbs.twimg.com/media/F3uYneSbsAADYGK?format=webp&name=medium">
         <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@gambitsvip">
+        <meta name="twitter:creator" content="@gambitsvip">
+
         <meta id="meta-translations" data-name='{{ translations|tojson|safe }}' >
         <meta id="meta-lang" data-name='{{ session["lang"] }}' >
         <meta id="meta-page" data-name='{{ session["page"] }}' >

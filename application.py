@@ -12,6 +12,8 @@ from flask import render_template, redirect, url_for
 from flask_login import login_required, logout_user
 from flask_wtf import csrf
 
+from twython import Twython
+
 import utils
 from db_access import *
 from forms import LoginForm, RegisterForm
@@ -22,13 +24,14 @@ from util_render_template import setup_pendingWithdraw_template, setup_search_te
 # from forms import verify_captcha
 from utils import *
 from config import app as application, socketio
-from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
+from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KEY_SECRET
 # from route_stage import stage
 from route_cq9_api import cq9_api, game_launch, player_report_today
 # from route_template import template
-from route_user import user
+from route_user import user, tweet_twitter
 from route_wallet import wallet, etherscan_parser
-from utils import reload_game_titles, reload_icon_placement, set_flag_from_lang
+# from utils import set_flag_from_lang
+from utils import reload_game_titles, reload_icon_placement
 
 from os.path import abspath, dirname
 
@@ -45,6 +48,9 @@ price_array = []
 thread = None
 thread_lock = Lock()
 
+icon_placement = []
+game_titles = []
+
 
 # CAPTCHA_CONFIG = {'SECRET_CAPTCHA_KEY': 'sshhhhhhh secret cphaata key'}
 
@@ -59,7 +65,6 @@ def load_user(user_id):
 
 @application.route('/', methods=['GET', 'POST'])
 def home():
-
     # notifications
     notification = ''
     notification_title = ''
@@ -267,11 +272,11 @@ def gallery():
     session['page'] = 'gallery'
     # return redirect(url_for('home'))
     return render_template('page-gallery.html', icon_placement=utils.icon_placement,
-                                       game_titles=utils.game_titles,
-                                       root_path='', login_form='', register_form='',
-                                       RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
-                                       notification='', notification_title='', reset_pass=False,
-                                       lang=session['lang'], translations=utils.translations)
+                           game_titles=utils.game_titles,
+                           root_path='', login_form='', register_form='',
+                           RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
+                           notification='', notification_title='', reset_pass=False,
+                           lang=session['lang'], translations=utils.translations)
 
 
 @application.route('/txnHistory', methods=['GET', 'POST'])
@@ -304,19 +309,6 @@ def txnHistory():
 @login_required
 def pendingWithdraw(reload=False):
     return setup_pendingWithdraw_template(reload)
-    # rec = []
-    #
-    # queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
-    # for query in queries:
-    #     rec.insert(0, query.serialize())
-    # if reload:
-    #     return render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations)
-    # else:
-    #     session['page'] = 'pendingWithdraw'
-    #     div_render = render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations)
-    #     return jsonify(
-    #         render=render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations),
-    #         div_render=div_render)
 
 
 @application.route('/gameHistory', methods=['GET', 'POST'])
@@ -474,12 +466,25 @@ def disconnect():
     print('Client disconnected', request.sid)
 
 
+def tweet_twitter_pic():
+    twitter = Twython(
+        app_key=TWITTER_CONSUMER_KEY,
+        app_secret=TWITTER_CONSUMER_KEY_SECRET,
+        oauth_token='1486009629792698369-q6Zv5ksJ3OCOi76XP7Q637Mpd9FWGf',
+        oauth_token_secret='3OBx6AbCb1SyAZHqNPFrufS8ptqVAkzvgc8lHdTdY3B7j'
+    )
+
+    twitter.update_status_with_media(media='static/logos/favicon.png', status='wazzaaaaaa!')
+    pass
+
+
 def create_app():
     with application.test_request_context():
+        # global game_titles, icon_placement
         reload_icon_placement()
         reload_translations()
         reload_game_titles()
-        # connect_twitter()
+        tweet_twitter()
 
     # application.register_blueprint(template)
     application.register_blueprint(cq9_api)
