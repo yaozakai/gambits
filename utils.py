@@ -6,14 +6,13 @@ import datetime
 import socket
 import time
 import flask
+
 import requests
 from os import listdir
 from os.path import isfile, join
 from flask import jsonify, request, session
 
 import chinese_converter
-
-# gevent.monkey.patch_all()
 
 from urllib.parse import urlparse, urljoin
 

@@ -1,5 +1,5 @@
 """gunicorn WSGI server configuration."""
-import sys
+# import sys
 from multiprocessing import cpu_count
 from os import environ
 
