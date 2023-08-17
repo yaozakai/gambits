@@ -1,7 +1,5 @@
-
-from flask import Flask
-# from flask_session import Session
 import secrets
+from flask import Flask
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_socketio import SocketIO

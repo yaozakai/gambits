@@ -26,6 +26,7 @@ translations = {}
 
 url = 'https://api.cqgame.games/'
 root_path = 'static'
+robotext = ''
 
 
 def debug_out(output):
@@ -457,3 +458,9 @@ def reload_icon_placement():
     icon_placement = placement
     session['icon_placement'] = icon_placement
     return icon_placement
+
+
+def load_robots_txt():
+    file = open('static/robots/robots.txt', 'r')
+    global robotext
+    robotext = file.read()
