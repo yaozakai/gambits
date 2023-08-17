@@ -482,7 +482,7 @@ def create_app():
         reload_icon_placement()
         reload_translations()
         reload_game_titles()
-        tweet_twitter()
+        # tweet_twitter()
 
     # application.register_blueprint(template)
     application.register_blueprint(cq9_api)
