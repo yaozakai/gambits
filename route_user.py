@@ -106,19 +106,19 @@ def login():
     #     return "the form has been submitted. Success!"
 
 
-@user.route('/lang/<lang>', methods=['GET'])
-def language(lang):
-    if len(lang) > 0:
-        session['lang'] = lang
-        if 'logged_in' in session and session['logged_in'] is True:
-            db_set_language()
-    else:
-        # set_session_geo_lang(request.remote_addr)
-        set_session_geo_lang()
-
-        set_flag_from_lang()
-    return redirect(url_for('home'))
-    # return setup_home_template()
+# @user.route('/lang/<lang>', methods=['GET'])
+# def language(lang):
+#     if len(lang) > 0:
+#         session['lang'] = lang
+#         if 'logged_in' in session and session['logged_in'] is True:
+#             db_set_language()
+#     else:
+#         # set_session_geo_lang(request.remote_addr)
+#         set_session_geo_lang()
+#
+#         set_flag_from_lang()
+#     return redirect(url_for('home'))
+#     # return setup_home_template()
 
 
 @user.route('/forgot_pass', methods=['POST'])

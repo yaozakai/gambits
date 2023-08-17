@@ -60,10 +60,14 @@ def load_user(user_id):
     return db_get_user_from_id(user_id)
 
 
-@application.route('/twt', methods=['GET'])
+# @application.route('/twt', methods=['GET'])
 # @inflate
-def twt():
-    return render_template('meta-twitter.html')
+def bot_check():
+    accepted_bots = {'Twitterbot', 'node-fetch'}
+    if request.user_agent.string.split('/')[0] in accepted_bots:
+        return render_template('meta-twitter.html')
+    else:
+        return redirect(url_for('home'))
 
 
 @application.route('/robots.txt', methods=['GET'])
@@ -76,6 +80,8 @@ def robots():
 
 @application.route('/', methods=['GET', 'POST'])
 def home():
+    return bot_check()
+
     # notifications
     notification = ''
     notification_title = ''
@@ -85,6 +91,11 @@ def home():
         if session['notify'] == 'oauth':
             notification = translations['snb:subtask:twt:success'][session['lang']]
             notification_title = translations['snb:subtask:twt'][session['lang']]
+
+    # referral
+    if 'ref' in request.args:
+        session['referral'] = request.args['ref']
+        return redirect(url_for('home'))
 
     # lang selector
     if 'lang' in request.args:
@@ -104,9 +115,6 @@ def home():
     debug_out('done')
 
     session['env'] = environ['env']
-
-    if 'ref' in request.args:
-        session['ref'] = request.args['ref']
 
     if 'page' in session:
         if session['page'] == 'gallery':
