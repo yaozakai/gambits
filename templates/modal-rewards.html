@@ -146,7 +146,13 @@
                             <div id='span-snb-twitter' class="rowDrop signup-task-drop">
                                 <div style="display: flow-root;">
                                     <div>
-<!--                                        <div class='green-text-outline'>1. {{ translations['snb:subtask:twt'][session['lang']] }}</div>-->
+                                        <div class='green-text-outline pt-2'>{{ translations['snb:subtask:twt'][session['lang']] }}</div>
+                                        <div class="pt-2" style="display: flex;">
+                                            <a target="_blank" id="snb-shareTweet" class="btn btn-outline-success green-text" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fe453-2001-b011-2000-1b64-8142-36d-32da-83e6.ngrok-free.app&text=I%20got%20%2410%20for%20this%20tweet%20from%20Gambit%27s%20Casino%21%0A%0A%2450%20sign-up%20bonus%21%0A%0A50%25%20referral%20profit%20share%21%0A%0A%40gambitsvip%0A">
+                                                {{ translations['snb:subtask:twt:shareTweet'][session['lang']] }}
+                                            </a>
+                                        </div>
+                                        <div class='green-text-outline pt-2'>{{ translations['snb:subtask:twt'][session['lang']] }}</div>
                                         <div class="pt-2" style="display: flex;">
                                             <button id="snb-connect-twitter" class="btn btn-outline-success" onclick="ajax_connect_twitter();">
                                                 <img src="static/logos/Twitter X.svg" class="svg-filter-excited" style="height: 13px;margin: 0 0 3px 2px;filter: invert(99%) sepia(0%) saturate(7498%) hue-rotate(249deg) brightness(102%) contrast(102%);"> {{ translations['snb:subtask:twt'][session['lang']] }}

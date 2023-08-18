@@ -1,5 +1,6 @@
+<div class="video-element-title gallery-header" id="header-baccarat"><img class="gallery-header-icon" src="{{ root_path }}static/icons/navbar/baccarat.png"> {{ translations['baccarat'][session['lang']] }}</div>
 
-<div class="container video-container-parent" id="header-baccarat">
+<div class="container video-container-parent">
 
 <!--motivation gaming-->
   <div class="video-container-wide">
@@ -10,11 +11,16 @@
       <div class="video-element-description-wide">
         <img class="video-element-logo-wide" src="static/logos/motivation_logo.png">
         <div class="video-element-title">{{ translations['live baccarat'][session['lang']] }}</div>
-      </div>
 
-      <button class="btn btn-outline-success video-element-button-wide video-element-title launch" data-bs-toggle="modal" data-bs-target="#loginModal">
-        <div >{{ translations['playnow'][session['lang']] }}</div>
-      </button>
+        <button class="btn btn-outline-success video-element-button-wide video-element-title launch" onclick="launch_game();"
+        {% if current_user.is_authenticated %}
+                name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
+        {% else %}
+                data-bs-toggle="modal" data-bs-target="#registerModal">
+        {% endif %}
+          <div >{{ translations['playnow'][session['lang']] }}</div>
+        </button>
+      </div>
     </div>
 
   </div>
@@ -29,11 +35,16 @@
       <div class="video-element-description-wide">
         <img class="video-element-logo-wide" src="static/logos/yaxing_logo.png">
         <div class="video-element-title">{{ translations['live baccarat'][session['lang']] }}</div>
-      </div>
 
-      <button onclick="launch_game();" class="btn btn-outline-success video-element-button-wide video-element-title" data-bs-toggle="modal" data-bs-target="#loginModal">
-        <div >{{ translations['playnow'][session['lang']] }}</div>
-      </button>
+        <button onclick="launch_game();" class="btn btn-outline-success video-element-button-wide video-element-title" onclick="launch_game();"
+        {% if current_user.is_authenticated %}
+                name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
+        {% else %}
+                data-bs-toggle="modal" data-bs-target="#registerModal">
+        {% endif %}
+          <div >{{ translations['playnow'][session['lang']] }}</div>
+        </button>
+      </div>
     </div>
 
   </div>

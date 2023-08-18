@@ -209,14 +209,12 @@ body {
 }
 
 .main-logo {
-    height: 30px;
+    height: 38px;
     display: inherit;
     /* width: 50%; */
 }
 
-.main-logo-long {
-    display: none;
-}
+.main-logo-long {height: 44px;}
 
 
 /* GALLERY STUFF */

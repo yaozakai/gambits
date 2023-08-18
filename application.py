@@ -6,7 +6,7 @@ from threading import Lock
 
 from flask import render_template, redirect, url_for, make_response
 # from os import environ
-from flask_inflate import inflate
+# from flask_inflate import inflate
 
 from flask_login import login_required, logout_user
 from flask_wtf import csrf
@@ -67,7 +67,7 @@ def bot_check():
     if request.user_agent.string.split('/')[0] in accepted_bots:
         return render_template('meta-twitter.html')
     else:
-        return redirect(url_for('home'))
+        return None
 
 
 @application.route('/robots.txt', methods=['GET'])
@@ -80,7 +80,9 @@ def robots():
 
 @application.route('/', methods=['GET', 'POST'])
 def home():
-    return bot_check()
+    check = bot_check()
+    if check is not None:
+        return check
 
     # notifications
     notification = ''

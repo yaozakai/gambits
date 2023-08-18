@@ -30,14 +30,14 @@
 }
 
 .socials-icon {
-    font-size: 35px;
+    height: 35px;
     color: aliceblue;
-    /* top: 0px; */
+    top: 12px;
     z-index: 10;
     position: relative!important;
     padding-right: 0px;
     left: 8px;
-    /* text-shadow: 7px 6px black!important; */
+    box-shadow: 0 0 200px rgba(0,0,0,0.9) inset;
 }
 
 .socials-block {
@@ -113,8 +113,8 @@
     justify-content: center;
     margin-top: 15px;
     width: 100%;
-    padding-top: 186px;
-    margin-top: -160px;
+    padding-top: 236px;
+    margin-top: -161px;
 }
 
 .gallery-slots-header {
@@ -130,6 +130,7 @@
     display: grid;
     height: 100%;
     justify-content: center;
+    padding-left: 60px;
 }
 
 .view-small {
@@ -139,14 +140,34 @@
     margin: 0 1px 0 1px;
 }
 
-.gallery-container-top-games {
+#gallery-container-top-games {
     display: block;
-    max-width: 750px;
+    width: 90%;
+    /* max-width: 750px; */
+    /* overflow-x: overlay; */
+    left: 20px;
+    max-width: 800px;
+}
+
+.view-small-top-games::-webkit-scrollbar {
+  width: 10px;
+}
+
+.view-small-top-games::-webkit-scrollbar-track {
+  background: var(--darkPurp);
+}
+
+.view-small-top-games::-webkit-scrollbar-thumb {
+  background-color: var(--lightPurp);
+  border-radius: 6px;
+  border: 3px solid var(--darkPurp);
 }
 
 .view-small-top-games {
-    display: flex;
+    display: -webkit-inline-box;
+    position: relative;
     width: 100%;
+    overflow-y: hidden;
     justify-content: center;
     margin: 0 1px 0 1px;
 }
@@ -166,34 +187,38 @@
 }
 
 .top-games-button-overlay-title {
-    position: absolute
-    ;z-index: 4;
-    bottom: 0px;
+    position: absolute;
+    z-index: 4;
+    top: 0px;
     width: 100%;
     text-align: center;
     color: #ffe204;
     text-shadow: 2px 3px 7px black;
     font-size: large;
-    margin-bottom: 7px;
+    padding-bottom: 5px;
+    background-image: linear-gradient(to bottom, #342a344a, #342a3477 96%, #342a34AA 100%);
 }
 
 .card {
-    width: 100%;
-    /* height: 160px; */
+    width: 160px;
+    height: 201px;
+    margin-right: 15px;
     margin-bottom: 20px;
     margin-top: 15px;
     background: #736988;
     font-size: 1.5rem;
-    border: none;
-    max-height: 140px;
+    /* border: none; */
+    /* max-height: 140px; */
 }
 
 .badge {
-    margin: 3px;
+    padding-top: 9px;
     position: absolute;
-    height: 6vw;
+    height: 32px;
     font-size: small;
-    max-height: 23px;
+    /* max-height: 23px; */
+    z-index: 5;
+    border-radius: 0;
 }
 
 .card-fishing {width: 42vw!important;height: 33vw!important;max-width: 300px;max-height: 200px;}
