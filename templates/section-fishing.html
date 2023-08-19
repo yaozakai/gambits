@@ -22,7 +22,7 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn fishing-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}

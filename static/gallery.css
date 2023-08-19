@@ -94,7 +94,7 @@
     max-height: 64px;
 }
 
-.gallery-thumb-top {height: 100%;/* object-fit: cover; */width: 89%;object-position: center top;/* border: none; */}
+.gallery-thumb-top {height: 100%;width: 100%;max-width: 600px;object-position: center top;/* border: none; */}
 
 
 .gallery-img {
@@ -241,6 +241,8 @@
     /* margin-left: -24px; */
     /* padding-right: 3px; */
     width: 172%;
+    width: 143%;
+    position: relative;
 }
 
 .gallery-thumb-top fishing {
@@ -254,7 +256,7 @@
 
 #video-AB3 {
     width: 330px;
-    margin-left: 3px;
+    /* margin-left: 3px; */
     height: 198px;
 }
 
@@ -275,6 +277,10 @@
     height: 120px;
 }
 
+.fishing-btn {
+    top: 0px;
+}
+
 .gallery-btn {
     font-size: 1.5rem;
     position: absolute;
@@ -292,6 +298,7 @@
     border-radius: 0px;
     color: #ffe204;
     height: 100%;
+    transition: 300ms;
 }
 
 .gallery-btn:hover + span {
