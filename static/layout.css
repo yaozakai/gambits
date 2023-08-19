@@ -2,25 +2,29 @@ html {
   overflow: hidden;
   height: 100%;
 }
-/*
-sub-page-position {
-    margin-left: 132px;
-}
-*/
-html {
-  --darkPurp: #252028;
-  --lightPurp: #b276be;
+
+:root {
+	--angle: 4deg;
 }
 
-#main-bg::-webkit-scrollbar {
+html {
+  --darkPurp: #2f262f;
+  --lightPurp: #b276be;
+  --topbarheight: 60px;
+  --theGreen: #1a8754;
+  --maxWidth: 1300px;
+  --navDesktopWidth: 185px;
+}
+
+#main-body::-webkit-scrollbar {
   width: 13px;
 }
 
-#main-bg::-webkit-scrollbar-track {
+#main-body::-webkit-scrollbar-track {
   background: var(--darkPurp);
 }
 
-#main-bg::-webkit-scrollbar-thumb {
+#main-body::-webkit-scrollbar-thumb {
   background-color: var(--lightPurp);
   border-radius: 6px;
   border: 3px solid var(--darkPurp);
@@ -35,11 +39,21 @@ body {
   height: 100%;
 }
 
-#main-bg{
+#main-body{
     height: calc(100vh - 60px);
     min-height: 100%;
-      overflow-x: auto;
-  overflow-y: scroll!important;
+    overflow-x: auto;
+    overflow-y: scroll!important;
+}
+
+.main_container {
+    width: 100%;
+    /* left: var(--navDesktopWidth); */
+    max-width: calc(var(--maxWidth));
+    position: absolute;
+    padding-left: calc(var(--navDesktopWidth));
+    /* padding-right: 10px; */
+    background: #322132;
 }
 
 .bg-dark {
@@ -135,6 +149,7 @@ body {
 }
 
 .active {
+  /* border-radius: 0; */
   /* margin-left: 0%; */
   /* margin-right: 0%; */
   /* width: 20%; */
@@ -143,9 +158,6 @@ body {
   /* max-width: 100%; */
   /* background-color: #574b5f; */
   /* border-radius: 2rem; */
-  /* background-image: radial-gradient(#36ff36, #36ff3600); */
-  /* box-shadow: none!important; */
-  /* background-image: radial-gradient(red 5%, green 35%, transparent 75%); */
 }
 
 .carousel-item > img {
@@ -218,10 +230,12 @@ body {
 
 
 /* GALLERY STUFF */
-#main-bg {
+#main-body {
     background: #332a34;
-    margin-top: 56px;
+    top: var(--topbarheight);
+    /* top: 60px; */
     width: 100%;
+    position: absolute;
 }
 
 .green-text-outline {
@@ -287,11 +301,9 @@ h3 {
 }
 
 #main_section {
-    margin-top: 60px;
-}
+    margin-top: var(--topbarheight);
+    max-width: var(--maxWidth);
 
-.pb-5, .py-5 {
-    padding-bottom: 0px;
 }
 
 .modal-content {
@@ -544,6 +556,14 @@ h3 {
     z-index: 1000;
 }
 
+        #hover-52_.jpg跳高高.jpgJump.jpgObsession_jpg.jpg{
+            display: none;
+        }
+
+        #52_.jpg跳高高.jpgJump.jpgObsession_jpg.jpg:hover + #hover-52_.jpg跳高高.jpgJump.jpgObsession_jpg.jpg{
+            display:block;
+        }
+
 #language-select {
     width: fit-content;
     z-index: 1035;
@@ -581,24 +601,29 @@ h3 {
     border-top: 1px solid #1987545e;
 }
 
+.main-container-divider {
+    border-top: 1px solid #1987545e;
+    /* position: inherit; */
+    width: calc(100% + 60px);
+    margin-left: -30px;
+    /* left: 185px; */
+}
+
 #main-icon {
     height: 35px;
     padding-left: 2px;
 }
 
 #signup-bonus-container {
-    max-width: 486px;
+    max-width: calc(var(--maxWidth) / 2);
+    /* max-width: var(--maxWidth); */
     width: 50%;
     padding-right: 10px;
-    /* margin: auto; */
+    /* margin-right: 100px; */
     z-index: 1035;
     position: fixed;
     left: 50%;
     top: 47px;
-    /* width: 825px; */
-    /* position: relative; */
-    /* display: inherit; */
-    /* margin: 0 auto; */
 }
 
 #signup-bonus-bubble {
@@ -658,3 +683,4 @@ h3 {
 
 
 }
+

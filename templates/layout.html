@@ -78,6 +78,25 @@
 
         <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/main.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ root_path }}/static/js/ui.js"></script>
+        <style>
+
+        {% for category in icon_placement %}
+            {% for k in icon_placement[category] %}
+            {% set clean_k = k | replace(".", "") | replace("jpg", "")  %}
+            #hover-{{ clean_k }} {
+              display: none;
+            }
+
+            #launch-{{ clean_k }}:hover  {
+              color: red;
+            }
+
+            #launch-{{ clean_k }}:hover + span {
+              display: block;
+            }
+            {% endfor %}
+        {% endfor %}
+        </style>
 
     </head>
 
@@ -91,20 +110,21 @@
     </div>
     {% endif %}
 
-    <main id="main-bg" class="min-vh-100">
+    <main id="main-body" class="min-vh-100">
 
 
 
-                {% include 'section-navbar.html' %}
-            <div id="main_section">
+            {% include 'section-navbar.html' %}
+
+        <div id="main_section">
+
 
                 {% block pendingWithdraw %}{% endblock %}
                 {% block search %}{% endblock %}
                 {% block gamehistory %}{% endblock %}
                 {% block txnHistory %}{% endblock %}
                 {% block gallery %}{% endblock %}
-            </div>
-
+        </div>
 
 
     </main>

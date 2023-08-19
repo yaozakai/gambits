@@ -1,0 +1,48 @@
+{% for category in icon_placement if category == 'top-games' %}
+<hr class="main-container-divider">
+<div class="video-element-title gallery-header" id="header-top-games"><img class="gallery-header-icon" src="{{ root_path }}static/icons/navbar/{{ category }}.png"> {{ translations[category][session['lang']] }}</div>
+<div id="gallery-container-top-games">
+    <div class="view-small-top-games mb-3">
+
+    {% for k in icon_placement[category] %}
+        {% set outer_loop = loop %}
+<!--            {% if outer_loop.index % 3 == 1 %}-->
+<!--                <div class="view-small-top-games">-->
+<!--            {% endif %}-->
+                <div class="med-card card shadow-sm">
+                    {% for game_title in game_titles %}
+                        {% if game_title['gamecode'] == k.split("_")[0] %}
+                            <div class="gallery-thumb-top fishing">
+                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>
+                                <div class="top-section-icon">
+                                    <img class="gallery-img" src="{{ root_path }}static/icons/cq9/{{ k }}">
+                                </div>
+<!--                                    <div class="top-games-button-overlay"></div>-->
+                                <div class="top-games-button-overlay-title">
+                                    {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
+                                    {{ title['name'] }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% set clean_k = k | replace(".", "") | replace("jpg", "")  %}
+                            <button id="launch-{{ clean_k }}" type="submit" value="{{ clean_k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
+                                {% if current_user.is_authenticated %}
+                                        name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
+                                {% else %}
+                                        data-bs-toggle="modal" data-bs-target="#registerModal">
+                                {% endif %}
+
+                            </button>
+                            <span id="hover-{{ clean_k }}" class="word-container" data-word="{{ translations['playnow'][session['lang']] }}" data-word-repeat="3"
+		                        data-text-colors="#FCA400,#0046DB,#FD0000,#FEFCFE"></span>
+
+                        {% endif %}
+                    {% endfor %}
+                </div>
+<!--            {% if outer_loop.index % 3 == 0 %}-->
+<!--                </div>-->
+<!--            {% endif %}-->
+    {% endfor %}
+    </div>
+</div>
+{% endfor %}

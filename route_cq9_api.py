@@ -4,7 +4,7 @@ import requests
 from flask import Blueprint, jsonify
 
 import utils
-from constants import CQ9_API_KEY
+from constants import CQ9_API_KEY, CQ9_AGENT_KEY
 from utils import get_timezone
 from db_access import *
 from utils import get_timestamp, check_token, url
@@ -62,7 +62,7 @@ def game_launch(username, gamecode):
     return launch_url
 
 
-@cq9_api.route('/cq9/player/check/<username>', methods=['GET'])
+@cq9_api.route('/cq9/player/check/<username>', methods=['GET', 'POST'])
 def cq9_check(username):
     error_code = '0'
     time_stamp = get_timestamp()

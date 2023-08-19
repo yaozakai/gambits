@@ -1,0 +1,50 @@
+{% for category in icon_placement if category == 'fishing' %}
+<hr class="main-container-divider mt-4">
+<div class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons/navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</div>
+<div class="gallery-container">
+    {% for k in icon_placement[category] %}
+        {% set outer_loop = loop %}
+        {% if outer_loop.index % 2 == 1 %}
+            <div class="" style="justify-content: center;display: block;">
+        {% endif %}
+                <div class="med-card card card-{{ category }} shadow-sm">
+                    {% for game_title in game_titles %}
+                        {% if game_title['gamecode'] == k.split("_")[0] %}
+                            <div>
+                                <div class="gallery-thumb-top">
+    <!--                                <span class="badge bg-warning text-dark">#{{ outer_loop.index }}</span>-->
+                                    <div class="top-section-icon">
+                                        <img id="fishing-img-{{ k.split('_')[0] }}" class="fishing-game-logo" src="{{ root_path }}static/icons/cq9/{{ k }}">
+                                    </div>
+                                    <div class="top-games-button-overlay-title">
+                                        {% for title in game_title['nameset'] if title['lang'] == session['lang'] %}
+                                        {{ title['name'] }}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn"
+                                    {% if current_user.is_authenticated %}
+                                            name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
+                                    {% else %}
+                                            data-bs-toggle="modal" data-bs-target="#registerModal">
+                                    {% endif %}
+                                    {{ translations['playnow'][session['lang']] }}
+        <!--                                        {{ game_title['nameset']|select(lang) }}-->
+                                </button>
+                            </div>
+                            {% set video_filename = 'fishing-' + k.split('_')[0] %}
+                            <div style="">
+                                <video id="video-{{ k.split('_')[0] }}" playsinline="" autoplay="" loop="" muted="" class="video-fishing" src="static/video/{{ video_filename }}.mp4#t=0.1" type="video/mp4"></video>
+                            </div>
+
+
+                        {% endif %}
+                    {% endfor %}
+                </div>
+        {% if outer_loop.index % 2 == 0 %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+</div>
+{% endfor %}

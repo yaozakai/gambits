@@ -221,8 +221,7 @@ def db_refund(entry):
         entry.gamecode,
         entry.gamehall,
         entry.mtcode,
-        entry.roundid,
-        entry.session
+        entry.roundid
     )
     db.session.add(refund)
     db.session.commit()

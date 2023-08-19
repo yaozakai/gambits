@@ -1,32 +1,38 @@
 .socials-container {
-    display: flex;
+    display: table;
     position: relative;
-    margin-left: 70px;
-    margin-right: 221px;
+    /* margin-left: 70px; */
+    /* margin-right: 221px; */
     /* margin-top: -6px; */
-    max-width: 500px;
-    top: 17px;
+    max-width: 966px;
+    min-height: 46px;
+    width: 100%;
+    /* top: 17px; */
     z-index: 1;
+    background: #312132;
 }
 
 .socials-container-child {
     margin-right: 40px;
     color: #ffe201;
-    display: contents;
+    display: table-cell;
+    vertical-align: middle;
 }
 
 .socials-title {
     font-size: 15px;
-    padding-left: 48px;
+    /* padding-left: -42px; */
     padding-right: 5px;
-    margin-top: 5px;
+    padding-left: 15px;
     margin-bottom: 5px;
     /* width: 428px; */
     /* text-shadow: 3px 0px black!important; */
     z-index: 10;
     position: relative;
-    top: 2px;
-    text-align: center;
+    /* top: 2px; */
+    display: table-cell;
+    vertical-align: middle;
+    /* text-align: center; */
 }
 
 .socials-icon {
@@ -41,18 +47,12 @@
 }
 
 .socials-block {
-    width: 494px;
-    /* display: flex; */
-    /* margin-right: 30px; */
-    /* padding-top: 0px; */
     margin-left: -103px;
     padding-left: 63px;
-    height: 55px;
+    height: 70px;
     background-color: #252028;
-    border-radius: 30px;
     z-index: 0;
     position: static;
-    /* font-weight: bold; */
 }
 
 #header-social-networks {
@@ -63,26 +63,27 @@
     font-size: medium;
 }
 
-.svg-filter-excited {
-    filter: invert(84%) sepia(60%) saturate(2899%) hue-rotate(352deg) brightness(102%) contrast(104%) drop-shadow(5px 6px 1px rgb(0 0 0 / 0.4));
+.svg-twitter-logo:hover {
+    filter: invert(93%) sepia(10%) saturate(6326%) hue-rotate(353deg) brightness(102%) contrast(106%)!important;
 }
 
 .top-section-icon {
-    height: 100%;
-    /* width: 100%; */
-    /* max-height: 76px; */
+    height: 198px;
+    width: 88px;
+    position: relative;
+    max-height: 172px;
     /* min-height: 48px; */
     /* margin: 5px 5px 5px 5px; */
 }
 
 .gallery-container {
-    max-width: 768px;
-    display: inline-flex;
+    max-width: calc(var(--maxWidth) - var(--navDesktopWidth) - 15);
+    display: flex;
     margin-left: auto;
     margin-right: auto;
     left: 50%;
     /* right: 50%; */
-    width: 99%;
+    /* width: 99%; */
     /* margin: 0 auto; */
     /* position: relative; */
 }
@@ -93,13 +94,14 @@
     max-height: 64px;
 }
 
-.gallery-thumb-top {height: 100%;/* object-fit: cover; */width: 100%;object-position: center top;/* border: none; */}
+.gallery-thumb-top {height: 100%;/* object-fit: cover; */width: 89%;object-position: center top;/* border: none; */}
 
 
 .gallery-img {
-    height: 100%;
-    width: 100%;
+    height: 115%;
+    width: 178%;
     object-fit: cover;
+    /* transform: scale(1.2); */
     /* margin-left: 45px; */
 }
 
@@ -112,8 +114,8 @@
     /* display: inline-flex; */
     justify-content: center;
     margin-top: 15px;
-    width: 100%;
-    padding-top: 236px;
+    /* width: 100%; */
+    padding-top: 189px;
     margin-top: -161px;
 }
 
@@ -127,26 +129,31 @@
 }
 
 #mid-section {
-    display: grid;
+    /* display: table; */
     height: 100%;
-    justify-content: center;
-    padding-left: 60px;
+    /* justify-content: center; */
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 100%;
+    /* max-width: calc(var(--maxWidth) - var(--navDesktopWidth)); */
+    background: #1d1b1b;
 }
 
 .view-small {
     display: grid;
     width: 100%;
+    max-width: 400px;
     /* justify-content: center; */
     margin: 0 1px 0 1px;
 }
 
 #gallery-container-top-games {
     display: block;
-    width: 90%;
+    /* width: 90%; */
     /* max-width: 750px; */
     /* overflow-x: overlay; */
     left: 20px;
-    max-width: 800px;
+    max-width: calc(var(--maxWidth) - 20px);
 }
 
 .view-small-top-games::-webkit-scrollbar {
@@ -159,8 +166,8 @@
 
 .view-small-top-games::-webkit-scrollbar-thumb {
   background-color: var(--lightPurp);
-  border-radius: 6px;
-  border: 3px solid var(--darkPurp);
+  border-radius: 7px;
+  border: 6px solid var(--darkPurp);
 }
 
 .view-small-top-games {
@@ -187,6 +194,7 @@
 }
 
 .top-games-button-overlay-title {
+    padding-left: 33px;
     position: absolute;
     z-index: 4;
     top: 0px;
@@ -194,7 +202,7 @@
     text-align: center;
     color: #ffe204;
     text-shadow: 2px 3px 7px black;
-    font-size: large;
+    font-size: medium;
     padding-bottom: 5px;
     background-image: linear-gradient(to bottom, #342a344a, #342a3477 96%, #342a34AA 100%);
 }
@@ -221,7 +229,39 @@
     border-radius: 0;
 }
 
-.card-fishing {width: 42vw!important;height: 33vw!important;max-width: 300px;max-height: 200px;}
+.card-fishing {max-width: 425px;height: 33vw!important;width: 100%;max-height: 200px;display: -webkit-box;}
+
+.fishing-game-logo {
+    height: 198px;
+    position: absolute;
+    /* padding-top: 34px; */
+    /* left: -21px; */
+    object-fit: cover;
+    /* padding-left: -100px; */
+    /* margin-left: -24px; */
+    /* padding-right: 3px; */
+    width: 172%;
+}
+
+.gallery-thumb-top fishing {
+    width: 18px;
+}
+
+#video-AT01 {
+    width: 113px;
+    margin-left: 221px;
+}
+
+#video-AB3 {
+    width: 330px;
+    margin-left: 3px;
+    height: 198px;
+}
+
+#fishing-img-AT01 {
+    width: 309px;
+}
+
 .card-pvp {/* width: 80vw!important; */height: 39vw!important;max-width: 800px;max-height: 180px;}
 
 .large-card {
@@ -249,13 +289,56 @@
 
 .gallery-btn:hover {
     background-color: #000000BB;
-    /* color: #28a745; */
-    /* font-weight: 400; */
-    /* font-size: small; */
     border-radius: 0px;
     color: #ffe204;
-    /* text-shadow: 2px 3px 7px black; */
-    /* filter: drop-shadow(5px 6px 1px rgb(0 0 0 / 0.4)); */
+    height: 100%;
+}
+
+.gallery-btn:hover + span {
+    display: block;
+}
+
+.word-container {
+	width: 100%;
+	/* min-height: 100%; */
+	/* margin-top: -114px; */
+	top: 0;
+	/* position: absolute; */
+}
+
+.word {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-family: "Futura";
+	font-size: 30px;
+	font-weight: 900;
+	color: var(--color, #fff);
+	display: flex;
+	pointer-events: none;
+	user-select: none;
+	line-height: 1.8rem;
+
+	.char {
+		position: relative;
+		-webkit-text-stroke: 2px #000;
+		transform: translateY(-45%) rotate(var(--angle));
+		animation: up-and-down 2s ease infinite;
+		animation-delay: calc((var(--word-index) * -0.15s) + (var(--char-index) * 0.1s));
+		z-index: calc(-1 * var(--char-index));
+		margin-left: -0.6rem;
+	}
+}
+
+@keyframes up-and-down {
+	0%,
+	100% {
+		transform: translateY(-45%) rotate(var(--angle));
+	}
+	50% {
+		transform: translateY(45%) rotate(var(--angle));
+	}
 }
 
 @media (min-width: 769px) {

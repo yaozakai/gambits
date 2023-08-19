@@ -16,7 +16,7 @@ import chinese_converter
 
 from urllib.parse import urlparse, urljoin
 
-from constants import CQ9_API_KEY
+from constants import CQ9_API_KEY, CQ9_AGENT_KEY
 from db_classes import UserEntry, db
 from email_confirmation import confirm_token
 
@@ -35,7 +35,7 @@ def debug_out(output):
 
 
 def check_token():
-    return request.headers.get('Wtoken') == CQ9_API_KEY
+    return request.headers.get('Wtoken') == CQ9_AGENT_KEY
 
 
 def get_timezone():
