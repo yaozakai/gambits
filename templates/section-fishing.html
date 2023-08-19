@@ -5,7 +5,7 @@
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
         {% if outer_loop.index % 2 == 1 %}
-            <div class="" style="justify-content: center;display: block;">
+            <div class="" style="justify-content: center;display: block;width: 100%;">
         {% endif %}
                 <div class="med-card card card-{{ category }} shadow-sm">
                     {% for game_title in game_titles %}
@@ -22,7 +22,7 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                                <button id="{{ k }}" type="submit" value="{{ k }}" onclick="launch_game();" class="btn-outline btn gallery-btn fishing-btn"
+                                <button id="{{ k }}" type="submit" value="{{ k }}" style="z-index: 1;" onclick="launch_game();" class="btn-outline btn gallery-btn fishing-btn"
                                     {% if current_user.is_authenticated %}
                                             name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
                                     {% else %}

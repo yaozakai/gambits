@@ -27,9 +27,12 @@
 }
 
 .video-fishing {
-    width: 330px;
-    margin-left: -295px;
+    width: 300px;
+    /* margin-left: 91px; */
     height: 198px;
+    right: 0;
+    position: absolute;
+    z-index: 0;
 }
 
 .video-baccarat {
