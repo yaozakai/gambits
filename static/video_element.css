@@ -29,7 +29,7 @@
 .video-fishing {
     width: 300px;
     /* margin-left: 91px; */
-    height: 198px;
+    height: calc(var(--fishingMobileHeight) - 2px);
     right: 0;
     position: absolute;
     z-index: 0;
@@ -190,7 +190,7 @@
 }
 
 
-@media (max-width: 575px) {
+@media (max-width: 580px) {
 
     .video-container-wide {
         /* width: 100%; */
@@ -199,26 +199,33 @@
     }
 
     .video-element-description-wide {
-        margin-top: 24vw;
+        /* margin-top: 24vw; */
         margin-left: 20px;
     }
 
     .video-element-button-wide {
-        margin-top: 26.5vw;
-        height: 9vw;
-        width: 80vw;
+        /* margin-top: 26.5vw; */
+        height: 55px;
+        /* width: 80vw; */
     }
 
     .video-element-title {
         font-size: large;
+        position: absolute;
+        bottom: 8px;
     }
 
     .video-element-logo-wide {
-        width: 31vw;
+        max-width: 110px;
+        width: 100%;
+        position: absolute;
+        bottom: 40px;
+        /* height: 100%; */
     }
 
-    .video-element-overlay-wide {
-        /* height: 40vw; */
-        /* background-image: linear-gradient(to bottom, #342a3424, #342a34FA 70%, #342a34FF 100%); */
+    .video-fishing {
+        height: calc(var(--fishingMobileHeight) - 2px)!important;
+        right: -44px;
+        /* float: right; */
     }
 }

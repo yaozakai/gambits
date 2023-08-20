@@ -132,7 +132,7 @@
 
 .navbar-fixed {
     position: fixed;
-    /* margin: auto; */
+    display: flex;
     /* left: auto; */
     /* right: auto; */
     z-index: 100;
@@ -214,15 +214,11 @@
 
 @media (min-width: 640px) {
     #slots-dropdown {
-    /* top: -94px; */
-    /* left: 323px; */
-    /* width: 7px!important; */
-    /* display: block; */
-    background: #252028;
-    height: 100%;
-    width: 100%;
-    padding-left: 25px;
-    padding-bottom: 0px;
+        background: #252028;
+        height: 100%;
+        width: 100%;
+        padding-left: 25px;
+        padding-bottom: 0px;
     }
 }
 
@@ -256,12 +252,8 @@
 
     .navbar-fixed {
         top: var(--topbarheight);
-        /*        left: 75px;
-        width: 148px;
-        */
         height: 97px;
         position: fixed;
-        /* left: 49%; */
         max-width: calc(var(--maxWidth) + 8px);
         height: 0;
         background: none;
@@ -306,24 +298,6 @@
 
     #nav-slots {
       /* margin-top: 3px; */
-    }
-}
-
-@media (min-width: 1035px) {
-    #main-body {
-        /* padding-left: 235px; */
-    }
-
-    .navbar-icon {
-        /* right: 782px; */
-    }
-
-    .nav-link-title {
-        /* right: 873px; */
-    }
-
-    .navbar-fixed {
-        /* width: 975px; */
     }
 }
 
