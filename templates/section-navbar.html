@@ -102,7 +102,28 @@
 <!--                }-->
 <!--            });-->
 
-            $(window).scroll(function(){
+            let timer;
+
+            $('#main-body').scroll(function(){
+                document.querySelector('#main-body').addEventListener('scroll', hideCoverBar);
+                document.querySelector('#main-body').addEventListener('mousemove', hideCoverBar);
+                var showTimeout;
+                function hideCoverBar() {
+                  document.querySelector('.cover-bar').classList.add('hidden');
+                  clearTimeout(showTimeout);
+                  showTimeout = setTimeout(showCoverBar, 1000);
+
+                }
+                function showCoverBar() {
+                  document.querySelector('.cover-bar').classList.remove('hidden');
+                }
+
+
+<!--                $('#main-body').addClass('scroll')-->
+<!--                clearTimeout(timer);-->
+<!--                timer = setTimeout(function() {-->
+<!--                    $('#main-body').removeClass('scroll')-->
+<!--                }, 100);-->
 
                 $('.slots-subicon').each(function () {
                     if ($(this).is('.active')) {

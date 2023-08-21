@@ -1,58 +1,81 @@
-html {
-  overflow: hidden;
-  height: 100%;
-}
-
 :root {
 	--angle: 4deg;
 }
 
 html {
+  overflow: hidden;
+  height: 100%;
   --darkPurp: #2f262f;
-  --lightPurp: #b276be;
+  --darkerPurp: #1d1b1b;--lightPurp: #b276be;
   --topbarheight: 60px;
   --theGreen: #1a8754;
   --maxWidth: 1300px;
   --navDesktopWidth: 185px;
   --fishingMobileHeight: 36vw!important;
+--fishingMobileHeightPort: 60vw!important;
+}
+
+.cover-bar {}
+
+body {
+  background: black;
+  height: 100%;
+}
+
+.cover-bar {
+  position: absolute;
+  background-color: var(--darkerPurp);
+  /* color: antiquewhite; */
+  pointer-events: none;
+  height: 100%;
+  top: 0;
+  right: 0;
+  width: 13px;
+  -webkit-transition: all .5s;
+  opacity: 1;
+}
+
+.cover-bar.hidden {
+  opacity: 0;
 }
 
 #main-body::-webkit-scrollbar {
   width: 13px;
+  overflow: visible;
 }
 
 #main-body::-webkit-scrollbar-track {
-  background: var(--darkPurp);
+  background-color: #2c2828;
 }
 
 #main-body::-webkit-scrollbar-thumb {
-  background-color: var(--lightPurp);
+  background-color: blueviolet;
   border-radius: 6px;
   border: 3px solid var(--darkPurp);
 }
 
-/* Padding below the footer and lighter body text */
-
-body {
-  /* color: #5a5a5a; */
-  background: black;
-
-  height: 100%;
-}
-
 #main-body{
     height: calc(100vh - 60px);
+    top: var(--topbarheight);
+    background: #332a34;
     min-height: 100%;
     overflow-x: auto;
-    overflow-y: scroll!important;
+    overflow-y: auto;
+    width: 100%;
+    animation: close-scroll-animate 0.1s ease alternate;
+    position: absolute;
+    padding-right: 0px;
 }
 
+
+
 .main_container {
-    width: 100%;
-    /* left: var(--navDesktopWidth); */
-    max-width: calc(var(--maxWidth));
-    position: absolute;
-    padding-left: calc(var(--navDesktopWidth));
+    /* width: 100%; */
+    /* right: -0%; */
+    max-width: var(--maxWidth);
+    margin: 0 auto;
+    position: relative;
+    padding-left: var(--navDesktopWidth);
     /* padding-right: 10px; */
     background: #322132;
 }
@@ -229,16 +252,6 @@ body {
 
 .main-logo-long {height: 44px;}
 
-
-/* GALLERY STUFF */
-#main-body {
-    background: #332a34;
-    top: var(--topbarheight);
-    /* top: 60px; */
-    width: 100%;
-    position: absolute;
-}
-
 .green-text-outline {
   color: #1a8754;
   border-color: #1a8754;
@@ -302,9 +315,8 @@ h3 {
 }
 
 #main_section {
-    margin-top: var(--topbarheight);
+    margin-top: calc(0px - var(--topbarheight));
     max-width: var(--maxWidth);
-
 }
 
 .modal-content {

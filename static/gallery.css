@@ -3,11 +3,11 @@
     position: relative;
     /* margin-left: 70px; */
     /* margin-right: 221px; */
-    /* margin-top: -6px; */
+    margin-top: var(--topbarheight);
     max-width: 966px;
     min-height: 46px;
-    width: 100%;
-    /* top: 17px; */
+    /* width: calc(100vw - 170px); */
+    width: calc(100vw - 170px);
     z-index: 1;
     background: #312132;
 }
@@ -17,6 +17,7 @@
     color: #ffe201;
     display: table-cell;
     vertical-align: middle;
+    /* padding-left: 1.5rem; */
 }
 
 .socials-title {
@@ -24,6 +25,7 @@
     /* padding-left: -42px; */
     padding-right: 5px;
     padding-left: 15px;
+    /* margin-top: auto; */
     margin-bottom: 5px;
     /* width: 428px; */
     /* text-shadow: 3px 0px black!important; */
@@ -94,7 +96,9 @@
     max-height: 64px;
 }
 
-.gallery-thumb-top {/* height: 100%; *//* width: 100%; *//* max-width: 600px; *//* object-position: center top; *//* border: none; */}
+.gallery-thumb-top.portrait {
+    height: 100%;
+}
 
 
 .gallery-img {
@@ -229,10 +233,14 @@
     border-radius: 0;
 }
 
-.card-fishing {max-width: 461px;height: var(--fishingMobileHeight);margin: 0 auto;margin-bottom: 20px;width: 100%;max-height: 200px;display: -webkit-box;}
+.card-fishing {max-width: 461px;height: var(--fishingMobileHeight);margin: 0 auto;margin-bottom: 20px;width: 100%;max-height: 200px;display: -webkit-box;overflow: hidden;}
+
+.card-fishing.portrait {
+    height:  var(--fishingMobileHeightPort);
+}
 
 .fishing-game-logo {
-    height: calc(var(--fishingMobileHeight) - 2px);
+    height: 198px;
     position: absolute;
     /* padding-top: 34px; */
     /* left: -21px; */
@@ -241,8 +249,13 @@
     /* margin-left: -24px; */
     /* padding-right: 3px; */
     /* width: 172%; */
-    width: 183%;
+    width: 60%;
     position: relative;
+    z-index: 1;
+}
+
+.fishing-game-logo.portrait {
+	/* width: 20vw; */
 }
 
 .gallery-thumb-top fishing {
@@ -250,18 +263,21 @@
 }
 
 #video-AT01 {
-    width: 113px;
-    margin-left: 221px;
+    /* width: 0; */
+    /* float: right; */
+    /* margin: 0 auto; */
 }
 
 #video-AB3 {
-    width: 330px;
+    /* width: 330px; */
     /* margin-left: 3px; */
-    height: 198px;
+    /* height: 198px; */
 }
 
 #fishing-img-AT01 {
-    width: 347px;
+    /* width: 20vw; */
+    /* height: -webkit-fill-available; */
+    /* padding-left: 0%; */
 }
 
 .card-pvp {/* width: 80vw!important; */height: 39vw!important;max-width: 800px;max-height: 180px;}
@@ -292,7 +308,7 @@
     color: #00000000;
     white-space: normal;
     border-radius: 0px;
-    /* z-index: 1; */
+    z-index: 1;
 }
 
 .gallery-btn:hover {
@@ -333,14 +349,14 @@
 		position: relative;
 		-webkit-text-stroke: 2px #000;
 		transform: translateY(-45%) rotate(var(--angle));
-		animation: up-and-down 2s ease infinite;
+		animation: text-bounce 2s ease infinite;
 		animation-delay: calc((var(--word-index) * -0.15s) + (var(--char-index) * 0.1s));
 		z-index: calc(-1 * var(--char-index));
 		margin-left: -0.6rem;
 	}
 }
 
-@keyframes up-and-down {
+@keyframes text-bounce {
 	0%,
 	100% {
 		transform: translateY(-45%) rotate(var(--angle));
@@ -380,7 +396,7 @@
     }
 
     .socials-container {
-        margin-top: -49px;
+        margin-top: 0px;
         margin-bottom: 20px;
         margin-right: 190px;
         /* margin-left: 54px; */
@@ -413,9 +429,10 @@
 
 @media (max-width: 700px) {
     .socials-container{
-        /* margin-left: 5vw; */
+        /* margin-left: 0px; */
         margin-bottom: 10px;
-        margin-top: -60px;
+        /* width: 70vw; */
+        /* margin-top: -60px; */
     }
 
     #header-social-networks {
@@ -429,7 +446,7 @@
 
     .socials-title{
         font-size: 12px;
-        padding-right: 20px;
+        padding-right: 15px;
         margin-top: auto;
         margin-bottom: auto;
     }
@@ -442,7 +459,7 @@
     }
 }
 
-@media (max-width: 530px) {
+@media (max-width: 580px) {
     .socials-title {
         font-size: 10px;
         /* padding-left: 34px; */
@@ -455,16 +472,31 @@
         top: 3px;
     }
     .socials-container {
-        margin-left: -10px;
+        margin-left: 0px;
         /* margin-right: 320px; */
-        width: calc(100% - 125px);
+        /* width: calc(100vw - 170px); */
     }
+
+	.socials-container-child {
+		padding-left: 10px!important;
+		}
+	
+	#mid-section {
+		padding: 0;
+	} 
 
 }
 
-@media (max-width: 450px) {
+@media (max-width: 400px) {
 
+	.socials-container {
+	width: calc(100vw - 128px);
+	height: 60px;
+	}
 
+	.socials-container-child {
+	padding-left: 9px!important;
+	}
 }
 
 
@@ -496,6 +528,14 @@
 
 	.fishing-game-logo {
 		height: calc(var(--fishingMobileHeight) - 2px);
+		width: 73%;
+	}
+
+
+	.fishing-game-logo.portrait {
+		height: 100%;
+		z-index: 0;
+		left: -10%;
 	}
 
 }

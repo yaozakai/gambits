@@ -100,7 +100,7 @@
 
     </head>
 
-  <body style="font-family: Futura, sans-serif;"  data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true" data-bs-root-margin="0px 0px">
+  <body style="font-family: Futura, sans-serif; overflow: hidden;"  data-bs-root-margin="0px 0px">
 
     {% include 'section-topbar.html' %}
 
@@ -110,12 +110,11 @@
     </div>
     {% endif %}
 
-    <main id="main-body" class="min-vh-100">
+    <main id="main-body" class="min-vh-100" data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true">
 
 
 
             {% include 'section-navbar.html' %}
-
         <div id="main_section">
 
 
@@ -128,6 +127,8 @@
 
 
     </main>
+    <div class="cover-bar"></div>
+
             <!-- MODALS -->
         {% include 'modal-rewards.html' %}
         {% include 'template-modals.html' %}

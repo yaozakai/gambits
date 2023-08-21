@@ -27,12 +27,36 @@
 }
 
 .video-fishing {
-    width: 300px;
+    /* width: 300px; */
     /* margin-left: 91px; */
-    height: calc(var(--fishingMobileHeight) - 2px);
+    /* overflow: overlay; */
+    height: 100%;
     right: 0;
     position: absolute;
     z-index: 0;
+    clip-path: inset(0px 0px 0px 40px);
+}
+
+.video-fishing.portrait{
+    clip-path: inset(0px 0px 00px 0px);
+    height: auto;
+    width: calc(100% - 171px);
+    min-width: 112px;
+    min-height: 198px;
+    animation: up-down-pan 15s ease infinite;
+    /* position: absolute; */
+    /* bottom: -88px; */
+    /* top: -44px; */
+}
+
+@keyframes up-down-pan {
+	0%,
+	100% {
+		transform: translateY(-53%);
+	}
+	50% {
+		transform: translateY(0%);
+	}
 }
 
 .video-baccarat {
@@ -211,21 +235,26 @@
 
     .video-element-title {
         font-size: large;
-        position: absolute;
+        margin-left: 20px;
+        /* position: absolute; */
         bottom: 8px;
     }
 
     .video-element-logo-wide {
         max-width: 110px;
-        width: 100%;
+        /* width: 100%; */
         position: absolute;
         bottom: 40px;
         /* height: 100%; */
     }
 
     .video-fishing {
-        height: calc(var(--fishingMobileHeight) - 2px)!important;
-        right: -44px;
+        /* height: calc(var(--fishingMobileHeight) - 2px)!important; */
+        /* right: -15px; */
         /* float: right; */
+        clip-path: inset(0px 0px 0px 0px);
+    }
+
+    .video-fishing.portrait {
     }
 }
