@@ -2,7 +2,6 @@
 <hr class="main-container-divider mt-4">
 <div class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons/navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</div>
 <div class="gallery-container">
-    <video id="video-{{ k.split('_')[0] }}" playsinline="" autoplay="" loop="" muted="" class="video-fishing" src="static/video/{{ video_filename }}.mp4#t=0.1" type="video/mp4"></video>
 
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}

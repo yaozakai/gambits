@@ -25,7 +25,7 @@ from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS, TWITTER_CONSUMER_KEY, 
 # from route_stage import stage
 from route_cq9_api import cq9_api, game_launch, player_report_today
 # from route_template import template
-from route_user import user, tweet_twitter
+from route_user import user
 from route_wallet import wallet, etherscan_parser
 # from utils import set_flag_from_lang
 from utils import reload_game_titles, reload_icon_placement, robotext
@@ -91,7 +91,7 @@ def home():
     if 'notify' in session:
         notification_popup = True
         if session['notify'] == 'oauth':
-            notification = translations['snb:subtask:twt:success'][session['lang']]
+            notification = session['twitter_name'] + ': ' + translations['snb:subtask:twt:success'][session['lang']]
             notification_title = translations['snb:subtask:twt'][session['lang']]
 
     # referral
@@ -506,7 +506,6 @@ def create_app():
         reload_translations()
         reload_game_titles()
         load_robots_txt()
-        # tweet_twitter()
 
     # application.register_blueprint(template)
     application.register_blueprint(cq9_api)

@@ -81,7 +81,7 @@ class UserEntry(UserMixin, db.Model):
 
     snb_totalbet = db.Column(db.Float, default=0)
     snb_phone = db.Column(db.String(16))
-    snb_twitter = db.Column(db.Numeric(1), default=0)
+    snb_twitter = db.Column(db.String(16))
     snb_discord = db.Column(db.Numeric(1), default=0)
     snb_easter = db.Column(db.Numeric(1), default=0)
 

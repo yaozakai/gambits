@@ -11,9 +11,9 @@
     <div class="video-element-overlay-wide">
       <div class="video-element-description-wide">
         <img class="video-element-logo-wide" src="static/logos/motivation_logo.png">
-        <div class="video-element-title">{{ translations['live baccarat'][session['lang']] }}</div>
+        <div class="excited-text video-elem-desc">{{ translations['live baccarat'][session['lang']] }}</div>
 
-        <button class="btn btn-outline-success video-element-button-wide video-element-title launch" onclick="launch_game();"
+        <button class="btn btn-outline-success video-element-button-wide" onclick="launch_game();"
         {% if current_user.is_authenticated %}
                 name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
         {% else %}
@@ -35,9 +35,9 @@
     <div class="video-element-overlay-wide">
       <div class="video-element-description-wide">
         <img class="video-element-logo-wide" src="static/logos/yaxing_logo.png">
-        <div class="video-element-title">{{ translations['live baccarat'][session['lang']] }}</div>
+        <div class="excited-text video-elem-desc">{{ translations['live baccarat'][session['lang']] }}</div>
 
-        <button onclick="launch_game();" class="btn btn-outline-success video-element-button-wide video-element-title" onclick="launch_game();"
+        <button onclick="launch_game();" class="btn btn-outline-success video-element-button-wide" onclick="launch_game();"
         {% if current_user.is_authenticated %}
                 name="launch" data-bs-toggle="modal" data-bs-target="#loadingscreenModal">
         {% else %}

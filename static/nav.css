@@ -57,7 +57,7 @@
     display: inline-grid;
     border: 5px transparent;
     padding-left: 0px;
-    height: 44px!important;
+    height: 100%;
     padding-right: 0px;
     color: #28a745;
     height: 100%;
@@ -123,7 +123,7 @@
 }
 
 .navbar-icon {
-    height: 37px;
+    height: 49px;
     /* padding-bottom: 20px; */
     padding: 7px;
     margin: 0 auto 0 auto;
@@ -193,7 +193,7 @@
     }
 
     .navbar-icon {
-        height: 50px;
+        height: 45px;
     }
 
 }
@@ -201,6 +201,7 @@
 @media (max-width: 580px) {
     .nav-link-title {
         font-size: 0.9rem;
+        max-height: 30px;
     }
 
 }
@@ -208,6 +209,8 @@
 @media (max-width: 500px) {
     .nav-link-title {
         font-size: 0.7rem;
+        padding-top: 0px;
+        /* max-height: 10px; */
     }
 
 }
@@ -263,6 +266,7 @@
         display: flex;
         width: var(--navDesktopWidth);
         border-width: medium;
+        height: 44px!important;
     }
 
    .nav-bar-selector {

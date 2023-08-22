@@ -7,14 +7,14 @@
 <!-- Rewards popup -->
 <div class="modal fade" id="rewardsModal" tabindex="-1" role="dialog" aria-labelledby="rewardsModalWindow" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document" id="rewardsModalWindow">
-        <div class="modal-content">
+        <div class="modal-content" style="position: absolute;">
             <div class="modal-header">
                 <h3 class="modal-title neon">{{ translations['bonus rewards:title'][session['lang']] }}</h3>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" >
+            <div id="reward-modal-body" class="modal-body" style="overflow-y: auto;">
 
                 <div class="green-text mb-2" style="text-align: center;">{{ translations['bonus rewards:desc'][session['lang']] }}</div>
                 <div class="d-flex modal-divider-horz"><div class="vr"></div></div>
@@ -23,7 +23,7 @@
                 <div class="green-text mb-2" style="text-align: left;">{{ translations['signup bonus:desc long'][session['lang']] }}</div>
 
                 <table class="table table-sm list-group mb-2" onclick="snb_table_click();">
-                    <tr>
+                    <tr style="display: block;">
                       <td id="snb-row-sms" class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
                           {% if current_user.snb_phone %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
@@ -36,7 +36,7 @@
                       </td>
                     </tr>
                     {% if not current_user.snb_phone %}
-                    <tr>
+                    <tr style="display: block;">
                         <td class="" style="padding: 0;border: none;">
                             <div id='span-snb-phone' class="rowDrop signup-task-drop">
                                 <div style="display: flow-root;">
@@ -128,7 +128,8 @@
                     </tr>
                     {% endif %}
 
-                   <tr>
+                   <tr style="display: block;">
+
                         <td id="snb-row-twitter" class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
                           {% if current_user.snb_twitter %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
@@ -141,7 +142,7 @@
                         </td>
                    </tr>
                    {% if not current_user.snb_twitter %}
-                   <tr>
+                    <tr style="display: block;">
                         <td class="" style="padding: 0;border: none;">
                             <div id='span-snb-twitter' class="rowDrop signup-task-drop">
                                 <div style="display: flow-root;">
@@ -155,7 +156,7 @@
                                         <div class='green-text-outline pt-2'>{{ translations['snb:subtask:twt'][session['lang']] }}</div>
                                         <div class="pt-2" style="display: flex;">
                                             <button id="snb-connect-twitter" class="btn btn-outline-success" onclick="ajax_connect_twitter();">
-                                                <img src="static/logos/Twitter X.svg" class="svg-twitter-logo" style="height: 13px;margin: 0 0 3px 2px;filter: invert(99%) sepia(0%) saturate(7498%) hue-rotate(249deg) brightness(102%) contrast(102%);"> {{ translations['snb:subtask:twt'][session['lang']] }}
+                                                <img src="static/logos/twitterX.svg" class="svg-twitter-logo" style="height: 13px;margin: 0 0 3px 2px;filter: invert(99%) sepia(0%) saturate(7498%) hue-rotate(249deg) brightness(102%) contrast(102%);"> {{ translations['snb:subtask:twt'][session['lang']] }}
                                             </button>
                                         </div>
                                     </div>
@@ -188,13 +189,7 @@
                    </tr>
                     {% endif %}
 
-
-<!--                    /////////-->
-
-
-
-
-                    <tr>
+                    <tr style="display: block;">
                       <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
                           {% if current_user.snb_discord %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
@@ -206,7 +201,7 @@
                           {% endif %}
                       </td>
                     </tr>
-                    <tr>
+                    <tr style="display: block;">
                       <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
                           {% if current_user.snb_easter %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
@@ -218,7 +213,7 @@
                           {% endif %}
                       </td>
                     </tr>
-                    <tr>
+                    <tr style="display: block;">
                         <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
                           {% if current_user.snb_totalbet < 100 %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>

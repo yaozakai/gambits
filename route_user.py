@@ -1,8 +1,8 @@
 import math
 import random
 import urllib
-
-# from cgi import parse_qsl
+import snscrape.modules.twitter as sntwitter
+import pandas as pd
 
 import oauth2 as oauth
 
@@ -268,22 +268,26 @@ def twt_oauth():
                          # 'Content-Length': '76',
                          # 'Host': 'api.twitter.com'
                          }
-
-                # The OAuth Client request works just like httplib2 for the most part.
                 resp, content = oauth_client.request(request_token_url, "POST", headers=headers)
                 params = content.decode("utf-8")
+
                 user = db_get_user()
-                user.oauth_token = parseURLparam(params, 'oauth_token')
-                user.oauth_token_secret = parseURLparam(params, 'oauth_token_secret')
-                db.session.commit()
-                session['notify'] = 'oauth'
-                return redirect(url_for('home'))
+                if user:
+                    twitter_name = parseURLparam(params, 'screen_name')
+                    user.oauth_token = parseURLparam(params, 'oauth_token')
+                    user.oauth_token_secret = parseURLparam(params, 'oauth_token_secret')
+                    user.twt_user_id = parseURLparam(params, 'user_id')
+                    user.snb_twitter = twitter_name
+                    db.session.commit()
+                    session['notify'] = 'oauth'
+                    session['twitter_name'] = twitter_name
+                    return redirect(url_for('home'))
+                else:
+                    flask.abort(69)
                 # return setup_home_template(notification=translations['snb:subtask:twt:success'][session['lang']],
                 #                            notification_title=translations['snb:subtask:twt'][session['lang']])
 
     return redirect(url_for('home'))
-
-    # return setup_home_template()
 
 
 def parseURLparam(big_str, small_str):

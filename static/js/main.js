@@ -86,8 +86,8 @@ function ajax_connect_twitter(){
             location.href = response;
         },
         error: function(e) {
-            send_alert('snb:subtask:twt', 'try again later')
             $('#loadingscreenModal').modal('hide')
+            send_alert('snb:subtask:twt', 'try again later')
         }
     });
 
@@ -236,7 +236,7 @@ function launch_game() {
         }
       },
       error: function(e) {
-        $('#loadingscreenModal').modal('hide');
+            $('#loadingscreenModal').modal('hide');
             $('body').removeClass('modal-open');
             $('.modal-backdrop').remove();
       }
