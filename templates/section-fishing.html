@@ -1,7 +1,7 @@
 {% for category in icon_placement if category == 'fishing' %}
 <hr class="main-container-divider mt-4">
 <div class="video-element-title gallery-header" id="header-{{ category }}"><img class="gallery-header-icon" src="{{ root_path }}static/icons/navbar/{{ category }}.png">{{ translations[category][session['lang']] }}</div>
-<div class="gallery-container">
+<div class="gallery-container fishing">
     {% for k in icon_placement[category] %}
         {% set outer_loop = loop %}
             {% if outer_loop.index == 1 %}

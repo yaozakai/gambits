@@ -233,6 +233,7 @@
 
     .video-element-logo-wide {
         max-width: 110px;
+        max-height: 21px;
         /* width: 100%; */
         position: absolute;
         bottom: 40px;
@@ -253,18 +254,27 @@
 @media (max-width: 540px) {
     .video-element-overlay-wide {
         height: 105%;
-        background-image: linear-gradient(to top, #212529 25%, transparent 32%);
+        background-image: linear-gradient(to top, #212529 17%, transparent 25%, transparent 92%, #212529 100%);
     }
 
     .video-element-logo-wide {
-        bottom: 69px;
-        left: 5%;
+        bottom: 55px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .video-elem-desc{
-        right: 30px;
+        /* right: 30%; */
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
         position: absolute;
-        bottom: 69px;
+        bottom: 298px;
+        /* width: 125px; */
+        text-align: center;
     }
 
     .video-element-button-wide {
@@ -272,7 +282,25 @@
         /* margin: 0 auto; */
         right: 15px;
         left: 15px;
-        bottom: 8px;
+        bottom: 7px;
     }
+
+    .video-element-button-wide {
+    max-width: fit-content;
+    max-height: 45px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    }
+    
+}
+
+
+
+@media (max-width: 460px) {
+
     
 }

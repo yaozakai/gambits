@@ -98,7 +98,8 @@
 @media (max-width: 1300px) {
 
      #main_section {
-        left: -10px;
+        margin-left: -10px;
+        left: 0;
      }
 
 }

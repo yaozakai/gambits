@@ -85,7 +85,7 @@ body {
 
 
 .main_container {
-    /* width: 100%; */
+    width: 100%;
     /* right: -0%; */
     max-width: var(--maxWidth);
     margin: 0 auto;
@@ -632,8 +632,8 @@ h3 {
 .main-container-divider {
     border-top: 1px solid #1987545e;
     /* position: inherit; */
-    width: calc(100% + 60px);
-    margin-left: -30px;
+    /* width: 100%; */
+    /* margin-left: -30px; */
     /* left: 185px; */
 }
 
