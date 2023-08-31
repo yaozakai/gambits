@@ -80,7 +80,7 @@
 
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
 
      #main_section {
         position: relative;
@@ -99,6 +99,7 @@
 
      #main_section {
         margin-left: -10px;
+        /* right: 0; */
         left: 0;
      }
 

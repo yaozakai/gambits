@@ -235,7 +235,7 @@
 }
 
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
     .navbar-icon {/* float: right; */right: 0;margin-right: 12px;position: relative;height: 37px;}
 
     .nav-link-title {

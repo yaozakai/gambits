@@ -92,6 +92,7 @@ body {
     position: relative;
     padding-left: var(--navDesktopWidth);
     /* padding-right: 10px; */
+    overflow-x: hidden;
     background: #322132;
 }
 
