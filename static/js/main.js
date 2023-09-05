@@ -50,10 +50,8 @@ function verify_sms_code(){
             if (self.error == 0){
                 send_alert("snb:task:sms", "snb:task:phone:success", false, '', 'green')
                 $('#snb-phone-status').addClass('bi-check-square-fill')
-                $('#snb-phone-status').removeClass('bi-exclamation-square-fill')
+                $('#snb-phone-status').removeClass('bi-x-square-fill')
                 $('#snb-phone-status').css('color', 'green')
-//                $('#span-snb-phone').remove()
-
                 $("#sms-rowDrop").remove()
                 $("#span-snb-phone").remove()
                 $('#snb-row-sms').find("i.bi-chevron-right").remove()
@@ -76,10 +74,41 @@ function verify_sms_code(){
     });
 }
 
+function ajax_submit_tweet_url(){
+    $('#loadingscreenModal').modal('show')
+
+    $.ajax({
+        url: "/submit_tweet_url",
+        type: "post",
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify({
+            "url":$('#tweet-url').val().trim()
+        }),
+        success: function (response) {
+            $('#loadingscreenModal').modal('hide')
+
+            $('#snb-twitter-status').addClass('bi-exclamation-square-fill')
+            $('#snb-twitter-status').removeClass('bi-x-square-fill')
+            $('#snb-twitter-status').css('color', 'yellow')
+            $('#span-snb-twitter').remove()
+            $('#snb-row-twitter').find("i.bi-chevron-right").remove()
+
+            send_alert('snb:subtask:twt', 'snb:subtask:twt:success', color='green')
+        },
+        error: function(e) {
+            $('#loadingscreenModal').modal('hide')
+            send_alert('snb:subtask:twt', 'try again later')
+        }
+    })
+}
+
+
+
 function ajax_connect_twitter(){
 
     $.ajax({
-        url: "/connect_twitter",
+        url: "/submit_tweet_url",
         type: "GET",
         success: function (response) {
 //            window.location.replace(response);
@@ -89,7 +118,7 @@ function ajax_connect_twitter(){
             $('#loadingscreenModal').modal('hide')
             send_alert('snb:subtask:twt', 'try again later')
         }
-    });
+});
 
 
 //    $.ajax({

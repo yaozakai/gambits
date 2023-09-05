@@ -5,6 +5,8 @@ import re
 import datetime
 import socket
 import time
+import urllib
+
 import flask
 
 import requests
@@ -169,13 +171,14 @@ def reload_translations():
     debug_out('reload_translations')
     reader = csv.DictReader(open('static/csv/translations.csv', mode='r', encoding='utf-8-sig'))
     global translations
-    # translations = {name: [] for name in reader.fieldnames}
     for row in reader:
-        # print(row)
+        if row['name'].split(':')[0] == 'urlencode':
+            for lang in row:
+                if lang != 'name':
+                    row[lang] = urllib.parse.quote(row[lang], safe='')
         # trad = {'name': chinese_converter.to_traditional(row['zh-cn']), 'lang': 'zh-tw'}
         # row['zh-tw'] = chinese_converter.to_traditional(row['zh-cn'])
         translations[row['name']] = row
-    # session['translations'] = 'fesfesf'
 
 
 def load_crypto_prices():

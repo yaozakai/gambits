@@ -11,7 +11,6 @@ from constants import SMS_SEVENIO_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KE
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha, LoginForm, RegisterForm
-from util_geoloc import set_session_geo_lang
 from util_render_template import setup_home_template
 from utils import *
 
@@ -298,6 +297,19 @@ def parseURLparam(big_str, small_str):
     param = search_str[:amp]
 
     return param
+
+
+@user.route('/submit_tweet_url', methods=['POST'])
+@login_required
+def submit_tweet_url():
+    try:
+        url = json.loads(request.data)['url']
+        db_user = db_get_user()
+        db_user.snb_twitter_url = url
+        db.session.commit()
+        return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+    except():
+        return json.dumps({'success': False}), 500, {'ContentType': 'application/json'}
 
 
 @user.route('/connect_twitter', methods=['GET'])

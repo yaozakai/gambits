@@ -152,6 +152,12 @@ sms:error:phoneExists,電話號碼已被使用，請嘗試使用其他號碼,电
 sms:error:incorrectPin,引腳不正確,引脚不正确,Incorrect pin,잘못된 핀,พินไม่ถูกต้อง,ghim sai,pin incorrecto,Pin salah,Pino incorreto,間違ったピン
 sms:error:incorrectPhone,電話號碼不正確,电话号码不正确,Incorrect phone number,잘못된 전화번호,หมายเลขโทรศัพท์ไม่ถูกต้อง,Số điện thoại không chính xác,Número de teléfono incorrecto,Nomor telepon salah,Número de telefone incorreto,電話番号が間違っています
 sms:error:expired,OTP PIN 碼已過期。 請再試一次,OTP PIN 码已过期。 请再试一次,OTP pin expired. Please try again,OTP 핀이 만료되었습니다. 다시 시도해 주세요,รหัส OTP หมดอายุ กรุณาลองอีกครั้ง,Pin OTP đã hết hạn. Vui lòng thử lại,El pin OTP caducó. Inténtalo de nuevo,Pin OTP kedaluwarsa. Silakan coba lagi,"Pino OTP expirado. Por favor, tente novamente",OTP ピンの有効期限が切れました。 もう一度試してください
-snb:subtask:twt,請連接您的 Twitter 帳戶,请连接您的 Twitter 帐户,"Connect your Twitter to Gambit's, we will not post anything on your behalf.",트위터 계정을 연결해주세요,กรุณาเชื่อมต่อบัญชี Twitter ของคุณ,Vui lòng kết nối tài khoản Twitter của bạn,Conecta tu cuenta de Twitter,Silakan hubungkan akun Twitter Anda,Conecte sua conta do Twitter,Twitterアカウントを接続してください
-snb:subtask:twt:success,,,Account successfully connected to your Twitter account!,,,,,,,
+snb:subtask:twt,請連接您的 Twitter 帳戶,请连接您的 Twitter 帐户,Share a pre-written tweet for us.,트위터 계정을 연결해주세요,กรุณาเชื่อมต่อบัญชี Twitter ของคุณ,Vui lòng kết nối tài khoản Twitter của bạn,Conecta tu cuenta de Twitter,Silakan hubungkan akun Twitter Anda,Conecte sua conta do Twitter,Twitterアカウントを接続してください
+snb:subtask:twt2,,,Follow us on,,,,,,,
+snb:subtask:twt3,,,Share your link with us and we will verify,,,,,,,
+snb:subtask:twt:success,,,Success! Please wait while we confirm your tweet and verify your follow.,,,,,,,
 snb:subtask:twt:shareTweet,,,Share tweet,,,,,,,
+urlencode:tweet,,,I just got $50 for this tweet for Gambit's Casino!,,,,,,,
+urlencode:tweet2,,,New players get a $50 sign up bonus!,,,,,,,
+urlencode:tweet3,,,"Profit share from referrals, up to 88%!",,,,,,,
+submit,,,Submit,,,,,,,

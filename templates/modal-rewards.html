@@ -29,15 +29,15 @@
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:sms'][session['lang']] }}
                           {% else %}
-                            <i id="snb-phone-status" class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            <i id="snb-phone-status" class="bi bi-x-square-fill" style="color: red;"></i>
                             {{ translations['snb:task:sms'][session['lang']] }}
                             <i class="bi bi-chevron-right" style="right: 15px;position: absolute; transition: all 300ms;"></i>
                           {% endif %}
                       </td>
                     </tr>
                     {% if not current_user.snb_phone %}
-                    <tr style="display: block;">
-                        <td class="" style="padding: 0;border: none;">
+                    <tr style="display: flex;">
+                        <td class="" style="padding: 0;border: none;width: 100%;">
                             <div id='span-snb-phone' class="rowDrop signup-task-drop">
                                 <div style="display: flow-root;">
                                     <div id="snb-sms-container">
@@ -64,13 +64,9 @@
                                 <script>
                                     if (typeof iti !== 'undefined'){
                                         iti.destroy();
-
                                     } else {
                                         let iti;
                                     }
-
-
-
                                     $(document).ready(function(){
                                         $('#sms-send-button').click(function(){
                                             $('#sms-digitfield-first').focus();
@@ -113,12 +109,6 @@
                                            preferredCountries: false,
                                            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js?1690975972744"
                                         });
-
-<!--                                        $("table").on('click', function(){-->
-<!--                                            snb_table_click()-->
-<!--                                        });-->
-
-
                                     });
 
                                 </script>
@@ -127,75 +117,54 @@
                         </td>
                     </tr>
                     {% endif %}
-
-                   <tr style="display: block;">
-
+                    <tr style="display: block;">
                         <td id="snb-row-twitter" class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
                           {% if current_user.snb_twitter %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:twitter'][session['lang']] }}
+                          {% elif current_user.snb_twitter_url %}
+                            <i class="bi bi-exclamation-square-fill" style="color: yellow;"></i>
+                            {{ translations['snb:task:twitter'][session['lang']] }}
+<!--                            <i class="bi bi-chevron-right" style="right: 15px;position: absolute; transition: all 300ms;"></i>-->
                           {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            <i id="snb-twitter-status" class="bi bi-x-square-fill" style="color: red;"></i>
                             {{ translations['snb:task:twitter'][session['lang']] }}
                             <i class="bi bi-chevron-right" style="right: 15px;position: absolute; transition: all 300ms;"></i>
                           {% endif %}
                         </td>
                    </tr>
-                   {% if not current_user.snb_twitter %}
-                    <tr style="display: block;">
+                    {% if not current_user.snb_twitter %}
+                    <tr style="display: flex;">
                         <td class="" style="padding: 0;border: none;">
                             <div id='span-snb-twitter' class="rowDrop signup-task-drop">
                                 <div style="display: flow-root;">
                                     <div>
-                                        <div class='green-text-outline pt-2'>{{ translations['snb:subtask:twt'][session['lang']] }}</div>
+                                        <div class='green-text-outline pt-2'>1. {{ translations['snb:subtask:twt'][session['lang']] }}</div>
                                         <div class="pt-2" style="display: flex;">
-                                            <a target="_blank" id="snb-shareTweet" class="btn btn-outline-success green-text" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fe453-2001-b011-2000-1b64-8142-36d-32da-83e6.ngrok-free.app&text=I%20got%20%2410%20for%20this%20tweet%20from%20Gambit%27s%20Casino%21%0A%0A%2450%20sign-up%20bonus%21%0A%0A50%25%20referral%20profit%20share%21%0A%0A%40gambitsvip%0A">
+<!--                                            <a target="_blank" id="snb-shareTweet" class="btn btn-outline-success green-text" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgambits.vip&text=I%20got%20%2410%20for%20this%20tweet%20from%20Gambit%27s%20Casino%21%0A%0A%2450%20sign-up%20bonus%21%0A%0A50%25%20referral%20profit%20share%21%0A%0A%40gambitsvip%0A">-->
+                                            <a target="_blank" id="snb-shareTweet" class="btn btn-outline-success green-text" href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fgambits.vip&text={{ translations['urlencode:tweet'][session['lang']] }}%0A%0A{{ translations['urlencode:tweet2'][session['lang']] }}%0A%0A{{ translations['urlencode:tweet3'][session['lang']] }}%0A%0A">
                                                 {{ translations['snb:subtask:twt:shareTweet'][session['lang']] }}
                                             </a>
                                         </div>
-                                        <div class='green-text-outline pt-2'>{{ translations['snb:subtask:twt'][session['lang']] }}</div>
+                                        <div class='green-text-outline pt-2'>2. <a href="https://twitter.com/gambitsvip">{{ translations['snb:subtask:twt2'][session['lang']] }} <img src="static/logos/twitterX.svg" class="svg-twitter-logo" style="height: 13px;margin: 0 0 3px 2px;filter: invert(38%) sepia(75%) saturate(480%) hue-rotate(100deg) brightness(93%) contrast(85%);"></a></div>
+                                        <div class='green-text-outline pt-2'>3. {{ translations['snb:subtask:twt3'][session['lang']] }}</div>
                                         <div class="pt-2" style="display: flex;">
-                                            <button id="snb-connect-twitter" class="btn btn-outline-success" onclick="ajax_connect_twitter();">
-                                                <img src="static/logos/twitterX.svg" class="svg-twitter-logo" style="height: 13px;margin: 0 0 3px 2px;filter: invert(99%) sepia(0%) saturate(7498%) hue-rotate(249deg) brightness(102%) contrast(102%);"> {{ translations['snb:subtask:twt'][session['lang']] }}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div id="snb-retweet">
-                                        <div class='green-text-outline pt-2'>{{ translations['sms enter code'][session['lang']] }}</div>
-                                        <div class="mt-2 mb-2" style="display: flex;height: 40px;float: right;">
-                                            <input id="sms-digitfield-first" type="text" autocomplete="one-time-code" inputmode="numeric" maxlength="4" pattern="\d{4}">
-
-<!--                                            <input id="sms-digitfield-first" type="text" class="sms-digitfield" maxlength="1" pattern="[0-9]" tabindex= "0">-->
-<!--                                            <input type="text" class="sms-digitfield" maxlength="1" pattern="[0-9]" tabindex= "0">-->
-<!--                                            <input type="text" class="sms-digitfield" maxlength="1" pattern="[0-9]" tabindex= "0">-->
-<!--                                            <input type="text" class="sms-digitfield" maxlength="1" pattern="[0-9]" tabindex= "0">-->
-                                            <button id="snb-sms-verify" onclick="verify_sms_code()" type="button" class="btn btn-outline-success">{{ translations['verify'][session['lang']] }}</button>
+                                            <input id="tweet-url" class="form-control"/>
+                                            <button onclick="ajax_submit_tweet_url()" class="btn btn-primary" id="submit-tweet-url"><i class="bi bi-send"></i></button>
                                         </div>
                                     </div>
                                 </div>
-
-                                <script>
-                                    $(document).ready(function(){
-                                        $('#snb-connect-twitter').click(function(){
-                                            $('#loadingscreenModal').modal('show');
-
-                                        });
-                                    });
-
-                                </script>
-
                             </div>
                         </td>
                    </tr>
                     {% endif %}
-
                     <tr style="display: block;">
                       <td class="list-group-item signup-task bg-dark excited-text" style="background-color: #9fb4aa;">
                           {% if current_user.snb_discord %}
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:discord'][session['lang']] }}
                           {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            <i class="bi bi-x-square-fill" style="color: red;"></i>
                             {{ translations['snb:task:discord'][session['lang']] }}
                             <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
                           {% endif %}
@@ -207,7 +176,7 @@
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:egg'][session['lang']] }}
                           {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            <i class="bi bi-x-square-fill" style="color: red;"></i>
                             {{ translations['snb:task:egg'][session['lang']] }}
                             <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
                           {% endif %}
@@ -219,7 +188,7 @@
                             <i class="bi bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:play100'][session['lang']] }}
                           {% else %}
-                            <i class="bi bi-exclamation-square-fill" style="color: #ff00009e;"></i>
+                            <i class="bi bi-x-square-fill" style="color: red;"></i>
                             {{ translations['snb:task:play100'][session['lang']] }}
                             <i class="bi bi-chevron-right" style="right: 15px;position: absolute;"></i>
                           {% endif %}

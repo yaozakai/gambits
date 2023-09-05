@@ -15,7 +15,17 @@ html {
 --fishingMobileHeightPort: 60vw!important;
 }
 
-.cover-bar {}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    background-color: #00c1b0!important;
+    -webkit-box-shadow: 0 0 0 50px #281c2b inset;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: #c68d47 !important;
+}
 
 body {
   background: black;
@@ -45,7 +55,7 @@ body {
 }
 
 #main-body::-webkit-scrollbar-track {
-  background-color: #2c2828;
+  background-color: #1d1b1b;
 }
 
 #main-body::-webkit-scrollbar-thumb {
@@ -361,13 +371,22 @@ h3 {
 }
 
 .form-control {
-    background-color: #92a59d;
+    background-color: #6c417442;
     border-color: black;
+    color: #ffffffb8;
 }
 
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #908989;
+  color: #6c417442;
   opacity: 1; /* Firefox */
+}
+
+.form-control:focus {
+    color: white;
+    background-color: #1f4a2659;
+    border-color: #402445;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(40 28 43 / 66%);
 }
 
 .input-group-text {
@@ -507,9 +526,9 @@ h3 {
 #forgotPassword {
     /* padding-left: 0px; */
     float: right;
-    right: 5px;
-    top: -15px;
-    height: 100%;
+    right: 10px;
+    top: 115px;
+    /* height: 100%; */
     position: absolute;
     font-size: small;
 }

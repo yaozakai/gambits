@@ -1,12 +1,8 @@
-# import sys
-# from operator import itemgetter
 from operator import itemgetter
 from os import environ
 from threading import Lock
 
 from flask import render_template, redirect, url_for, make_response
-# from os import environ
-# from flask_inflate import inflate
 
 from flask_login import login_required, logout_user
 from flask_wtf import csrf
@@ -17,18 +13,12 @@ from db_access import *
 from forms import LoginForm, RegisterForm
 from util_geoloc import set_session_geo_lang
 from util_render_template import setup_pendingWithdraw_template, setup_search_template, setup_home_template
-# from util_geoloc import set_session_geo_lang
-# from email_confirmation import create_verify_email, create_reset_pass_email
-# from forms import verify_captcha
 from config import app as application, socketio
-from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KEY_SECRET
-# from route_stage import stage
+from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
 from route_cq9_api import cq9_api, game_launch, player_report_today
-# from route_template import template
 from route_user import user
 from route_wallet import wallet, etherscan_parser
-# from utils import set_flag_from_lang
-from utils import reload_game_titles, reload_icon_placement, robotext
+from utils import reload_game_titles, reload_icon_placement
 
 from os.path import abspath, dirname
 
@@ -49,19 +39,12 @@ icon_placement = []
 game_titles = []
 
 
-# CAPTCHA_CONFIG = {'SECRET_CAPTCHA_KEY': 'sshhhhhhh secret cphaata key'}
-
-# main = Blueprint('main', __name__)
-
-
 # reloading will check user login state
 @application.login_manager.user_loader
 def load_user(user_id):
     return db_get_user_from_id(user_id)
 
 
-# @application.route('/twt', methods=['GET'])
-# @inflate
 def bot_check():
     accepted_bots = {'Twitterbot', 'node-fetch'}
     if request.user_agent.string.split('/')[0] in accepted_bots:
