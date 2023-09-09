@@ -31,7 +31,7 @@
             <!-- start DROPDOWN -->
             <div class="dropdown open">
                 <!-- start DROPDOWN button -->
-                <button class="btn btn-outline-success dropdown-toggle" id="top-bar-dropdown-button" type="button">
+                <button class="btn btn-outline-success" id="top-bar-dropdown-button" type="button">
                     <div class="top-dropdown-button" id="username-field">{{ current_user.username }}</div>
 <!--                    <div class="top-dropdown-button" id="address-field"><i class="bi bi-wallet2"></i> <div id="address-field-sub">{{ current_user.publicAddress }}</div></div>-->
                     <span class="caret"></span>
@@ -85,7 +85,7 @@
                     <div class="dropdown-divider"></div>
 <!--Get rewards-->
                     <li>
-                        <button class="btn dropdown-item neon" id="rewards-copy-button" data-bs-toggle="modal" data-bs-target="#rewardsModal">
+                        <button class="btn dropdown-item excited-text" id="rewards-copy-button" data-bs-toggle="modal" data-bs-target="#rewardsModal">
                             <i class="bi bi-gift"></i>
                             {{ translations['get rewards'][session['lang']] }}
                         </button>
@@ -132,10 +132,10 @@
                           </div>
 
                         <div class="dropdown">
-                            <button class="btn btn-outline-success" type="button" id="dropdown-language" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-outline-success" type="button" id="dropdown-language" data-bs-toggle="dropdown">
                                 <span class="flag-icon flag-icon-{{ session['flag'] }}"></span>
                             </button>
-                            <ul class="dropdown-menu green-text" aria-labelledby="dropdown-language" id="language-select" >
+                            <ul class="dropdown-menu green-text" id="language-select">
             {% endif %}
 <!--                                <li><button onclick="lang_change(this);" class="dropdown-item" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></button></li>-->
                                 <li><a class="dropdown-item" href="/?lang=en" id="lang-en"><span class="flag-icon flag-icon-gb me-1"></span> <span>English</span></a></li>
@@ -213,15 +213,15 @@
 
         });
 
-        window.onclick = function(event) {
-          if (event.target.id == 'username-field' || event.target.id == 'top-bar-dropdown-button' ) {
+<!--        window.onclick = function(event) {-->
+<!--          if (event.target.id == 'username-field' || event.target.id == 'top-bar-dropdown-button' ) {-->
 
-            $('#topbar-dropdown-menu').toggle()
-          } else {
+<!--            $('#topbar-dropdown-menu').toggle()-->
+<!--          } else {-->
 
-            $('#topbar-dropdown-menu').hide()
-          }
-        }
+<!--            $('#topbar-dropdown-menu').hide()-->
+<!--          }-->
+<!--        }-->
 
 {% endif %}
 

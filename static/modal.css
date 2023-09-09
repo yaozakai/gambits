@@ -136,9 +136,27 @@
 }
 
 .signup-task {
-    background-color: #9fb4aa;
-    padding: 10px;
-    max-width: 470px;
+    background-color: #100317;
+    border-bottom-color: darkgreen;
+    width: 465px;
+}
+
+.accordion-button {
+    background: transparent!important;
+    display: block;
+}
+
+.accordion-header:hover {
+    border: 1px white;
+}
+
+.accordion {
+    padding-top: 12px;--bs-accordion-border-color: transparent;
+    --bs-accordion-btn-focus-box-shadow: 0 0 0 0rem rgb(26 135 84 / 25%);
+}
+
+.accordion-body {
+    background: #15081c!important;
 }
 
 .signup-task-drop {
@@ -222,6 +240,8 @@
     display: none;
 }
 
+.rewards-rowDrop {padding: 0!important;border: none;width:100%;}
+
 #mobile_code {
     padding-left: 95px!important;
     background: none;
@@ -229,6 +249,10 @@
     border-color: rgb(26, 135, 84);
     color: rgb(26, 135, 84);
     max-width: 220px;
+}
+
+#mobile_code::placeholder {
+    color: #008000a6;
 }
 
 @media (max-width: 514px) {

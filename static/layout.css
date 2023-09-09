@@ -150,15 +150,16 @@ body {
 }
 
 .excited-text {
-    /* color: greenyellow!important; */
     element.style {
     color: #ab7936;
 };
     element.style {
     color: #ab7936;
 };
-    color: #ab7936;
-    text-shadow: 1px 2px black;
+    color: #ab7936!important;
+    text-shadow: 1px 2px black!important;
+    display: table;
+    margin: 0 auto;
 }
 
 .med-excited-text {
@@ -373,7 +374,7 @@ h3 {
 .form-control {
     background-color: #6c417442;
     border-color: black;
-    color: #ffffffb8;
+    color: #1a8754;
 }
 
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -616,8 +617,8 @@ h3 {
     width: fit-content;
     z-index: 1035;
     /* top: 3px; */
-    /* position: relative; */
-    background-color: ##212529;
+    /* display: block; */
+    background-color: #212529;
     /* border-radius: 0.25rem; */
     /* border-color: cornsilk; */
 }
@@ -653,7 +654,7 @@ h3 {
     border-top: 1px solid #1987545e;
     /* position: inherit; */
     /* width: 100%; */
-    /* margin-left: -30px; */
+    margin: 0;
     /* left: 185px; */
 }
 

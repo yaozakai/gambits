@@ -1,21 +1,24 @@
-<div class="socials-container">
-<!--    <div class="video-element-title" id="header-social-networks"> Social Networks</div>-->
-    <div class="socials-container-child ps-4" >
-        <a href="https://discord.gg/ebjsys6h">
-                <i class="bi bi-discord" style="color: #FFFFFF;font-size: 26px;"></i>
-        </a>
+<div id="socials-container">
+    <div class="video-element-title ps-1 pt-1 pb-1" style="text-align:center;background: #1b121b;">
+        Join us!
     </div>
-    <div class="socials-container-child ps-1">
-        <a href="https://twitter.com/gambitsvip">
-            <img src="static/logos/twitterX.svg" class="svg-twitter-logo" style="height: 19px;margin: 0 0 3px 2px;filter: invert(99%) sepia(7%) saturate(126%) hue-rotate(239deg) brightness(118%) contrast(100%);">
-        </a>
-    </div>
-    <div class="socials-title green-text">{{ translations['socials:discord'][session['lang']] }}</div>
-<!--    <a class="socials-container-child" href="https://twitter.com/gambitsvip">-->
-<!--        <div class="socials-block" >-->
-<!--&lt;!&ndash;            <i class="bi bi-twitter med-excited-text socials-icon"></i>&ndash;&gt;-->
-<!--            <div class="socials-title med-excited-text" >{{ translations['socials:twitter'][session['lang']] }}</div>-->
-<!--        </div>-->
-<!--    </a>-->
+
+    <a class="btn btn-link socials-container-child" href="https://discord.gg/ebjsys6h">
+        <img src="static/logos/logo-discord.png" class="socials-icon">
+        <div class="socials-title green-text">{{ translations['socials:discord'][session['lang']] }}</div>
+    </a>
+    <a class="btn btn-link socials-container-child" href="https://twitter.com/gambitsvip">
+        <img src="static/logos/logo-twitter.png" class="socials-icon">
+        <div class="socials-title green-text">{{ translations['socials:twitter'][session['lang']] }}</div>
+    </a>
+    <hr class="main-container-divider">
+
+    <button class="btn green-text" style="text-align:center;background-color: #422843;width: 100%;">
+        Closing... <span id="socials-counter">10</span>
+    </button>
+
+    <script>
+
+    </script>
 </div>
 

@@ -505,7 +505,9 @@ if __name__ == '__main__':
         reload_translations()
         reload_game_titles()
         load_robots_txt()
-
+    application.register_blueprint(cq9_api)
+    application.register_blueprint(user)
+    application.register_blueprint(wallet)
     print('Socket: ' + socket.gethostname())
     environ['env'] = 'stage'
 

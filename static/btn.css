@@ -219,3 +219,15 @@
     100% { background-position: 0 0; }
 }
 
+.bi-discord {
+    color: #5765f2;
+}
+
+.list-button {
+    width: 100%;
+}
+
+.list-button:hover {
+    border: 5px #68f008!important;
+    display: block;
+}
