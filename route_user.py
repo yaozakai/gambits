@@ -351,22 +351,11 @@ def sendSMS():
     for i in range(4):
         otp_code += digits[math.floor(random.random() * 10)]
 
-    phoneEntry = PhoneEntry().query.filter_by(phone=to).first()
-    if phoneEntry is not None:
-        if phoneEntry.verified:
-            return jsonify(error=2)
-        else:
-            # user is retrying, not verified yet
-            phoneEntry.otp = otp_code
-            phoneEntry.timestamp = datetime.datetime.now(tz=pytz.timezone('Asia/Shanghai'))
+    phoneEntry = UserEntry().query.filter_by(snb_phone_number=to).first()
+    db_user = db_get_user()
 
-    else:
-        phoneEntry = PhoneEntry()
-        phoneEntry.phone = to
-        phoneEntry.otp = otp_code
-        db.session.add(phoneEntry)
-
-    db.session.commit()
+    if phoneEntry and phoneEntry is not db_user:
+        return jsonify(error=2)
 
     message = translations['sms:title'][session['lang']] + ' ' + otp_code + '\n' + \
               translations['sms:expires'][session['lang']]
@@ -380,6 +369,10 @@ def sendSMS():
     try:
         # if x.content.decode("utf-8").split('\n')[0] == '100':
         if x.content.decode("utf-8") == '100':
+            db_user.snb_phone_number = to
+            db_user.snb_phone_otp = otp_code
+            db_user.snb_phone_time = datetime.datetime.now(tz=pytz.timezone('Asia/Shanghai'))
+            db.session.commit()
             return jsonify(error=0)
         else:
             return jsonify(error=1)

@@ -12,7 +12,8 @@ html {
   --maxWidth: 1300px;
   --navDesktopWidth: 185px;
   --fishingMobileHeight: 36vw!important;
---fishingMobileHeightPort: 60vw!important;
+  --fishingMobileHeightPort: 60vw!important;
+  --bs-border-color: #1a8754!important;
 }
 
 input:-webkit-autofill,
@@ -277,7 +278,7 @@ body {
     /* width: 50%; */
 }
 
-.main-logo-long {height: 44px;}
+.main-logo-long {height: 45px;left: 10px;position: absolute;top: -5px;}
 
 .green-text-outline {
   color: #1a8754;
@@ -374,7 +375,7 @@ h3 {
 .form-control {
     background-color: #6c417442;
     border-color: black;
-    color: #1a8754;
+    color: #c68d47 !important;
 }
 
 .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -391,8 +392,9 @@ h3 {
 }
 
 .input-group-text {
-    background-color: #1f4a26;
+    background-color: #102614;
     border-width: 0px;
+    color: #c68d47!important;
 }
 
 .close {

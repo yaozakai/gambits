@@ -31,7 +31,7 @@
                             <i class="bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:sms'][session['lang']] }}
                         {% else %}
-                            <i id="snb-phone-status" class="bi bi-x-square-fill" style="color: red;"></i>
+                            <i id="snb-phone-status" class="bi bi-x-square-fill" style="color: #ff5f5f;"></i>
                             {{ translations['snb:task:sms'][session['lang']] }}
                         {% endif %}
                       </button>
@@ -64,9 +64,9 @@
                                     });
 
                                     $('#rewardsModal').on('hide.bs.modal', function(){
-                                        $(".bi-chevron-right").each(function() {
-                                            $(this).css("transform","rotate(0deg)")
-                                        });
+<!--                                        $(".bi-chevron-right").each(function() {-->
+<!--                                            $(this).css("transform","rotate(0deg)")-->
+<!--                                        });-->
 
                                         $(".signup-task-drop").each(function() {
                                             $(this).slideUp()
@@ -87,6 +87,11 @@
                                     });
 
 
+                                    if (typeof iti !== 'undefined'){
+                                        iti.destroy();
+                                    } else {
+                                        let iti;
+                                    }
                                     <!-- Country Code Selection-->
                                     iti = window.intlTelInput(document.getElementById("mobile_code"), {
                                         initialCountry: "{{ session['country'] }}",
@@ -114,7 +119,7 @@
                             <i class="bi-exclamation-square-fill" style="color: yellow;"></i>
                             {{ translations['snb:task:twitter'][session['lang']] }}
                           {% else %}
-                            <i id="snb-twitter-status" class="bi-x-square-fill" style="color: red;"></i>
+                            <i id="snb-twitter-status" class="bi-x-square-fill" style="color: #ff5f5f;"></i>
                             {{ translations['snb:task:twitter'][session['lang']] }}
                           {% endif %}
                       </button>
@@ -149,9 +154,9 @@
                             <i class="bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:discord'][session['lang']] }}
                         {% else %}
-                            <i class="bi-x-square-fill" style="color: red;"></i>
+                            <i class="bi-x-square-fill" style="color: #ff5f5f;"></i>
                             {{ translations['snb:task:discord'][session['lang']] }}
-                            <i class="bi-chevron-right" style="right: 15px;position: absolute;"></i>
+<!--                            <i class="bi-chevron-right" style="right: 15px;position: absolute;"></i>-->
                         {% endif %}
                       </button>
                     </h2>
@@ -172,7 +177,7 @@
                             <i class="bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:egg'][session['lang']] }}
                         {% else %}
-                            <i class="bi-x-square-fill" style="color: red;"></i>
+                            <i class="bi-x-square-fill" style="color: #ff5f5f;"></i>
                             {{ translations['snb:task:egg'][session['lang']] }}
                         {% endif %}
                       </button>
@@ -194,7 +199,7 @@
                             <i class="bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:play100'][session['lang']] }}
                         {% else %}
-                            <i class="bi-x-square-fill" style="color: red;"></i>
+                            <i class="bi-x-square-fill" style="color: #ff5f5f;"></i>
                             {{ translations['snb:task:play100'][session['lang']] }}
                         {% endif %}
                       </button>
@@ -216,7 +221,7 @@
                                 <i class="bi-check-square-fill" style="color: green;"></i>
                                 {{ translations['rewards:5050'][session['lang']] }}
                             {% else %}
-                                <i class="bi-x-square-fill" style="color: red;"></i>
+                                <i class="bi-x-square-fill" style="color: #ff5f5f;"></i>
                                 {{ translations['rewards:5050'][session['lang']] }}
                             {% endif %}
                           </button>

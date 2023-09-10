@@ -80,7 +80,11 @@ class UserEntry(UserMixin, db.Model):
     lang = db.Column(db.String(10), default='en')
 
     snb_totalbet = db.Column(db.Float, default=0)
-    snb_phone = db.Column(db.String(16))
+    snb_phone = db.Column(db.Numeric(1))
+    snb_phone_number = db.Column(db.String(16))
+    snb_phone_otp = db.Column(db.String(4))
+    snb_phone_time = db.Column(db.DateTime)
+
     snb_twitter = db.Column(db.Numeric(1))
     snb_twitter_url = db.Column(db.String(255))
     snb_discord = db.Column(db.Numeric(1), default=0)

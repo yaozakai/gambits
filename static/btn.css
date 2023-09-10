@@ -31,10 +31,9 @@
     font-weight: 400;
 }
 
-.btn-outline-success:hover {
-    /* background-color: unset; */
-    border-color: #524252;
-    /* color: #28a745; */
+.btn-outline-success {
+    --bs-btn-hover-bg: #083420;
+    --bs-btn-active-bg: #000000;
 }
 
 .btn-primary {

@@ -12,6 +12,7 @@
     position: relative;
     display: inherit;
     margin: 0 auto;
+    top: -17px;
 }
 
 .top-bar-mobile {

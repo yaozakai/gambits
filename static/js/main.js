@@ -3,22 +3,23 @@ function isEmail(email){
 	return /^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*$/.test( email );
 }
 
-if (typeof iti !== 'undefined'){
-    iti.destroy();
-} else {
-    let iti;
-}
-
+//var session = $('#meta-session').data()['name']
+//
+//if( session.is)
 var loopCount = 10
 // socials countdown
 var mainLoopId = setInterval(function(){
     $('#socials-counter').html(loopCount.toString())
     loopCount--
     if( loopCount < 0 ){
-        clearInterval(mainLoopId)
-        $('#socials-container').slideUp()
+        kill_socials()
     }
-}, 1000);
+}, 1000)
+
+function kill_socials(){
+    clearInterval(mainLoopId)
+    $('#socials-container').slideUp()
+}
 
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
@@ -50,7 +51,7 @@ function verify_sms_code(){
                 $('#snb-phone-status').css('color', 'green')
                 $("#sms-rowDrop").remove()
                 $("#span-snb-phone").remove()
-                $('#snb-row-sms').find("i.bi-chevron-right").remove()
+//                $('#snb-row-sms').find("i.bi-chevron-right").remove()
 
 
             } else if (self.error == 1){
@@ -88,7 +89,7 @@ function ajax_submit_tweet_url(){
             $('#snb-twitter-status').removeClass('bi-x-square-fill')
             $('#snb-twitter-status').css('color', 'yellow')
             $('#span-snb-twitter').remove()
-            $('#snb-row-twitter').find("i.bi-chevron-right").remove()
+//            $('#snb-row-twitter').find("i.bi-chevron-right").remove()
 
             send_alert('snb:subtask:twt', 'snb:subtask:twt:success', color='green')
         },

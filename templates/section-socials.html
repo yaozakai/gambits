@@ -3,17 +3,17 @@
         Join us!
     </div>
 
-    <a class="btn btn-link socials-container-child" href="https://discord.gg/ebjsys6h">
+    <a class="btn btn-dark socials-container-child" href="https://discord.gg/ebjsys6h">
         <img src="static/logos/logo-discord.png" class="socials-icon">
         <div class="socials-title green-text">{{ translations['socials:discord'][session['lang']] }}</div>
     </a>
-    <a class="btn btn-link socials-container-child" href="https://twitter.com/gambitsvip">
+    <a class="btn btn-dark socials-container-child" href="https://twitter.com/gambitsvip">
         <img src="static/logos/logo-twitter.png" class="socials-icon">
         <div class="socials-title green-text">{{ translations['socials:twitter'][session['lang']] }}</div>
     </a>
     <hr class="main-container-divider">
 
-    <button class="btn green-text" style="text-align:center;background-color: #422843;width: 100%;">
+    <button onclick="kill_socials();" class="btn green-text" style="text-align:center;background-color: #1c121b;width: 100%;">
         Closing... <span id="socials-counter">10</span>
     </button>
 

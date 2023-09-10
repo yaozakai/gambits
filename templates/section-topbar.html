@@ -31,26 +31,25 @@
             <!-- start DROPDOWN -->
             <div class="dropdown open">
                 <!-- start DROPDOWN button -->
-                <button class="btn btn-outline-success" id="top-bar-dropdown-button" type="button">
+                <button class="btn btn-outline-success" id="top-bar-dropdown-button" data-bs-toggle="dropdown">
                     <div class="top-dropdown-button" id="username-field">{{ current_user.username }}</div>
 <!--                    <div class="top-dropdown-button" id="address-field"><i class="bi bi-wallet2"></i> <div id="address-field-sub">{{ current_user.publicAddress }}</div></div>-->
                     <span class="caret"></span>
                 </button>
 
-                <ul class="dropdown-menu dropdown-menu-right multi-level green-text" id="topbar-dropdown-menu">
-                <!--Discord button-->
-                    <li>
-                        <button class="btn dropdown-item" data-bs-toggle="modal" data-bs-target="#depositModal">
-                            <i class="bi bi-discord"></i>
-                            Discord
-                        </button>
+                <ul class="dropdown-menu dropdown-menu-end green-text" id="topbar-dropdown-menu">
+                <!--Socials button-->
+                    <li style="display: table;margin: 0 auto;">
+                        <div style="display: flex;">
+                            <a class=" socials-container-child" href="https://discord.gg/ebjsys6h">
+                                <img src="static/logos/logo-discord.png" class="socials-icon">
+                            </a>
+                            <a class=" socials-container-child" href="https://twitter.com/gambitsvip">
+                                <img src="static/logos/logo-twitter.png" class="socials-icon">
+                            </a>
+                        </div>
                     </li>
-                <!--twitterX button-->
-                    <li>
-                        <button class="btn dropdown-item" data-bs-toggle="modal" data-bs-target="#depositModal">
-                            <img src="static/logos/twitterX.svg" class="svg-twitter-logo" style="height: 13px;margin: 0 0 3px 2px;/* color: #1a8754; */filter: invert(38%) sepia(75%) saturate(480%) hue-rotate(100deg) brightness(93%) contrast(85%);">                            Twitter
-                        </button>
-                    </li>
+
                     <div class="dropdown-divider"></div>
 
                     <!--Balances-->
@@ -67,12 +66,11 @@
                         <li class="" id="" style="margin-left: 7px;">
                             <div style="display: flex;">
                                 <div class="excited-text" style="font-size: small;">{{ translations['signup bonus:title'][session['lang']] }}</div>
-                                <i class="bi bi-question-circle"  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" data-bs-title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"
-                                   style="bottom: 1px; left: 3px; position: relative;"></i>
+<!--                                <i class="bi bi-question-circle"  data-bs-toggle="tooltip" data-bs-placement="left" data-bs-html="true" data-bs-title="<em>Tooltip</em> <u>with</u> <b>HTML</b>"-->
+<!--                                   style="bottom: 1px; left: 3px;"></i>-->
                             </div>
                             <div style="display: flex;justify-content: center;">
-                                <div class="excited-text" style="
-                                    ">{{ '%0.2f' % current_user.snb_totalbet }}</div>/50.00
+                                <div>{{ '%0.2f' % current_user.snb_totalbet }}</div>/50.00
                             </div>
                         </li>
                         <li style="

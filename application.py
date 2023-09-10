@@ -509,7 +509,7 @@ if __name__ == '__main__':
     application.register_blueprint(user)
     application.register_blueprint(wallet)
     print('Socket: ' + socket.gethostname())
-    environ['env'] = 'stage'
+    environ['env'] = 'prod'
 
     if socket.gethostname() == 'srv.gambits.vip':
         application.run(host='0.0.0.0')
