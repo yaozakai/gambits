@@ -3,7 +3,7 @@
     position: absolute;
     display : flex;
     align-items : center;
-    top: 0px;
+    top: 5px;
     margin-right: 5px;
 }
 
@@ -12,7 +12,7 @@
     position: relative;
     display: inherit;
     margin: 0 auto;
-    top: -17px;
+    /* top: -17px; */
 }
 
 .top-bar-mobile {
@@ -34,7 +34,7 @@
 
 #top-bar-dropdown-button {
     min-width: 90px;
-    padding-left: 0px;
+    /* padding-left: 0px; */
 }
 
 .crypto-symbol {

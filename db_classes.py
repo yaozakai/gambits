@@ -36,14 +36,6 @@ class OAuthEntry(db.Model):
         user_id = session['_user_id']
 
 
-class PhoneEntry(db.Model):
-    __tablename__ = 'phone'
-    phone = db.Column(db.String(16), primary_key=True)
-    timestamp = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))
-    verified = db.Column(db.Numeric(1), default=0)
-    otp = db.Column(db.String(4))
-
-
 class LoginEntry(db.Model):
     __tablename__ = 'login'
     log_time = db.Column(db.DateTime, default=datetime.now(tz=pytz.timezone('Asia/Shanghai')))

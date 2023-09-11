@@ -1,6 +1,5 @@
 {% include 'modal-rewards.html' %}
 
-
 <!-- alert -->
 <div class="alert alert-primary alert-danger fade" id="alert-box">
     <button id="close-alert-button" type="button" class="btn-close btn-close-alert" aria-label="Close"></button>
@@ -23,20 +22,12 @@
 <!-- loading.... popup -->
 <div class="modal fade" id="loadingscreenModal" tabindex="-1" role="dialog" aria-labelledby="loadingscreenModalWindow" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" >
     <div class="modal-dialog modal-dialog-centered" role="document" id="loadingscreenModalWindow">
-
-        <div >
-<!--            <button id="loading-modal-close" type="button" class="close" data-bs-dismiss="modal" aria-label="Close" style="float: right;position: relative;">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--            </button>-->
+        <div>
             <div class="modal-body" id="game-launch-spinner">
                 <div class="icon-spinner spinner-border text-success" role="status">
                     <img src="{{ root_path }}static/logos/favicon.png" class="loading-logo">
                 </div>
             </div>
-
-<!--            <div class="green-text" style="text-align: center;">-->
-<!--                <span  id="loadingscreenModalLabel">{{ translations['loading'][session['lang']] }}</span>-->
-<!--            </div>-->
         </div>
     </div>
 </div>

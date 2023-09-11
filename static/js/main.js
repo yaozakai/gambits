@@ -34,7 +34,7 @@ function verify_sms_code(){
     var no = [country_code, phone].join('')
 
     $.ajax({
-        url: "/verifySMScode",
+        url: "/verifySMSOTP",
         type: "post",
         dataType: "json",
         contentType: "application/json; charset=UTF-8",
@@ -49,18 +49,14 @@ function verify_sms_code(){
                 $('#snb-phone-status').addClass('bi-check-square-fill')
                 $('#snb-phone-status').removeClass('bi-x-square-fill')
                 $('#snb-phone-status').css('color', 'green')
-                $("#sms-rowDrop").remove()
-                $("#span-snb-phone").remove()
+                $("#flush-collapse1").remove()
+//                $("#span-snb-phone").remove()
 //                $('#snb-row-sms').find("i.bi-chevron-right").remove()
 
 
             } else if (self.error == 1){
                 send_alert("snb:task:sms", "sms:error:incorrectPin")
             } else if (self.error == 2) {
-                send_alert('alert:phone', 'sms:error:phoneExists')
-            } else if (self.error == 3) {
-                send_alert('alert:phone', 'sms:error:incorrectPhone')
-            } else if (self.error == 4) {
                 send_alert('alert:phone', 'sms:error:expired')
             }
         },
@@ -88,7 +84,7 @@ function ajax_submit_tweet_url(){
             $('#snb-twitter-status').addClass('bi-exclamation-square-fill')
             $('#snb-twitter-status').removeClass('bi-x-square-fill')
             $('#snb-twitter-status').css('color', 'yellow')
-            $('#span-snb-twitter').remove()
+//            $('#span-snb-twitter').remove()
 //            $('#snb-row-twitter').find("i.bi-chevron-right").remove()
 
             send_alert('snb:subtask:twt', 'snb:subtask:twt:success', color='green')
@@ -154,31 +150,8 @@ function send_sms(){
         return
     }
 
-    $('#sms-rowDrop').slideDown()
-//    $('#snb-sms-container').slideToggle()
-
-    $('#sms-send-button').prop('disabled', true)
-    $('#sms-send-button').html('<span id="countdown">60</span>')
-    var n = document.getElementById("countdown")
-    e = parseInt(n.innerText)
-    t = setInterval((function() {
-        e--
-        n.innerText = e
-        e <= 0 && (
-            clearInterval(t),
-            $('#sms-send-button').html('<i class="bi bi-send"></i>'),
-            $('#sms-send-button').prop('disabled', false)
-//            $target.closest("tr").find("i.bi-chevron-right").css("transform","rotate(0deg)")
-
-//            $('.sms-digitfield').each(function () {
-//                $(this).css
-//            })
-      )
-
-    }), 1000)
-
     $.ajax({
-        url: "/sendSMS",
+        url: "/send_SMS",
         type: "post",
         dataType: "json",
         contentType: "application/json; charset=UTF-8",
@@ -199,6 +172,25 @@ function send_sms(){
             send_alert('alert:phone', 'alert:SMSserver')
         }
     });
+
+    $('#sms-rowDrop').slideDown()
+//    $('#snb-sms-container').slideToggle()
+
+    $('#sms-send-button').prop('disabled', true)
+    $('#sms-send-button').html('<span id="countdown">60</span>')
+    var countdown = document.getElementById("countdown")
+    var theCount = parseInt(countdown.innerText)
+    t = setInterval((function() {
+        theCount--
+        countdown.innerText = theCount
+        theCount <= 0 && (
+            clearInterval(t),
+            $('#sms-send-button').html('<i class="bi bi-send"></i>'),
+            $('#sms-send-button').prop('disabled', false)
+      )
+    }), 1000)
+
+
 
 
 }

@@ -269,7 +269,7 @@
         /* right: 30%; */
         left: 0;
         right: 0;
-        margin-left: auto;
+        margin-left: 0px;
         margin-right: auto;
         position: absolute;
         bottom: 298px;

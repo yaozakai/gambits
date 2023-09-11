@@ -206,35 +206,6 @@ def register():
         return jsonify(error=translations['recaptcha not verified'][session['lang']])
 
 
-@user.route('/verifySMScode', methods=['GET', 'POST'])
-@login_required
-def verifySMScode():
-    code = json.loads(request.data)['code']
-    db_user = db_get_user()
-
-    dataclass_phone = PhoneEntry().query.filter_by(phone=json.loads(request.data)['phone']).first()
-    if dataclass_phone is not None:
-        if dataclass_phone.verified:
-            return jsonify(error=2)
-        else:
-            difference = datetime.datetime.now() - dataclass_phone.timestamp
-            if difference.seconds > 900:
-                return jsonify(error=4)
-    else:
-        return jsonify(error=3)
-
-    if dataclass_phone.otp == code:
-
-        db_user.snb_phone = json.loads(request.data)['phone']
-
-        dataclass_phone.verified = True
-
-        db.session.commit()
-        return jsonify(error=0)
-    else:
-        return jsonify(error=1)
-
-
 @user.route('/api/twt_oauth', methods=['GET', 'POST'])
 # @login_required
 def twt_oauth():
@@ -339,9 +310,27 @@ def connect_twitter():
         # return redirect('https://api.twitter.com/oauth/authorize?' + content.decode("utf-8"))
 
 
-@user.route('/sendSMS', methods=['GET', 'POST'])
+@user.route('/verifySMSOTP', methods=['GET', 'POST'])
 @login_required
-def sendSMS():
+def verifySMScode():
+    code = json.loads(request.data)['code']
+    db_user = db_get_user()
+    difference = datetime.datetime.now() - db_user.snb_phone_time
+
+    if difference.seconds > 900:
+        return jsonify(error=2)
+
+    if db_user.snb_phone_otp == code:
+        db_user.snb_phone = True
+        db.session.commit()
+        return jsonify(error=0)
+    else:
+        return jsonify(error=1)
+
+
+@user.route('/send_SMS', methods=['GET', 'POST'])
+@login_required
+def send_SMS():
     url_target = 'https://gateway.sms77.io/api/sms'
     to = json.loads(request.data)['recipient']
 

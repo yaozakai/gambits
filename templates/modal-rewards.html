@@ -26,7 +26,11 @@
                 <div class="accordion accordion-flush" id="rewardsAccordion">
                   <div class="signup-task accordion-item">
                     <h2 class="accordion-header">
-                      <button class="accordion-button collapsed excited-text" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="false" aria-controls="flush-collapse1">
+                      <button class="accordion-button collapsed excited-text" type="button" data-bs-toggle="
+                        {% if current_user.snb_phone %}
+                            collapse
+                        {% endif %}
+                            " data-bs-target="#flush-collapse1">
                         {% if current_user.snb_phone %}
                             <i class="bi-check-square-fill" style="color: green;"></i>
                             {{ translations['snb:task:sms'][session['lang']] }}
@@ -44,12 +48,12 @@
                                     <div class='green-text-outline'>{{ translations['sms verify'][session['lang']] }}</div>
                                     <div class="pt-2" style="display: flex;">
                                         <input type="tel" id="mobile_code" class="form-control" placeholder="Phone number">
-                                        <button id="sms-send-button" type="button" class="btn btn-outline-success"><i class="bi bi-send"></i></button>
+                                        <button onclick="send_sms();" id="sms-send-button" type="button" class="btn btn-outline-success"><i class="bi bi-send"></i></button>
                                     </div>
                                 </div>
                                 <div id="sms-rowDrop">
-                                    <div class="green-text-outline">{{ translations['sms enter code'][session['lang']] }}</div>
-                                    <div class="mt-2 mb-2" style="display: flex;height: 40px;float: right;">
+                                    <div class="green-text-outline pt-2">{{ translations['sms enter code'][session['lang']] }}</div>
+                                    <div class="mt-2 mb-2" style="display: flex;height: 40px;">
                                         <input id="sms-digitfield-first" type="text" autocomplete="one-time-code" inputmode="numeric" maxlength="4" pattern="\d{4}">
                                         <button id="snb-sms-verify" onclick="verify_sms_code()" type="button" class="btn btn-outline-success">{{ translations['verify'][session['lang']] }}</button>
                                     </div>
@@ -58,10 +62,8 @@
                             <script>
                                 $(document).ready(function(){
                                     $('#sms-send-button').click(function(){
-                                        $('#sms-digitfield-first').focus();
-                                        send_sms()
-
-                                    });
+<!--                                        $('#sms-digitfield-first').focus();-->
+                                        });
 
                                     $('#rewardsModal').on('hide.bs.modal', function(){
 <!--                                        $(".bi-chevron-right").each(function() {-->
@@ -98,9 +100,16 @@
                                        formatOnDisplay: false,
                                        nationalMode: false,
                                        autoPlaceholder: 'aggressive',
+                                       initialCountry: "auto",
+                                       geoIpLookup: callback => {
+                                           fetch("https://ipapi.co/json")
+                                              .then(res => res.json())
+                                              .then(data => callback(data.country_code))
+                                              .catch(() => callback("us"));
+                                       },
                                        separateDialCode: true,
-                            <!--                                       preferredCountries: ['BR', 'CN', 'FR', 'HK', 'IN', 'ID', 'JP', 'KR', 'MX', 'PH', 'ES', 'TH', 'VN']-->
-                                       preferredCountries: false,
+<!--                                       preferredCountries: ['BR', 'CN', 'FR', 'HK', 'IN', 'ID', 'JP', 'KR', 'MX', 'PH', 'ES', 'TH', 'VN'],-->
+<!--                                       preferredCountries: false,-->
                                        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/utils.js?1690975972744"
                                     });
                                 });
@@ -138,7 +147,7 @@
                                     <div class='green-text-outline pt-2'>2. <a href="https://twitter.com/gambitsvip">{{ translations['snb:subtask:twt2'][session['lang']] }} <img src="static/logos/twitterX.svg" class="svg-twitter-logo" style="height: 13px;margin: 0 0 3px 2px;filter: invert(38%) sepia(75%) saturate(480%) hue-rotate(100deg) brightness(93%) contrast(85%);"></a></div>
                                     <div class='green-text-outline pt-2'>3. {{ translations['snb:subtask:twt3'][session['lang']] }}</div>
                                     <div class="pt-2" style="display: flex;">
-                                        <input id="tweet-url" class="form-control"/>
+                                        <input id="tweet-url" class="form-control" placeholder="{{ current_user.snb_twitter_url }}"/>
                                         <button onclick="ajax_submit_tweet_url()" class="btn btn-outline-success" id="submit-tweet-url"><i class="bi bi-send"></i></button>
                                     </div>
                                 </div>
@@ -164,7 +173,7 @@
                       <div class="accordion-body">
                           <div class="green-text-outline">{{ translations['snb:subtask:discord'][session['lang']] }}</div>
                           <div class="pt-2" style="display: flex;">
-                            <input id="tweet-url" class="form-control"/>
+                            <input id="" class="form-control"/>
                             <button onclick="ajax_submit_tweet_url()" class="btn btn-outline-success" id="submit-tweet-url"><i class="bi bi-send"></i></button>
                           </div>
                       </div>
@@ -186,7 +195,7 @@
                       <div class="accordion-body">
                           <div class="green-text-outline">3. {{ translations['snb:subtask:twt3'][session['lang']] }}</div>
                           <div class="pt-2" style="display: flex;">
-                            <input id="tweet-url" class="form-control"/>
+                            <input id="" class="form-control"/>
                             <button onclick="ajax_submit_tweet_url()" class="btn btn-outline-success" id="submit-tweet-url"><i class="bi bi-send"></i></button>
                           </div>
                       </div>
@@ -208,7 +217,7 @@
                       <div class="accordion-body">
                           <div class="green-text-outline">3. {{ translations['snb:subtask:twt3'][session['lang']] }}</div>
                           <div class="pt-2" style="display: flex;">
-                            <input id="tweet-url" class="form-control"/>
+                            <input id="" class="form-control"/>
                             <button onclick="ajax_submit_tweet_url()" class="btn btn-outline-success" id="submit-tweet-url"><i class="bi bi-send"></i></button>
                           </div>
                       </div>

@@ -67,6 +67,10 @@
     filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(288deg) brightness(102%) contrast(102%)!important;
 }
 
+.svg-twitter-logo {
+    filter: invert(93%) sepia(10%) saturate(6326%) hue-rotate(353deg) brightness(102%) contrast(106%)!important;
+}
+
 .svg-twitter-logo:hover {
     filter: invert(93%) sepia(10%) saturate(6326%) hue-rotate(353deg) brightness(102%) contrast(106%)!important;
 }

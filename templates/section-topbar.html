@@ -15,9 +15,7 @@
             </a>
         </div>
         <!-- end LOGO -->
-        {% if not current_user.is_authenticated %}
-        <button class="btn btn-link" type="button" id="blog-button" style="color:#28a745; margin-top: 6px;">{{ translations['news'][session['lang']] }}</button>
-        {% endif %}
+        <button class="btn btn-link" type="button" id="blog-button">{{ translations['news'][session['lang']] }}</button>
         <!-- start RIGHT SIDE BAR -->
         <div class="top-bar-right-side">
             {% if current_user.is_authenticated %}
