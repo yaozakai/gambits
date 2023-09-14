@@ -1,3 +1,5 @@
+import json
+
 from flask import render_template, session, jsonify
 from flask_wtf import csrf
 
@@ -12,15 +14,18 @@ def setup_pendingWithdraw_template(reload=False):
     rec = []
 
     queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
+    records = {}
+    loader = json.loads(records)
     for query in queries:
+        loader.update(query.as_dict())
         rec.insert(0, query.serialize())
     if reload:
-        return render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations)
+        return render_template('page-pendingWithdraw-wrap.html', rec=rec, json=json.dumps(loader), translations=utils.translations)
     else:
         session['page'] = 'pendingWithdraw'
-        div_render = render_template('page-pendingWithdraw.html', rec=rec, translations=utils.translations)
+        div_render = render_template('page-pendingWithdraw.html', rec=rec, json=json.dumps(loader), translations=utils.translations)
         return jsonify(
-            render=render_template('page-pendingWithdraw-wrap.html', rec=rec, translations=utils.translations),
+            render=render_template('page-pendingWithdraw-wrap.html', rec=rec, json=json.dumps(loader), translations=utils.translations),
             div_render=div_render)
 
 

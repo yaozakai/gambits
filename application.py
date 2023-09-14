@@ -66,6 +66,14 @@ def home():
     check = bot_check()
     if check is not None:
         return check
+    # socials popup (once only)
+    if 'socials' not in session:
+        session['socials'] = 0
+    elif session['socials'] > 1:
+        pass
+    else:
+        session['socials'] += 1
+
 
     # notifications
     notification = ''
@@ -114,13 +122,13 @@ def home():
                 report_date = json.loads(request.data)['reportDate']
 
             else:
-                report_date = str(datetime.datetime.now()).split(' ')[0]
+                report_date = str(datetime.now()).split(' ')[0]
 
             if session['page'] == 'txnHistory':
                 queries = TxnEntry().query.filter_by(user_id=session['_user_id'])
                 rec = []
                 for query in queries:
-                    if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.datetime.now()):
+                    if pytz.UTC.localize(query.created) < pytz.UTC.localize(datetime.now()):
                         rec.insert(0, query.serialize())
                 rec.sort(key=itemgetter('created'), reverse=True)
                 return render_template('page-txnHistory-wrap.html', rec=rec, report_date=report_date,

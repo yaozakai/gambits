@@ -367,6 +367,9 @@ class TxnEntry(db.Model):
         self.txHash = txHash
         self.created = datetime.now(tz=pytz.timezone('Asia/Shanghai'))
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def commit(self):
         db.session.add(self)
         db.session.commit()
