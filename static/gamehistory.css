@@ -1,8 +1,9 @@
 .profile-container {
-    /* margin-left: 40px; */
+    margin-left: 60px;
+    padding-left: 207px;
     margin: 70px auto;
-    width: 70vw;
-    max-width: 850px;
+    /* width: 251vw; */
+    /* max-width: 1214px; */
     }
 
 @media (max-width: 768px) {

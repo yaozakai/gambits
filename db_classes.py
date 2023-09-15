@@ -2,10 +2,12 @@ from datetime import datetime
 
 import flask
 import pytz
+from dataclasses import dataclass
 from flask import session
 from flask_login import UserMixin
 
 from flask_sqlalchemy import SQLAlchemy
+from pytz import unicode
 from sqlalchemy import desc
 from sqlalchemy.dialects.postgresql import ARRAY
 from config import app
@@ -342,8 +344,20 @@ class RollinEntry(db.Model):
         self.gametype = gametype
 
 
+@dataclass
 class TxnEntry(db.Model):
     __tablename__ = 'txns'
+    type: str
+    email: str
+    user_id: str
+    created: datetime
+    amount: float
+    currency: str
+    blockchain: str
+    status: str
+    fromAddress: str
+    txHash: str
+
     type = db.Column(db.String(20))
     email = db.Column(db.String(100))
     user_id = db.Column(db.String(10), primary_key=True)
@@ -365,10 +379,10 @@ class TxnEntry(db.Model):
         self.status = status
         self.fromAddress = fromAddress
         self.txHash = txHash
-        self.created = datetime.now(tz=pytz.timezone('Asia/Shanghai'))
+        # self.created = datetime.now(tz=pytz.timezone('Asia/Shanghai'))
 
     def as_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        return {c.name: unicode(getattr(self, c.name)) for c in self.__table__.columns}
 
     def commit(self):
         db.session.add(self)

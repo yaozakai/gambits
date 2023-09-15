@@ -7,25 +7,33 @@ import utils
 from constants import RECAPTCHA_PUBLIC_KEY
 from db_classes import TxnEntry
 from forms import LoginForm, RegisterForm
+
+
 # from utils import translations, icon_placement, game_titles
 
 
 def setup_pendingWithdraw_template(reload=False):
     rec = []
 
-    queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
-    records = {}
-    loader = json.loads(records)
+    # queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
+    queries = TxnEntry().query.all()
+    loader = []
     for query in queries:
-        loader.update(query.as_dict())
+        loader.append(query.as_dict())
         rec.insert(0, query.serialize())
+
+    txn_data = {"total": len(loader), "totalNotFiltered": len(loader), "rows": loader}
+
     if reload:
-        return render_template('page-pendingWithdraw-wrap.html', rec=rec, json=json.dumps(loader), translations=utils.translations)
+        return render_template('page-pendingWithdraw-wrap.html', rec=rec, txn_data=txn_data,
+                               translations=utils.translations)
     else:
         session['page'] = 'pendingWithdraw'
-        div_render = render_template('page-pendingWithdraw.html', rec=rec, json=json.dumps(loader), translations=utils.translations)
+        div_render = render_template('page-pendingWithdraw.html', rec=rec, txn_data=txn_data,
+                                     translations=utils.translations)
         return jsonify(
-            render=render_template('page-pendingWithdraw-wrap.html', rec=rec, json=json.dumps(loader), translations=utils.translations),
+            render=render_template('page-pendingWithdraw-wrap.html', rec=rec, txn_data=txn_data,
+                                   translations=utils.translations),
             div_render=div_render)
 
 

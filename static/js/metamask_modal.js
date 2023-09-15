@@ -14,7 +14,7 @@ var alert_box = document.getElementById('alert-box')
 //var alert_message = document.getElementById('alert-message')
 var deposit_amount = document.getElementById('deposit-amount')
 
-window.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("DOMContentLoaded", (event) =>  {
 //    document.getElementById('login-metamask').addEventListener('click', login);
 });
 //    document.getElementById('reconcile-go').addEventListener('click', setup_reconciliation)
@@ -30,9 +30,9 @@ async function setup_reconciliation() {
 
 
     await open_wallet_app('usdt', 'goerli', amount, recipient_address)
-    .then(function(txHash) {
+    .then(async function(txHash) {
         send_alert("Reconciling withdraw request", "Verifying...", true, '', 'yellow')
-        verify_txhash('reconcile', txHash['transactionHash'], 'goerli', 'usdt', amount, reconcile_id)
+        await verify_txhash('reconcile', txHash['transactionHash'], 'goerli', 'usdt', amount, reconcile_id)
     })
     .catch(error => {
         metamaskError(error)

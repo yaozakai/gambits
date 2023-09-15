@@ -117,29 +117,19 @@
     {% endif %}
 
     <main id="main-body" class="min-vh-100" data-bs-spy="scroll" data-bs-target="#navigation-bar" data-bs-smooth-scroll="true">
-
-
-
-            {% include 'section-navbar.html' %}
-        <div id="main_section">
-
-
-                {% block pendingWithdraw %}{% endblock %}
-                {% block search %}{% endblock %}
-                {% block gamehistory %}{% endblock %}
-                {% block txnHistory %}{% endblock %}
-                {% block gallery %}{% endblock %}
-        </div>
-
-
+      {% include 'section-navbar.html' %}
+      <div id="main_section">
+        {% block pendingWithdraw %}{% endblock %}
+        {% block search %}{% endblock %}
+        {% block gamehistory %}{% endblock %}
+        {% block txnHistory %}{% endblock %}
+        {% block gallery %}{% endblock %}
+      </div>
     </main>
     <div class="cover-bar"></div>
-
-            <!-- MODALS -->
-        {% include 'modal-rewards.html' %}
-        {% include 'template-modals.html' %}
-
-
+    <!-- MODALS -->
+    {% include 'modal-rewards.html' %}
+    {% include 'template-modals.html' %}
   </body>
       <!-- UI Javascript -->
         <script language="JavaScript" type="module" src="{{ root_path }}static/js/notification_pop.js"></script>

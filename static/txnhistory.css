@@ -28,6 +28,24 @@
     box-shadow: none!important;
 }
 
+.bootstrap-table .fixed-table-container.fixed-height .table thead th {
+    background: #423046!important;
+    color: #ebe6c2!important;
+    font-weight: 200!important;
+}
+
+.bootstrap-table .fixed-table-container .table tbody tr.selected td {
+    color: #ebe6c2!important;
+}
+
+.bootstrap-table .fixed-table-pagination>.pagination-detail .pagination-info {
+    color: #ebe6c2!important;
+}
+
+.bootstrap-table .fixed-table-container .table td, .bootstrap-table .fixed-table-container .table th {
+    background: #d4e4f2;
+}
+
 @media (max-width: 514px) {
     .txn-table-header {
         font-size: 10px;

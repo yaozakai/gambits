@@ -1,6 +1,14 @@
-        <!-- Bootstrap table  -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.1/dist/bootstrap-table.min.css" rel="stylesheet">
+<!-- Bootstrap table  -->
+<link href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css" rel="stylesheet">
+
+<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
+<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
+
+<meta id="meta-txn_data" data-name='{{ txn_data }}' >
+
+<script language="JavaScript" type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+
 
 <div class="profile-container">
 
@@ -31,108 +39,118 @@
 
     </script>
 
-    <table id="data" class="table table-hover table-dark green-text-outline">
-        <thead class="txn-table-header">
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Status</th>
-            <th>Email</th>
-            <th>Amount</th>
-            <th>txHash</th>
-    <!--        <th>Chain</th>-->
-            <th>Wallet</th>
-            <th>Reconcile</th>
-    <!--        <th>Cancel</th>-->
-    <!--        <th>Valid Bet</th>-->
-    <!--        <th>Jackpot</th>-->
-    <!--        <th>JackContribution</th>-->
-    <!--        <th>Rake</th>-->
-    <!--        <th>Room Fee</th>-->
-          </tr>
-        </thead>
-        <tbody class="txn-table-row" id="results">
-    <!--      {% set counter = 0 %}-->
-          {% for record in rec %}
-    <!--        {% set counter = loop.count %}-->
-            <tr>
-                {% if record.created is string %}
-                <td>{{ record.created.split(' ')[0] }}</td>
-                <td>{{ record.created.split(' ')[1] }}</td>
-                {% else %}
-                <td>{{ record.created.strftime('%Y-%m-%d') }}</td>
-                <td>{{ record.created.strftime('%H:%M:%S') }}</td>
-                {% endif %}
+<!--    <table id="data" class="table table-hover table-dark green-text-outline">-->
+<!--        <thead class="txn-table-header">-->
+<!--          <tr>-->
+<!--            <th>Date</th>-->
+<!--            <th>Time</th>-->
+<!--            <th>Status</th>-->
+<!--            <th>Email</th>-->
+<!--            <th>Amount</th>-->
+<!--            <th>txHash</th>-->
+<!--    &lt;!&ndash;        <th>Chain</th>&ndash;&gt;-->
+<!--            <th>Wallet</th>-->
+<!--            <th>Reconcile</th>-->
+<!--    &lt;!&ndash;        <th>Cancel</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <th>Valid Bet</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <th>Jackpot</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <th>JackContribution</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <th>Rake</th>&ndash;&gt;-->
+<!--    &lt;!&ndash;        <th>Room Fee</th>&ndash;&gt;-->
+<!--          </tr>-->
+<!--        </thead>-->
+<!--        <tbody class="txn-table-row" id="results">-->
+<!--    &lt;!&ndash;      {% set counter = 0 %}&ndash;&gt;-->
+<!--          {% for record in rec %}-->
+<!--    &lt;!&ndash;        {% set counter = loop.count %}&ndash;&gt;-->
+<!--            <tr>-->
+<!--                {% if record.created is string %}-->
+<!--                <td>{{ record.created.split(' ')[0] }}</td>-->
+<!--                <td>{{ record.created.split(' ')[1] }}</td>-->
+<!--                {% else %}-->
+<!--                <td>{{ record.created.strftime('%Y-%m-%d') }}</td>-->
+<!--                <td>{{ record.created.strftime('%H:%M:%S') }}</td>-->
+<!--                {% endif %}-->
 
-    <!--            {% if record.status == 'Pending' %}-->
-                    <td style="color: yellow;" id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>
-    <!--            {% else %}-->
-    <!--                <td id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>-->
-    <!--            {% endif %}-->
+<!--    &lt;!&ndash;            {% if record.status == 'Pending' %}&ndash;&gt;-->
+<!--                    <td style="color: yellow;" id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>-->
+<!--    &lt;!&ndash;            {% else %}&ndash;&gt;-->
+<!--    &lt;!&ndash;                <td id="reconcile_status-{{ record.txHash }}">{{ record.status }}</td>&ndash;&gt;-->
+<!--    &lt;!&ndash;            {% endif %}&ndash;&gt;-->
 
-                <td>{{ record.email }}</td>
-    <!--            <td>{{ record.email[:9] }}..{{ record.email[:-3] }}</td>-->
+<!--                <td>{{ record.email }}</td>-->
+<!--    &lt;!&ndash;            <td>{{ record.email[:9] }}..{{ record.email[:-3] }}</td>&ndash;&gt;-->
 
-                <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>
-                <td id="reconcile_id-{{ record.txHash }}">{{ record.txHash }}</td>
+<!--                <td>{{ record.amount }} <span style="font-size: smaller;">{{ record.currency|upper }}</span></td>-->
+<!--                <td id="reconcile_id-{{ record.txHash }}">{{ record.txHash }}</td>-->
 
-                <td id="receipient_address-{{ record.fromAddress }}"><a href='https://etherscan.io/address/{{ record.fromAddress }}' target="_blank">{{ record.fromAddress[:6] }}..{{ record.fromAddress[-3:] }}</a></td>
+<!--                <td id="receipient_address-{{ record.fromAddress }}"><a href='https://etherscan.io/address/{{ record.fromAddress }}' target="_blank">{{ record.fromAddress[:6] }}..{{ record.fromAddress[-3:] }}</a></td>-->
 
-                <td>
-                    <button onclick="setup_reconciliation();" id="reconcile-{{ record.txHash }}" name="{{ record.fromAddress }}-{{ record.amount }}"
-                                              class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Go</button>
-                </td>
-    <!--            <td>-->
-    <!--                <button onclick="cancel_reconciliation();" id="{{ record.amount }}-{{ record.txHash }}"-->
-    <!--                                          class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Cancel</button>-->
-    <!--            </td>-->
-    <!--            <td>{{ record.validbet }}</td>-->
-    <!--          <td>{{ record.jackpot }}</td>-->
-    <!--          <td>{{ record.jackpotcontribution }}</td>-->
-    <!--            <td>{{ record.rake }}</td>-->
-    <!--          <td>{{ record.roomfee }}</td>-->
-            </tr>
-          {% endfor %}
-        </tbody>
+<!--                <td>-->
+<!--                    <button onclick="setup_reconciliation();" id="reconcile-{{ record.txHash }}" name="{{ record.fromAddress }}-{{ record.amount }}"-->
+<!--                                              class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Go</button>-->
+<!--                </td>-->
+<!--    &lt;!&ndash;            <td>&ndash;&gt;-->
+<!--                    <button onclick="cancel_reconciliation();" id="{{ record.amount }}-{{ record.txHash }}"-->
+<!--                                              class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Cancel</button>-->
+<!--    &lt;!&ndash;            </td>&ndash;&gt;-->
+<!--    &lt;!&ndash;            <td>{{ record.validbet }}</td>&ndash;&gt;-->
+<!--    &lt;!&ndash;          <td>{{ record.jackpot }}</td>&ndash;&gt;-->
+<!--    &lt;!&ndash;          <td>{{ record.jackpotcontribution }}</td>&ndash;&gt;-->
+<!--    &lt;!&ndash;            <td>{{ record.rake }}</td>&ndash;&gt;-->
+<!--    &lt;!&ndash;          <td>{{ record.roomfee }}</td>&ndash;&gt;-->
+<!--            </tr>-->
+<!--          {% endfor %}-->
+<!--        </tbody>-->
 
 
-    </table>
+<!--    </table>-->
 
-    <link href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css" rel="stylesheet">
-
-<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table-locale-all.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
-
-<style>
-  .select,
-  #locale {
-    width: 100%;
-  }
-  .like {
-    margin-right: 10px;
-  }
-</style>
-
-<link href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css" rel="stylesheet">
-
-<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
-
+<div id="toolbar">
+  <button onclick="filter_complete();" id="remove" class="btn btn-danger">
+      <input class="txn-filter-status" id="txn-filter-complete" name="txn-filter-complete" type="checkbox">
+      See completed
+  </button>
+</div>
 <table
-  id="table"
-  data-toggle="table"
-  data-height="460"
-  data-url="{{ json }}"
+  id="txn_table"
+  data-toolbar="#toolbar"
+  data-search="true"
+  data-show-refresh="true"
+  data-show-toggle="true"
+  data-show-fullscreen="true"
+  data-show-columns="true"
+  data-show-columns-toggle-all="true"
+  data-detail-view="true"
+  data-show-export="true"
+  data-click-to-select="true"
+  data-detail-formatter="detailFormatter"
+  data-minimum-count-columns="2"
+  data-show-pagination-switch="true"
   data-pagination="true"
-  data-side-pagination="server"
-  data-total-field="count"
-  data-data-field="items">
-  <thead>
-    <tr>
-      <th data-field="id">ID</th>
-      <th data-field="name">Item Name</th>
-      <th data-field="price">Item Price</th>
-    </tr>
-  </thead>
+  data-page-size="25"
+  data-id-field="id"
+  data-page-list="[10, 25, 50, 100, all]"
+  data-show-footer="true"
+  data-side-pagination="client"
+  data-header-style="headerStyle"
+  >
+<!--  <thead>-->
+<!--        <tr>-->
+<!--          <th data-field="created">Time</th>-->
+<!--          <th data-field="status">Status</th>-->
+<!--          <th data-field="email">Email</th>-->
+<!--          <th data-field="amount">Amount</th>-->
+<!--          <th data-field="txHash">txHash</th>-->
+<!--          <th data-field="fromAddress">Wallet</th>-->
+<!--          <th data-field="fromAddress">Go</th>-->
+<!--        </tr>-->
+<!--      </thead>-->
 </table>
+
+<script>
+
+</script>
+
+
+</div>
