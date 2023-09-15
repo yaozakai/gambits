@@ -298,10 +298,10 @@ def txnHistory():
 
     queries = TxnEntry().query.filter_by(user_id=session['_user_id'])
     if len(request.data) > 0 and len(json.loads(request.data)['reportDate']) > 0:
-        report_date = datetime.datetime.strptime(json.loads(request.data)['reportDate'], '%Y-%m-%d')
+        report_date = datetime.strptime(json.loads(request.data)['reportDate'], '%Y-%m-%d')
     else:
         # report_date = datetime.datetime.now()
-        report_date = datetime.datetime.now()
+        report_date = datetime.now()
 
     rec = []
     for query in queries:

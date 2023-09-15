@@ -88,7 +88,6 @@
     return a - b
   }
 
-  let pendingWithdrawFilter = 0
   function filter_complete() {
 
 //      if( pendingWithdrawFilter == 0) {
@@ -122,6 +121,7 @@
           align: 'center',
           valign: 'middle',
           sortable: true
+
         }, {
           title: 'Created',
           field: 'created',
@@ -155,7 +155,10 @@
           formatter: pendingWithdrawFormatter
         }]
       ]
-    })
+    }).bootstrapTable('sortBy', {
+        field: 'status',
+        sortOrder: 'desc'
+      })
 //    $('#txn_table').on('check.bs.table uncheck.bs.table ' +
 //      'check-all.bs.table uncheck-all.bs.table',
 //    function () {

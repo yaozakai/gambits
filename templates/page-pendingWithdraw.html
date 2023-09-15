@@ -1,14 +1,5 @@
-<!-- Bootstrap table  -->
-<link href="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.css" rel="stylesheet">
-
-<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/bootstrap-table.min.js"></script>
-<script src="https://unpkg.com/bootstrap-table@1.22.1/dist/extensions/export/bootstrap-table-export.min.js"></script>
-
-<meta id="meta-txn_data" data-name='{{ txn_data }}' >
-
 <script language="JavaScript" type="text/javascript" src="/static/js/bootstrap-table.js"></script>
-
+<meta id="meta-txn_data" data-name='{{ txn_data }}' >
 
 <div class="profile-container">
 
@@ -138,7 +129,7 @@
 <!--  <thead>-->
 <!--        <tr>-->
 <!--          <th data-field="created">Time</th>-->
-<!--          <th data-field="status">Status</th>-->
+<!--          <th data-field="status" data-filter-control="select">Status</th>-->
 <!--          <th data-field="email">Email</th>-->
 <!--          <th data-field="amount">Amount</th>-->
 <!--          <th data-field="txHash">txHash</th>-->

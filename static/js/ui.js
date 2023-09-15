@@ -215,12 +215,9 @@ function generate_table_txnHistory(results) {
 }
 
 function reload_popup(title, msg){
-    var translations = $('#meta-translations').data()['name']
-    var lang = $('#meta-lang').data()['name']
-
-    $('#modalNotificationTitle').html(translations[title][lang]);
-    $('#modalNotificationMsg').html(translations[msg][lang]);
-    $('#notificationModal').modal('show', {backdrop: 'static', keyboard: false});
+    $('#modalNotificationTitle').html(title)
+    $('#modalNotificationMsg').html(msg)
+    $('#notificationModal').modal('show', {backdrop: 'static', keyboard: false})
 }
 
 async function send_alert(title, msg, native=false, appendix='', color='red', symbol='') {
@@ -232,10 +229,6 @@ async function send_alert(title, msg, native=false, appendix='', color='red', sy
     var lang = $('#meta-lang').data()['name']
 
     $('alert-box').toggle()
-
-//    if (alert_box.classList.contains('show')) {
-//        alert_box.classList.remove('show')
-//    }
 
     if (color == 'red'){
         alert_box.classList.remove('alert-info') // blue
