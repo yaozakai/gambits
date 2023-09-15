@@ -350,9 +350,15 @@ function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
         if (mode == "reconcile"){
             const reconcile_id = fromAddress
 
-            $("#reconcile-" + reconcile_id).prop('disabled', true)
-            $("#reconcile-" + reconcile_id).html("Done")
-            $("#reconcile-" + reconcile_id).css('color', 'red')
+            $("#reconcile-" + reconcile_id).prop('disabled', true).html("Done!").addClass('btn-primary').removeClass('btn-info')
+            $("#can-reconcile" + reconcile_id).hide()
+
+            $("#reconcile-" + reconcile_id).parent().parent().children().each(function () {
+                if( $(this)[0].textContent == 'Pending' ){
+                    $(this)[0].textContent = 'Complete'
+                }
+            })
+            $("#reconcile-" + reconcile_id).parent().parent().children().css('background', 'var(--lightPurp)')
 //            $("#reconcile_id-" + reconcile_id).html('<a href="https://etherscan.io/tx/' + response.txHash + ' target="_blank">')
             $("#reconcile_id-" + reconcile_id).html('<a href="https://goerli.etherscan.io/tx/' + response.txHash + ' target="_blank"><i class="bi bi-link"></i></a>')
             $("#reconcile_status-" + reconcile_id).html("Complete")

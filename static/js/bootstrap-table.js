@@ -49,8 +49,8 @@
     if( row.status == "Complete" ){
         return '····'
     } else if( row.status == "Pending" ){
-        return '<button onclick="setup_reconciliation();" id="reconcile-' + row.txHash + '" name="' + row.fromAddress + '-' + row.amount + '" class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Go</button>' +
-        '<button onclick="cancel_reconciliation();" id="' + row.amount + '-' + row.txHash + '" class="btn btn-link reconcile-button" id="reconcile-go" data-bs-toggle="tooltip" data-bs-placement="right">Cancel</button>'
+        return '<button onclick="setup_reconciliation();" id="reconcile-' + row.txHash + '" name="' + row.fromAddress + '-' + row.amount + '" class="btn btn-info reconcile-button" data-bs-toggle="tooltip" data-bs-placement="right">Go</button>' +
+        '<button onclick="cancel_reconciliation();" id="can-reconcile' + row.txHash + '" class="btn btn-warning reconcile-button" data-bs-toggle="tooltip" data-bs-placement="right">Cancel</button>'
     }
 
 
