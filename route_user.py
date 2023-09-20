@@ -340,6 +340,16 @@ def confirm_tweet():
     return jsonify(user_id=user_id)
 
 
+@user.route('/confirm_tweet', methods=['POST'])
+@login_required
+def confirm_discord():
+    user_id = json.loads(request.data)['user_id']
+    user_db = db_get_user_from_id(user_id)
+    user_db.snb_twitter = True
+    db.session.commit()
+    return jsonify(user_id=user_id)
+
+
 @user.route('/send_SMS', methods=['GET', 'POST'])
 @login_required
 def send_SMS():
