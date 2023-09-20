@@ -5,43 +5,60 @@ from flask_wtf import csrf
 
 import utils
 from constants import RECAPTCHA_PUBLIC_KEY
-from db_classes import TxnEntry
+from db_classes import TxnEntry, UserEntry
 from forms import LoginForm, RegisterForm
 
 
-# from utils import translations, icon_placement, game_titles
-
-
-def setup_pendingWithdraw_template(reload=False):
-    rec = []
-
-    # queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
-    queries = TxnEntry().query.all()
+def create_db_table(queries):
     loader = []
     for query in queries:
         loader.append(query.as_dict())
-        rec.insert(0, query.serialize())
+        # rec.insert(0, query.serialize())
+    return {"total": len(loader), "totalNotFiltered": len(loader), "rows": loader}
 
-    txn_data = {"total": len(loader), "totalNotFiltered": len(loader), "rows": loader}
 
-    if reload:
-        return render_template('page-pendingWithdraw-wrap.html', rec=rec, txn_data=txn_data,
+def setup_pendingWithdraw_template(wrap=False):
+    # rec = []
+
+    # queries = TxnEntry().query.filter_by(type='Withdraw').filter_by(status='Pending')
+    queries = TxnEntry().query.all()
+    txn_data = create_db_table(queries)
+    queries = UserEntry().query.all()
+    user_data = create_db_table(queries)
+    # loader = []
+    # for query in queries:
+    #     loader.append(query.as_dict())
+    #     # rec.insert(0, query.serialize())
+    # txn_data = {"total": len(loader), "totalNotFiltered": len(loader), "rows": loader}
+
+    if wrap:
+        return render_template('page-pendingWithdraw-wrap.html', txn_data=txn_data, user_data=user_data,
                                translations=utils.translations)
     else:
         session['page'] = 'pendingWithdraw'
-        div_render = render_template('page-pendingWithdraw.html', rec=rec, txn_data=txn_data,
+        div_render = render_template('page-pendingWithdraw.html', txn_data=txn_data, user_data=user_data,
                                      translations=utils.translations)
         return jsonify(
-            render=render_template('page-pendingWithdraw-wrap.html', rec=rec, txn_data=txn_data,
+            render=render_template('page-pendingWithdraw-wrap.html', txn_data=txn_data, user_data=user_data,
                                    translations=utils.translations),
             div_render=div_render)
 
 
-def setup_search_template():
-    session['page'] = 'search'
-    div_render = render_template('page-search.html', rec=[], translations=utils.translations)
-    return jsonify(render=render_template('page-search.html', rec=[], translations=utils.translations),
-                   div_render=div_render)
+def setup_search_template(wrap=False):
+
+    queries = UserEntry().query.all()
+    loader = []
+    for query in queries:
+        loader.append(query.as_dict())
+    user_data = {"total": len(loader), "totalNotFiltered": len(loader), "rows": loader}
+
+    if wrap:
+        rec = []
+        return render_template('page-search-wrap.html', user_data=user_data, translations=utils.translations)
+    else:
+        session['page'] = 'search_user_page'
+        div_render = render_template('page-search.html', user_data=user_data, translations=utils.translations)
+        return jsonify(div_render=div_render)
 
 
 def setup_home_template(notification_title='', notification='', reset_pass_popup=True):

@@ -284,11 +284,6 @@ function waitForElm(selector) {
     });
 }
 
-
-
-
-
-
 function get_balance(){
     var balance_field_usdt = document.getElementById("balance_usdt");
     var withdraw_balance = document.getElementById("withdraw-balance");
@@ -323,7 +318,31 @@ function set_balance_UI(balance){
 
 }
 
+function svrConfirmTweet(user_id) {
+    $('#loadingscreenModal').modal('show')
 
+    $.ajax({
+      url: "/confirm_tweet",
+      type: "post",
+      dataType: "json",
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify({
+        "user_id": user_id
+      }),
+      success: function(response) {
+        $('#loadingscreenModal').modal('hide')
+        $('#confirmTweet-' + response.user_id).html('Done')
+        $('#confirmTweet-' + response.user_id).addClass('disabled')
+      },
+      error: function(e) {
+        console.log('verify_txhash error: ' + e);
+//        send_alert('failed:verify', e, false, '', 'red')
+
+        return false
+      }
+    });
+
+}
 
 function verify_txhash(mode, txHash, chain, currency, amount, fromAddress) {
     var alert_box = document.getElementById('alert-box')

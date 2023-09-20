@@ -138,6 +138,10 @@ def db_get_user_from_id(user_id):
     return UserEntry().query.filter_by(user_id=user_id).first()
 
 
+def db_get_user_from_email(email):
+    return UserEntry().query.filter_by(email=email).first()
+
+
 # def db_set_public_address(public_address):
 #     user = UserEntry().query.filter_by(user_id=session['_user_id']).first()
 #     if user is None:

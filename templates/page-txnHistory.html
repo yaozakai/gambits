@@ -1,3 +1,58 @@
+<script language="JavaScript" type="text/javascript" src="/static/js/table-txnHistory.js"></script>
+<meta id="meta-txn_data" data-name='{{ txn_data }}' >
+
+<div class="profile-container">
+    <div class="py-2">
+        <h3 class="green-text-outline">Pending Withdraws</h3>
+<!--        <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>-->
+    </div>
+
+  <div id="toolbar">
+    <button onclick="filter_complete();" id="remove" class="btn btn-danger">
+        <input class="txn-filter-status" id="txn-filter-complete" name="txn-filter-complete" type="checkbox">
+        See completed
+    </button>
+  </div>
+  <table
+    id="txn_table"
+    data-toolbar="#toolbar"
+    data-search="true"
+    data-show-refresh="true"
+    data-show-toggle="true"
+    data-show-fullscreen="true"
+    data-show-columns="true"
+    data-show-columns-toggle-all="true"
+    data-detail-view="true"
+    data-show-export="true"
+    data-click-to-select="true"
+    data-detail-formatter="detailFormatter"
+    data-minimum-count-columns="2"
+    data-show-pagination-switch="true"
+    data-pagination="true"
+    data-page-size="25"
+    data-id-field="id"
+    data-page-list="[10, 25, 50, 100, all]"
+    data-show-footer="true"
+    data-side-pagination="client"
+    data-header-style="headerStyle"
+    >
+  <!--  <thead>-->
+  <!--        <tr>-->
+  <!--          <th data-field="created">Time</th>-->
+  <!--          <th data-field="status" data-filter-control="select">Status</th>-->
+  <!--          <th data-field="email">Email</th>-->
+  <!--          <th data-field="amount">Amount</th>-->
+  <!--          <th data-field="txHash">txHash</th>-->
+  <!--          <th data-field="fromAddress">Wallet</th>-->
+  <!--          <th data-field="fromAddress">Go</th>-->
+  <!--        </tr>-->
+  <!--      </thead>-->
+  </table>
+
+
+</div>
+
+
 <div class="profile-container">
     <div class="py-2 ">
         <h3 class="green-text-outline">{{ translations['title:Transaction History'][session['lang']] }}</h3>
@@ -10,7 +65,7 @@
             </div>
 
         </div>
-        <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>
+<!--        <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>-->
 
     </div>
 

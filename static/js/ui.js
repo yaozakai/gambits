@@ -65,11 +65,7 @@ function go_to_pendingWithdraw(){
         }),
         success: function(self) {
             close_modal()
-
             $("#main_section").html(self.div_render);
-
-
-//            return true
         },
         error: function(e) {
             close_modal()
@@ -97,13 +93,11 @@ function go_to_searchPlayer(){
         type: "post",
         success: function(self) {
             close_modal()
-
-            $("#main_section").html(self.div_render);
+            $("#main_section").html(self.div_render)
         },
         error: function(e) {
-            close_modal()
-
-            console.log('/search_page: ' + e);
+            console.log('searchPlayer: ' + e);
+            send_alert('network:down', 'try again later')
         }
     });
 }

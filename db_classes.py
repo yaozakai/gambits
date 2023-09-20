@@ -97,6 +97,9 @@ class UserEntry(UserMixin, db.Model):
         self.referral = referral
         self.username = username
 
+    def as_dict(self):
+        return {c.name: unicode(getattr(self, c.name)) for c in self.__table__.columns}
+
     def is_active(self):
         if self.query.filter_by(email=self.email).first_or_404().active:
             return True

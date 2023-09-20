@@ -43,7 +43,16 @@
 }
 
 .bootstrap-table .fixed-table-container .table td, .bootstrap-table .fixed-table-container .table th {
-    background: #d4e4f2;
+    background: #261f27;
+    color: #ebe6c2!important;
+}
+
+.bootstrap-table .fixed-table-container.fixed-height .table thead th {
+    border-bottom: unset;
+}
+
+.bootstrap-table .fixed-table-pagination>.pagination-detail .page-list {
+    color: #ebe6c2!important;
 }
 
 @media (max-width: 514px) {

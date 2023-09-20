@@ -11,6 +11,7 @@ from constants import SMS_SEVENIO_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KE
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha, LoginForm, RegisterForm
+from util_geoloc import set_session_geo_lang
 from util_render_template import setup_home_template
 from utils import *
 
@@ -38,6 +39,7 @@ def tweet_twitter():
 def login():
     # captcha_response = login_form.data['recaptcha']
     captcha_response = json.loads(request.data)['recaptcha']
+    set_session_geo_lang()
     # verify captcha
     debug_out('login: verifying captcha')
     if verify_captcha(captcha_response):
@@ -326,6 +328,16 @@ def verifySMScode():
         return jsonify(error=0)
     else:
         return jsonify(error=1)
+
+
+@user.route('/confirm_tweet', methods=['POST'])
+@login_required
+def confirm_tweet():
+    user_id = json.loads(request.data)['user_id']
+    user_db = db_get_user_from_id(user_id)
+    user_db.snb_twitter = True
+    db.session.commit()
+    return jsonify(user_id=user_id)
 
 
 @user.route('/send_SMS', methods=['GET', 'POST'])

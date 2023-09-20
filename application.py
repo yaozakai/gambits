@@ -1,3 +1,4 @@
+from datetime import timedelta
 from operator import itemgetter
 from os import environ
 from threading import Lock
@@ -101,10 +102,9 @@ def home():
     login_form.csrf_token.data = csrf_token
     register_form = RegisterForm()
     register_form.csrf_token.data = csrf_token
-    if 'lang' not in session or 'country' not in session:
-        # find user's location, defaults to English
-        set_session_geo_lang()
-    set_flag_from_lang()
+
+    set_session_geo_lang()
+
     debug_out('done')
 
     session['env'] = environ['env']
@@ -145,8 +145,8 @@ def home():
                                            report_date=report_date, lang=session['lang'])
             elif session['page'] == 'pendingWithdraw':
                 return pendingWithdraw(True)
-            elif session['page'] == 'search':
-                return search()
+            elif session['page'] == 'search_user_page':
+                return setup_search_template(True)
 
     else:
         session['page'] = 'gallery'
@@ -236,12 +236,13 @@ def logout():
 
 @application.route('/search_page', methods=['GET', 'POST'])
 @login_required
-def search():
-    return setup_search_template()
-    # session['page'] = 'search'
-    # div_render = render_template('page-search.html', rec=[], translations=utils.translations)
-    # return jsonify(render=render_template('page-search.html', rec=[], translations=utils.translations),
-    #                div_render=div_render)
+def search_user_page():
+    try:
+        if session['admin']:
+            return setup_search_template()
+    except:
+        return redirect(url_for('home'))
+    return redirect(url_for('home'))
 
 
 @application.route('/userDetails', methods=['GET'])
@@ -305,7 +306,7 @@ def txnHistory():
 
     rec = []
     for query in queries:
-        if pytz.UTC.localize(query.created) <= (pytz.UTC.localize(report_date) + datetime.timedelta(days=1)):
+        if pytz.UTC.localize(query.created) <= (pytz.UTC.localize(report_date) + timedelta(days=1)):
             rec.insert(0, query.serialize())
 
     rec.sort(key=itemgetter('created'), reverse=True)

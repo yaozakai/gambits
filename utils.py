@@ -137,7 +137,7 @@ def validate_password(password, lang):
             errors.append(translations['password missing lowercase'][lang])
 
     # searching for symbols
-    # symbol_error = re.search(r"[ !#$%&'()*+,-./[\\\]^_`{|}~"+r'"]', password) is None
+    # symbol_error = re.search_user_page(r"[ !#$%&'()*+,-./[\\\]^_`{|}~"+r'"]', password) is None
 
     # overall result
     # password_ok = not ( length_error or digit_error or uppercase_error or lowercase_error)
@@ -272,7 +272,7 @@ def activate_account(token, lang):
 #                                                report_date=report_date, lang=session['lang'])
 #                 elif session['page'] == 'pendingWithdraw':
 #                     return setup_pendingWithdraw_template(True)
-#                 elif session['page'] == 'search':
+#                 elif session['page'] == 'search_user_page':
 #                     return setup_search_template()
 #
 #     session['page'] = 'gallery'
@@ -282,27 +282,6 @@ def activate_account(token, lang):
 #                            RECAPTCHA_PUBLIC_KEY=RECAPTCHA_PUBLIC_KEY, notification_popup=False,
 #                            notification='', notification_title='', reset_pass=False,
 #                            lang=session['lang'], translations=translations)
-
-
-def set_flag_from_lang():
-    if session['lang'] == 'zh-tw':
-        session['flag'] = 'tw'
-    elif session['lang'] == 'zh-cn':
-        session['flag'] = 'cn'
-    elif session['lang'] == 'ja':
-        session['flag'] = 'jp'
-    elif session['lang'] == 'id':
-        session['flag'] = 'id'
-    elif session['lang'] == 'br':
-        session['flag'] = 'br'
-    elif session['lang'] == 'ko':
-        session['flag'] = 'ko'
-    elif session['lang'] == 'vn':
-        session['flag'] = 'vn'
-    elif session['lang'] == 'es':
-        session['flag'] = 'es'
-    elif session['lang'] == 'en':
-        session['flag'] = 'gb'
 
 # def set_session_geo_lang(ip_address):
 #     # if socket.gethostname() == 'srv.gambits.vip':
@@ -388,7 +367,7 @@ def save_game_list(game_title_list):
         row = []
         for field in game_title:
             if field == 'nameset':
-                # search and iterate through supported languages for matches
+                # search_user_page and iterate through supported languages for matches
                 for lang in lang_header:
                     for lang_entry in game_title[field]:
                         if lang_entry['lang'] == lang:

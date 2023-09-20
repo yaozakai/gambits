@@ -1,103 +1,146 @@
+<script language="JavaScript" type="text/javascript" src="/static/js/table-users.js"></script>
+<meta id="meta-user_data" data-name='{{ user_data }}' >
+
 <div class="profile-container">
     <div class="py-2">
-        <h3 class="green-text-outline">Search Player</h3><br>
-        <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> result(s)</h5>
-        <div class="col-8">
-            <div class="input-group mb-3">
-                <span class="input-group-text whiteFont">Email/Username</span>
-                <input id="search_input" class="form-control" value="{{ report_date }}"/>
-                <button class="btn btn-primary" id="search_user">Search</button>
-
-
-            </div>
-
-    <!--            <button class="btn btn-primary" id="search_user">Search</button>-->
-        </div>
-
-
+        <h3 class="green-text-outline">User Search</h3>
+<!--        <h8 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> results</h8>-->
     </div>
 
-    <script>
-        $(document).ready(function(){
-            $("td[colspan=12]").find("p").hide();
-            $("table").click(function(event) {
-                event.stopPropagation();
-                var $target = $(event.target);
-                if ( $target.closest("td").attr("colspan") > 1 ) {
-                    $target.slideUp();
-                    $target.closest("tr").next().find("div").slideToggle();
-
-                } else {
-                    $target.closest("tr").next().find("div").slideToggle();
-
-                }
-            });
-
-            const search_user = document.getElementById('search_user');
-            const search_input = document.getElementById('search_input');
-            search_user.addEventListener("click", (event) => {
-                $.ajax({
-                    url: "/search_user",
-                    type: "post",
-                    dataType: "json",
-                    contentType: "application/json; charset=UTF-8",
-                    data: JSON.stringify({
-                        "search_input":search_input.value
-                    }),
-                    success: function(self) {
-                        htmloutput = "";
-                        results = self.rec;
-                        $("#num_results").html(self.num_results);
-                        if (self.num_results == 0) {
-                            htmloutput = "<div class=\"green-text-outline\">No data</div>";
-                        } else {
-                            for (let i = 0; i < results.length; i++) {
-                                htmloutput = htmloutput + "<tr>";
-                                htmloutput = htmloutput + "<td>" + results[i]["user_id"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["created"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["username"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["email"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["referral"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["balance"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["currency"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["active"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["admin"] + "</td>";
-                                htmloutput = htmloutput + "<td>" + results[i]["logged_in"] + "</td>";
-                                htmloutput = htmloutput + '</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\"><a class="btn btn-primary" href="/userDetails?' + results[i]["user_id"] + '" role="button" target="_blank">Check details</a></div></td></tr>';
-                            };
-                        }
+  <div id="toolbar">
+    <button onclick="filter_complete();" id="remove" class="btn btn-danger">
+        <input class="txn-filter-status" id="txn-filter-complete" name="txn-filter-complete" type="checkbox">
+        See completed
+    </button>
+  </div>
+  <table
+    id="users_table"
+    data-toolbar="#toolbar"
+    data-search="true"
+    data-show-refresh="true"
+    data-show-toggle="true"
+    data-show-fullscreen="true"
+    data-show-columns="true"
+    data-show-columns-toggle-all="true"
+    data-detail-view="true"
+    data-show-export="true"
+    data-click-to-select="true"
+    data-detail-formatter="userDetailFormatter"
+    data-minimum-count-columns="2"
+    data-show-pagination-switch="true"
+    data-pagination="true"
+    data-page-size="25"
+    data-id-field="id"
+    data-page-list="[10, 25, 50, 100, all]"
+    data-show-footer="true"
+    data-side-pagination="client"
+    data-header-style="headerStyle"
+    >
+  </table>
 
 
-                        document.getElementById("search_user_results").innerHTML = htmloutput;
-                    },
-                    error: function(e) {
-                        console.log('search_user: ' + e);
-                    }
-                });
-            });
-        });
-
-    </script>
-
-    <table id="data" class="table table-hover table-dark green-text-outline">
-        <thead>
-          <tr>
-            <th>User ID</th>
-            <th>Created</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Referral</th>
-            <th>Balance</th>
-            <th>Currency</th>
-            <th>Active</th>
-            <th>Admin</th>
-            <th>Logged In</th>
-          </tr>
-        </thead>
-        <tbody id="search_user_results"></tbody>
-
-    </table>
 </div>
+
+<!--<div class="profile-container">-->
+<!--    <div class="py-2">-->
+<!--        <h3 class="green-text-outline">Search Player</h3><br>-->
+<!--        <h5 class="green-text-outline"><div id="num_results" style="display: inline;">{{ rec|length }}</div> result(s)</h5>-->
+<!--        <div class="col-8">-->
+<!--            <div class="input-group mb-3">-->
+<!--                <span class="input-group-text whiteFont">Email/Username</span>-->
+<!--                <input id="search_input" class="form-control" value="{{ report_date }}"/>-->
+<!--                <button class="btn btn-primary" id="search_user">Search</button>-->
+
+
+<!--            </div>-->
+
+<!--    &lt;!&ndash;            <button class="btn btn-primary" id="search_user">Search</button>&ndash;&gt;-->
+<!--        </div>-->
+
+
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        $(document).ready(function(){-->
+<!--            $("td[colspan=12]").find("p").hide();-->
+<!--            $("table").click(function(event) {-->
+<!--                event.stopPropagation();-->
+<!--                var $target = $(event.target);-->
+<!--                if ( $target.closest("td").attr("colspan") > 1 ) {-->
+<!--                    $target.slideUp();-->
+<!--                    $target.closest("tr").next().find("div").slideToggle();-->
+
+<!--                } else {-->
+<!--                    $target.closest("tr").next().find("div").slideToggle();-->
+
+<!--                }-->
+<!--            });-->
+
+<!--            const search_user = document.getElementById('search_user');-->
+<!--            const search_input = document.getElementById('search_input');-->
+<!--            search_user.addEventListener("click", (event) => {-->
+<!--                $.ajax({-->
+<!--                    url: "/search_user",-->
+<!--                    type: "post",-->
+<!--                    dataType: "json",-->
+<!--                    contentType: "application/json; charset=UTF-8",-->
+<!--                    data: JSON.stringify({-->
+<!--                        "search_input":search_input.value-->
+<!--                    }),-->
+<!--                    success: function(self) {-->
+<!--                        htmloutput = "";-->
+<!--                        results = self.rec;-->
+<!--                        $("#num_results").html(self.num_results);-->
+<!--                        if (self.num_results == 0) {-->
+<!--                            htmloutput = "<div class=\"green-text-outline\">No data</div>";-->
+<!--                        } else {-->
+<!--                            for (let i = 0; i < results.length; i++) {-->
+<!--                                htmloutput = htmloutput + "<tr>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["user_id"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["created"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["username"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["email"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["referral"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["balance"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["currency"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["active"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["admin"] + "</td>";-->
+<!--                                htmloutput = htmloutput + "<td>" + results[i]["logged_in"] + "</td>";-->
+<!--                                htmloutput = htmloutput + '</tr><tr><td colspan=\"12\" style=\"padding: 0px;\"><div class=\"rowDrop\"><a class="btn btn-primary" href="/userDetails?' + results[i]["user_id"] + '" role="button" target="_blank">Check details</a></div></td></tr>';-->
+<!--                            };-->
+<!--                        }-->
+
+
+<!--                        document.getElementById("search_user_results").innerHTML = htmloutput;-->
+<!--                    },-->
+<!--                    error: function(e) {-->
+<!--                        console.log('search_user: ' + e);-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
+<!--        });-->
+
+<!--    </script>-->
+
+<!--    <table id="data" class="table table-hover table-dark green-text-outline">-->
+<!--        <thead>-->
+<!--          <tr>-->
+<!--            <th>User ID</th>-->
+<!--            <th>Created</th>-->
+<!--            <th>Username</th>-->
+<!--            <th>Email</th>-->
+<!--            <th>Referral</th>-->
+<!--            <th>Balance</th>-->
+<!--            <th>Currency</th>-->
+<!--            <th>Active</th>-->
+<!--            <th>Admin</th>-->
+<!--            <th>Logged In</th>-->
+<!--          </tr>-->
+<!--        </thead>-->
+<!--        <tbody id="search_user_results"></tbody>-->
+
+<!--    </table>-->
+<!--</div>-->
 
 <!--    {% if num_results == 0 %}-->
 <!--        <div class="green-text-outline">-->
