@@ -5,6 +5,10 @@ from flask_mail import Mail
 from flask_socketio import SocketIO
 
 from constants import *
+from flask_discord import DiscordOAuth2Session
+
+#
+import os
 
 app = Flask('GambitFlask')
 app.config.from_object('config')
@@ -34,6 +38,16 @@ app.config['RECAPTCHA_PUBLIC_KEY'] = RECAPTCHA_PUBLIC_KEY
 app.config['RECAPTCHA_PRIVATE_KEY'] = RECAPTCHA_PRIVATE_KEY
 app.config['RECAPTCHA_DATA_ATTRS'] = {'theme': 'dark'}
 # recaptcha = ReCaptcha(app=app) # Create a ReCaptcha object by passing in 'app' as parameter
+app.config["DISCORD_CLIENT_ID"] = DISCORD_CLIENT_KEY    # Discord client ID.
+app.config["DISCORD_CLIENT_SECRET"] = DISCORD_CLIENT_SECRET              # Discord client secret.
+if socket.gethostname() == 'srv.gambits.vip':
+    app.config["DISCORD_REDIRECT_URI"] = "https://gambits.vip/oauth/discord"                 # URL to your callback endpoint.
+# elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
+else:
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    app.config["DISCORD_REDIRECT_URI"] = "https://995a-2001-b011-2000-34c1-2cd0-84ed-70d9-f022.ngrok-free.app/oauth/discord/callback"                 # URL to your callback endpoint.
+app.config["DISCORD_BOT_TOKEN"] = DISCORD_BOT_TOKEN                   # Required to access BOT resources.
+
 
 socketio = SocketIO(app, cors_allowed_origins='*')
 
@@ -42,4 +56,5 @@ login_manager = LoginManager()
 app.config.from_object(__name__)
 login_manager.init_app(app)
 mail = Mail(app)
+discord = DiscordOAuth2Session(app)
 # Mobility(app)

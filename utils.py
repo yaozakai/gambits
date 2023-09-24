@@ -18,7 +18,7 @@ import chinese_converter
 
 from urllib.parse import urlparse, urljoin
 
-from constants import CQ9_API_KEY, CQ9_AGENT_KEY
+from constants import CQ9_KEY, CQ9_AGENT_KEY
 from db_classes import UserEntry, db
 from email_confirmation import confirm_token
 
@@ -388,7 +388,7 @@ def get_game_list(online=True):
     if online:
         print('reload_game_titles: ONLINE')
 
-        myobj = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/json; charset=UTF-8'}
+        myobj = {'Authorization': CQ9_KEY, 'Content-Type': 'application/json; charset=UTF-8'}
         x = requests.get(url + 'gameboy/game/list/cq9', headers=myobj)
         # global game_titles
         print('CQ9 return:' + str(x.status_code))

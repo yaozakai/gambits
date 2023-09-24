@@ -4,7 +4,7 @@ import requests
 from flask import Blueprint, jsonify
 
 import utils
-from constants import CQ9_API_KEY, CQ9_AGENT_KEY
+from constants import CQ9_KEY, CQ9_AGENT_KEY
 from utils import get_timezone
 from db_access import *
 from utils import get_timestamp, check_token, url
@@ -24,7 +24,7 @@ def player_report_today(username, date):
         start_time = start_time.isoformat()
         end_time = end_time.isoformat()
 
-    header = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/x-www-form-urlencoded'}
+    header = {'Authorization': CQ9_KEY, 'Content-Type': 'application/x-www-form-urlencoded'}
     body = {
         # 'starttime': get_bod_timestamp(),
         'starttime': start_time,
@@ -48,7 +48,7 @@ def player_report_today(username, date):
 
 
 def game_launch(username, gamecode):
-    header = {'Authorization': CQ9_API_KEY, 'Content-Type': 'application/x-www-form-urlencoded'}
+    header = {'Authorization': CQ9_KEY, 'Content-Type': 'application/x-www-form-urlencoded'}
     body = {
         'account': username, 'gamehall': 'cq9', 'gameplat': 'WEB',
         'gamecode': gamecode, 'lang': session['lang']

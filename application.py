@@ -9,13 +9,14 @@ from flask_login import login_required, logout_user
 from flask_wtf import csrf
 
 import utils
+# from discord_check import client as discord_client
 from utils import *
 from db_access import *
 from forms import LoginForm, RegisterForm
 from util_geoloc import set_session_geo_lang
 from util_render_template import setup_pendingWithdraw_template, setup_search_template, setup_home_template
 from config import app as application, socketio
-from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
+from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS, DISCORD_BOT_TOKEN
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_user import user
 from route_wallet import wallet, etherscan_parser
@@ -514,6 +515,7 @@ if __name__ == '__main__':
         reload_translations()
         reload_game_titles()
         load_robots_txt()
+
     application.register_blueprint(cq9_api)
     application.register_blueprint(user)
     application.register_blueprint(wallet)

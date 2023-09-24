@@ -1,13 +1,14 @@
 import math
 import random
-import urllib
 
 import oauth2 as oauth
 
 from flask import Blueprint, json, redirect, url_for
 from flask_login import login_user, login_required
 
-from constants import SMS_SEVENIO_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KEY_SECRET
+from config import discord
+from constants import SMS_SEVENIO_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KEY_SECRET, DISCORD_BOT_TOKEN, \
+    DISCORD_CLIENT_KEY
 from db_access import *
 from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha, LoginForm, RegisterForm
@@ -23,7 +24,8 @@ user = Blueprint('user', __name__)
 
 
 def tweet_twitter():
-    token = oauth.Token('1486009629792698369-q6Zv5ksJ3OCOi76XP7Q637Mpd9FWGf', '3OBx6AbCb1SyAZHqNPFrufS8ptqVAkzvgc8lHdTdY3B7j')
+    token = oauth.Token('1486009629792698369-q6Zv5ksJ3OCOi76XP7Q637Mpd9FWGf',
+                        '3OBx6AbCb1SyAZHqNPFrufS8ptqVAkzvgc8lHdTdY3B7j')
     # consumer = oauth.Consumer(consumer_key, consumer_secret)
 
     client = oauth.Client(consumer, token)
@@ -208,9 +210,9 @@ def register():
         return jsonify(error=translations['recaptcha not verified'][session['lang']])
 
 
-@user.route('/api/twt_oauth', methods=['GET', 'POST'])
+@user.route('/oauth/twitter', methods=['GET', 'POST'])
 # @login_required
-def twt_oauth():
+def oauth_twitter():
     if 'oauth_token' in request.args:
         # make sure oauth_token matches
         # db_user = db_get_user()
@@ -231,13 +233,13 @@ def twt_oauth():
                 request_token_url = "https://api.twitter.com/oauth/access_token"
 
                 headers = {
-                         # 'Accept': '*/*',
-                         # 'Connection': 'close',
-                         # 'User-Agent':  'OAuth gem v0.4.4',
-                         'Content-Type': 'application/x-www-form-urlencoded',
-                         # 'Content-Length': '76',
-                         # 'Host': 'api.twitter.com'
-                         }
+                    # 'Accept': '*/*',
+                    # 'Connection': 'close',
+                    # 'User-Agent':  'OAuth gem v0.4.4',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    # 'Content-Length': '76',
+                    # 'Host': 'api.twitter.com'
+                }
                 resp, content = oauth_client.request(request_token_url, "POST", headers=headers)
                 params = content.decode("utf-8")
 
@@ -340,14 +342,36 @@ def confirm_tweet():
     return jsonify(user_id=user_id)
 
 
-@user.route('/confirm_tweet', methods=['POST'])
-@login_required
-def confirm_discord():
-    user_id = json.loads(request.data)['user_id']
-    user_db = db_get_user_from_id(user_id)
-    user_db.snb_twitter = True
-    db.session.commit()
-    return jsonify(user_id=user_id)
+@user.route('/oauth/discord', methods=['GET'])
+# @login_required
+def oauth_discord():
+    # try:
+    #     if 'state' in request.args:
+    #         callback = oauth_discord_callback()
+    #     else:
+    #         callback = discord.create_session()
+    # except:
+    #     callback = discord.create_session()
+    # return callback
+    return discord.create_session()
+
+
+@user.route('/oauth/discord/callback', methods=['GET', 'POST'])
+# @login_required
+def oauth_discord_callback():
+    discord.callback()
+    user = discord.fetch_user()
+    print(user.name)
+    return redirect(url_for("home"))
+    # return f"""
+    #     <html>
+    #         <head>
+    #             <title>{user.name}</title>
+    #         </head>
+    #         <body>
+    #             <img src='{user.avatar_url}' />
+    #         </body>
+    #     </html>"""
 
 
 @user.route('/send_SMS', methods=['GET', 'POST'])

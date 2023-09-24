@@ -357,7 +357,7 @@ def verify_captcha(response):
     if not len(response):
         return False
     url = "https://www.google.com/recaptcha/api/siteverify"
-    hostname = socket.gethostname()
+    # hostname = socket.gethostname()
     # ip_address = socket.gethostbyname(hostname)
     params = {
         'secret': RECAPTCHA_PRIVATE_KEY,

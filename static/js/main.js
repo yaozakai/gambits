@@ -111,31 +111,23 @@ function ajax_connect_twitter(){
             $('#loadingscreenModal').modal('hide')
             send_alert('snb:subtask:twt', 'try again later')
         }
-});
+    });
+}
 
 
-//    $.ajax({
-//        url: "/connect_twitter",
-//        type: "post",
-//        dataType: "json",
-//        contentType: "application/json; charset=UTF-8",
-//        data: JSON.stringify({
-//            "recipient":no
-//        }),
-//        success: function(self) {
-//            if (self.error == 0){
-//                // do nothing
-//                return
-//            } else if (self.error == 1) {
-//                send_alert('alert:phone', 'alert:SMSserver')
-//            } else if (self.error == 2) {
-//                send_alert('alert:phone', 'sms:error:phoneExists')
-//            }
-//        },
-//        error: function(e) {
-//            send_alert('alert:phone', 'alert:SMSserver')
-//        }
-//    });
+function ajax_oauth_discord(){
+    $.ajax({
+        url: "/oauth/discord",
+        type: "GET",
+        success: function (response) {
+//            window.location.replace(response);
+            location.href = response;
+        },
+        error: function(e) {
+            $('#loadingscreenModal').modal('hide')
+            send_alert('snb:subtask:twt', 'try again later')
+        }
+    });
 }
 
 function send_sms(){
@@ -189,10 +181,6 @@ function send_sms(){
             $('#sms-send-button').prop('disabled', false)
       )
     }), 1000)
-
-
-
-
 }
 
 //function lang_change(item) {
