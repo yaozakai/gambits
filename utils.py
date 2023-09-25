@@ -402,9 +402,9 @@ def get_game_list(online=True):
     #     print('reload_game_titles: LOCAL')
 
 
-def reload_game_titles():
+async def reload_game_titles():
     global game_titles
-    game_titles = get_game_list()
+    game_titles = await get_game_list()
 
     save_game_list(game_titles)
 
