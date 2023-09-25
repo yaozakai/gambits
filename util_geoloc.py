@@ -19,9 +19,9 @@ def get_country_code():
     # return response.get("countryCode")
 
 
-def set_session_geo_lang():
+async def set_session_geo_lang():
     if 'lang' not in session or 'country' not in session:
-        session['country'] = get_country_code()
+        session['country'] = await get_country_code()
 
         # debug_out('geolocation:' + session['country'])
 

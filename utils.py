@@ -1,3 +1,4 @@
+import asyncio
 import base64
 import csv
 import json
@@ -383,7 +384,7 @@ def save_game_list(game_title_list):
     file.close()
 
 
-def get_game_list(online=True):
+async def get_game_list(online=True):
 
     if online:
         print('reload_game_titles: ONLINE')
@@ -402,9 +403,10 @@ def get_game_list(online=True):
     #     print('reload_game_titles: LOCAL')
 
 
-async def reload_game_titles():
+def reload_game_titles():
     global game_titles
-    game_titles = await get_game_list()
+    # game_titles = await get_game_list()
+    game_titles = asyncio.run(get_game_list())
 
     save_game_list(game_titles)
 
