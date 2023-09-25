@@ -384,7 +384,7 @@ def save_game_list(game_title_list):
     file.close()
 
 
-async def get_game_list(online=True):
+def get_game_list(online=True):
 
     if online:
         print('reload_game_titles: ONLINE')
@@ -406,7 +406,7 @@ async def get_game_list(online=True):
 def reload_game_titles():
     global game_titles
     # game_titles = await get_game_list()
-    game_titles = asyncio.run(get_game_list())
+    game_titles = get_game_list()
 
     save_game_list(game_titles)
 

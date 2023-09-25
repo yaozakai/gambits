@@ -40,12 +40,20 @@ app.config['RECAPTCHA_DATA_ATTRS'] = {'theme': 'dark'}
 # recaptcha = ReCaptcha(app=app) # Create a ReCaptcha object by passing in 'app' as parameter
 app.config["DISCORD_CLIENT_ID"] = DISCORD_CLIENT_KEY    # Discord client ID.
 app.config["DISCORD_CLIENT_SECRET"] = DISCORD_CLIENT_SECRET              # Discord client secret.
-if socket.gethostname() == 'srv.gambits.vip':
-    app.config["DISCORD_REDIRECT_URI"] = "https://gambits.vip/oauth/discord"                 # URL to your callback endpoint.
-# elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
+if 'env' not in os.environ:
+    if socket.gethostname() == 'srv.gambits.vip':
+        app.config["DISCORD_REDIRECT_URI"] = "https://gambits.vip/oauth/discord"                 # URL to your callback endpoint.
+    # elif socket.gethostname() == 'The-Only-Real-MacBook-Pro.local':
+    else:
+        os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+        app.config["DISCORD_REDIRECT_URI"] = "https://995a-2001-b011-2000-34c1-2cd0-84ed-70d9-f022.ngrok-free.app/oauth/discord/callback"                 # URL to your callback endpoint.
 else:
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-    app.config["DISCORD_REDIRECT_URI"] = "https://995a-2001-b011-2000-34c1-2cd0-84ed-70d9-f022.ngrok-free.app/oauth/discord/callback"                 # URL to your callback endpoint.
+    if os.environ['env'] == 'stage':
+        app.config["DISCORD_REDIRECT_URI"] = "https://stage.gambits.vip/oauth/discord"                 # URL to your callback endpoint.
+    else:
+        app.config["DISCORD_REDIRECT_URI"] = "https://gambits.vip/oauth/discord"                 # URL to your callback endpoint.
+
+
 app.config["DISCORD_BOT_TOKEN"] = DISCORD_BOT_TOKEN                   # Required to access BOT resources.
 
 
