@@ -28,6 +28,7 @@ Flask-Mail==0.9.1
 Flask-SocketIO==5.3.4
 Flask-SQLAlchemy==3.0.2
 Flask-WTF==1.1.1
+Flask-Discord==0.1.69
 future==0.16.0
 gevent==22.10.2
 gevent-websocket==0.10.1
