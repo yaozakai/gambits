@@ -4,7 +4,7 @@ import requests
 from flask import Blueprint, jsonify
 
 import utils
-from constants import CQ9_KEY, CQ9_AGENT_KEY
+from constants import CQ9_KEY
 from utils import get_timezone
 from db_access import *
 from utils import get_timestamp, check_token, url

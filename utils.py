@@ -19,7 +19,8 @@ import chinese_converter
 
 from urllib.parse import urlparse, urljoin
 
-from constants import CQ9_KEY, CQ9_AGENT_KEY
+from config import CQ9_AGENT_KEY
+from constants import CQ9_KEY, CQ9_AGENT_KEY_LOCAL
 from db_classes import UserEntry, db
 from email_confirmation import confirm_token
 

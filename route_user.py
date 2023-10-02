@@ -10,6 +10,7 @@ from config import discord
 from constants import SMS_SEVENIO_KEY, TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_KEY_SECRET, DISCORD_BOT_TOKEN, \
     DISCORD_CLIENT_KEY
 from db_access import *
+from discord_check import check_discord, update_users
 from email_confirmation import create_verify_email, create_reset_pass_email
 from forms import verify_captcha, LoginForm, RegisterForm
 from util_geoloc import set_session_geo_lang
@@ -343,7 +344,7 @@ def confirm_tweet():
 
 
 @user.route('/oauth/discord', methods=['GET'])
-# @login_required
+@login_required
 def oauth_discord():
     # try:
     #     if 'state' in request.args:
@@ -357,12 +358,22 @@ def oauth_discord():
 
 
 @user.route('/oauth/discord/callback', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def oauth_discord_callback():
     discord.callback()
     user = discord.fetch_user()
-    print(user.name)
+
+    # check user is in the discord
+    if check_discord(user):
+        db_user = db_get_user()
+        db_user.snb_discord = user.name
+        db.session.commit()
+        session['notify'] = 'discord:yes'
+        return redirect(url_for("home"))
+
+    session['notify'] = 'discord:no'
     return redirect(url_for("home"))
+
     # return f"""
     #     <html>
     #         <head>

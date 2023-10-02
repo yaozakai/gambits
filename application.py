@@ -16,7 +16,7 @@ from forms import LoginForm, RegisterForm
 from util_geoloc import set_session_geo_lang
 from util_render_template import setup_pendingWithdraw_template, setup_search_template, setup_home_template
 from config import app as application, socketio
-from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS, DISCORD_BOT_TOKEN
+from constants import RECAPTCHA_PUBLIC_KEY, BANK_ADDRESS
 from route_cq9_api import cq9_api, game_launch, player_report_today
 from route_user import user
 from route_wallet import wallet, etherscan_parser
@@ -86,6 +86,12 @@ def home():
         if session['notify'] == 'oauth':
             notification = session['twitter_name'] + ': ' + translations['snb:subtask:twt:success'][session['lang']]
             notification_title = translations['snb:subtask:twt'][session['lang']]
+        elif session['notify'] == 'discord:yes':
+            notification = translations['snb:subtask:discord:success'][session['lang']]
+            notification_title = 'Discord'
+        elif session['notify'] == 'discord:no':
+            notification = translations['snb:subtask:discord:fail'][session['lang']]
+            notification_title = 'Discord'
 
     # referral
     if 'ref' in request.args:

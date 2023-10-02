@@ -177,7 +177,7 @@ class BetEntry(db.Model):
     mtcode = db.Column(db.String(70), primary_key=True)
     platform = db.Column(db.String(20))
     roundid = db.Column(db.String(60))
-    settled = db.Column(db.Numeric(1), default=0)
+    # settled = db.Column(db.Numeric(1), default=0)
 
     # session = db.Column(db.String(60))
 
