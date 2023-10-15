@@ -6,3 +6,4 @@
 venv/*
 *.pyc
 game_list.csv
+constants.py
