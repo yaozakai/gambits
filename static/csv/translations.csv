@@ -159,6 +159,8 @@ snb:subtask:twt:success,,,Success! Please wait while we confirm your tweet and v
 snb:subtask:twt:shareTweet,,,Show tweet,,,,,,,
 snb:subtask:easter,,,"Visit our website, where you get the latest news, promotions, and events!",,,,,,,
 snb:subtask:easter2,,,Follow the dice and enter the numbers here,,,,,,,
+snb:subtask:discord:fail,,,"Sorry, confirmation failed. Please try again",,,,,,,
+snb:subtask:discord:success,,,You have successfully confirmed your Discord!,,,,,,,
 snb:subtask:discord,,,"Keep up to date with Gambit news and updates, and join our global community of players!",,,,,,,
 urlencode:tweet,,,I just got $50 for this tweet for Gambit's Casino!,,,,,,,
 urlencode:tweet2,,,New players get a $50 sign up bonus!,,,,,,,
